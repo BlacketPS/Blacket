@@ -43,7 +43,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://blacket.org/images/github/blacketHome.png)
 
 Me personally, I love Blooket and everything about it, but I felt something is missing. A lot of people mess around with Blooket internally not in the greatest ways but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first Blooket private server that will probably be the only one. I always wanted to be able to have custom boxes, blooks, and more but I can't since I am obviously not Ben Stewart (creator of Blooket) so I decided to create this.
 
