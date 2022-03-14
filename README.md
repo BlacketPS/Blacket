@@ -33,8 +33,8 @@
       </ul>
     </li>
     <li>
-    <ul>
     <a href="#usage">Usage</a>
+    <ul>
       <li><a href="#admin-panel">Admin Panel</a></li>
       <li><a href="#default-values">Default Values</a></li>
       <li><a href="#creating-boxes">Creating Boxes</a></li>
