@@ -32,6 +32,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li>
     <ul>
     <a href="#usage">Usage</a>
       <li><a href="#admin-panel">Admin Panel</a></li>
@@ -39,6 +40,7 @@
       <li><a href="#creating-boxes">Creating Boxes</a></li>
       <li><a href="#creating-blooks">Creating Blooks</a></li>
     </ul>
+    </li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -129,9 +131,9 @@ Once you have clicked the button, you should meet a similar looking page:
 
 <img src="https://blacket.org/images/github/adminPanel.png"></img>
 
-### Changing Default Options
+### Default Values
 
-To change the default options such as the daily token limit, click Default Values on the admin panel.
+To change the default values such as the daily token limit, click Default Values on the admin panel.
 
 <img src="https://blacket.org/images/github/defaultValuesButton.png"></img>
 
