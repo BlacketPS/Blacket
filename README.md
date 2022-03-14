@@ -33,11 +33,8 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -61,70 +58,76 @@ Having any debian server should be good for Blacket. If you don't know where to 
 The following packages need to be installed before starting:
 
 * nginx
+
   ```sh
   sudo apt update
   sudo apt-get install nginx
   ```
 * php
+
   ```sh
   sudo apt update
   sudo apt-get install php7.4-fpm
   ```
 * phpmyadmin
+
   ```sh
   sudo apt update
   sudo apt-get install phpmyadmin
   ```
+* mysql
+
+  ```sh
+  sudo apt update
+  sudo apt-get install mysql-server
+  ```
+  _Follow the instructions for all of the packages that will show on screen._
   
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo into your /var/www/html folder:
+
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   cd /var/www/
+   git clone https://github.com/XOTlC/Blacket.git
+   sudo mv -v /var/www/Blacket-master /var/www/html
    ```
-3. Install NPM packages
+2. Configure Blacket for the database:
+
    ```sh
-   npm install
+   sudo visudo /var/www/html/worker/config/connection.php
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+   <img src="https://blacket.org/images/github/configDatabase.png"></img>
+   _Leave host as localhost._
+   </br>
+   _Change user to the name of the MYSQL database, should be root by default._
+   </br>
+   _Change password to the password you configured in the MYSQL setup process._
+   </br>
+   _Change dbname to the name of the database you want to use._
+   </br>
+   
+3. Setup the database:
+   * Visit the IP of the server your Blacket instance is running on, and go through the setup process.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+## Accessing the admin panel
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+If you have done everything right so far, you should be able to access the homepage of your Blacket instance. To access the admin panel, login to the account you granted admin with and click the admin button in the top right corner.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<img src="https://blacket.org/images/github/adminPanelButton.png"></img>
 
+Once you have clicked the button, you should meet a similar looking page:
 
+<img src="https://blacket.org/images/github/adminPanel.png"></img>
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+_For more examples, please refer to the [Documentation](https://github.com/XOTlC/Blacket/wiki)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -140,48 +143,12 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
