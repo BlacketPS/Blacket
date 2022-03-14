@@ -32,7 +32,13 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <ul>
+    <a href="#usage">Usage</a>
+      <li><a href="#admin-panel">Admin Panel</a></li>
+      <li><a href="#default-values">Default Values</a></li>
+      <li><a href="#creating-boxes">Creating Boxes</a></li>
+      <li><a href="#creating-blooks">Creating Blooks</a></li>
+    </ul>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
