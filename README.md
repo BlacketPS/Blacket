@@ -111,9 +111,9 @@ The following packages need to be installed before starting:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Usage
+## Usage
 
-## Admin Panel
+### Admin Panel
 
 If you have done everything right so far, you should be able to access the homepage of your Blacket instance. To access the admin panel, login to the account you granted admin with and click the admin button in the top right corner.
 
@@ -123,7 +123,7 @@ Once you have clicked the button, you should meet a similar looking page:
 
 <img src="https://blacket.org/images/github/adminPanel.png"></img>
 
-## Changing Default Options
+### Changing Default Options
 
 To change the default options such as the daily token limit, click Default Values on the admin panel.
 
@@ -133,7 +133,7 @@ From here, you can edit default values that are set in Blacket that will update 
 
 <img src="https://blacket.org/images/github/defaultValues.png"></img>
 
-## Creating Boxes
+### Creating Boxes
 
 To create a box, click the Box Editor button on the admin panel.
 
@@ -147,7 +147,7 @@ From here, you can edit boxes and create boxes easiely.
 
 <img src="https://blacket.org/images/github/boxEditor.png"></img>
 
-## Creating Blooks
+### Creating Blooks
 
 To create a blook, click the Blook Editor on the admin panel.
 
