@@ -111,7 +111,7 @@ The following packages need to be installed before starting:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Usage
+### Usage
 
 ## Admin Panel
 
