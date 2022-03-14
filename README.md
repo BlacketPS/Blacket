@@ -42,11 +42,8 @@
 </details>
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://blacket.org/images/github/blacketHome.png)
-
+<img src="https://blacket.org/images/github/blacketHome.png"></img>
 Me personally, I love Blooket and everything about it, but I felt something is missing. A lot of people mess around with Blooket internally not in the greatest ways but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first Blooket private server that will probably be the only one. I always wanted to be able to have custom boxes, blooks, and more but I can't since I am obviously not Ben Stewart (creator of Blooket) so I decided to create this.
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
@@ -55,23 +52,31 @@ Me personally, I love Blooket and everything about it, but I felt something is m
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Having any debian server should be good for Blacket. If you don't know where to start, I would recommend <a href="https://linode.com">Linode</a> for beginners.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+The following packages need to be installed before starting:
+
+* nginx
   ```sh
-  npm install npm@latest -g
+  sudo apt update
+  sudo apt-get install nginx
   ```
-
+* php
+  ```sh
+  sudo apt update
+  sudo apt-get install php7.4-fpm
+  ```
+* phpmyadmin
+  ```sh
+  sudo apt update
+  sudo apt-get install phpmyadmin
+  ```
+  
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
