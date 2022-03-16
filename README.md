@@ -173,6 +173,8 @@ To add news to your server, click the News Editor on the admin panel.
 
 From here, you can add news and delete news from your server.
 
+<img src="https://blacket.org/images/github/newsEditor.png"></img>
+
 _For more examples, please refer to the [Documentation](https://github.com/XOTlC/Blacket/wiki)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
