@@ -9,7 +9,7 @@
   <p align="center">
     The first ever open-source Blooket private server made entirely from PHP. 
     <br />
-    <a href="https://github.com/XOTlC/Blacket/wiki"><strong>Get Some Help</strong></a>
+    <a href="https://github.com/XOTlC/Blacket/wiki"><strong>Please, get help...</strong></a>
     <br />
     <a href="https://github.com/XOTlC/Blacket/issues">Report Bug</a>
     <a href="https://github.com/XOTlC/Blacket/issues">Request Feature</a>
