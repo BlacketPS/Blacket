@@ -39,6 +39,7 @@
       <li><a href="#default-values">Default Values</a></li>
       <li><a href="#creating-boxes">Creating Boxes</a></li>
       <li><a href="#creating-blooks">Creating Blooks</a></li>
+      <li><a href="#creating-news">Creating News</a></li>
     </ul>
     </li>
     <li><a href="#license">License</a></li>
@@ -165,13 +166,13 @@ From here, you can change any blook and create blooks easiely.
 
 <img src="https://blacket.org/images/github/blookEditor.png"></img>
 
-### Adding News
+### Creating News
 
 To add news to your server, click the News Editor on the admin panel.
 
 <img src="https://blacket.org/images/github/newsEditorButton.png"></img>
 
-From here, you can add news and delete news from your server.
+From here, you can create news and delete news from your server.
 
 <img src="https://blacket.org/images/github/newsEditor.png"></img>
 
