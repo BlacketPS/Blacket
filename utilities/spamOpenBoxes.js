@@ -31,17 +31,17 @@ function openBox(boxName) {
         window.blookRarity = dataSplit[1];
         window.blookImage = dataSplit[2];
         if (blookRarity === "Uncommon") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 25px lime;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px lime;', `${blookUnlocked}`);
         } else if (blookRarity === "Rare") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 25px blue;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px blue;', `${blookUnlocked}`);
         } else if (blookRarity === "Epic") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 25px red;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px red;', `${blookUnlocked}`);
         } else if (blookRarity === "Legendary") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 25px gold;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px gold;', `${blookUnlocked}`);
         } else if (blookRarity === "Chroma") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 25px skyblue;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px skyblue;', `${blookUnlocked}`);
         } else if (blookRarity === "Mystical") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 25px plum;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px plum;', `${blookUnlocked}`);
         } else if (blookRarity === undefined) {}
         var blookUnlockedUser = window.blookUnlocked.replace(' ', '');
         $.get(`/worker/blook/getuserblook.php?blook=${blookUnlockedUser}`, function(data) {
