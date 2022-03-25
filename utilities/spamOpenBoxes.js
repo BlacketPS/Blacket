@@ -39,7 +39,7 @@ function openBox(boxName) {
         } else if (blookRarity === "Legendary") {
             console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px gold;', `${blookUnlocked}`);
         } else if (blookRarity === "Chroma") {
-            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px skyblue;', `${blookUnlocked}`);
+            console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px royalblue;', `${blookUnlocked}`);
         } else if (blookRarity === "Mystical") {
             console.log('%c%s', 'color: white; font-size: 25px; text-shadow: 0px 0px 15px plum;', `${blookUnlocked}`);
         } else if (blookRarity === undefined) {}
