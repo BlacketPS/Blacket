@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://blacket.org">
-    <img src="https://blacket.org/images/blacketImage.png" alt="Logo" width="80" height="80">
+    <img src="https://beta.blacket.org/images/blacketImage.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Blacket</h3>
 
@@ -47,7 +47,7 @@
 </details>
 
 ## About The Project
-<img src="https://blacket.org/images/github/blacketHome.png"></img>
+<img src="https://beta.blacket.org/images/github/blacketHome.png"></img>
 Me personally, I love Blooket and everything about it, but I felt something is missing. A lot of people mess around with Blooket internally not in the greatest ways but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first Blooket private server that will probably be the only one. I always wanted to be able to have custom boxes, blooks, and more but I can't since I am obviously not Ben Stewart (creator of Blooket) so I decided to create this.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -105,7 +105,7 @@ The following packages need to be installed before starting:
    ```sh
    sudo visudo /var/www/html/worker/config/connection.php
    ```
-   <img src="https://blacket.org/images/github/configDatabase.png"></img>
+   <img src="https://beta.blacket.org/images/github/configDatabase.png"></img>
    _Leave host as localhost._
    </br>
    _Change user to the name of the MYSQL database, should be root by default._
@@ -126,55 +126,55 @@ The following packages need to be installed before starting:
 
 If you have done everything right so far, you should be able to access the homepage of your Blacket instance. To access the admin panel, login to the account you granted admin with and click the admin button in the top right corner.
 
-<img src="https://blacket.org/images/github/adminPanelButton.png"></img>
+<img src="https://beta.blacket.org/images/github/adminPanelButton.png"></img>
 
 Once you have clicked the button, you should meet a similar looking page:
 
-<img src="https://blacket.org/images/github/adminPanel.png"></img>
+<img src="https://beta.blacket.org/images/github/adminPanel.png"></img>
 
 ### Default Values
 
 To change the default values such as the daily token limit, click Default Values on the admin panel.
 
-<img src="https://blacket.org/images/github/defaultValuesButton.png"></img>
+<img src="https://beta.blacket.org/images/github/defaultValuesButton.png"></img>
 
 From here, you can edit default values that are set in Blacket that will update globally.
 
-<img src="https://blacket.org/images/github/defaultValues.png"></img>
+<img src="https://beta.blacket.org/images/github/defaultValues.png"></img>
 
 ### Creating Boxes
 
 To create a box, click the Box Editor button on the admin panel.
 
-<img src="https://blacket.org/images/github/boxEditorButton.png"></img>
+<img src="https://beta.blacket.org/images/github/boxEditorButton.png"></img>
 
 All boxes must follow the format shown below to work:
 
-<img src="https://blacket.org/images/createBoxHelp.png"></img>
+<img src="https://beta.blacket.org/images/createBoxHelp.png"></img>
 
 From here, you can edit boxes and create boxes easiely.
 
-<img src="https://blacket.org/images/github/boxEditor.png"></img>
+<img src="https://beta.blacket.org/images/github/boxEditor.png"></img>
 
 ### Creating Blooks
 
 To create a blook, click the Blook Editor on the admin panel.
 
-<img src="https://blacket.org/images/github/blookEditorButton.png"></img>
+<img src="https://beta.blacket.org/images/github/blookEditorButton.png"></img>
 
 From here, you can change any blook and create blooks easiely.
 
-<img src="https://blacket.org/images/github/blookEditor.png"></img>
+<img src="https://beta.blacket.org/images/github/blookEditor.png"></img>
 
 ### Creating News
 
 To add news to your server, click the News Editor on the admin panel.
 
-<img src="https://blacket.org/images/github/newsEditorButton.png"></img>
+<img src="https://beta.blacket.org/images/github/newsEditorButton.png"></img>
 
 From here, you can create news and delete news from your server.
 
-<img src="https://blacket.org/images/github/newsEditor.png"></img>
+<img src="https://beta.blacket.org/images/github/newsEditor.png"></img>
 
 _For more examples, please refer to the [Documentation](https://github.com/XOTlC/Blacket/wiki)_
 
