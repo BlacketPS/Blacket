@@ -7,7 +7,7 @@ var spamOpenBox = async () => {
     alert('Check your console to see what blooks you get.');
     i = 0;
     for (let i = 0; i <= amountToOpen; i++) {
-        await sleep(1000);
+        await sleep(550);
         openBox(boxName);
     }
     alert("Done opening boxes! Go check your blooks.");
