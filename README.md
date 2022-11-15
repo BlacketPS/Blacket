@@ -85,7 +85,7 @@ The following packages need to be installed before starting:
 2. Configure Blacket for the database:
 
    ```sh
-   sudo visudo /var/www/html/worker/config/connection.php
+   sudo visudo ~/blacket/config.js
    ```
    <img src="https://v2.blacket.org/content/github/configDatabase.png"></img>
    </br>
