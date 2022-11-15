@@ -101,7 +101,7 @@ The following packages need to be installed before starting:
    </br>
    
 3. Setup the database:
-   * Visit the IP of the server your Blacket instance is running on, and go through the setup process.
+   * Visit the IP of the server your Blacket instance is running on and go through the setup process.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
