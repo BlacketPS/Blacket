@@ -88,6 +88,7 @@ The following packages need to be installed before starting:
    sudo visudo /var/www/html/worker/config/connection.php
    ```
    <img src="https://v2.blacket.org/content/github/configDatabase.png"></img>
+   </br>
    _Change host to the host of the MySQL database (should be localhost by default)._
    </br>
    _Change user to the username you configured in the MySQL setup process (should be root by default)._
