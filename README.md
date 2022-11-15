@@ -2,12 +2,12 @@
 <br />
 <div align="center">
   <a href="https://blacket.org">
-    <img src="https://beta.blacket.org/images/blacketImage.png" alt="Logo" width="80" height="80">
+    <img src="https://v2.blacket.org/content/logo.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Blacket</h3>
 
   <p align="center">
-    The first ever open-source Blooket private server made entirely from PHP. 
+    The first ever open-source Blooket private server created by Xotic written entirely in NodeJS. 
     <br />
     <a href="https://github.com/XOTlC/Blacket/wiki"><strong>Get Help</strong></a>
     <br />
@@ -47,13 +47,13 @@
 </details>
 
 ## About The Project
-<img src="https://blacket.org/images/github/blacketHome.png"></img>
-Me personally, I love Blooket and everything about it, but I felt something is missing. A lot of people mess around with Blooket internally not in the greatest ways but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first Blooket private server that will probably be the only one. I always wanted to be able to have custom boxes, blooks, and more but I can't since I am obviously not Ben Stewart (creator of Blooket) so I decided to create this.
+<img src="https://v2.blacket.org/content/github/blacketHome.png"></img>
+Me personally, I love Blooket and everything about it, but I felt something was missing. A lot of people have made Blooket cheat scripts / hacks but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first open-source Blooket private server. I always wanted to have the ability to have custom packs, blooks, and more but I can't since I am not Ben Stewart (the creator of Blooket) so I have decided to create this.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
-* [php](https://php.net/)
+* [NodeJS](https://nodejs.org)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -65,25 +65,16 @@ Having any debian server should be good for Blacket. If you don't know where to 
 
 The following packages need to be installed before starting:
 
-* nginx
+* NodeJS
 
   ```sh
-  sudo apt update
-  sudo apt-get install nginx
+  cd ~
+  curl -sL https://deb.nodesource.com/setup_17.x -o /tmp/nodesource_setup.sh
+  sudo bash /tmp/nodesource_setup.sh
+  sudo apt install nodejs
   ```
-* php
 
-  ```sh
-  sudo apt update
-  sudo apt-get install php7.4-fpm
-  ```
-* phpmyadmin
-
-  ```sh
-  sudo apt update
-  sudo apt-get install phpmyadmin
-  ```
-* mysql
+* MySQL
 
   ```sh
   sudo apt update
@@ -93,12 +84,12 @@ The following packages need to be installed before starting:
   
 ### Installation
 
-1. Clone the repo into your /var/www/html folder:
+1. Clone the repo into your home folder:
 
    ```sh
-   cd /var/www/
+   cd /temp
    git clone https://github.com/XOTlC/Blacket.git
-   sudo mv -v /var/www/Blacket-master /var/www/html
+   sudo mv -v /temp/Blacket-master ~/blacket
    ```
 2. Configure Blacket for the database:
 
