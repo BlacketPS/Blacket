@@ -21,9 +21,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -49,12 +46,6 @@
 ## About The Project
 <img src="https://v2.blacket.org/content/github/blacketHome.png"></img>
 Me personally, I love Blooket and everything about it, but I felt something was missing. A lot of people have made Blooket cheat scripts / hacks but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first open-source Blooket private server. I always wanted to have the ability to have custom packs, blooks, and more but I can't since I am not Ben Stewart (the creator of Blooket) so I have decided to create this.
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Built With
-
-* [NodeJS](https://nodejs.org)
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting Started
