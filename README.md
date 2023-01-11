@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://blacket.org">
-    <img src="https://v2.blacket.org/content/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://blacket.org/content/logo.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Blacket</h3>
 
@@ -44,7 +44,7 @@
 </details>
 
 ## About The Project
-<img src="https://v2.blacket.org/content/github/blacketHome.png"></img>
+<img src="https://blacket.org/content/github/blacketHome.png"></img>
 Me personally, I love Blooket and everything about it, but I felt something was missing. A lot of people have made Blooket cheat scripts / hacks but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first open-source Blooket private server. I always wanted to have the ability to have custom packs, blooks, and more but I can't since I am not Ben Stewart (the creator of Blooket) so I have decided to create this.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -87,7 +87,7 @@ The following packages need to be installed before starting:
    ```sh
    sudo visudo ~/blacket/config.js
    ```
-   <img src="https://v2.blacket.org/content/github/configDatabase.png"></img>
+   <img src="https://blacket.org/content/github/configDatabase.png"></img>
    </br>
    _Change host to the host of the MySQL database (should be localhost by default)._
    </br>
