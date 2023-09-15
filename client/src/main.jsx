@@ -4,6 +4,7 @@ import axios from "axios";
 import pages from "./pages";
 
 const router = createBrowserRouter([
+  { path: "*", element: <pages.Error404 /> },
   { path: "/", element: <pages.Home /> },
 ]);
 
