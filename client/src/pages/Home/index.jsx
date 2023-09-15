@@ -17,7 +17,7 @@ export default function Home() {
                 <img src="/content/homeBlooks.png" alt="Blooks" className={styles.headerImage} draggable="false" />
 
                 <div class={styles.background}>
-                    <div class={styles.blooksBackground} style={{ backgroundImage: "url(\"/content/background.png\")" }}></div>
+                    <div class={styles.blooksBackground} style={{ backgroundImage: "url('/content/background.png')" }}></div>
                 </div>
 
                 <div className={isMobile ? styles.mHeaderSide : styles.headerSide}></div>
