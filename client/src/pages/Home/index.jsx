@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import styles from "./home.module.css";
 
 export default function Home() {
+    const [config, setConfig] = useState({});
+
+    useEffect(() => {
+        axios.get("https://blacket.org/worker/config").then((res) => setConfig(res.data));
+    }, []);
+
     return (
         <>
             <div className={styles.headerContainer}>
@@ -16,29 +24,34 @@ export default function Home() {
 
                 <div className={styles.topHeaderContainer}>
                     <div className={styles.logoText}>
-                        name
+                        {config.name}
                     </div>
                 </div>
 
                 <div className={isMobile ? styles.mWelcomeContainer : styles.welcomeContainer}>
                     <div className={isMobile ? styles.mWelcomeText : styles.welcomeText}>
-                        welcome
+                        {config.welcome ? config.welcome.split(" ").map((word) => (<div>{word}</div>)) : null}
                     </div>
                     <div className={isMobile ? styles.mWelcomeDesc : styles.welcomeDesc}>
-                        description
+                        {config.description ? config.description.split(",").map((word) => (<div>{word}</div>)) : null}
                     </div>
 
                     <Link className={isMobile ? styles.mWelcomeButton : styles.welcomeButton} to="/register">
-                        Get Started
+                        Register
                     </Link>
 
-                    <div className={isMobile ? styles.mPronounceButton : styles.pronounceButton} onClick={() => new Audio("/pronounce.mp3").play()}>
+                    <a className={isMobile ? styles.mWelcomeButton : styles.welcomeButton} style={{ marginTop: "10px" }} href="https://discord.gg/blacket">
+                        Discord
+                    </a>
+
+                    <div className={isMobile ? styles.mPronounceButton : styles.pronounceButton} onClick={() => new Audio("/content/pronunciation.ogg").play()}>
                         <i className="fas fa-volume-up" />
                         &nbsp;
-                        Pronunciation ("")
+                        Pronunciation ("{config.pronunciation}")
                     </div>
                 </div>
             </div>
+
             <div class={styles.topButtonContainer}>
                 <Link className={`${styles.topButton} ${styles.loginButton}`} to="/login">
                     Login

@@ -7,7 +7,7 @@ export default defineConfig({
     modules: {
       scopeBehaviour: "local",
       localsConvention: "camelCaseOnly",
-      generateScopedName: "[local]_[hash:base64:5]",
+      generateScopedName: "[name]__[local]___[hash:base64:5]&camelCase",
     },
   },
   build: {
