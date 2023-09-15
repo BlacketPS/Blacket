@@ -1,0 +1,9 @@
+{
+  "name": "blacket",
+  "version": "3.0.0",
+  "description": "The first ever open-source Blooket private server written entirely in JavaScript.",
+  "type": "module",
+  "dependencies": {
+    "elysia": "^0.6.23"
+  }
+}
