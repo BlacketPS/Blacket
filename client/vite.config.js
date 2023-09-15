@@ -26,7 +26,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     manifest: true,
     minify: "terser",
-    // outDir: "/var/www/monkxy/site/public",
     terserOptions: {
       format: {
         comments: false,
