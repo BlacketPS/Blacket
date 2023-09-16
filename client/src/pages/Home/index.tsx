@@ -3,9 +3,9 @@ import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 import { config } from "@stores/config";
 import styles from "@styles/index";
+import Background from "@components/Background";
 
 export default function Home() {
-    console.log(config);
     const pronunciations = ["/content/pronunciation-monkxy.ogg", "/content/pronunciation-xotic.ogg"];
 
     document.title = config.name;
@@ -15,9 +15,7 @@ export default function Home() {
             <div className={styles.home.headerContainer}>
                 <img src="/content/homeBlooks.png" alt="Blooks" className={styles.home.headerImage} draggable="false" />
 
-                <div className={styles.home.background}>
-                    <div className={styles.home.blooksBackground} style={{ backgroundImage: "url('/content/background.png')" }}></div>
-                </div>
+                <Background />
 
                 <div className={isMobile ? styles.home.mHeaderSide : styles.home.headerSide}></div>
 

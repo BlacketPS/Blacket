@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import speakeasy from "speakeasy";
+import speakEasy from "speakeasy";
 import bcrypt from "bcrypt";
 
 export default {
@@ -13,27 +13,25 @@ export default {
         if (req.body.username.match(/[^a-zA-Z0-9_-]/g)) return res.status(400).json({ error: "Your username must only contain letters, numbers, underscores, and dashes." });
         if (req.body.username == 0) return res.status(400).json({ error: "That username is not allowed." });
 
-        const user = await global.database.query(`SELECT * FROM users WHERE username = ? OR id = ? AND id != 0`, {
-            replacements: [req.body.username, req.body.username, req.body.username],
-            type: QueryTypes.SELECT
-        });
         const forms = await global.database.query(`SELECT * FROM forms WHERE username = ?`, {
             replacements: [req.body.username],
             type: QueryTypes.SELECT
         });
+        const user = await global.database.query(`SELECT * FROM users WHERE username = ? OR id = ? AND id != 0`, {
+            replacements: [req.body.username, req.body.username, req.body.username],
+            type: QueryTypes.SELECT
+        });
 
-        if (user.length < 0) return res.status(400).json({ error: "We couldn't find an account under that username" });
         if (forms.length > 0) return res.status(400).json({
             error: `Your account has not been verified yet. Please wait for a ${global.config.game.name} staff member to verify your account. This may take up to 24 hours.`
         });
+        if (user.length == 0) return res.status(400).json({ error: "We couldn't find an account under that username" });
 
-        let ban;
-        if (JSON.parse(user[0].ban)) ban = JSON.parse(user[0].ban);
-        else ban = { "time": 0, "staff": "", "banned": false, "reason": "" };
+        const ban = user[0].ban;
 
         if (!bcrypt.compareSync(req.body.password, user[0].password)) return res.status(400).json({ error: "Username and password don't match." });
         if (ban.banned)
-            if (Date.now() >= ban.time * 1000) await global.database.query(`UPDATE users SET ban = ? WHERE id = ?`, {
+            if (Date.now() >= ban.time) await global.database.query(`UPDATE users SET ban = ? WHERE id = ?`, {
                 replacements: [JSON.stringify({ "time": 0, "staff": "", "banned": false, "reason": "" }), user[0].id],
                 type: QueryTypes.UPDATE
             });
@@ -41,11 +39,17 @@ export default {
                 error: `You are currently banned for ${ban.reason}. Your ban will expire <t:${ban.time}:R>. If you believe this is a mistake, please contact a staff member.`
             });
 
-        if (JSON.parse(user[0].otp).enabled) return res.status(202).json({ error: "You must specify a code." });
-        if (!req.body.code) return res.status(202).json({ error: "You must specify a code." });
-        if (isNaN(req.body.otp)) return res.status(400).json({ error: "Invalid code." });
-        console.log(JSON.parse(user[0].otp).secret);
-        if (!speakeasy.totp.verify({ secret: JSON.parse(user[0].otp).secret, encoding: "base32", token: req.body.code })) return res.status(400).json({ error: "Invalid code." });
+        // for some fucking reason just doesn't work, work on later
+        /*if (JSON.parse(user[0].otp).enabled) {
+            if (!req.body.code) return res.status(202).json({ error: "You must provide a code." });
+            if (isNaN(req.body.code)) return res.status(400).json({ error: "Invalid code." });
+            if (req.body.code.length !== 6) return res.status(400).json({ error: "Invalid code." });
+            if (!speakEasy.totp.verify({
+                secret: JSON.parse(user[0].otp).secret,
+                encoding: 'base32',
+                token: req.body.code
+            })) return res.status(400).json({ error: "Invalid code." });
+        }*/
 
         await global.database.query(`UPDATE users SET ip = ? WHERE id = ?`, {
             replacements: [req.ip, user[0].id],
@@ -54,7 +58,6 @@ export default {
 
         req.session.user = user[0].id;
         req.session.password = user[0].password;
-        req.session.ip = req.ip;
         req.session.save();
 
         res.status(200).json();

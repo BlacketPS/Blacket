@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { config } from "@stores/config";
+import Background from "@components/Background";
 import Loader from "@components/Loader";
 import axios from "axios";
 import styles from "@styles/index";
@@ -19,7 +20,6 @@ export default function Authentication({ type }: { type: "Login" | "Register" })
 
     const login = () => {
         setLoading(true);
-        setCodeNeeded(false);
         setError("");
         if (!username || !password) return setError("Please enter a username and password.");
         axios.post("/api/authentication/login", {
@@ -45,19 +45,17 @@ export default function Authentication({ type }: { type: "Login" | "Register" })
                     <Link className={styles.authentication.headerRight} to={type === "Login" ? "/register" : "/login"}>{type === "Login" ? "Register" : "Login"}</Link>
                 </div>
                 <div className={styles.authentication.regularBody}>
-                    <div className={styles.authentication.background}>
-                        <div className={styles.authentication.blooksBackground} style={{ backgroundImage: "url('/content/background.png')" }}></div>
-                    </div>
+                    <Background />
 
                     <form className={styles.authentication.container}>
                         <div className={styles.authentication.containerHeader}>{type}</div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-user ${styles.authentication.iconFilled}`} />
-                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onClick={() => { setError(""); setCodeNeeded(false) }} onChange={(e) => setUsername(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onClick={() => { setError(""); setCodeNeeded(false); setCode("") }} onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-lock ${styles.authentication.iconFilled}`} style={{ fontSize: "23px" }} />
-                            <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onClick={() => { setError(""); setCodeNeeded(false) }} onChange={(e) => setPassword(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onClick={() => { setError(""); setCodeNeeded(false); setCode("") }} onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         {codeNeeded && <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-key ${styles.authentication.iconFilled}`} />

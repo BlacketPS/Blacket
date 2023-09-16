@@ -14,6 +14,7 @@
     "express-mysql-session": "^3.0.0",
     "express-session": "^1.17.3",
     "mysql2": "^3.6.1",
+    "node-2fa": "^2.0.3",
     "sequelize": "^6.33.0",
     "speakeasy": "^2.0.0"
   }
