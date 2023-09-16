@@ -1,6 +1,7 @@
 import { QueryTypes } from "sequelize";
 import speakEasy from "speakeasy";
 import bcrypt from "bcrypt";
+import md5 from "md5";
 
 export default {
     method: "post",
@@ -27,17 +28,17 @@ export default {
         });
         if (user.length == 0) return res.status(400).json({ error: "We couldn't find an account under that username" });
 
-        const ban = user[0].ban;
+        const ban = JSON.parse(user[0].ban);
 
         if (!bcrypt.compareSync(req.body.password, user[0].password)) return res.status(400).json({ error: "Username and password don't match." });
-        if (ban.banned)
-            if (Date.now() >= ban.time) await global.database.query(`UPDATE users SET ban = ? WHERE id = ?`, {
-                replacements: [JSON.stringify({ "time": 0, "staff": "", "banned": false, "reason": "" }), user[0].id],
-                type: QueryTypes.UPDATE
-            });
-            else return res.status(403).json({
-                error: `You are currently banned for ${ban.reason}. Your ban will expire <t:${ban.time}:R>. If you believe this is a mistake, please contact a staff member.`
-            });
+        if (ban.banned && Date.now() < ban.time) await global.database.query(`UPDATE users SET ban = ? WHERE id = ?`, {
+            replacements: [JSON.stringify({ "time": 0, "staff": "", "banned": false, "reason": "" }), user[0].id],
+            type: QueryTypes.UPDATE
+        });
+        else return res.status(403).json({
+            // error: `You are currently banned for ${ban.reason}. Your ban will expire <t:${Math.round(ban.time / 10)}:R>. If you believe this is a mistake, please contact a staff member.`
+            error: `You are currently banned for ${ban.reason}. Your ban will expire ${new Date(ban.time).toLocaleString()}. If you believe this is a mistake, please contact a staff member.`
+        });
 
         if (JSON.parse(user[0].otp).enabled) {
             if (!req.body.code) return res.status(202).json({ error: "You must provide a code." });
@@ -51,7 +52,7 @@ export default {
         }
 
         await global.database.query(`UPDATE users SET ip = ? WHERE id = ?`, {
-            replacements: [req.ip, user[0].id],
+            replacements: [md5(req.ip), user[0].id],
             type: QueryTypes.UPDATE
         });
 
