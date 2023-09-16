@@ -1,17 +1,25 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      "@styles": path.resolve(__dirname, "src/styles"),
+      "@components": path.resolve(__dirname, "src/components"),
+      "@stores": path.resolve(__dirname, "src/stores"),
+      "@managers": path.resolve(__dirname, "src/managers")
+    }
+  },
   css: {
     modules: {
       scopeBehaviour: "local",
       localsConvention: "camelCaseOnly",
-      generateScopedName: "[name]__[local]___[hash:base64:5]&camelCase",
+      generateScopedName: "styles__[local]___[hash:base64:5]&camelCase",
     },
   },
   build: {
-    inlineDynamicImports: true,
     rollupOptions: {
       output: {
         manualChunks: (id) => {

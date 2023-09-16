@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import styles from "../../styles/index.jsx";
+import withConfig from "@components/HOCS/withConfig";
+import configStore from "@stores/configStore";
+import styles from "@styles/index";
 
-export default function Home() {
-    const [config, setConfig] = useState({});
+const Home = withConfig(() => {
+    const [config] = useState(configStore.config);
 
-    useEffect(() => {
-        axios.get("https://blacket.org/worker/config").then((res) => setConfig(res.data));
-    }, []);
+    document.title = config.name;
 
     return (
         <>
@@ -62,4 +61,6 @@ export default function Home() {
             </div>
         </>
     )
-}
+});
+
+export default Home;

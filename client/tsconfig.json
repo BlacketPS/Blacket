@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "allowJs": true,
+        "jsx": "react-jsx",
+        "baseUrl": "./src",
+        "moduleResolution": "Node",
+        "paths": {
+            "@styles/*": [
+                "styles/*"
+            ],
+            "@components/*": [
+                "components/*"
+            ],
+            "@stores/*": [
+                "stores/*"
+            ],
+            "@managers/*": [
+                "managers/*"
+            ],
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        "twin.d.ts",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+}

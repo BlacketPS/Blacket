@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
 import pages from "./pages";
@@ -10,9 +10,9 @@ const router = createBrowserRouter([
   { path: "/register", element: <pages.Authentication type="Register" /> },
 ]);
 
-axios.interceptors.request.use((config) => {
+axios.interceptors.request.use((config : any) => {
   if (config.url.startsWith("/api")) config.url = ``;
   return config;
 });
 
-ReactDOM.createRoot(document.getElementById("app")).render(<RouterProvider router={router} />);  
+createRoot(document.getElementById("app")!).render(<RouterProvider router={router} />);  

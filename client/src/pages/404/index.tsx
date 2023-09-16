@@ -1,7 +1,6 @@
 import React, { useEffect, } from "react";
 import { TimelineMax, Power2, Bounce } from "gsap";
-import styles from "../../styles/index.jsx";
-
+import styles from "@styles/index";
 export default function Error404() {
     useEffect(() => {
         let elements = [...document.querySelectorAll(`.${styles.error404.title} > span`)];
