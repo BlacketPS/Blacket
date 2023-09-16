@@ -1,19 +1,22 @@
 import("dotenv/config");
-import config from "./config.json";
-import { Elysia } from "elysia";
+global.config = (await import("./config.json")).default;
+import express from "express";
 import { Sequelize } from "sequelize";
-import { cors } from "@elysiajs/cors";
+import fs from "fs";
 
-global.config = config;
 global.database = await new Sequelize(process.env.DATABASE_NAME ? process.env.DATABASE_NAME : "blacket", process.env.DATABASE_USER ? process.env.DATABASE_USER : "root", process.env.DATABASE_PASSWORD ? process.env.DATABASE_PASSWORD : "", {
     host: process.env.DATABASE_HOST ? process.env.DATABASE_HOST : "localhost",
     dialect: "mysql",
-    logging: config.verbose ? console.log : false
+    logging: global.config.verbose ? console.log : false
 });
 
-const app = new Elysia();
-app.use(cors({ origin: "*" }));
+const app = express();
 
-await Promise.all(["endpoints"].map(async (handler) => (await import(`./handlers/${handler}.ts`)).default(app)));
+await Promise.all([
+    (await import(`./handlers/middlewares.ts`)).default(app),
+    (await import(`./handlers/endpoints.ts`)).default(app)
+]);
 
-app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+app.get("/*", (req, res, next) => req.path.startsWith("/api") ? next() : res.sendFile(__dirname + "/public/index.html"));
+
+app.listen(global.config.port, () => console.log(`Listening on port ${global.config.port}`));

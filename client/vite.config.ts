@@ -20,6 +20,7 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: "../public",
     rollupOptions: {
       output: {
         manualChunks: (id) => {

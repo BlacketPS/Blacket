@@ -1,0 +1,24 @@
+{
+  "_vendor.1e894bc9.js": {
+    "file": "vendor.1e894bc9.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "index.css": {
+    "file": "index.8e9a133c.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "css": [
+      "index.8e9a133c.css"
+    ],
+    "file": "index.df6e4bd8.js",
+    "imports": [
+      "_vendor.1e894bc9.js",
+      "index.html"
+    ],
+    "isEntry": true,
+    "src": "index.html"
+  }
+}

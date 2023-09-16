@@ -12,9 +12,11 @@
             "esnext"
         ],
         "allowJs": true,
-        "baseUrl": "./src",
+        "baseUrl": "./",
         "moduleResolution": "Node",
-        "paths": {}
+        "paths": {},
+        "outDir": "./dist", 
+        "rootDir": "./",
     },
     "include": [
         "**/*.ts"

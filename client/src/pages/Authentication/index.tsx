@@ -51,7 +51,7 @@ const Authentication = withConfig(({ type }: {
                         <div className={styles.authentication.containerHeader}>{type}</div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-user ${styles.authentication.iconFilled}`} />
-                            <input className={styles.authentication.input} placeholder="Username/Email" type="text" autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-lock ${styles.authentication.iconFilled}`} style={{ fontSize: "23px" }} />

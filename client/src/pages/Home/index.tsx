@@ -43,7 +43,10 @@ const Home = withConfig(() => {
                         Discord
                     </a>
 
-                    <div className={isMobile ? styles.home.mPronounceButton : styles.home.pronounceButton} onClick={() => new Audio("/content/pronunciation.ogg").play()}>
+                    <div className={isMobile ? styles.home.mPronounceButton : styles.home.pronounceButton} onClick={() => {
+                        const pronunciations = ["/content/pronunciation-monkxy.ogg", "/content/pronunciation-xotic.ogg"]
+                        new Audio(pronunciations[Math.floor(Math.random() * pronunciations.length)]).play();
+                    }}>
                         <i className="fas fa-volume-up" />
                         &nbsp;
                         Pronunciation ("{config.pronunciation}")

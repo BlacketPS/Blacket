@@ -1,6 +1,4 @@
 export default {
     method: "get",
-    handler: () => {
-        return global.config.game;
-    }
+    handler: (_, res) => res.status(200).json(global.config.game)
 }
