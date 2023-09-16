@@ -8,7 +8,7 @@ function* walk(dir) {
 
 export default async (app) => {
     for (const file of walk("./middlewares")) {
-        if (!file.endsWith(".ts")) continue;
+        if (!file.endsWith(".js")) continue;
 
         const middleware = (await import(`../${file}`)).default;
 

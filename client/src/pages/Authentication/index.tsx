@@ -23,13 +23,13 @@ const Authentication = withConfig(({ type }: {
     const login = () => {
         setLoading(true);
         if (!username || !password) return setError("Please enter a username and password.");
-        axios.post("https://blacket.org/worker/login", {
+        axios.post("/api/authentication/login", {
             username,
             password
         }).then((res) => {
-            if (res.data.error) return setError(res.data.reason);
+            if (res.data.error) return setError(res.data.error);
             else navigate("/stats");
-        }).catch((err) => setError(err.response.data.reason)).finally(() => setLoading(false));
+        }).catch((err) => setError(err.response.data.error)).finally(() => setLoading(false));
     }
 
     const register = () => {
