@@ -39,17 +39,16 @@ export default {
                 error: `You are currently banned for ${ban.reason}. Your ban will expire <t:${ban.time}:R>. If you believe this is a mistake, please contact a staff member.`
             });
 
-        // for some fucking reason just doesn't work, work on later
-        /*if (JSON.parse(user[0].otp).enabled) {
+        if (JSON.parse(user[0].otp).enabled) {
             if (!req.body.code) return res.status(202).json({ error: "You must provide a code." });
             if (isNaN(req.body.code)) return res.status(400).json({ error: "Invalid code." });
             if (req.body.code.length !== 6) return res.status(400).json({ error: "Invalid code." });
             if (!speakEasy.totp.verify({
                 secret: JSON.parse(user[0].otp).secret,
-                encoding: 'base32',
+                encoding: "base32",
                 token: req.body.code
             })) return res.status(400).json({ error: "Invalid code." });
-        }*/
+        }
 
         await global.database.query(`UPDATE users SET ip = ? WHERE id = ?`, {
             replacements: [req.ip, user[0].id],
