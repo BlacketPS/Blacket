@@ -12,4 +12,4 @@ global.database = await new Sequelize(process.env.DATABASE_NAME ? process.env.DA
 });
 
 const endpoints = await walker("./endpoints");
-endpoints.on("data", (data) => data.basename.endsWith(".js") && import(data.path).then((endpoint) => typeof endpoint.default === "function" && endpoint.default()));
+endpoints.on("data", (data) => data.basename.endsWith(".ts") && import(`./${data.filepath}`).then((endpoint) => typeof endpoint.default === "function" && endpoint.default()));
