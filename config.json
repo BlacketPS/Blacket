@@ -10,7 +10,7 @@
         "name": "Blacket 2.9",
         "version": "2.9.0",
         "welcome": "First Private Server",
-        "description": "The first ever open-source Blooket private, server written entirely in TypeScript.",
+        "description": "The first ever open-source Blooket private, server written entirely in JavaScript.",
         "discord": "blacket",
         "pronunciation": "Black-it",
         "store": {
