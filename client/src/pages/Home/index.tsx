@@ -39,7 +39,7 @@ const Home = withConfig(() => {
                         Register
                     </Link>
 
-                    <a className={isMobile ? styles.home.mWelcomeButton : styles.home.welcomeButton} style={{ marginTop: "10px" }} href="https://discord.gg/blacket">
+                    <a className={isMobile ? styles.home.mWelcomeButton : styles.home.welcomeButton} style={{ marginTop: "10px" }} href={`https://discord.com/invite/${config.discord}`} target="_blank">
                         Discord
                     </a>
 

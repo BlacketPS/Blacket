@@ -11,7 +11,7 @@ const router = createBrowserRouter([
 ]);
 
 axios.interceptors.request.use((config : any) => {
-  if (config.url.startsWith("/api")) config.url = ``;
+  if (config.url.startsWith("/api")) config.url = `http://localhost:3000${config.url}`;
   return config;
 });
 

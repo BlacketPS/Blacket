@@ -15,7 +15,7 @@ class ConfigStore {
     public isInited: boolean = false;
 
     public async init(): Promise<void> {
-        const { data } = await axios.get("https://blacket.org/worker/config");
+        const { data } = await axios.get("/api/config");
 
         this.config = data;
         this.isInited = true;

@@ -1,4 +1,214 @@
 {
     "port": 3000,
-    "verbose": true
+    "verbose": true,
+    "backup": {
+        "enabled": true,
+        "interval": 288000000,
+        "path": "backups"
+    },
+    "game": {
+        "name": "Blacket 2.9",
+        "version": "2.9.0",
+        "welcome": "First Private Server",
+        "description": "The first ever open-source Blooket private server, written entirely in TypeScript.",
+        "discord": "blacket",
+        "pronunciation": "Black-it",
+        "store": {
+            "plus": {
+                "price": "9.99",
+                "sale": {
+                    "price": "0.00",
+                    "name": null
+                }
+            },
+            "1hBooster": {
+                "price": "4.99",
+                "sale": {
+                    "price": "0.00",
+                    "name": null
+                }
+            },
+            "3hBooster": {
+                "price": "9.99",
+                "sale": {
+                    "price": "0.00",
+                    "name": null
+                }
+            }
+        },
+        "rewards": [
+            500,
+            550,
+            600,
+            650,
+            700,
+            800,
+            900,
+            1000
+        ],
+        "exp": {
+            "difficulty": 0.75
+        },
+        "pages": {
+            "Stats": {
+                "link": "/stats",
+                "icon": "fas fa-chart-column",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Leaderboard": {
+                "link": "/leaderboard",
+                "icon": "fas fa-trophy",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Chat": {
+                "link": null,
+                "icon": "fas fa-comments",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Clans": {
+                "link": "/clans",
+                "icon": "fas fa-swords",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Market": {
+                "link": "/market",
+                "icon": "fas fa-store",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Blooks": {
+                "link": "/blooks",
+                "icon": "fas fa-suitcase",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Bazaar": {
+                "link": "/bazaar",
+                "icon": "fas fa-gavel",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Inventory": {
+                "link": "/inventory",
+                "icon": "fas fa-box",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "Panel": {
+                "link": "/panel",
+                "icon": "fas fa-wrench",
+                "isNews": false,
+                "location": "left",
+                "perm": "panel_access"
+            },
+            "Settings": {
+                "link": "/settings",
+                "icon": "fas fa-cog",
+                "isNews": false,
+                "location": "left",
+                "perm": "none"
+            },
+            "News": {
+                "link": null,
+                "icon": "fas fa-newspaper",
+                "isNews": true,
+                "location": "left",
+                "perm": "none"
+            },
+            "Credits": {
+                "link": "/credits",
+                "icon": "fas fa-user",
+                "isNews": false,
+                "location": "bottom",
+                "perm": "none"
+            },
+            "Discord": {
+                "link": "/discord",
+                "icon": "fab fa-discord",
+                "isNews": false,
+                "location": "bottom",
+                "perm": "none"
+            },
+            "GitHub": {
+                "link": "https://github.com/XOTlC/Blacket",
+                "icon": "fab fa-github",
+                "isNews": false,
+                "location": "bottom",
+                "perm": "none"
+            },
+            "YouTube": {
+                "link": "https://www.youtube.com/channel/UCgiSMBsgq954SX5JT7_Lm2g",
+                "icon": "fab fa-youtube",
+                "isNews": false,
+                "location": "bottom",
+                "perm": "none"
+            },
+            "Twitter": {
+                "link": "https://twitter.com/XoticBlacket",
+                "icon": "fab fa-twitter",
+                "isNews": false,
+                "location": "bottom",
+                "perm": "none"
+            }
+        },
+        "reports": {
+            "user": {
+                "Harassment": [
+                    "Using vulgar or offensive language",
+                    "Hating based on monetary status or identity",
+                    "Threatening violence or real world harm",
+                    "Encouraging others to self-harm",
+                    "Exposing private information"
+                ],
+                "Miscellaneous": [
+                    "This user is under the age of 13",
+                    "Ban evading or using alternative accounts",
+                    "Impersonating a user"
+                ]
+            },
+            "message": {
+                "Spam": [],
+                "Harassment": [
+                    "Using vulgar or offensive language",
+                    "Hating based on monetary status or identity",
+                    "Threatening violence or real world harm",
+                    "Encouraging others to self-harm",
+                    "Exposing private information"
+                ],
+                "Sexual Content": [
+                    "Gore, animal cruelty, or shock content",
+                    "Sexual content involving a minor",
+                    "Adult sexual content",
+                    "Sexual messages"
+                ],
+                "Miscellaneous": [
+                    "This user is under the age of 13",
+                    "Ban evading or using alternative accounts",
+                    "Impersonating a user"
+                ]
+            }
+        },
+        "chat": {
+            "tokens": 10,
+            "exp": 20,
+            "cooldown": 1
+        },
+        "credits": []
+    },
+    "security": {
+        "verification": false,
+        "alt_creation": true
+    }
 }

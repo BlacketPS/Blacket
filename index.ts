@@ -2,7 +2,7 @@ import("dotenv/config");
 import config from "./config.json";
 import { Elysia } from "elysia";
 import { Sequelize } from "sequelize";
-import walker from "folder-walker";
+import { cors } from "@elysiajs/cors";
 
 global.config = config;
 global.database = await new Sequelize(process.env.DATABASE_NAME ? process.env.DATABASE_NAME : "blacket", process.env.DATABASE_USER ? process.env.DATABASE_USER : "root", process.env.DATABASE_PASSWORD ? process.env.DATABASE_PASSWORD : "", {
@@ -11,5 +11,9 @@ global.database = await new Sequelize(process.env.DATABASE_NAME ? process.env.DA
     logging: config.verbose ? console.log : false
 });
 
-const endpoints = await walker("./endpoints");
-endpoints.on("data", (data) => data.basename.endsWith(".ts") && import(`./${data.filepath}`).then((endpoint) => typeof endpoint.default === "function" && endpoint.default()));
+const app = new Elysia();
+app.use(cors({ origin: "*" }));
+
+await Promise.all(["endpoints"].map(async (handler) => (await import(`./handlers/${handler}.ts`)).default(app)));
+
+app.listen(config.port, () => console.log(`Listening on port ${config.port}`));

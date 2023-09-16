@@ -10,7 +10,7 @@ import styles from "@styles/index";
 const Authentication = withConfig(({ type }: {
     type: "Login" | "Register"
 }) => {
-    const [config] = useState(configStore.config);
+    const config = configStore.config
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -50,25 +50,25 @@ const Authentication = withConfig(({ type }: {
                     <form className={styles.authentication.container}>
                         <div className={styles.authentication.containerHeader}>{type}</div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
-                            <i className={`${styles.authentication.icon} fas fa-user ${styles.authentication.iconFilled}`} aria-hidden="true" />
+                            <i className={`${styles.authentication.icon} fas fa-user ${styles.authentication.iconFilled}`} />
                             <input className={styles.authentication.input} placeholder="Username/Email" type="text" autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
-                            <i className={`${styles.authentication.icon} fas fa-lock ${styles.authentication.iconFilled}`} style={{ fontSize: "23px" }} aria-hidden="true" />
+                            <i className={`${styles.authentication.icon} fas fa-lock ${styles.authentication.iconFilled}`} style={{ fontSize: "23px" }} />
                             <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <input type="submit" className={`${styles.authentication.button} ${styles.authentication.buttonFilled}`} value={type} tabIndex={0} onClick={((e) => {
                             e.preventDefault();
                             if (type == "Login") login(); else register();
                         })} />
-                        {error ? <div className={styles.authentication.errorContainer}>
-                            <i className={`${styles.authentication.errorIcon} fas fa-times-circle`} aria-hidden="true" />
+                        {error && <div className={styles.authentication.errorContainer}>
+                            <i className={`${styles.authentication.errorIcon} fas fa-times-circle`} />
                             <div className={styles.authentication.errorText}>{error}</div>
-                        </div> : null}
+                        </div>}
                     </form>
                 </div>
             </div>
-            {loading ? <Loader /> : null}
+            {loading && <Loader />}
         </>
     )
 });
