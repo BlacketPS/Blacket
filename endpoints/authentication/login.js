@@ -1,5 +1,5 @@
 import { QueryTypes } from "sequelize";
-import { totp } from "speakeasy";
+import speakeasy from "speakeasy";
 import bcrypt from "bcrypt";
 
 export default {
@@ -41,10 +41,11 @@ export default {
                 error: `You are currently banned for ${ban.reason}. Your ban will expire <t:${ban.time}:R>. If you believe this is a mistake, please contact a staff member.`
             });
 
-        if (JSON.parse(user[0].otp).enabled) return res.status(400).json({ error: "You must specify a code." });
-        if (!req.body.code) return res.status(400).json({ error: "You must specify a code." });
+        if (JSON.parse(user[0].otp).enabled) return res.status(202).json({ error: "You must specify a code." });
+        if (!req.body.code) return res.status(202).json({ error: "You must specify a code." });
         if (isNaN(req.body.otp)) return res.status(400).json({ error: "Invalid code." });
-        if (!totp.verify({ secret: JSON.parse(user[0].otp).secret, encoding: "base32", token: req.body.code })) return res.status(400).json({ error: "Invalid code." });
+        console.log(JSON.parse(user[0].otp).secret);
+        if (!speakeasy.totp.verify({ secret: JSON.parse(user[0].otp).secret, encoding: "base32", token: req.body.code })) return res.status(400).json({ error: "Invalid code." });
 
         await global.database.query(`UPDATE users SET ip = ? WHERE id = ?`, {
             replacements: [req.ip, user[0].id],

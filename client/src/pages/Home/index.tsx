@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
-import withConfig from "@components/HOCS/withConfig";
-import configStore from "@stores/configStore";
+import { config } from "@stores/config";
 import styles from "@styles/index";
 
-const Home = withConfig(() => {
-    const [config] = useState(configStore.config);
+export default function Home() {
+    console.log(config);
+    const pronunciations = ["/content/pronunciation-monkxy.ogg", "/content/pronunciation-xotic.ogg"];
 
     document.title = config.name;
-
+    
     return (
         <>
             <div className={styles.home.headerContainer}>
@@ -43,10 +43,7 @@ const Home = withConfig(() => {
                         Discord
                     </a>
 
-                    <div className={isMobile ? styles.home.mPronounceButton : styles.home.pronounceButton} onClick={() => {
-                        const pronunciations = ["/content/pronunciation-monkxy.ogg", "/content/pronunciation-xotic.ogg"]
-                        new Audio(pronunciations[Math.floor(Math.random() * pronunciations.length)]).play();
-                    }}>
+                    <div className={isMobile ? styles.home.mPronounceButton : styles.home.pronounceButton} onClick={() => new Audio(pronunciations[Math.floor(Math.random() * pronunciations.length)]).play()}>
                         <i className="fas fa-volume-up" />
                         &nbsp;
                         Pronunciation ("{config.pronunciation}")
@@ -64,6 +61,4 @@ const Home = withConfig(() => {
             </div>
         </>
     )
-});
-
-export default Home;
+}

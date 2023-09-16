@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
-import withConfig from "@components/HOCS/withConfig";
-import configStore from "@stores/configStore";
-import Loader from "@components/common/Loader";
+import { config } from "@stores/config";
+import Loader from "@components/Loader";
 import axios from "axios";
 import styles from "@styles/index";
 
-const Authentication = withConfig(({ type }: {
-    type: "Login" | "Register"
-}) => {
-    const config = configStore.config
-
+export default function Authentication({ type }: { type: "Login" | "Register" }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [code, setCode] = useState("");
+    const [codeNeeded, setCodeNeeded] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -22,12 +19,17 @@ const Authentication = withConfig(({ type }: {
 
     const login = () => {
         setLoading(true);
+        setCodeNeeded(false);
+        setError("");
         if (!username || !password) return setError("Please enter a username and password.");
         axios.post("/api/authentication/login", {
             username,
-            password
+            password,
+            code
         }).then((res) => {
+            if (res.status === 202) return setCodeNeeded(true);
             if (res.data.error) return setError(res.data.error);
+
             else navigate("/stats");
         }).catch((err) => setError(err.response.data.error)).finally(() => setLoading(false));
     }
@@ -51,15 +53,21 @@ const Authentication = withConfig(({ type }: {
                         <div className={styles.authentication.containerHeader}>{type}</div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-user ${styles.authentication.iconFilled}`} />
-                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onClick={() => { setError(""); setCodeNeeded(false) }} onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-lock ${styles.authentication.iconFilled}`} style={{ fontSize: "23px" }} />
-                            <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onClick={() => { setError(""); setCodeNeeded(false) }} onChange={(e) => setPassword(e.target.value)} />
                         </div>
+                        {codeNeeded && <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
+                            <i className={`${styles.authentication.icon} fas fa-key ${styles.authentication.iconFilled}`} />
+                            <input className={styles.authentication.input} placeholder="OTP / 2FA code" type="text" onChange={(e) => setCode(e.target.value)} />
+                        </div>
+                        }
                         <input type="submit" className={`${styles.authentication.button} ${styles.authentication.buttonFilled}`} value={type} tabIndex={0} onClick={((e) => {
                             e.preventDefault();
-                            if (type == "Login") login(); else register();
+                            if (type == "Login") login();
+                            else register();
                         })} />
                         {error && <div className={styles.authentication.errorContainer}>
                             <i className={`${styles.authentication.errorIcon} fas fa-times-circle`} />
@@ -71,6 +79,4 @@ const Authentication = withConfig(({ type }: {
             {loading && <Loader />}
         </>
     )
-});
-
-export default Authentication;
+}

@@ -3,7 +3,6 @@ import home from "./home.module.css";
 import authentication from "./authentication.module.css";
 import error404 from "./404.module.css";
 
-// export default {
 export default {
     all,
     home,
