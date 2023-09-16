@@ -51,15 +51,15 @@ export default function Authentication({ type }: { type: "Login" | "Register" })
                         <div className={styles.authentication.containerHeader}>{type}</div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-user ${styles.authentication.iconFilled}`} />
-                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onClick={() => { setError(""); setCodeNeeded(false); setCode("") }} onChange={(e) => setUsername(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Username" type="text" autoComplete="username" onClick={() => { setError(""); setCodeNeeded(false); setCode("") }} onChange={(e) => { setUsername(e.target.value); setCodeNeeded(false); setCode("") }} />
                         </div>
                         <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-lock ${styles.authentication.iconFilled}`} style={{ fontSize: "23px" }} />
-                            <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onClick={() => { setError(""); setCodeNeeded(false); setCode("") }} onChange={(e) => setPassword(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="Password" type="password" autoComplete="current-password" onClick={() => { setError(""); setCodeNeeded(false); setCode("") }} onChange={(e) => { setPassword(e.target.value); setCodeNeeded(false); setCode("") }} />
                         </div>
                         {codeNeeded && <div className={`${styles.authentication.inputContainer} ${styles.authentication.inputFilled}`}>
                             <i className={`${styles.authentication.icon} fas fa-key ${styles.authentication.iconFilled}`} />
-                            <input className={styles.authentication.input} placeholder="OTP / 2FA code" type="text" onChange={(e) => setCode(e.target.value)} />
+                            <input className={styles.authentication.input} placeholder="OTP / 2FA code" type="text" defaultValue={code} onChange={(e) => setCode(e.target.value)} />
                         </div>
                         }
                         <input type="submit" className={`${styles.authentication.button} ${styles.authentication.buttonFilled}`} value={type} tabIndex={0} onClick={((e) => {
