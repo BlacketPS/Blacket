@@ -4,6 +4,7 @@
 	<p align="center">The first ever open-source Blooket private server created by Xotic.</p>
 </p>
 
+
 ## About Blacket
 <!-- TODO -->
 
