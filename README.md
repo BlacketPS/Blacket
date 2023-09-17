@@ -1,8 +1,9 @@
-<center>
-<img src='./assets/logo.png'>
-<h3 style="font-size:70px">Blacket</h3>
-<p>The first ever open-source Blooket private server created by Xotic.</p>
-</center>
+<p align="center">
+	<img src='./assets/logo.png'>
+	<h3 style="font-size:70px">Blacket</h3>
+	<p>The first ever open-source Blooket private server created by Xotic.</p>
+</p>
+
 
 ## About Blacket
 <!-- TODO -->
