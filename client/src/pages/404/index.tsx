@@ -1,7 +1,10 @@
-import React, { useEffect, } from "react";
+import { useEffect, } from "react";
 import { TimelineMax, Power2, Bounce } from "gsap";
+import { config } from "@stores/config";
 import styles from "@styles/index";
 export default function Error404() {
+    document.title = `Not Found | ${config.name}`;
+
     useEffect(() => {
         let elements = [...document.querySelectorAll(`.${styles.error404.title} > span`)];
 

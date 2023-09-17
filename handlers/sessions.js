@@ -16,5 +16,5 @@ export default (app) => app.use(session({
     resave: true,
     saveUninitialized: true,
     httpOnly: true,
-    cookie: { maxAge: 604800000 }
+    cookie: { maxAge: 604800000, sameSite: "none" }
 }));

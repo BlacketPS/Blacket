@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { config } from "@stores/config";
+import { user } from "@stores/user";
 import Background from "@components/Background";
 import Loader from "@components/Loader";
 import axios from "axios";
@@ -17,6 +18,10 @@ export default function Authentication({ type }: { type: "Login" | "Register" })
     const navigate = useNavigate();
 
     document.title = `${type} | ${config.name}`;
+
+    useEffect(() => {
+        if (user) navigate("/stats");
+    }, []);
 
     const login = () => {
         setLoading(true);
