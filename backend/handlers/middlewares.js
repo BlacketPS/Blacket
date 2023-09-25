@@ -7,13 +7,15 @@ function* walk(dir) {
 }
 
 export default async (app) => {
+    const middlewares = [];
+
     for (const file of walk("./middlewares")) {
         if (!file.endsWith(".js")) continue;
 
-        const middleware = (await import(`../${file}`)).default;
+        const middleware = import(`../${file}`).then((module) => module.default).then((middleware) => app.use(middleware));
 
-        console.log(`Loaded middleware ${file}`);
-
-        app.use(middleware);
+        middlewares.push(middleware);
     }
-}
+
+    await Promise.all(middlewares);
+};
