@@ -1,12 +1,9 @@
 export default {
     method: "get",
     requirements: {
-        authorization: false
+        authorization: true
     },
     handler: async (req, res) => {
-        console.log(req.session);
-        res.json({
-            Nigga: "True"
-        })
+        res.json({ error: "Bean broke through your window and took all your money. You're fucking poor now." });
     }
 }

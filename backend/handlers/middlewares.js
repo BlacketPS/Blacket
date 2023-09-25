@@ -12,6 +12,8 @@ export default async (app) => {
 
         const middleware = (await import(`../${file}`)).default;
 
+        console.log(`Loaded middleware ${file}`);
+
         app.use(middleware);
     }
 }
