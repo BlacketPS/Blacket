@@ -15,5 +15,3 @@
 
 ## License
 Licensed under [GNU GPLv3](./LICENSE).
-
-#### zastix
