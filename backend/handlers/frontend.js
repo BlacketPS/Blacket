@@ -1,4 +1,3 @@
-import { fileURLToPath } from "url";
 import path from "path";
 
 export default (app) => app.get("/*", (req, res, next) => {

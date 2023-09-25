@@ -1,6 +1,6 @@
 export default {
     method: "get",
-    disabled: true,
+    disabled: false,
     requirements: {
         authorization: true
     },

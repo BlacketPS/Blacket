@@ -20,7 +20,7 @@ export default function Authentication({ type }: { type: "Login" | "Register" })
     document.title = `${type} | ${config.name}`;
 
     useEffect(() => {
-        if (user) navigate("/stats");
+        // if (user) navigate("/stats");
     }, []);
 
     const login = () => {
