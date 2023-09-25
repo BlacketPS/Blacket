@@ -1,12 +1,13 @@
+await import("dotenv/config");
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
 
-const store = MySQLStore(session);
+const Store = MySQLStore(session);
 
 export default (app) => app.use(session({
     name: "token",
     secret: process.env.SESSION_SECRET,
-    store: new store({
+    store: new Store({
         host: process.env.DATABASE_HOST,
         port: process.env.DATABASE_PORT,
         user: process.env.DATABASE_USER,
@@ -16,5 +17,5 @@ export default (app) => app.use(session({
     resave: true,
     saveUninitialized: true,
     httpOnly: true,
-    cookie: { maxAge: 604800000, sameSite: "none" }
+    cookie: { maxAge: 604800000 }
 }));

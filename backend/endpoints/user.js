@@ -1,9 +1,12 @@
 export default {
     method: "get",
-    disabled: false,
     requirements: {
-        authorization: true
+        authorization: false
     },
-    handler: async (_, res) => {
+    handler: async (req, res) => {
+        console.log(req.session);
+        res.json({
+            Nigga: "True"
+        })
     }
 }

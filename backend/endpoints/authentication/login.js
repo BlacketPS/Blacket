@@ -58,8 +58,7 @@ export default {
 
         req.session.user = user[0].id;
         req.session.password = user[0].password;
-        req.session.save();
 
-        res.status(200).json();
+        res.status(200).send();
     }
 }

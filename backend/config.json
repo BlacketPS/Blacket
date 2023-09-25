@@ -7,12 +7,12 @@
         "path": "backups"
     },
     "game": {
-        "name": "Blacket 2.9",
+        "name": "Blacket",
         "version": "2.9.0",
         "welcome": "First Private Server",
-        "description": "The first ever open-source Blooket private, server written entirely in JavaScript.",
-        "discord": "blacket",
+        "description": "The first ever open-source Blooket private server, created by JellyStewart written entirely in JellyScript.",
         "pronunciation": "Black-it",
+        "discord": "blacket",
         "store": {
             "plus": {
                 "price": "9.99",
