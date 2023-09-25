@@ -1,7 +1,7 @@
 html,
 body {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -39,12 +39,12 @@ div {
     -moz-user-select: none;
     user-select: none;
     z-index: -1;
-    filter: drop-shadow(0px 0px 10px #1f1f1f);
+    filter: drop-shadow(0 0 0.5vw #1f1f1f);
 }
 
 @media only screen and (max-width: 1050px) {
     .header-image {
-        top: 70px;
+        top: 7.26vh;
         height: auto;
         width: 100%;
     }
@@ -61,22 +61,10 @@ div {
     z-index: -2;
 }
 
-.blooks-background {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    top: 50%;
-    left: 50%;
-    background-size: 550px;
-    background-position: -100px -100px;
-    opacity: 0.075;
-    transform: translate(-50%, -50%) rotate(15deg);
-}
-
 .top-header-container {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 3vh;
+    left: 2.5vw;
     user-select: none;
     display: flex;
     flex-direction: row;
@@ -167,22 +155,14 @@ div {
     .header-side {
         width: 130vw;
         height: 65vh;
+        position: absolute;
         top: 40vh;
         left: -20vw;
         transform: rotate(4deg);
+        background-color: #2f2f2f;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px 3px;
+        z-index: -1;
     }
-}
-
-.m-header-side {
-    width: 130vw;
-    height: 65vh;
-    position: absolute;
-    top: 40vh;
-    left: -20vw;
-    transform: rotate(4deg);
-    background-color: #2f2f2f;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px 3px;
-    z-index: -1;
 }
 
 .logo-text {
@@ -203,17 +183,13 @@ div {
 
 @media only screen and (max-width: 1050px) {
     .welcome-container {
+        position: absolute;
         top: 57.5vh;
+        left: 5vw;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
     }
-}
-
-.m-welcome-container {
-    position: absolute;
-    top: 57.5vh;
-    left: 5vw;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
 }
 
 .welcome-text {
@@ -228,14 +204,9 @@ div {
     .welcome-text {
         font-size: 6vh;
         line-height: 6.5vh;
+        text-shadow: 2px 2px 8px rgb(128, 128, 128);
+        font-weight: bold;
     }
-}
-
-.m-welcome-text {
-    font-size: 6vh;
-    line-height: 6.5vh;
-    text-shadow: 2px 2px 8px rgb(128, 128, 128);
-    font-weight: bold;
 }
 
 .welcome-desc {
@@ -249,11 +220,6 @@ div {
         font-size: 2.2vh;
         margin: 1.5vh 0 3vh;
     }
-}
-
-.m-welcome-desc {
-    font-size: 2.2vh;
-    margin: 1.5vh 0 3vh;
 }
 
 .welcome-button {
@@ -283,22 +249,16 @@ div {
         font-size: 3vh;
         width: 20vh;
         line-height: 4.5vh;
+        border-color: #fff;
+        border-style: solid;
+        border-radius: 6px;
+        border-width: 3px;
+        text-align: center;
+        color: #fff;
+        outline: none;
+        text-decoration: none;
+        cursor: pointer;
     }
-}
-
-.m-welcome-button {
-    font-size: 3vh;
-    width: 20vh;
-    line-height: 4.5vh;
-    border-color: #fff;
-    border-style: solid;
-    border-radius: 6px;
-    border-width: 3px;
-    text-align: center;
-    color: #fff;
-    outline: none;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 .pronounce-button {
@@ -313,18 +273,12 @@ div {
 
 @media only screen and (max-width: 1050px) {
     .pronounce-button {
+        color: #fff;
         font-size: 2vh;
         line-height: 3vh;
         margin-top: 1.5vh;
+        cursor: pointer;
+        user-select: none;
+        outline: none;
     }
-}
-
-.m-pronounce-button {
-    color: #fff;
-    font-size: 2vh;
-    line-height: 3vh;
-    margin-top: 1.5vh;
-    cursor: pointer;
-    user-select: none;
-    outline: none;
 }
