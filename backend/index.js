@@ -12,4 +12,4 @@ await Promise.all([
     (await import("./handlers/frontend.js")).default(app)
 ]);
 
-app.listen(global.config.port, () => console.log(`Listening on port ${global.config.port}`));
+app.listen(global.config.port, () => logger.info(`Listening on port ${global.config.port}`));

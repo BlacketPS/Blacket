@@ -8,7 +8,7 @@ export default {
     handler: async (req, res) => {
         if (req.session.user) return res.status(400).json({ error: "You are already logged in." });
         if (!(req.body.username && req.body.password)) return res.status(400).json({ error: "You must provide a username and password." });
-        if (typeof req.body.username !== 'string' || typeof req.body.password !== 'string') return res.status(400).json({ error: "Invalid username or password." });
+        if (typeof req.body.username !== "string" || typeof req.body.password !== "string") return res.status(400).json({ error: "Invalid username or password." });
         if (req.body.username.toLowerCase() == global.config.game.name.toLowerCase()) return res.status(400).json({ error: "This name has been reserved for the system." });
         if (req.body.username.length > 16) return res.status(400).json({ error: "Your username must be less than or 16 characters long." });
         if (req.body.username.match(/[^a-zA-Z0-9_-]/g)) return res.status(400).json({ error: "Your username must only contain letters, numbers, underscores, and dashes." });

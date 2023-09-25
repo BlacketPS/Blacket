@@ -2,9 +2,7 @@ await import("dotenv/config");
 import { QueryTypes } from "sequelize";
 
 export default async (req, _, next) => {
-    console.log("sessions");
-
-    req.session = {};
+    req.session = null;
 
     if (!req.headers.authorization) return next();
     
@@ -15,5 +13,5 @@ export default async (req, _, next) => {
 
     if (session.length == 0) return next();
 
-    req.session.user = session[0].user;
+    req.session = session[0].user;
 }

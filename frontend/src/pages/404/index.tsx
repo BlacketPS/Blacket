@@ -39,7 +39,7 @@ export default function Error404() {
     return (
         <>
             <div style={{ "position": "fixed", "width": "100%", "height": "100%", "left": "0", "top": "0", "backgroundColor": "#4f4f4f", "overflow": "hidden" }}>
-                <div className={styles.error404.background} style={{ backgroundImage: "url('/content/background.png')" }}></div>
+                <div className={styles.error404.background} style={{ backgroundImage: "url(\"/content/background.png\")" }}></div>
             </div>
             <div
                 style={{ display: "flex", flexDirection: "column", textAlign: "center", justifyContent: "center", alignItems: "center", minWidth: "75%", minHeight: "75%", filter: "drop-shadow(0px 1px 5px black)", borderRadius: "10px", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", backgroundColor: "#303030", boxShadow: "inset 0 -8px rgb(0 0 0 / 20%), 0 0 4px rgb(0 0 0 / 15%)", color: "white", fontFamily: "Nunito, sans-serif" }}>
