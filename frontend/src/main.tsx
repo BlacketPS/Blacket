@@ -17,4 +17,4 @@ axios.interceptors.request.use((req: any) => {
 
 createRoot(document.getElementById("app")!).render(
 	<RouterProvider router={router} />
-);  
+);
