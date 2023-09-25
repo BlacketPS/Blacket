@@ -7,9 +7,15 @@ function* walk(dir) {
 }
 
 export default async (app) => {
+    const functions = [];
+
     for (const file of walk("./functions")) {
         if (!file.endsWith(".js")) continue;
 
-        await import(`../${file}`);
+        const module = import(`../${file}`).then((module) => module.default);
+
+        functions.push(module);
     }
+
+    await Promise.all(functions);
 }
