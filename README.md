@@ -69,25 +69,20 @@ The following packages need to be installed before starting:
    ```sh
    cd /temp
    git clone https://github.com/XoticLLC/Blacket.git
-   sudo mv -v /temp/Blacket-master ~/blacket
+   mv -v /temp/Blacket-master ~/blacket
    ```
    
-2. Move to the frontend directory:
+2. Move to the frontend directory and build the app:
    ```sh
    cd ~/blacket/frontend
-   ```
-
-3. Build the frontend:
-   ```sh
    npm run build
    ```
 
-4. Move to the backend directory and run `node index.js`
+4. Move to the backend directory and run the app:
    ```sh
    cd ../backend
    node index.js
    ```
-
 * Open localhost:3000 in your browser to finish setting up your Blacket instance.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
