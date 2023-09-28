@@ -4,8 +4,6 @@ import styles from "@styles/index";
 import Background from "@components/Background";
 
 export default function Home() {
-    const pronunciations = ["/content/pronunciation-monkxy.ogg", "/content/pronunciation-xotic.ogg", "/content/pronunciation-zastix.ogg"];
-
     return (
         <>
             <div className={styles.home.headerContainer}>
@@ -35,7 +33,7 @@ export default function Home() {
                         Discord
                     </a>
 
-                    <div className={styles.home.pronounceButton} onClick={() => new Audio(pronunciations[Math.floor(Math.random() * pronunciations.length)]).play()}>
+                    <div className={styles.home.pronounceButton} onClick={() => new Audio("/content/pronunciation.ogg").play()}>
                         <i className="fas fa-volume-up" /> Pronunciation ("{config.pronunciation}")
                     </div>
                 </div>
