@@ -6,8 +6,6 @@ import Background from "@components/Background";
 export default function Home() {
     const pronunciations = ["/content/pronunciation-monkxy.ogg", "/content/pronunciation-xotic.ogg", "/content/pronunciation-zastix.ogg"];
 
-    const newLocal = document.title = config.name;
-
     return (
         <>
             <div className={styles.home.headerContainer}>
