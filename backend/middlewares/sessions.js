@@ -2,7 +2,7 @@ await import("dotenv/config");
 import { QueryTypes } from "sequelize";
 
 export default async (req, _, next) => {
-    req.session = null;
+    req.session = {};
 
     if (!req.headers.authorization) return next();
     
