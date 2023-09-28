@@ -78,13 +78,13 @@ The following packages need to be installed before starting:
    npm run build
    ```
 
-4. Move to the backend directory and run the app:
+3. Move to the backend directory and run the app:
    ```sh
    cd ../backend
    node index.js
    ```
 
-* Open <a href=http://localhost:3000>localhost:3000</a> in your browser to finish setting up your Blacket instance.
+4. Open <a href=http://localhost:3000>localhost:3000</a> in your browser to finish setting up your Blacket instance.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
