@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://blacket.org">
-    <img src="https://blacket.org/content/logo.png" alt="Logo" width="160" height="160">
+    <img src="./assets/logo.png" alt="Logo" width="160" height="160">
   </a>
   <h3 align="center">Blacket</h3>
 
@@ -29,22 +29,12 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li>
-    <a href="#usage">Usage</a>
-    <ul>
-      <li><a href="#admin-panel">Admin Panel</a></li>
-      <li><a href="#default-values">Default Values</a></li>
-      <li><a href="#creating-boxes">Creating Boxes</a></li>
-      <li><a href="#creating-blooks">Creating Blooks</a></li>
-      <li><a href="#creating-news">Creating News</a></li>
-    </ul>
-    </li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
 
 ## About The Project
-<img src="https://blacket.org/content/github/blacketHome.png"></img>
+<img src="./assets/blacket.png"></img>
 I absolutely love Blooket and almost everything about it, but always felt something was missing from it. Some very experienced developers have created Blooket cheats / hacks for the game, but not many have made something for Blooket as a whole. I have always wanted to create my own custom packs, blooks, games, and more. This is why I created Blacket, the first open-source Blooket private server.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -75,93 +65,30 @@ The following packages need to be installed before starting:
   
 ### Installation
 
-1. Clone the repo into your home folder:
-
+1. Clone the repository into your home folder:
    ```sh
    cd /temp
-   git clone https://github.com/XOTlC/Blacket.git
+   git clone https://github.com/XoticLLC/Blacket.git
    sudo mv -v /temp/Blacket-master ~/blacket
    ```
-2. Configure Blacket for the database:
-
-   ```sh
-   sudo visudo ~/blacket/config.js
-   ```
-   <img src="https://blacket.org/content/github/configDatabase.png"></img>
-   </br>
-   _Change host to the host of the MySQL database (should be localhost by default)._
-   </br>
-   _Change user to the username you configured in the MySQL setup process (should be root by default)._
-   </br>
-   _Change password to the password you configured in the MySQL setup process._
-   </br>
-   _Change database to the name of the database you want to use._
-   </br>
-   _Leave `multipleStatements` on true._
-   </br>
    
-3. Setup the database:
-   * Visit the IP of the server your Blacket instance is running on and go through the setup process.
+2. Move to the frontend directory:
+   ```sh
+   cd ~/blacket/frontend
+   ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+3. Build the frontend:
+   ```sh
+   npm run build
+   ```
 
-## Usage
+4. Move to the backend directory and run `node index.js`
+   ```sh
+   cd ../backend
+   node index.js
+   ```
 
-### Admin Panel
-
-If you have done everything right so far, you should be able to access the homepage of your Blacket instance. To access the admin panel, login to the account you granted admin with and click the admin button in the top right corner.
-
-<img src="https://blacket.org/images/github/adminPanelButton.png"></img>
-
-Once you have clicked the button, you should meet a similar looking page:
-
-<img src="https://blacket.org/images/github/adminPanel.png"></img>
-
-### Default Values
-
-To change the default values such as the daily token limit, click Default Values on the admin panel.
-
-<img src="https://blacket.org/images/github/defaultValuesButton.png"></img>
-
-From here, you can edit default values that are set in Blacket that will update globally.
-
-<img src="https://blacket.org/images/github/defaultValues.png"></img>
-
-### Creating Boxes
-
-To create a box, click the Box Editor button on the admin panel.
-
-<img src="https://blacket.org/images/github/boxEditorButton.png"></img>
-
-All boxes must follow the format shown below to work:
-
-<img src="https://blacket.org/images/createBoxHelp.png"></img>
-
-From here, you can edit boxes and create boxes easiely.
-
-<img src="https://blacket.org/images/github/boxEditor.png"></img>
-
-### Creating Blooks
-
-To create a blook, click the Blook Editor on the admin panel.
-
-<img src="https://blacket.org/images/github/blookEditorButton.png"></img>
-
-From here, you can change any blook and create blooks easiely.
-
-<img src="https://blacket.org/images/github/blookEditor.png"></img>
-
-### Creating News
-
-To add news to your server, click the News Editor on the admin panel.
-
-<img src="https://blacket.org/images/github/newsEditorButton.png"></img>
-
-From here, you can create news and delete news from your server.
-
-<img src="https://blacket.org/images/github/newsEditor.png"></img>
-
-_For more examples, please refer to the [Documentation](https://github.com/XOTlC/Blacket/wiki)_
+* Open localhost:3000 in your browser to finish setting up your Blacket instance.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
