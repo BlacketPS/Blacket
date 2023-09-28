@@ -72,19 +72,29 @@ The following packages need to be installed before starting:
    mv -v /temp/Blacket-master ~/blacket
    ```
    
-2. Move to the frontend directory and build the app:
+2. Move to the frontend directory and install dependencies:
    ```sh
    cd ~/blacket/frontend
+   npm i
+   ```
+  
+3. Build the react app:
+   ```sh
    npm run build
    ```
 
-3. Move to the backend directory and run the app:
+4. Move to the backend directory and install dependencies:
    ```sh
    cd ../backend
-   node index.js
+   npm i
    ```
 
-4. Open <a href=http://localhost:3000>localhost:3000</a> in your browser to finish setting up your Blacket instance.
+5. Start an instance of Blacket:
+   ```sh
+   node .
+   ```
+
+6. Open <a href=http://localhost:3000>localhost:3000</a> in your browser to finish setting up your Blacket instance.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
