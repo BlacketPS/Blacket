@@ -84,7 +84,7 @@ The following packages need to be installed before starting:
    node index.js
    ```
 
-* Open <a href=http://localhost:3000">localhost:3000</a> in your browser to finish setting up your Blacket instance.
+* Open <a href=http://localhost:3000>localhost:3000</a> in your browser to finish setting up your Blacket instance.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
