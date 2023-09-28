@@ -67,9 +67,9 @@ The following packages need to be installed before starting:
 
 1. Clone the repository into your home folder:
    ```sh
-   cd /temp
+   cd /tmp
    git clone https://github.com/XoticLLC/Blacket.git
-   mv -v /temp/Blacket-master ~/blacket
+   mv -v /tmp/Blacket-master ~/blacket
    ```
    
 2. Move to the frontend directory and install dependencies:
