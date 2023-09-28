@@ -7,7 +7,7 @@
   <h3 align="center">Blacket</h3>
 
   <p align="center">
-    The first ever open-source Blooket private server created by Xotic written entirely in NodeJS. 
+    The first ever open-source Blooket private server created by Xotic written entirely in JavaScript. 
     <br />
     <a href="https://github.com/XoticLLC/Blacket/wiki"><strong>Get Help</strong></a>
     <br />
@@ -45,7 +45,7 @@
 
 ## About The Project
 <img src="https://blacket.org/content/github/blacketHome.png"></img>
-Me personally, I love Blooket and everything about it, but I felt something was missing. A lot of people have made Blooket cheat scripts / hacks but has never ever created anything completely for Blooket itself. So thats why I created Blacket, the first open-source Blooket private server. I always wanted to have the ability to have custom packs, blooks, and more but I can't since I am not Ben Stewart (the creator of Blooket) so I have decided to create this.
+I absolutely love Blooket and almost everything about it, but always felt something was missing from it. Some very experienced developers have created Blooket cheats / hacks for the game, but not many have made something for Blooket as a whole. I have always wanted to create my own custom packs, blooks, games, and more. This is why I created Blacket, the first open-source Blooket private server.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting Started
