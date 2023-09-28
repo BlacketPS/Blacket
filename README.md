@@ -35,7 +35,7 @@
 
 ## About The Project
 <img src="./assets/blacket.png"></img>
-I absolutely love Blooket and almost everything about it, but always felt something was missing from it. Some very experienced developers have created Blooket cheats / hacks for the game, but not many have made something for Blooket as a whole. I have always wanted to create my own custom packs, blooks, games, and more. This is why I created Blacket, the first open-source Blooket private server.
+I absolutely love Blooket and almost everything about it, but always felt something was missing from it. Some very experienced developers have created Blooket cheats / hacks for the game, but not many have made something for Blooket as a whole. I have always wanted to create my own custom packs, blooks, games, and more. This is why I created Blacket, the first ever open-source Blooket private server.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting Started

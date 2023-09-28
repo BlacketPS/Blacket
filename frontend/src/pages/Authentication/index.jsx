@@ -8,7 +8,7 @@ import Loader from "@components/Loader";
 import axios from "axios";
 import styles from "@styles/index";
 
-export default function Authentication({ type }: { type: "Login" | "Register" }) {
+export default function Authentication({ type }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [code, setCode] = useState("");
