@@ -14,9 +14,7 @@ export default function Home() {
                 <div className={styles.home.headerSide} />
 
                 <div className={styles.home.topHeaderContainer}>
-                    <div className={styles.home.logoText}>
-                        {config.name}
-                    </div>
+                    <div className={styles.home.logoText}>{config.name}</div>
                 </div>
 
                 <div className={styles.home.welcomeContainer}>
@@ -40,12 +38,8 @@ export default function Home() {
             </div>
 
             <div className={styles.home.topButtonContainer}>
-                <Link className={`${styles.home.topButton} ${styles.home.loginButton}`} to="/login">
-                    Login
-                </Link>
-                <Link className={`${styles.home.topButton} ${styles.home.registerButton}`} to="/register">
-                    Register
-                </Link>
+                <Link className={`${styles.home.topButton} ${styles.home.loginButton}`} to="/login">Login</Link>
+                <Link className={`${styles.home.topButton} ${styles.home.registerButton}`} to="/register">Register</Link>
             </div>
         </>
     )

@@ -6,11 +6,12 @@ import pages from "./pages";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
+	const [message, setMessage] = useState("config");
 
 	useEffect(() => config !== null && setLoaded(true), []);
 
 	return (<>
-		{!loaded && <pages.Loading />}
+		{!loaded && <pages.Loading message={message} />}
 		{loaded && (<>
 			{typeof config == "string" ? (<pages.Error403 reason={config} />) : config === 1 ? (<pages.Error502 />) : (
 				<RouterProvider router={createBrowserRouter([
