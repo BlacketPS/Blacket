@@ -21,9 +21,7 @@ function App() {
 					{ path: "/register", element: <pages.Authentication type="Register" /> }*/
 				])} />
 			)}
-		</>)
-		//a
-		}
+		</>)}
 	</>);
 }
 
