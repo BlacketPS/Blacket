@@ -13,9 +13,9 @@ function App() {
 	return (<>
 		{!loaded && <pages.Loading message={message} />}
 		{loaded && (<>
-			{typeof config == "string" ? (<pages.Error403 reason={config} />) : config === 1 ? (<pages.Error502 />) : (
+			{typeof config == "string" ? (<pages.Errors code={403} reason={config} />) : config === 1 ? (<pages.Errors code={502} />) : (
 				<RouterProvider router={createBrowserRouter([
-					{ path: "*", element: <pages.Error404 /> },
+					{ path: "*", element: <pages.Errors code={404} /> },
 					{ path: "/", element: <pages.Home /> },
 					/*{ path: "/login", element: <pages.Authentication type="Login" /> },
 					{ path: "/register", element: <pages.Authentication type="Register" /> }*/

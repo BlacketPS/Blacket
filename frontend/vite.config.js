@@ -15,7 +15,7 @@ export default defineConfig({
     modules: {
       scopeBehaviour: "local",
       localsConvention: "camelCaseOnly",
-      generateScopedName: "styles__[local]___[hash:base64:5]&camelCase",
+      generateScopedName: "[name]__[local]___[hash:base64:5]",
     },
   },
   build: {
