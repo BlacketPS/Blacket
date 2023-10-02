@@ -23,8 +23,6 @@ export default async (app) => {
         const process = spawn("npm", ["run", "dev"], { cwd: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../frontend") });
 
         process.stdout.on("data", (data) => {
-            console.log(data.toString());
-
             if (!data.toString().match(/Local:   http:\/\/localhost:\d+/)) return;
 
             const port = data.toString().match(/Local:   http:\/\/localhost:(\d+)/)[1];
@@ -33,12 +31,8 @@ export default async (app) => {
 
             app.use((req, res, next) => {
                 if (req.path.startsWith("/api")) return next();
-                axios.get(`http://localhost:${port}`).then((r) => {
-                    res.send(r.data);
-                }).catch((err) => {
-                    console.error(`Failed to proxy request to frontend development server: ${err.message}`);
-                    res.sendStatus(500);
-                });
+                if (!/\.[^/]+$/.test(req.path)) axios.get(`http://localhost:${port}/index.html`).then((response) => res.send(response.data));
+                else axios.get(`http://localhost:${port}${req.path}`).then((response) => res.send(response.data)).catch(() => res.status(404).send("Not found."));
             });
         });
     }
