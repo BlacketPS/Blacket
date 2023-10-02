@@ -1,7 +1,6 @@
 process.start = Date.now();
 await import("dotenv/config");
 await import("./functions/walker.js");
-await import("./functions/logging.js");
 import express from "express";
 
 const app = express();
