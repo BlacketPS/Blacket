@@ -1,0 +1,1 @@
+export default (err, _, res, next) => err instanceof SyntaxError && res.status(400).send({ error: `Invalid object.` }) & next();

@@ -1,5 +1,7 @@
+process.start = Date.now();
 await import("dotenv/config");
 await import("./functions/walker.js");
+await import("./functions/logging.js");
 import express from "express";
 
 const app = express();
@@ -13,4 +15,11 @@ await Promise.all([
     (await import("./handlers/frontend.js")).default(app)
 ]);
 
-app.listen(global.config.port, () => console.log(`Listening on port ${global.config.port}`));
+app.listen(config.port, () => {
+    console.success(`A Blacket server instance has been successfully started on port ${config.port}.`);
+    if (config.verbose) {
+        console.debug("Verbose mode is enabled.");
+        console.debug(`Startup time: ${Date.now() - process.start}ms`);
+        console.debug(`Process ID: ${process.pid}`);
+    }
+});

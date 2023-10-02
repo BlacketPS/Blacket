@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import axios from "axios";
 import styles from "@styles/index";
 import Background from "@components/Background";
 
@@ -5,6 +7,8 @@ export default function Error({ code, reason }) {
     if (code === 502) document.title = "Maintenance";
     else if (code === 403) document.title = "Blacklisted";
     else document.title = "Not Found";
+
+    if (code === 502) useEffect(() => setInterval(() => axios.get("/api").then(res => res.status === 200 && window.location.reload()), 1000), []);
 
     return (
         <>

@@ -10,4 +10,4 @@ export default async (app) => {
     }
 
     await Promise.all(middlewares);
-};
+}
