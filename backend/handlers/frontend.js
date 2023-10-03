@@ -18,9 +18,7 @@ export default async (app) => {
             res.sendFile(path.resolve("public/index.html"))
         });
     } else if (config.frontend == "development") {
-        console.notice("You are using the development frontend configuration. This configuration is not recommended for production use. You should be using the \"proxy\" configuration instead for production use. Check the Blacket documentation if you need help.");
-
-        console.info("Starting frontend development server...");
+        console.notice("You are using the development frontend configuration. This configuration should not be used for production use. You should be using the \"proxy\" configuration instead for production use. Check the Blacket documentation if you need help.");
 
         const process = spawn("npm", ["run", "dev"], { cwd: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../frontend") });
 
@@ -29,9 +27,7 @@ export default async (app) => {
 
             const port = data.toString().match(/Local:   http:\/\/localhost:(\d+)/)[1];
 
-            console.success(`Frontend development server has been successfully spawned on port ${port}.`);
-
-            app.use(createProxyMiddleware({ target: `http://localhost:${port}`, changeOrigin: true }));
+            app.use(createProxyMiddleware({ target: `http://localhost:${port}`, changeOrigin: true, logLevel: "silent" }));
         });
     }
 }
