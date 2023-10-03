@@ -6,11 +6,6 @@ import Background from "@components/Background";
 export default function Home() {
     return (
         <>
-            <div className={styles.home.topButtonContainer}>
-                <Link className={`${styles.home.topButton} ${styles.home.loginButton}`} to="/login">Login</Link>
-                <Link className={`${styles.home.topButton} ${styles.home.registerButton}`} to="/register">Register</Link>
-            </div>
-
             <div className={styles.home.headerContainer}>
                 <img src="/content/homeBlooks.png" alt="Blooks" className={styles.home.headerImage} draggable="false" />
 
@@ -41,6 +36,11 @@ export default function Home() {
                         <i className="fas fa-volume-up" /> Pronunciation ("{config.pronunciation}")
                     </div>}
                 </div>
+            </div>
+
+            <div className={styles.home.topButtonContainer}>
+                <Link className={`${styles.home.topButton} ${styles.home.loginButton}`} to="/login">Login</Link>
+                <Link className={`${styles.home.topButton} ${styles.home.registerButton}`} to="/register">Register</Link>
             </div>
 
             <div className={styles.home.copyrightInformation}>
