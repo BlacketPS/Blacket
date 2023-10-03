@@ -1,6 +1,6 @@
 import express from "express";
+import { createProxyMiddleware } from "http-proxy-middleware";
 import { spawn } from "child_process";
-import axios from "axios";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -18,7 +18,9 @@ export default async (app) => {
             res.sendFile(path.resolve("public/index.html"))
         });
     } else if (config.frontend == "development") {
-        console.info("Spawning frontend development server...");
+        console.notice("You are using the development frontend configuration. This configuration is not recommended for production use. You should be using the \"proxy\" configuration instead for production use. Check the Blacket documentation if you need help.");
+
+        console.info("Starting frontend development server...");
 
         const process = spawn("npm", ["run", "dev"], { cwd: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../frontend") });
 
@@ -29,11 +31,7 @@ export default async (app) => {
 
             console.success(`Frontend development server has been successfully spawned on port ${port}.`);
 
-            app.use((req, res, next) => {
-                if (req.path.startsWith("/api")) return next();
-                if (!/\.[^/]+$/.test(req.path)) axios.get(`http://localhost:${port}/index.html`).then((response) => res.send(response.data));
-                else axios.get(`http://localhost:${port}${req.path}`).then((response) => res.send(response.data)).catch(() => res.status(404).send("Not found."));
-            });
+            app.use(createProxyMiddleware({ target: `http://localhost:${port}`, changeOrigin: true }));
         });
     }
 }
