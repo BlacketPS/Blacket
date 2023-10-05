@@ -1,5 +1,4 @@
 await import("dotenv/config");
-import { QueryTypes } from "sequelize";
 
 export default async (req, _, next) => {
     req.session = {};
@@ -8,7 +7,7 @@ export default async (req, _, next) => {
 
     const session = await database.query(`SELECT * FROM sessions WHERE token = ?`, {
         replacements: [req.headers.authorization],
-        type: QueryTypes.SELECT
+        type: database.QueryTypes.SELECT
     });
 
     if (session.length == 0) return next();
