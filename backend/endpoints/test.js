@@ -1,5 +1,5 @@
 export default {
-    method: "post",
+    method: "POST",
     schema: {
         test: {
             required: true,

@@ -1,4 +1,4 @@
 export default {
-    method: "get",
+    method: "GET",
     handler: (_, res) => res.status(200).json("hello world")
 }

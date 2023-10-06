@@ -5,13 +5,14 @@ export default async (app) => {
         if (!file.endsWith(".js")) continue;
 
         const endpoint = (await import(`../${file}`)).default;
+        const path = `/${file.replace("endpoints", "api").slice(0, -3)}`;
 
-        endpoints[`/${file.replace("endpoints", "api").slice(0, -3)}`] = {
+        endpoints[path] = {
             ...endpoint,
-            schema: endpoint.schema ? Object.fromEntries(Object.entries(endpoint.schema).map(([key, value]) => [key, { ...value, match: value.match?.toString() }])) : undefined
+            schema: endpoint.schema && Object.fromEntries(Object.entries(endpoint.schema).map(([key, value]) => [key, { ...value, match: value.match?.toString() }]))
         }
 
-        app[endpoint.method](`/${file.replace("endpoints", "api").slice(0, -3)}`, async (req, res) => {
+        app[endpoint.method.toLowerCase()](path, async (req, res) => {
             if (endpoint.disabled) return res.status(501).json("This endpoint is currently disabled.");
             if (endpoint?.requirements?.authorization && !req.session.user) return res.status(401).json("Unauthorized.");
 
