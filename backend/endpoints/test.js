@@ -1,16 +1,11 @@
 export default {
-    method: "get",
-    disabled: true,
-    requirements: {
-        authorization: true
-    },
+    method: "post",
     schema: {
         test: {
             required: true,
-            type: "string"
+            type: "string",
+            match: /[a-z]/
         }
     },
-    handler: (req, res) => {
-        res.status(200).json({ test: req.body.test });
-    }
+    handler: (req, res) => res.status(200).json(req.body.test)
 }
