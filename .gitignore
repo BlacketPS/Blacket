@@ -13,6 +13,8 @@ dist
 dist-ssr
 *.local
 bun.lockb
+.editorconfig
+config.json
 .env
 
 .vscode/*

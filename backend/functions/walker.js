@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 const walk = function* walk(dir) {
     const files = fs.readdirSync(dir, { withFileTypes: true });

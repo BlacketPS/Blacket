@@ -4,6 +4,7 @@
   "description": "The first ever open-source Blooket private server written entirely in JavaScript.",
   "type": "module",
   "dependencies": {
+    "axios": "^1.5.1",
     "bcrypt": "^5.1.1",
     "chalk": "^5.3.0",
     "cors": "^2.8.5",

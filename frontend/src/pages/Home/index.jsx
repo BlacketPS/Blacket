@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { config } from "@stores/config";
-import styles from "@styles/index";
+import styles from "@styles";
 import Background from "@components/Background";
 
 export default function Home() {

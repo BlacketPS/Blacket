@@ -18,8 +18,8 @@ function App() {
 					{ path: "*", element: <pages.Errors code={404} /> },
 					{ path: "/test", element: <pages.Test /> },
 					{ path: "/", element: <pages.Home /> },
-					/*{ path: "/login", element: <pages.Authentication type="Login" /> },
-					{ path: "/register", element: <pages.Authentication type="Register" /> }*/
+					{ path: "/login", element: <pages.Authentication type="Login" /> },
+					{ path: "/register", element: <pages.Authentication type="Register" /> }
 				])} />
 			)}
 		</>)}

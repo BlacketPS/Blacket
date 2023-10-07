@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-import styles from "@styles/index";
+import styles from "@styles";
 import Background from "@components/Background";
 
 export default function Error({ code, reason }) {

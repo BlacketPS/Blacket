@@ -1,4 +1,4 @@
-import styles from "@styles/index"
+import styles from "@styles";
 
 export default function Background({ color, opacity }) {
     return (

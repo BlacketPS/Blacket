@@ -1,4 +1,4 @@
-import styles from "@styles/index";
+import styles from "@styles";
 
 export default function Loader({ style, message }) {
     if (message) style = { ...style, marginBottom: "50px" }
