@@ -45,7 +45,4 @@ export default function Authentication({ type }) {
     //         </div>
     //     </div>
     // )
-    return (
-        <h1>nigger</h1>
-    )
 }
