@@ -5,7 +5,7 @@ import Loader from "@components/Loader";
 export default function Loading({ message }) {
     return (
         <>
-            <Background color="#4f4f4f" opacity={0.1} />
+            <Background />
 
             <Modal>
                 <Loader message={`Loading ${message}...`}/>

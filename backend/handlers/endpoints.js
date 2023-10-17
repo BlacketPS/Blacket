@@ -7,12 +7,13 @@ export default async (app) => {
         const endpoint = (await import(`../${file}`)).default;
         const path = `/${file.replace("endpoints", "api").slice(0, -3)}`;
 
-        endpoints[path] = {
+        endpoints[endpoint.path ? `/api/${endpoint.path}` : path] = {
             ...endpoint,
+            path: undefined,
             schema: endpoint.schema && Object.fromEntries(Object.entries(endpoint.schema).map(([key, value]) => [key, { ...value, match: value.match?.toString() }]))
         }
 
-        app[endpoint.method.toLowerCase()](path, async (req, res) => {
+        app[endpoint.method.toLowerCase()](endpoint.path ? `/api/${endpoint.path}` : path, async (req, res) => {
             if (endpoint.disabled) return res.status(501).json("This endpoint is currently disabled.");
             if (endpoint?.requirements?.authorization && !req.session.user) return res.status(401).json("Unauthorized.");
 

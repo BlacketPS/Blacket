@@ -9,7 +9,7 @@ export default function Home() {
             <div className={styles.home.headerContainer}>
                 <img src="/content/homeBlooks.png" alt="Blooks" className={styles.home.headerImage} draggable="false" />
 
-                <Background color="#3f3f3f" opacity={0.075} />
+                <Background />
 
                 <div className={styles.home.headerSide} />
 

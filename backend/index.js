@@ -5,8 +5,8 @@ import express from "express";
 const app = express();
 
 await Promise.all([
-    (await import("./handlers/configuration.js")).default(),
     (await import("./handlers/functions.js")).default(),
+    (await import("./handlers/configuration.js")).default(),
     (await import("./handlers/database.js")).default(),
     (await import("./handlers/middlewares.js")).default(app),
     (await import("./handlers/endpoints.js")).default(app),

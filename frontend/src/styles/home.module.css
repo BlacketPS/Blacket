@@ -11,7 +11,7 @@ div {
     font-family: "Nunito", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #ffffff;
+    color: var(--accent-color)fff;
 }
 
 .header-container {
@@ -39,7 +39,7 @@ div {
     -moz-user-select: none;
     user-select: none;
     z-index: -1;
-    filter: drop-shadow(0 0 0.5vw #1f1f1f);
+    filter: drop-shadow(0 0 0.5vw var(--primary-color));
 }
 
 @media only screen and (max-width: 1050px) {
@@ -48,17 +48,6 @@ div {
         height: auto;
         width: 100%;
     }
-}
-
-.background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background-color: #3f3f3f;
-    overflow: hidden;
-    z-index: -2;
 }
 
 .top-header-container {
@@ -99,15 +88,15 @@ div {
 }
 
 .top-button {
-    border-radius: 7px;
-    padding-bottom: 5px;
-    box-shadow: 0px -5px rgba(0, 0, 0, 0.2) inset, 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 0.36vw;
+    padding-bottom: 0.26vw;
+    box-shadow: 0px -0.26vw rgba(0, 0, 0, 0.2) inset, 0px 0px 0.2vw rgba(0, 0, 0, 0.15);
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
     user-select: none;
-    transition: 200ms;
+    transition: transform 200ms;
 }
 
 .top-button:hover {
@@ -119,8 +108,8 @@ div {
     height: 8vh;
     line-height: 8vh;
     font-size: 4.4vh;
-    background-color: #2f2f2f;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 .login-button {
@@ -129,8 +118,8 @@ div {
     height: 6vh;
     line-height: 6vh;
     font-size: 3.6vh;
-    background-color: #2f2f2f;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
 }
 
 @media only screen and (max-width: 1050px) {
@@ -140,10 +129,10 @@ div {
 }
 
 .header-side {
-    background-color: #2f2f2f;
-    box-shadow: -8px 0px rgba(0, 0, 0, 0.2) inset, 0px 0px 4px rgba(0, 0, 0, 0.15);
+    background-color: var(--primary-color);
+    box-shadow: -0.41vw 0px rgba(0, 0, 0, 0.2) inset, 0px 0px 0.2vw rgba(0, 0, 0, 0.15);
     width: 70vw;
-    height: 131vh;
+    height: 150vh;
     position: absolute;
     top: -10vh;
     left: -20vw;
@@ -154,13 +143,13 @@ div {
 @media only screen and (max-width: 1050px) {
     .header-side {
         width: 130vw;
-        height: 65vh;
+        height: 70vh;
         position: absolute;
         top: 40vh;
         left: -20vw;
         transform: rotate(4deg);
-        background-color: #2f2f2f;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px 3px;
+        background-color: var(--primary-color);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0.41vw 0.15vw;
         z-index: -1;
     }
 }
@@ -168,15 +157,15 @@ div {
 .logo-text {
     font-size: 7.3vh;
     font-family: "Titan One", sans-serif;
-    text-shadow: 2px 2px 8px rgb(128, 128, 128);
-    color: #fff;
+    /*text-shadow: 0.1vw 0.1vw 0.41vw rgb(128, 128, 128);*/
+    color: var(--accent-color);
 }
 
 .welcome-container {
     position: absolute;
     top: 22vh;
     left: 5vw;
-    color: #fff;
+    color: var(--accent-color);
     display: flex;
     flex-direction: column;
 }
@@ -186,17 +175,17 @@ div {
         position: absolute;
         top: 57.5vh;
         left: 5vw;
-        color: #fff;
+        color: var(--accent-color);
         display: flex;
         flex-direction: column;
     }
 }
 
 .welcome-text {
-    color: #fff;
+    color: var(--accent-color);
     font-size: 8.83vh;
     line-height: 9.13vh;
-    text-shadow: 2px 2px 8px rgb(128, 128, 128);
+    /*text-shadow: 2px 2px 8px rgb(128, 128, 128);*/
     font-weight: bold;
 }
 
@@ -204,7 +193,7 @@ div {
     .welcome-text {
         font-size: 6vh;
         line-height: 6.5vh;
-        text-shadow: 2px 2px 8px rgb(128, 128, 128);
+        /*text-shadow: 2px 2px 8px rgb(128, 128, 128);*/
         font-weight: bold;
     }
 }
@@ -212,7 +201,7 @@ div {
 .welcome-desc {
     font-size: 3.35vh;
     margin: 3vh 0;
-    color: #fff;
+    color: var(--accent-color);
 }
 
 @media only screen and (max-width: 1050px) {
@@ -225,19 +214,19 @@ div {
 .welcome-button-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.5vw;
 }
 
 .welcome-button {
-    border-color: #fff;
+    border-color: var(--accent-color);
     border-style: solid;
-    border-radius: 6px;
-    border-width: 3px;
+    border-radius: 0.31vw;
+    border-width: 0.15vw;
     font-size: 4.26vh;
     width: 32vh;
     line-height: 7vh;
     text-align: center;
-    color: #fff;
+    color: var(--accent-color);
     outline: none;
     text-decoration: none;
     cursor: pointer;
@@ -246,27 +235,27 @@ div {
 
 .welcome-button:hover,
 .welcome-button:focus {
-    background-color: #fff;
-    color: #2f2f2f;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 @media only screen and (max-width: 1050px) {
     .welcome-button-container {
         display: flex;
         flex-direction: row;
-        gap: 10px;
+        gap: 1vw;
     }
 
     .welcome-button {
         font-size: 3vh;
         width: 20vh;
         line-height: 4.5vh;
-        border-color: #fff;
+        border-color: var(--accent-color);
         border-style: solid;
-        border-radius: 6px;
-        border-width: 3px;
+        border-radius: 0.5vw;
+        border-width: 0.3vw;
         text-align: center;
-        color: #fff;
+        color: var(--accent-color);
         outline: none;
         text-decoration: none;
         cursor: pointer;
@@ -274,7 +263,7 @@ div {
 }
 
 .pronounce-button {
-    color: #fff;
+    color: var(--accent-color);
     font-size: 3vh;
     line-height: 4vh;
     margin-top: 5vh;
@@ -285,7 +274,7 @@ div {
 
 @media only screen and (max-width: 1050px) {
     .pronounce-button {
-        color: #fff;
+        color: var(--accent-color);
         font-size: 2vh;
         line-height: 3vh;
         margin-top: 1.5vh;
@@ -298,7 +287,7 @@ div {
 .copyright-information {
     position: absolute;
     bottom: 0;
-    color: white;
+    color: var(--accent-color);
     margin: 0.5vw;
     font-size: 0.75vw;
 }
@@ -307,7 +296,7 @@ div {
     position: absolute;
     bottom: 1vw;
     right: 0;
-    color: white;
+    color: var(--accent-color);
     margin: 0.5vw;
     font-size: 0.75vw;
     text-align: right;
@@ -317,7 +306,7 @@ div {
     position: absolute;
     bottom: 0;
     right: 0;
-    color: white;
+    color: var(--accent-color);
     margin: 0.5vw;
     font-size: 0.75vw;
     text-align: right;
@@ -336,7 +325,7 @@ div {
         position: absolute;
         bottom: 0;
         right: 0;
-        color: white;
+        color: var(--accent-color);
         margin: 0.5vw;
         font-size: 1.5vh;
         text-align: right;
