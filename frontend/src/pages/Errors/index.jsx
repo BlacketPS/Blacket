@@ -12,7 +12,7 @@ export default function Error({ code, reason }) {
 
     return (
         <>
-            <Background color="#4f4f4f" opacity={0.1} />
+            <Background />
 
             <div className={styles.errors.body}>
                 <div className={styles.errors.container}>
@@ -21,11 +21,11 @@ export default function Error({ code, reason }) {
                     <div className={styles.errors.bottom}>
                         {
                             code === 502 ? <>
-                                It looks like our servers are having some troubles at the moment. <br /> Please come back at a later time while our Blooks fix this.
+                                It looks like our servers are having some troubles at the moment. <br /> Please come back at a later time while we fix this.
                             </> : code === 403 ? <>
                                 It looks like you have been blacklisted for {reason}.
                             </> : <>
-                                We tried our best looking for what you requested <br /> but our Blooks couldn't find anything!
+                                We tried our best looking for what you requested <br /> but we couldn't find anything!
                             </>
                         }
                     </div>

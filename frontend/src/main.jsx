@@ -6,7 +6,7 @@ import pages from "./pages";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
-	const [message, setMessage] = useState("config");
+	const [message, setMessage] = useState("configuration");
 
 	useEffect(() => config !== null && setLoaded(true), []);
 

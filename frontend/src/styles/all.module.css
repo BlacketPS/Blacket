@@ -1,11 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Titan+One|Creepster|Satisfy|Eczar:700");
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
 
+:root {
+    --background-color: #2f2f2f;
+    --primary-color: #1f1f1f;
+    --secondary-color: #3f3f3f;
+    --accent-color: #ffffff;
+}
+
 body {
     font-family: Nunito, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #fff;
     margin: 0;
     padding: 0;
     max-width: 100%;
@@ -31,7 +37,7 @@ body {
     background-size: 550px;
     background-position: -100px -100px;
     background-image: url(/content/background.png);
-    opacity: 0.1;
+    opacity: 0.05;
     transform: translate(-50%, -50%) rotate(15deg);
 }
 
@@ -171,7 +177,7 @@ body {
 .loader-message {
     margin-top: 135px;
     font-size: 25px;
-    color: white;
+    color: var(--accent-color);
 }
 
 .toast-message {
@@ -213,7 +219,7 @@ body {
 
 .toast-title {
     font-size: 30px;
-    color: white;
+    color: var(--accent-color);
     position: absolute;
     top: 5px;
     left: 115px;
@@ -221,7 +227,7 @@ body {
 
 .toast-message {
     position: relative;
-    color: white;
+    color: var(--accent-color);
     top: 45px;
     left: 8px;
     overflow: hidden;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { config } from "@stores/config";
 import { Link } from "react-router-dom";
-import Background from "@compontents/Background";
+import Background from "@components/Background";
 import styles from "@styles";
 
 export default function Authentication({ type }) {
