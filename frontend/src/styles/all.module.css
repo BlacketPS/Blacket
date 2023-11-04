@@ -41,6 +41,64 @@ body {
     transform: translate(-50%, -50%) rotate(15deg);
 }
 
+.header {
+    background-color: var(--primary-color);
+    box-shadow: inset 0 -6px rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    height: 55px;
+    justify-content: space-between;
+    left: 0;
+    overflow: hidden;
+    padding-bottom: 6px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10
+}
+
+.header-left {
+    color: var(--accent-color);
+    cursor: pointer;
+    font-family: Titan One, sans-serif;
+    font-size: 40px;
+    line-height: 49px;
+    margin-left: 40px;
+    outline: none;
+    text-align: left;
+    text-decoration: none;
+    -webkit-user-select: none;
+    user-select: none
+}
+
+.header-right {
+    color: var(--accent-color);
+    cursor: pointer;
+    font-family: Nunito, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 49px;
+    outline: none;
+    padding-right: 40px;
+    text-align: right;
+    text-decoration: underline
+}
+
+@media only screen and (max-width: 600px) {
+    .header-left {
+        font-size: 30px;
+        line-height: 40px;
+        margin-left: 20px;
+    }
+
+    .header-right {
+        font-size: 20px;
+        line-height: 40px;
+        padding-right: 20px;
+    }
+}
+
 .modal {
     display: flex;
     position: fixed;
