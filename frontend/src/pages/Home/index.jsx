@@ -4,6 +4,8 @@ import styles from "@styles";
 import Background from "@components/Background";
 
 export default function Home() {
+    document.title = config.name;
+
     return (
         <>
             <div className={styles.home.headerContainer}>
