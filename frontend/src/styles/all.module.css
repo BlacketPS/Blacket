@@ -55,7 +55,7 @@ body {
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 10
+    z-index: 10;
 }
 
 .header-left {
@@ -69,7 +69,7 @@ body {
     text-align: left;
     text-decoration: none;
     -webkit-user-select: none;
-    user-select: none
+    user-select: none;
 }
 
 .header-right {
@@ -82,7 +82,7 @@ body {
     outline: none;
     padding-right: 40px;
     text-align: right;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 .modal {
@@ -134,55 +134,55 @@ body {
 
 @keyframes loader-blook {
     0% {
-        transform: translateY(10.5px) rotate(0deg)
+        transform: translateY(10.5px) rotate(0deg);
     }
 
     10% {
-        transform: translateY(0) rotate(0deg)
+        transform: translateY(0) rotate(0deg);
     }
 
     15% {
-        transform: translateY(0) rotate(90deg)
+        transform: translateY(0) rotate(90deg);
     }
 
     25% {
-        transform: translateY(10.5px) rotate(90deg)
+        transform: translateY(10.5px) rotate(90deg);
     }
 
     35% {
-        transform: translateY(0) rotate(90deg)
+        transform: translateY(0) rotate(90deg);
     }
 
     40% {
-        transform: translateY(0) rotate(180deg)
+        transform: translateY(0) rotate(180deg);
     }
 
     50% {
-        transform: translateY(10.5px) rotate(180deg)
+        transform: translateY(10.5px) rotate(180deg);
     }
 
     60% {
-        transform: translateY(0) rotate(180deg)
+        transform: translateY(0) rotate(180deg);
     }
 
     65% {
-        transform: translateY(0) rotate(270deg)
+        transform: translateY(0) rotate(270deg);
     }
 
     75% {
-        transform: translateY(10.5px) rotate(270deg)
+        transform: translateY(10.5px) rotate(270deg);
     }
 
     85% {
-        transform: translateY(0) rotate(270deg)
+        transform: translateY(0) rotate(270deg);
     }
 
     90% {
-        transform: translateY(0) rotate(1turn)
+        transform: translateY(0) rotate(1turn);
     }
 
     to {
-        transform: translateY(10.5px) rotate(1turn)
+        transform: translateY(10.5px) rotate(1turn);
     }
 }
 
@@ -202,19 +202,19 @@ body {
 
 @keyframes loader-shadow {
     0% {
-        transform: scale(1)
+        transform: scale(1);
     }
 
     40% {
-        transform: scaleX(1.2)
+        transform: scaleX(1.2);
     }
 
     60% {
-        transform: scaleX(1.2)
+        transform: scaleX(1.2);
     }
 
     to {
-        transform: scale(1)
+        transform: scale(1);
     }
 }
 
