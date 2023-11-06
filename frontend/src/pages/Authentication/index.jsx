@@ -11,7 +11,7 @@ export default function Authentication({ type }) {
     const [error, setError] = useState(null);
 
     return (
-        <div className={styles.authentication.outerContainer}>
+        <>
             <Background />
             <Header right={{
                 link: type === "Login" ? "/register" : "/login",
@@ -46,6 +46,6 @@ export default function Authentication({ type }) {
                     </div>}
                 </div>
             </div >
-        </div>
+        </>
     )
 }   

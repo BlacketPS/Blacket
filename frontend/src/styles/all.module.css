@@ -85,20 +85,6 @@ body {
     text-decoration: underline
 }
 
-@media only screen and (max-width: 600px) {
-    .header-left {
-        font-size: 30px;
-        line-height: 40px;
-        margin-left: 20px;
-    }
-
-    .header-right {
-        font-size: 20px;
-        line-height: 40px;
-        padding-right: 20px;
-    }
-}
-
 .modal {
     display: flex;
     position: fixed;

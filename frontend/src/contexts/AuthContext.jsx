@@ -10,7 +10,7 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-export function AuthProvide🤓r({ children }) {
+export function AuthProvider({ children }) {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);

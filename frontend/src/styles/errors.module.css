@@ -33,8 +33,20 @@
     margin-top: 25px;
 }
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
+    .image {
+        width: 300px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .top {
+        font-size: 5rem;
+    }
+
     .bottom {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 }
