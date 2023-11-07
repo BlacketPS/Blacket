@@ -33,6 +33,19 @@
     margin-top: 25px;
 }
 
+.button {
+    cursor: pointer;
+    padding: 10px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.button:hover {
+    background-color: var(--accent-color);
+    color: var(--background-color);
+}
+
 @media (max-width: 600px) {
     .image {
         width: 300px;

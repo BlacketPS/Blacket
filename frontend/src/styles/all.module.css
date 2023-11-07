@@ -85,6 +85,17 @@ body {
     text-decoration: underline;
 }
 
+.regular-body {
+    height: calc(100% - 55px);
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 55px;
+    width: 100%;
+    z-index: -1
+}
+
 .modal {
     display: flex;
     position: fixed;

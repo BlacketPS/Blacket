@@ -16,6 +16,7 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
+    "react-tooltip": "^5.22.0",
     "terser": "^5.19.4",
     "typescript": "^5.2.2"
   },

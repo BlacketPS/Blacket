@@ -1,6 +1,6 @@
-.inputContainer {
+.input-container {
     align-items: center;
-    border: 2px solid rgba(255, 255, 255, 0.25);
+    border: 2px solid var(--background-color);
     border-radius: 6px;
     display: flex;
     flex-direction: row;
@@ -10,25 +10,17 @@
     width: 80%
 }
 
-.inputContainer:focus-within {
-    border-color: var(--accent-color)
+.input-container:focus-within {
+    border-color: var(--secondary-color);
 }
 
-.inputContainer:focus-within>.icon {
-    color: var(--accent-color)
-}
-
-.inputFilled {
-    border-color: #3a3a3a
-}
-
-.inputError {
-    border-color: #ce1313
+.input-container:focus-within>.icon {
+    opacity: 1;
 }
 
 .icon {
     align-items: center;
-    color: #fff;
+    color: var(--accent-color);
     display: flex;
     font-size: 25px;
     height: 45px;
@@ -37,22 +29,8 @@
     padding-left: 10px;
     -webkit-user-select: none;
     user-select: none;
-    width: 22px
-}
-
-.smallerIcon {
-    min-width: 20px;
-    padding-left: 11px;
-    padding-right: 1px;
-    width: 20px
-}
-
-.iconFilled {
-    color: #3a3a3a
-}
-
-.iconError {
-    color: #ce1313
+    width: 22px;
+    opacity: 0.5;
 }
 
 .input {
@@ -76,15 +54,8 @@
 .input:-ms-input-placeholder,
 .input::-moz-placeholder,
 .input::-webkit-input-placeholder {
-    color: #999
-}
-
-.inputError,
-.inputError:-moz-placeholder,
-.inputError:-ms-input-placeholder,
-.inputError::-moz-placeholder,
-.inputError::-webkit-input-placeholder {
-    color: #ce1313
+    color: var(--accent-color);
+    opacity: .25;
 }
 
 .input:focus,
@@ -92,52 +63,10 @@
 .input:focus:-ms-input-placeholder,
 .input:focus::-moz-placeholder,
 .input:focus::-webkit-input-placeholder {
-    color: #0bc2cf
-}
-
-.input-checkbox__IKwcg,
-button,
-input.text__Gg55G,
-input[type=button],
-input[type=number],
-input[type=submit],
-input[type=text],
-textarea {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none
-}
-
-.regularBody {
-    height: calc(100% - 55px);
-    left: 0;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 55px;
-    width: 100%;
-    z-index: -1
-}
-
-.switchAuthTypeLink {
-    font-family: Nunito, sans-serif;
-    font-size: 14px;
-    color: #fff;
-    margin: 15px auto;
-    text-align: center
-}
-
-.switchAuthTypeLink a {
     color: var(--accent-color);
-    display: inline-block;
-    cursor: pointer;
-    outline: none;
-    text-decoration: underline;
-    -webkit-user-select: none;
-    user-select: none
 }
 
-.floatingBox {
+.container {
     background-color: var(--primary-color);
     border-radius: 7px;
     box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
@@ -155,16 +84,12 @@ textarea {
     width: 90%
 }
 
-.floatingBoxHeader,
-.smallFloatingBoxHeader {
+.container-header {
     color: #fff;
     font-family: Titan One, sans-serif;
     font-size: 55px;
     margin: 10px 20px 20px;
-    text-align: center
-}
-
-.smallFloatingBoxHeader {
+    text-align: center;
     font-size: 50px;
     line-height: 54px
 }

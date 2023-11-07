@@ -16,7 +16,7 @@
         "welcome": "First Private Server",
         "description": "The first ever open-source Blooket private server, created by Xotic written entirely in JavaScript.",
         "pronunciation": "Black-it",
-        "version": "2.9.0",
+        "version": "3.0.0",
         "discord": "blacket",
         "rewards": [
             500,

@@ -24,7 +24,10 @@ export default class ErrorBoundary extends React.Component {
     }
 
     render() {
-        if (this.state.error) return <pages.Errors code={this.state.error} />
+        if (this.state.error) return <pages.Errors code={{
+            error: this.state.error.toString().replace("Error: ", ""),
+            componentStack: this.state.componentStack.toString()
+        }} />;
         return this.props.children;
     }
 }
