@@ -8,7 +8,7 @@ export default function Loading({ message }) {
             <Background />
 
             <Modal>
-                <Loader message={`Loading ${message}...`}/>
+                <Loader image="/content/blooks/Console.gif" message={`Loading ${message}...`} />
             </Modal>
         </>
     )

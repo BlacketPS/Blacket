@@ -4,12 +4,23 @@ import styles from "@styles/index";
 import Background from "@components/Background";
 import Header from "@components/Header";
 import Input from "@components/Authentication/Input";
+import Modal from "@components/Modal";
+import Loader from "@components/Loader";
 
 export default function Authentication({ type }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [checked, setChecked] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const login = async () => {
+        setLoading(true);
+    }
+
+    const register = async () => {
+        setLoading(true);
+    }
 
     return (
         <>
@@ -24,28 +35,53 @@ export default function Authentication({ type }) {
                 <div className={styles.authentication.container}>
                     <div className={styles.authentication.containerHeader}>{type}</div>
 
-                    <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => setUsername(e.target.value)} />
-                    <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => setPassword(e.target.value)} />
+                    <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
+                        setUsername(e.target.value);
+                        setError(null);
+                    }} />
+                    <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {
+                        setPassword(e.target.value);
+                        setError(null);
+                    }} />
 
                     {type === "Register" && <div className={styles.authentication.agreeHolder}>
-                        <div className={`${styles.authentication.checkBox} ${checked ? styles.authentication.checkYes : styles.authentication.checkNo}`} onClick={() => setChecked(!checked)}>
+                        <div className={`${styles.authentication.checkBox} ${checked ? styles.authentication.checkYes : styles.authentication.checkNo}`} onClick={() => {
+                            setChecked(!checked);
+                            setError(null);
+                        }}>
                             <i className={`fas fa-check ${styles.authentication.checkIcon}`} />
                         </div>
 
                         <div className={styles.authentication.agreeText}>
-                            I am at least 13 years old (or at least 16 outside of the U.S.) and I agree to the
-                            <Link to="/privacy" className={styles.authentication.link}>Privacy Policy</Link>
-                            &amp; <Link to="/terms" className={styles.authentication.link}>Terms of Service.</Link>
+                            I am at least 13 years old (or at least 16 outside of the U.S.) and I agree to the <Link to="/privacy" className={styles.authentication.link}>Privacy Policy</Link> &amp; <Link to="/terms" className={styles.authentication.link}>Terms of Service.</Link>
                         </div>
                     </div>}
 
-                    <button className={styles.authentication.button}>Let's Go!</button>
-                    {error && <div className={styles.authentication.blErrorContainer}>
-                        <i className={`fas fa-times-circle ${styles.authentication.blErrorIcon}`} />
-                        <div className={styles.authentication.blErrorText}>{error}</div>
+                    <div className={styles.authentication.button} onClick={() => {
+                        if (!username) return setError("Where's the username?");
+                        else if (!password) return setError("Where's the password?");
+                        if (password.length < 8) return setError("Your password must be at least 8 characters long.");
+                        if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
+                        if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");
+                        if (!/[a-z]/.test(password)) return setError("Your password must have at least 1 lowercase letter.");
+                        if (/^[a-z0-9]+$/i.test(password)) return setError("Your password must contain a special character.");
+                        if (type === "Login") login(username, password);
+                        else if (type === "Register") {
+                            if (!checked) return setError("You must agree to our Privacy Policy and Terms of Service.");
+                            register(username, password);
+                        }
+                    }}>Let's Go!</div>
+
+                    {error && <div className={styles.authentication.errorContainer}>
+                        <i className={`fas fa-times-circle ${styles.authentication.errorIcon}`} />
+                        <div className={styles.authentication.errorText}>{error}</div>
                     </div>}
                 </div>
             </div>
+
+            {loading && <Modal>
+                <Loader message={type === "Login" ? "Logging in..." : "Registering..."} />
+            </Modal>}
         </>
     )
 }   
