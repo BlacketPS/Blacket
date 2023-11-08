@@ -4,7 +4,7 @@ export default async (req, _, next) => {
     req.session = {};
 
     if (!req.headers.authorization) return next();
-    
+
     const token = req.headers.authorization.split(".");
     if (token.length != 3) return next();
 

@@ -4,7 +4,7 @@ export default {
         username: {
             required: true,
             type: "string",
-            match: /^[a-z0-9_-]+$/
+            match: /^[a-z0-9_-.]+$/
         },
         password: {
             required: true,
