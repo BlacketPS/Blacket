@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Titan+One|Creepster|Satisfy|Eczar:700");
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
 
+* {
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
     --background-color: #2f2f2f;
     --primary-color: #1f1f1f;
@@ -10,8 +16,6 @@
 
 body {
     font-family: Nunito, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
     max-width: 100%;

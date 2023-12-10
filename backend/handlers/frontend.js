@@ -8,7 +8,7 @@ export default async (app) => {
     if (!["static", "proxy", "development"].includes(config.frontend)) return console.error(`Frontend configuration must be type of "static", "proxy" or "development".`) & process.exit(1);
 
     if (config.frontend == "static") {
-        console.notice("You are using the static frontend configuration. This configuration is not recommended for production use in large scales. You should be using the \"proxy\" configuration instead for production use. Check the Blacket documentation if you need help.");
+        console.notice("You are using the static frontend configuration. This configuration is not recommended for production use in large scale. You should be using the \"proxy\" configuration instead for production use. Check the Blacket documentation if you need help.");
 
         app.use(express.static(path.dirname(fileURLToPath(import.meta.url)) + "/../public"));
 

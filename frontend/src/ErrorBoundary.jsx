@@ -1,6 +1,5 @@
 import React from "react";
-import pages from "./pages";
-
+import pages from "@pages";
 export default class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
@@ -8,11 +7,11 @@ export default class ErrorBoundary extends React.Component {
             hasError: false,
             error: null,
             componentStack: null
-        };
+        }
     }
 
     static getDerivedStateFromError() {
-        return { hasError: true };
+        return { hasError: true }
     }
 
     componentDidCatch(error, info) {
@@ -20,7 +19,7 @@ export default class ErrorBoundary extends React.Component {
             error: error,
             componentStack: info.componentStack
         });
-        console.error(this.state.error)
+        console.error(this.state.error);
     }
 
     render() {

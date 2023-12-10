@@ -1,32 +1,19 @@
 import axios from "axios";
 
-const config = await axios.get("/api/config").then(res => res.data).catch(err => {
+const config = await axios.get("/api/config").then((res) => {
+    console.log(`%c██████  ██       █████   ██████ ██   ██ ███████ ████████
+██   ██ ██      ██   ██ ██      ██  ██  ██         ██    
+██████  ██      ███████ ██      █████   █████      ██    
+██   ██ ██      ██   ██ ██      ██  ██  ██         ██    
+██████  ███████ ██   ██  ██████ ██   ██ ███████    ██    `, "line-height: 1.145");
+
+    console.log("%cWelcome to the console! Feel free to look around, but please don't paste anything here unless you know what you're doing.", "font-size: 1.5em; font-weight: bold;");
+    console.log(`%cThis server is running Blacket ${res.data.version} which is open source and available at https://github.com/XOTlC/Blacket`, "font-size: 1em; font-weight: bold;");
+
+    return res.data;
+}).catch((err) => {
     if (err?.response?.status === 403) return err.response.data.error
     else return 1;
 });
 
-export { config };
-
-// todo for all other stores:
-
-/*import { createContext, useEffect, useState } from "react";
-import axios from "axios";
-
-export const ConfigContext = createContext(0);
-
-export function ConfigProvider({ children }) {
-    const [config, setConfig] = useState(0);
-
-    useEffect(() => {
-        axios.get("http://localhost:3000/api/config").then((res) => setConfig(res.data)).catch((err) => {
-            if (err?.response?.status === 403) setConfig(err.response.data.error);
-            else setConfig(1);
-        });
-    }, []);
-
-    return (
-        <ConfigContext.Provider value={config}>
-            {children}
-        </ConfigContext.Provider>
-    );
-}*/
+export { config }

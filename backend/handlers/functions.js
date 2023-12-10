@@ -1,8 +1,6 @@
 await import("../functions/internal/logging.js");
 await import("../functions/internal/walker.js");
 
-global.blacket = {};
-
 export default async () => {
     const functions = [];
 
