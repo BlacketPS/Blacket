@@ -1,20 +1,18 @@
 process.start = Date.now();
-await import("dotenv/config");
+await import("dotenv").then(({ config }) => config({ path: "../.env" }));
 import express from "express";
 
 const app = express();
 
-await Promise.all([
-    (await import("./handlers/functions.js")).default(),
-    (await import("./handlers/configuration.js")).default(),
-    (await import("./handlers/database.js")).default(),
-    (await import("./handlers/middlewares.js")).default(app),
-    (await import("./handlers/endpoints.js")).default(app),
-    (await import("./handlers/frontend.js")).default(app)
-]);
+await (await import("./handlers/functions.js")).default();
+await (await import("./handlers/database.js")).default();
+await (await import("./handlers/configuration.js")).default();
+await (await import("./handlers/middlewares.js")).default(app);
+await (await import("./handlers/endpoints.js")).default(app);
+await (await import("./handlers/frontend.js")).default(app);
 
-app.listen(config.port, () => {
-    console.success(`A Blacket server instance has been successfully started on port ${config.port}.`);
+app.listen(process.env.SERVER_PORT, () => {
+    console.success(`A Blacket server instance has been successfully started on port ${process.env.SERVER_PORT}.`);
     if (config.verbose) {
         console.debug("Verbose mode is enabled.");
         console.debug(`Startup time: ${Date.now() - process.start}ms`);

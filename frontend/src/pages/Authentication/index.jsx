@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "@styles/index";
 import Background from "@components/Background";
@@ -59,7 +59,7 @@ export default function Authentication({ type }) {
 
                     <div className={styles.authentication.button} onClick={() => {
                         if (!username) return setError("Where's the username?");
-                        else if (!password) return setError("Where's the password?");
+                        if (!password) return setError("Where's the password?");
                         if (password.length < 8) return setError("Your password must be at least 8 characters long.");
                         if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
                         if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");

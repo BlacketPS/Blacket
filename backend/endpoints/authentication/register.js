@@ -20,7 +20,5 @@ export default {
         const { username, password, accepted } = req.body;
 
         if (req.session.user) return res.status(400).json("Unable to register an account while authorized.");
-
-        
     }
 }

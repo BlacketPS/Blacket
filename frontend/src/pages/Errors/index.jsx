@@ -1,18 +1,26 @@
 import { useEffect } from "react";
+import { useRouteError } from "react-router-dom";
 import axios from "axios";
 import styles from "@styles";
 import Background from "@components/Background";
 
 export default function Error({ code, reason }) {
-    if (code === 502) document.title = "Maintenance";
+    if (!code) {
+        var error = useRouteError();
+
+        const alertError = () => alert(error.statusText || error.message || "An error has occurred.");
+
+        document.title = error.statusText || error.message || "An error has occurred.";
+
+        useEffect(() => alertError(), []);
+    }
+
+    if (code === 404) document.title = "Not Found";
     else if (code === 403) document.title = "Blacklisted";
-    else if (typeof code === "number") document.title = "Not Found";
-    else document.title = code.error;
-
-    const alertError = () => alert(`${code.error}${code.componentStack}`);
-
-    if (code === 502) useEffect(() => setInterval(() => axios.get("/api").then(res => res.status === 200 && window.location.reload()), 1000), []);
-    else if (typeof code !== "number") useEffect(() => alertError(), []);
+    else if (code === 502) {
+        document.title = "Maintenance";
+        setInterval(() => axios.get("/api").then(res => res.status === 200 && window.location.reload()), 1000);
+    }
 
     return (
         <>
@@ -35,7 +43,7 @@ export default function Error({ code, reason }) {
                                 It looks like you have been blacklisted for {reason}.
                             </> : typeof code !== "number" ? <>
                                 <div className={styles.errors.button} onClick={() => alertError()}>
-                                    {code.error}
+                                    {error.statusText || error.message || "An error has occurred."}
                                 </div>
                             </> : <>
                                 We tried our best looking for what you requested <br /> but we couldn't find anything!

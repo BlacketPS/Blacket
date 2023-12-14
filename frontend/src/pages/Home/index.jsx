@@ -4,8 +4,6 @@ import styles from "@styles";
 import Background from "@components/Background";
 
 export default function Home() {
-    document.title = config.name;
-
     return (
         <>
             <div className={styles.home.headerContainer}>
@@ -23,7 +21,7 @@ export default function Home() {
                     <div className={styles.home.welcomeText}>
                         {config.welcome && config.welcome.split(" ").map((word, i) => (<div key={i}>{word}</div>))}
                     </div>
-                    <div className={styles.home.welcomeDesc}>
+                    <div className={styles.home.welcomeDescription}>
                         {config.description && config.description.split(",").map((word, i) => (<div key={i}>{word}</div>))}
                     </div>
 

@@ -1,6 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
+// BACKEND
+const backend = "http://localhost:3000";
+
 export default defineConfig({
     plugins: [react()],
     resolve: {
@@ -9,6 +12,15 @@ export default defineConfig({
             "@styles": "/src/styles",
             "@components": "/src/components",
             "@stores": "/src/stores"
+        }
+    },
+    server: {
+        proxy: {
+            "/api": {
+                target: backend,
+                changeOrigin: true,
+                ws: true
+            }
         }
     },
     css: {
