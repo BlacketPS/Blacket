@@ -1,11 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import dotenv from "dotenv";
 
-// BACKEND
-const backend = "http://localhost:3000";
+dotenv.config({ path: "../.env" });
 
 export default defineConfig({
     plugins: [react()],
+    define: {
+        "import.meta.env": Object.fromEntries(Object.entries(process.env).map(([key, value]) => [`VITE_${key}`, value]))
+    },
     resolve: {
         alias: {
             "@pages": "/src/pages",
@@ -17,7 +20,7 @@ export default defineConfig({
     server: {
         proxy: {
             "/api": {
-                target: backend,
+                target: process.env.VITE_BACKEND_URL,
                 changeOrigin: true,
                 ws: true
             }

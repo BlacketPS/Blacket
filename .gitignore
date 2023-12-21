@@ -8,7 +8,6 @@ lerna-debug.log*
 
 node_modules
 package-lock.json
-public
 dist
 dist-ssr
 *.local
@@ -26,3 +25,5 @@ config.json
 *.njsproj
 *.sln
 *.sw?
+
+./backend/public

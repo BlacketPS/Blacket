@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "@styles/index";
 import Background from "@components/Background";
-import Header from "@components/Header";
+import { Header } from "@components/Header";
 import Input from "@components/Authentication/Input";
 import Modal from "@components/Modal";
 import Loader from "@components/Loader";
 
 export default function Authentication({ type }) {
+    document.title = `${type} | ${import.meta.env.VITE_INFORMATION_NAME}`;
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [checked, setChecked] = useState(false);
