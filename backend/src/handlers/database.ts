@@ -1,24 +1,32 @@
 import { Sequelize } from "sequelize";
+import console from "@functions/internal/console";
 
-type Dialects = "mysql" | "postgres" | "sqlite" | "mariadb" | "mssql";
+const env = {
+    dialect: process.env.SERVER_DATABASE_DIALECT as "mysql" | "postgres" | "sqlite" | "mariadb" | "mssql" | "oracle",
+    host: process.env.SERVER_DATABASE_HOST,
+    port: process.env.SERVER_DATABASE_PORT === "null" ? undefined : parseInt(process.env.SERVER_DATABASE_PORT as string),
+    username: process.env.SERVER_DATABASE_USERNAME,
+    password: process.env.SERVER_DATABASE_PASSWORD,
+    database: process.env.SERVER_DATABASE_NAME
+}
 
 export default async () => {
-    if (!process.env.DATABASE_DIALECT) {
-        console.error("No database dialect was specified in the environment file.")
-        process.exit(1);
-    }
+    if (env.dialect !== "sqlite") console.info(`Authenticating to database ${env.database}...`);
+    else console.info("Authenticating to SQLite database...");
 
-    if (process.env.DATABASE_DIALECT === "sqlite") global.database = new Sequelize({
+    const database = env.dialect === "sqlite" ? new Sequelize({
         dialect: "sqlite",
-        storage: "./database.sqlite",
+        storage: "./database.sql",
         logging: false
-    });
-    else global.database = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {
-        host: process.env.DATABASE_HOST,
-        port: process.env.DATABASE_PORT === "null" ? null : process.env.DATABASE_PORT,
-        dialect: process.env.DATABASE_DIALECT,
+    }) : new Sequelize(env.database as string, env.username as string, env.password, {
+        host: env.host,
+        port: env.port,
+        dialect: env.dialect,
         logging: false
     });
 
-    await database.authenticate().then(() => console.success("Successfully connected to database.")).catch((error) => console.error(`Failed to connect to database: ${error}`) & process.exit(1));
+    await database.authenticate().then(() => {
+        if (env.dialect !== "sqlite") console.success(`Authenticated with database ${env.database}.`);
+        else console.success("Authenticated with SQLite database.");
+    });
 }

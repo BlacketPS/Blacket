@@ -12,4 +12,8 @@ console.info(`[Blacket] Running Blacket v${import.meta.env.VITE_INFORMATION_VERS
 import { createRoot } from "react-dom/client";
 import App from "./App";
 
+import axios from "axios";
+
+window.axios = axios;
+
 createRoot(document.getElementById("app")).render(<App />);

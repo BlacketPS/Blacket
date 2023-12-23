@@ -26,4 +26,4 @@ config.json
 *.sln
 *.sw?
 
-./backend/public
+backend/public
