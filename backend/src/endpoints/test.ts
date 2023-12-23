@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
 export default {
-    method: "get",
+    method: "post",
     handler: (req: Request, res: Response) => {
-        res.status(200).json("kit");
+        res.json(req.body);
     }
 }

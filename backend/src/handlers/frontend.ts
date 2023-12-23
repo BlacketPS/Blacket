@@ -14,6 +14,7 @@ export default (app: Application) => {
 
         app.use(express.static(path.dirname(fileURLToPath(import.meta.url)) + "/../../public"));
 
+        // this is a catch all route that sends the index.html file if the path is not an api route or a file
         app.get("/*", (req: Request, res: Response, next: NextFunction) => {
             if (req.path.startsWith("/api")) return next();
             if (/\.[^/]+$/.test(req.path)) return next();

@@ -10,15 +10,18 @@ export default async (app: Application) => {
     for (const file of walk("./src/endpoints")) {
         if (!file.endsWith(".ts")) continue;
 
-        // slice 4 off the file because we cant have ./src in the import
+        // slice off ./src from the file because for some reason it breaks everything
         const endpoint = (await import(`../${file.slice(4)}`)).default;
         const path = `/${file.slice(4).replace("endpoints", "api").slice(0, -3)}`
 
         total++;
 
         // this line basically just checks if the method is valid its messy but it works
-        if (typeof (app[endpoint.method as keyof typeof app]) === 'function') (app[endpoint.method as keyof typeof app] as any)(path, (req: Request, res: Response) => {
-            console.log("test");
+        if (typeof (app[endpoint.method as keyof typeof app]) === "function") (app[endpoint.method as keyof typeof app] as any)(path, (req: Request, res: Response) => {
+            if (!endpoint.handler) return res.status(501).json({ message: "This endpoint has not been implemented yet.", statusCode: 501 });
+            if (endpoint.disabled) return res.status(501).json({ message: "This endpoint has been disabled.", statusCode: 501 });
+
+            
 
             endpoint.handler(req, res);
         });

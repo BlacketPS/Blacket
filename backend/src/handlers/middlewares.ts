@@ -10,7 +10,7 @@ export default async (app: Application) => {
     for (const file of walk("./src/middlewares")) {
         if (!file.endsWith(".ts")) continue;
 
-        // slice 4 because we cant have ./src in the import
+        // slice off ./src from the file because for some reason it breaks everything
         import(`../${file.slice(4)}`).then((module) => module.default).then((middleware) => app.use(middleware));
 
         total++;
