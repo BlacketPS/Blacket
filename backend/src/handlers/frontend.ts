@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import console from "@functions/internal/console";
@@ -14,7 +14,7 @@ export default (app: Application) => {
 
         app.use(express.static(path.dirname(fileURLToPath(import.meta.url)) + "/../../public"));
 
-        app.get("/*", (req, res, next) => {
+        app.get("/*", (req: Request, res: Response, next: NextFunction) => {
             if (req.path.startsWith("/api")) return next();
             if (/\.[^/]+$/.test(req.path)) return next();
             res.sendFile(path.resolve("./public/index.html"));

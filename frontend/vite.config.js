@@ -11,10 +11,11 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@pages": "/src/pages",
-            "@styles": "/src/styles",
             "@components": "/src/components",
-            "@stores": "/src/stores"
+            "@functions": "/src/functions",
+            "@pages": "/src/pages",
+            "@stores": "/src/stores",
+            "@styles": "/src/styles"
         }
     },
     server: {

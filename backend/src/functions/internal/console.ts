@@ -7,7 +7,7 @@ const console = {
     warn: (message: string) => process.stdout.write(`${chalk.yellow("[WARNING]")} ${message}\n`),
     error: (message: string) => process.stderr.write(`${chalk.red("[ERROR]")} ${message}\n`),
     success: (message: string) => process.stdout.write(`${chalk.green("[SUCCESS]")} ${message}\n`),
-    debug: (message: string) => process.stdout.write(`${chalk.magenta("[DEBUG]")} ${message}\n`)
+    debug: (message: string) => process.env.SERVER_VERBOSE_LOGGING === "true" && process.stdout.write(`${chalk.magenta("[DEBUG]")} ${message}\n`)
 };
 
 export default console;
