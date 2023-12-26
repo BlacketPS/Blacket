@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Background from "@components/Background";
 import Sidebar from "@components/Sidebar";
 import Modal from "@components/Modal";
@@ -8,10 +8,6 @@ export default function Dashboard() {
     document.title = `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`;
 
     const [modalOpen, setModalOpen] = useState(false);
-
-    useEffect(() => {
-        throw new Error("This is an error");
-    }, []);
 
     return (
         <>

@@ -7,12 +7,12 @@ const originalConsole = window.console;
 
 window.console = {
     log: (message) => originalConsole.log(message),
-    info: (message) => originalConsole.info(`%c[INFO] %c${message}`, "color: #2081CE;", ""),
-    notice: (message) => originalConsole.info(`%c[NOTICE] %c${message}`, "color: #E5E510;", ""),
-    warn: (message) => originalConsole.warn(`%c[WARNING] %c${message}`, "color: #E5E510;", ""),
-    error: (message) => originalConsole.error(`%c[ERROR] %c${message}`, "color: #FF5A57;", ""),
-    success: (message) => originalConsole.info(`%c[SUCCESS] %c${message}`, "color: #06BC79;", ""),
-    debug: (message) => originalConsole.debug(`%c[VERBOSE] %c${message}`, "color: #923FBC;", "")
+    info: (message) => originalConsole.info(`%c[INFO] %c${message}`, "color: #2081ce;", ""),
+    notice: (message) => originalConsole.info(`%c[NOTICE] %c${message}`, "color: #e5e510;", ""),
+    warn: (message) => originalConsole.warn(`%c[WARNING] %c${message}`, "color: #e5e510;", ""),
+    error: (message) => originalConsole.error(`%c[ERROR] %c${message}`, "color: #ff5a57;", ""),
+    success: (message) => originalConsole.info(`%c[SUCCESS] %c${message}`, "color: #06bc79;", ""),
+    debug: (message) => originalConsole.debug(`%c[VERBOSE] %c${message}`, "color: #923fbc;", "")
 }
 
 console.info(`Running Blacket v${import.meta.env.VITE_INFORMATION_VERSION}`);

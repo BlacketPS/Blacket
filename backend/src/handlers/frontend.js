@@ -1,10 +1,10 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import console from "@functions/internal/console";
+import console from "../functions/internal/console.js";
 
-export default (app: Application) => {
-    if (!["static", "proxy", "development"].includes(process.env.SERVER_FRONTEND_TYPE as string)) {
+export default (app) => {
+    if (!["static", "proxy", "development"].includes(process.env.SERVER_FRONTEND_TYPE)) {
         console.error(`Frontend configuration must be type of "static", "proxy" or "development".`);
         process.exit(1);
     }
@@ -15,7 +15,7 @@ export default (app: Application) => {
         app.use(express.static(path.dirname(fileURLToPath(import.meta.url)) + "/../../public"));
 
         // this is a catch all route that sends the index.html file if the path is not an api route or a file
-        app.get("/*", (req: Request, res: Response, next: NextFunction) => {
+        app.get("/*", (req, res, next) => {
             if (req.path.startsWith("/api")) return next();
             if (/\.[^/]+$/.test(req.path)) return next();
             res.sendFile(path.resolve("./public/index.html"));

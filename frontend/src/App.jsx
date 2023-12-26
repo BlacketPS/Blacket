@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import stores from "@stores";
 import pages from "@pages";
 
 const router = createBrowserRouter([
@@ -35,5 +36,9 @@ export default function App() {
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return <RouterProvider router={router} />
+    else return (
+        <stores.LoadingStoreProvider>
+            <RouterProvider router={router} />
+        </stores.LoadingStoreProvider>
+    )
 }

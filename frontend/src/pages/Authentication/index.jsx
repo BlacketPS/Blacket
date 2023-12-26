@@ -1,27 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LoadingStoreContext } from "@stores/LoadingStore";
 import { Link } from "react-router-dom";
 import styles from "@styles/index";
 import Background from "@components/Background";
 import { Header } from "@components/Header";
 import Input from "@components/Authentication/Input";
-import Modal from "@components/Modal";
-import Loader from "@components/Loader";
 
 export default function Authentication({ type }) {
     document.title = `${type} | ${import.meta.env.VITE_INFORMATION_NAME}`;
 
+    const { setLoading } = useContext(LoadingStoreContext);
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [checked, setChecked] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const login = async () => {
-        setLoading(true);
+        setLoading("Logging in");
     }
 
     const register = async () => {
-        setLoading(true);
+        setLoading("Registering");
     }
 
     return (
@@ -80,10 +80,6 @@ export default function Authentication({ type }) {
                     </div>}
                 </div>
             </div>
-
-            {loading && <Modal>
-                <Loader message={type === "Login" ? "Logging in..." : "Registering..."} />
-            </Modal>}
         </>
     )
 }   

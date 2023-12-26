@@ -1,12 +1,10 @@
 import all from "./all.module.scss";
-import loading from "./loading.module.scss";
 import errors from "./errors.module.scss";
 import home from "./home.module.scss";
 import authentication from "./authentication.module.scss";
 
 export default {
     all,
-    loading,
     errors,
     home,
     authentication

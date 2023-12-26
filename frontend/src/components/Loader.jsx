@@ -6,11 +6,13 @@ export default function Loader({ style, image, message }) {
 
     return (
         <>
-            <div className={styles.all.loader} style={style}>
-                <div className={styles.all.loaderShadow} />
-                <img className={styles.all.loaderBlook} src={image} draggable={false} />
+            <div className={styles.all.loadingModal}>
+                <div className={styles.all.loader} style={style}>
+                    <div className={styles.all.loaderShadow} />
+                    <img className={styles.all.loaderBlook} src={image} draggable={false} />
+                </div>
+                {message && <div className={styles.all.loaderMessage}>{message}</div>}
             </div>
-            {message && <div className={styles.all.loaderMessage}>{message}</div>}
         </>
     );
 }
