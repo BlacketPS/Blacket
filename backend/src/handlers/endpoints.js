@@ -16,8 +16,8 @@ export default async (app) => {
         total++;
 
         if (app[endpoint.method]) app[endpoint.method](path, (req, res) => {
-            if (!endpoint.handler) return res.status(501).json({ message: "This endpoint has not been implemented yet.", statusCode: 501 });
-            if (endpoint.disabled) return res.status(501).json({ message: "This endpoint has been disabled.", statusCode: 501 });
+            if (!endpoint.handler) return res.status(501).json({ message: "This endpoint has not been implemented yet." });
+            if (endpoint.disabled) return res.status(501).json({ message: "This endpoint has been disabled." });
 
             endpoint.handler(req, res);
         });
@@ -26,7 +26,7 @@ export default async (app) => {
         console.debug(`Registered endpoint ${endpoint.method.toUpperCase()} ${path} from ./${file.slice(4)}`);
     }
 
-    app.get("/api", (_, res) => res.status(200).json("OK"));
+    app.get("/api", (_, res) => res.status(200).json({ message: "OK" }));
 
     console.success(`Loaded ${total} endpoint(s).`);
 }

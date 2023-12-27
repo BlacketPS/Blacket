@@ -1,7 +1,18 @@
 import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import stores from "@stores";
 import pages from "@pages";
+
+import Stores from "@components/Stores";
+import { getBlooks } from "@stores/BlookStore";
+import { getRarities } from "@stores/RarityStore";
+import { getPacks } from "@stores/PackStore";
+import { getItems } from "@stores/ItemStore";
+import { getTitles } from "@stores/TitleStore";
+import { getBanners } from "@stores/BannerStore";
+import { getBadges } from "@stores/BadgeStore";
+import { getEmojis } from "@stores/EmojiStore";
+import { getNews } from "@stores/NewsStore";
+import { getCredits } from "@stores/CreditsStore";
 
 const router = createBrowserRouter([
     {
@@ -18,27 +29,36 @@ const router = createBrowserRouter([
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
-    const [message, setMessage] = useState("configuration");
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
-        /*fetch("/api").then(res => {
-            if (res.status === 200) setLoaded(true);
-            else if (res.status === 403) setMessage(res.text());
-            else setLoaded(1);
-        }).catch(() => setLoaded(1));
-        setTimeout(() => { setMessage("blooks") }, 500);
-        setTimeout(() => { setMessage("packs") }, 633);
-        setTimeout(() => { setMessage("rarities") }, 866);
-        setTimeout(() => { setLoaded(true) }, 1000);*/
-        setLoaded(true);
+        const fetchData = async () => {
+            await fetch("/api").then(res => {
+                if (res.status === 403) return setLoaded(res.data.message);
+            }).catch(err => {
+                console.error(err);
+                return setLoaded(1);
+            });
+
+            setMessage("blooks"); if ((await getBlooks()) instanceof Error) return setLoaded(1);
+            setMessage("rarities"); if ((await getRarities()) instanceof Error) return setLoaded(1);
+            setMessage("packs"); if ((await getPacks()) instanceof Error) return setLoaded(1);
+            setMessage("items"); if ((await getItems()) instanceof Error) return setLoaded(1);
+            setMessage("titles"); if ((await getTitles()) instanceof Error) return setLoaded(1);
+            setMessage("banners"); if ((await getBanners()) instanceof Error) return setLoaded(1);
+            setMessage("badges"); if ((await getBadges()) instanceof Error) return setLoaded(1);
+            setMessage("emojis"); if ((await getEmojis()) instanceof Error) return setLoaded(1);
+            setMessage("news"); if ((await getNews()) instanceof Error) return setLoaded(1);
+            setMessage("credits"); if ((await getCredits()) instanceof Error) return setLoaded(1);
+
+            setLoaded(true);
+        }
+
+        fetchData();
     }, []);
 
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return (
-        <stores.LoadingStoreProvider>
-            <RouterProvider router={router} />
-        </stores.LoadingStoreProvider>
-    )
+    else return <Stores><RouterProvider router={router} /></Stores>;
 }
