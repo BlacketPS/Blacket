@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import console from "../functions/internal/console.js";
+import console from "#functions/internal/console.js";
 
 export default (app) => {
     if (!["static", "proxy", "development"].includes(process.env.SERVER_FRONTEND_TYPE)) {

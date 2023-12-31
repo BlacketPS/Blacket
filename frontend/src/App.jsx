@@ -11,8 +11,6 @@ import { getTitles } from "@stores/TitleStore";
 import { getBanners } from "@stores/BannerStore";
 import { getBadges } from "@stores/BadgeStore";
 import { getEmojis } from "@stores/EmojiStore";
-import { getNews } from "@stores/NewsStore";
-import { getCredits } from "@stores/CreditsStore";
 
 const router = createBrowserRouter([
     {
@@ -29,7 +27,7 @@ const router = createBrowserRouter([
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("server status");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,8 +46,6 @@ export default function App() {
             setMessage("banners"); if ((await getBanners()) instanceof Error) return setLoaded(1);
             setMessage("badges"); if ((await getBadges()) instanceof Error) return setLoaded(1);
             setMessage("emojis"); if ((await getEmojis()) instanceof Error) return setLoaded(1);
-            setMessage("news"); if ((await getNews()) instanceof Error) return setLoaded(1);
-            setMessage("credits"); if ((await getCredits()) instanceof Error) return setLoaded(1);
 
             setLoaded(true);
         }
@@ -57,6 +53,7 @@ export default function App() {
         fetchData();
     }, []);
 
+    // check what loaded is, if its a string the user is blacklisted and if its 1 the server is under maintenance
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;

@@ -1,7 +1,7 @@
 const start = Date.now();
-await import("dotenv").then(({ config }) => config({ path: "../.env" }));
+await import("dotenv").then(({ config }) => config({ path: "../../.env" }));
 import express from "express";
-import console from "./functions/internal/console.js";
+import console from "#functions/internal/console.js";
 
 console.info("Starting Blacket server instance...");
 
