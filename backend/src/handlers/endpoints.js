@@ -10,13 +10,15 @@ export default async (app) => {
         if (!file.endsWith(".js")) continue;
 
         const endpoint = (await import(`../${file}`)).default;
-        const path = `/${file.replace("endpoints", "api").slice(0, -3)}`
+        const path = endpoint.path ? `/api${endpoint.path}` : `/api${file.replace("endpoints", "").slice(0, -3)}`;
 
         total++;
 
         if (app[endpoint.method]) app[endpoint.method](path, (req, res) => {
-            if (!endpoint.handler) return res.status(501).json({ message: "This endpoint has not been implemented yet." });
-            if (endpoint.disabled) return res.status(501).json({ message: "This endpoint has been disabled." });
+            if (!endpoint.endpoint) return res.status(501).json({ message: "This endpoint has not been implemented yet." });
+            if (endpoint?.options?.disabled) return res.status(501).json({ message: "This endpoint has been disabled." });
+            
+            
 
             endpoint.handler(req, res);
         });

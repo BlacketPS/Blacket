@@ -8,6 +8,6 @@ const console = {
     error: (message) => process.stderr.write(`${chalk.red("[ERROR]")} ${message}\n`),
     success: (message) => process.stdout.write(`${chalk.green("[SUCCESS]")} ${message}\n`),
     debug: (message) => process.env.SERVER_VERBOSE_LOGGING === "true" && process.stdout.write(`${chalk.magenta("[VERBOSE]")} ${message}\n`)
-};
+}
 
 export default console;

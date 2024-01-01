@@ -12,7 +12,7 @@ await (await import("./handlers/middlewares.js")).default(app);
 await (await import("./handlers/endpoints.js")).default(app);
 await (await import("./handlers/frontend.js")).default(app);
 
-app.listen(parseInt(process.env.SERVER_PORT), () => {
+app.listen(process.env.SERVER_PORT, () => {
     console.success(`A Blacket server instance has been successfully started on port ${process.env.SERVER_PORT}.`);
     console.debug(`Startup time: ${Date.now() - start}ms`);
     console.debug(`Process ID: ${process.pid}`);
