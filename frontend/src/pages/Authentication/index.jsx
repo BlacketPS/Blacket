@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
+import axios from "axios";
 import { LoadingStoreContext } from "@stores/LoadingStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "@styles/index";
 import Background from "@components/Background";
 import { Header } from "@components/Header";
@@ -16,12 +17,28 @@ export default function Authentication({ type }) {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(null);
 
+    const navigate = useNavigate();
+
     const login = async () => {
         setLoading("Logging in");
     }
 
     const register = async () => {
         setLoading("Registering");
+        axios.post("/api/auth/register", {
+            username,
+            password,
+            acceptedTerms: checked
+        }).then((res) => {
+            setLoading(false);
+            if (res.status !== 200) return setError(res.data.message);
+            localStorage.setItem("token", res.data.token);
+            navigate("/dashboard");
+        }).catch((err) => {
+            setLoading(false);
+            if (err.response) return setError(err.response.data.message);
+            else return setError("An error occurred while registering.");
+        });
     }
 
     return (

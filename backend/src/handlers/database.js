@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
-import console from "#functions/internal/console.js";
-import walk from "#functions/internal/walk.js";
+import console from "#functions/internal/console";
+import walk from "#functions/internal/walk";
 
 export default async () => await connect(`mongodb://localhost:27017/${process.env.SERVER_DATABASE}`).then(() => {
     console.success("Connected to MongoDB database.");

@@ -1,6 +1,6 @@
 import { urlencoded } from "express";
 
 export default {
-    priority: 998,
+    priority: 99,
     middleware: urlencoded({ extended: true })
 }

@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import pages from "@pages";
 
+import axios from "axios";
+axios.interceptors.request.use((config) => {
+    if (localStorage.getItem("token")) config.headers.Authorization = `${localStorage.getItem("token")}`;
+    return config;
+});
+
 import Stores from "@components/Stores";
 import { getBlooks } from "@stores/BlookStore";
 import { getRarities } from "@stores/RarityStore";

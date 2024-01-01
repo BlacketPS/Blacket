@@ -1,5 +1,5 @@
-import walk from "#functions/internal/walk.js";
-import console from "#functions/internal/console.js";
+import walk from "#functions/internal/walk";
+import console from "#functions/internal/console";
 
 export default async (app) => {
     console.info("Loading middlewares...");
