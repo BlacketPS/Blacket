@@ -1,9 +1,9 @@
-import User from "#models/User";
+/*import User from "#models/User";
 import UserSetting from "#models/UserSetting";
 import UserStatistic from "#models/UserStatistic";
 import Session from "#models/Session";
 
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";*/
 
 export default {
     method: "post",
@@ -24,7 +24,7 @@ export default {
         }
     },
     endpoint: async (req, res) => {
-        if (req.session) return res.status(403).json({ message: "You are already logged in." });
+        /*if (req.session) return res.status(403).json({ message: "You are already logged in." });
 
         const { username, password, acceptedTerms } = req.body;
 
@@ -38,6 +38,6 @@ export default {
 
         const session = await new Session({ user: user._id }).save();
 
-        res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });
+        res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });*/
     }
 }

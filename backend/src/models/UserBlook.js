@@ -1,32 +1,49 @@
-import { model, Schema } from "mongoose";
+import { DataTypes } from "sequelize";
 
-export default model("UserBlook", new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+export default {
+    name: "UserBlook",
+    attributes: {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            defaultValue: () => (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString()
+        },
+        user: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id"
+            }
+        },
+        blook: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "blooks",
+                key: "id"
+            }
+        },
+        sold: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        ownedBy: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id"
+            }
+        },
+        obtainedBy: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: "unknown"
+        }
     },
-    badge: {
-        type: Schema.Types.ObjectId,
-        ref: "Badge",
-        required: true
-    },
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
-    },
-    obtainedBy: {
-        type: String,
-        required: true,
-        default: "unknown"
-    },
-    originallyObtainedBy: {
-        type: String,
-        required: true,
-        default: "unknown"
+    options: {
+        tableName: "user_blooks"
     }
-}, {
-    timeStamps: true,
-    versionKey: false
-}));
+}

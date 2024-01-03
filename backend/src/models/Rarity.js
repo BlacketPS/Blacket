@@ -1,30 +1,40 @@
-import { model, Schema } from "mongoose";
+import { DataTypes } from "sequelize";
 
-export default model("Rarity", new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
+export default {
+    name: "Rarity",
+    attributes: {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            defaultValue: () => (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString()
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        color: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        packOpeningAnimation: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isIn: [["uncommon", "rare", "epic", "legendary", "chroma"]]
+            }
+        },
+        experience: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        extraWaitingTime: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        }
     },
-    color: {
-        type: String,
-        required: true
-    },
-    packOpeningAnimation: {
-        type: String,
-        required: true,
-        enum: ["uncommon", "rare", "epic", "legendary", "chroma"]
-    },
-    experience: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    waitTime: {
-        type: Number,
-        required: true,
-        default: 0
+    options: {
+        indexes: [{ unique: true, fields: ["name"] }],
+        tableName: "rarities"
     }
-}, {
-    versionKey: false
-}));
+}

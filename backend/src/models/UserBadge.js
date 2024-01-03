@@ -1,22 +1,39 @@
-import { model, Schema } from "mongoose";
+import { DataTypes } from "sequelize";
 
-export default model("UserBadge", new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+export default {
+    name: "UserBadge",
+    attributes: {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            defaultValue: () => (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString()
+        },
+        user: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id"
+            }
+        },
+        badge: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "badges",
+                key: "id"
+            }
+        },
+        grantedBy: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id"
+            }
+        }
     },
-    badge: {
-        type: Schema.Types.ObjectId,
-        ref: "Badge",
-        required: true
-    },
-    grantedBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+    options: {
+        tableName: "user_badges"
     }
-}, {
-    timestamps: true,
-    versionKey: false
-}));
+}

@@ -1,66 +1,70 @@
-import { model, Schema } from "mongoose";
+import { DataTypes } from "sequelize";
 
-export default model("User", new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
+export default {
+    name: "User",
+    attributes: {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            defaultValue: () => (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString()
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        avatar: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        banner: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        title: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "Common"
+        },
+        font: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        color: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            defaultValue: "#ffffff"
+        },
+        tokens: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
+        },
+        experience: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
+        },
+        permissions: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+            defaultValue: 0
+        },
+        modifiedAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
+        ipAddress: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
     },
-    password: {
-        type: String,
-        required: true
-    },
-    avatar: {
-        type: String,
-        required: false
-    },
-    banner: {
-        type: String,
-        required: false
-    },
-    title: {
-        type: String,
-        required: true,
-        default: "Common"
-    },
-    font: {
-        type: String,
-        required: false
-    },
-    color: {
-        type: String,
-        required: true,
-        default: "#ffffff"
-    },
-    tokens: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    experience: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    permissions: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    modifiedAt: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    ipAddress: {
-        type: String,
-        required: true
+    options: {
+        indexes: [{ unique: true, fields: ["username"] }],
+        tableName: "users"
     }
-}, {
-    versionKey: false
-}));
+}

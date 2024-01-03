@@ -1,10 +1,7 @@
-import { Types } from "mongoose";
-import Session from "#models/Session";
-
 export default {
     priority: 98,
     middleware: async (req, _, next) => {
-        if (!req.headers.authorization) return next();
+        /*if (!req.headers.authorization) return next();
 
         let token = Buffer.from(req.headers.authorization, "base64").toString("utf8");
         if (typeof token !== "string") return next();
@@ -30,7 +27,7 @@ export default {
             user: session.user,
             date: session.date
         }
-
+*/
         next();
     }
 }
