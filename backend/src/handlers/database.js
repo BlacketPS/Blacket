@@ -1,42 +1,3 @@
-/*import { Sequelize } from "sequelize";
-import console from "#functions/internal/console";
-import walk from "#functions/internal/walk";
-
-export default async () => {
-    console.info("Attempting to connect to MySQL database...");
-
-    global.database = new Sequelize(process.env.SERVER_DATABASE_NAME, process.env.SERVER_DATABASE_USERNAME, process.env.SERVER_DATABASE_PASSWORD, {
-        host: process.env.SERVER_DATABASE_HOST,
-        port: process.env.SERVER_DATABASE_PORT,
-        dialect: "mysql",
-        logging: false
-    });
-
-    await global.database.authenticate().then(() => console.success("Connected to MySQL database.")).catch((error) => {
-        console.error(`Failed to connect to MySQL database. ${error}`);
-        process.exit(1);
-    });
-
-    let total = 0;
-
-    for (const file of walk("./models")) {
-        if (!file.endsWith(".js")) continue;
-
-        global.database.define(model.name, model.attributes, {
-            ...model.options,
-            timestamps: false
-        });
-
-        total++;
-
-        console.debug(`Registered model ./${file}`);
-    }
-
-    await global.database.sync({ alter: true });
-
-    console.success(`Loaded ${total} model(s).`);
-}*/
-
 import { Sequelize } from "sequelize";
 import walk from "#functions/internal/walk";
 import console from "#functions/internal/console";
@@ -44,7 +5,7 @@ import console from "#functions/internal/console";
 const env = {
     dialect: process.env.SERVER_DATABASE_DIALECT,
     host: process.env.SERVER_DATABASE_HOST,
-    port: process.env.SERVER_DATABASE_PORT === "null" ? undefined : parseInt(process.env.SERVER_DATABASE_PORT),
+    port: process.env.SERVER_DATABASE_PORT,
     username: process.env.SERVER_DATABASE_USERNAME,
     password: process.env.SERVER_DATABASE_PASSWORD,
     database: process.env.SERVER_DATABASE_NAME
@@ -62,7 +23,7 @@ export default async () => {
         dialect: "mysql",
         host: env.host,
         port: env.port,
-        logging: true
+        logging: false
     });
 
     await global.database.authenticate().then(() => {
@@ -95,10 +56,18 @@ export default async () => {
     }
 
     for (const model of models) {
-        if (model.relations) for (const relation of model.relations) global.database.models[model.name][relation.type](global.database.models[relation.model], relation.options);
+        if (model.relations) for (const relation of model.relations) {
+            global.database.models[model.name][relation.type](global.database.models[relation.model], relation.options);
+
+            console.debug(`Registered database relation ${model.name}.${relation.type}(${relation.model})`);
+        }
     }
 
+    console.info("Syncing database models...");
+
     await global.database.sync({ alter: true });
+
+    console.success("Synced database models.");
 
     console.success(`Loaded ${total} database model(s).`);
 }

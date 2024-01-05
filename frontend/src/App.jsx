@@ -8,6 +8,8 @@ axios.interceptors.request.use((config) => {
     return config;
 });
 
+window.axios = axios;
+
 import Stores from "@components/Stores";
 import { getBlooks } from "@stores/BlookStore";
 import { getRarities } from "@stores/RarityStore";

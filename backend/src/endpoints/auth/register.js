@@ -1,9 +1,4 @@
-/*import User from "#models/User";
-import UserSetting from "#models/UserSetting";
-import UserStatistic from "#models/UserStatistic";
-import Session from "#models/Session";
-
-import bcrypt from "bcrypt";*/
+import bcrypt from "bcrypt";
 
 export default {
     method: "post",
@@ -24,20 +19,22 @@ export default {
         }
     },
     endpoint: async (req, res) => {
-        /*if (req.session) return res.status(403).json({ message: "You are already logged in." });
+        if (req.session) return res.status(403).json({ message: "You are already logged in." });
 
         const { username, password, acceptedTerms } = req.body;
 
         if (!acceptedTerms) return res.status(400).json({ message: "You must accept the terms of service." });
 
-        if (await User.exists({ username })) return res.status(400).json({ message: "This username is already taken." });
+        if (await global.database.models.User.findOne({
+            where: { username }
+        })) return res.status(400).json({ message: "The username you entered is already in use. Please try another username." });
 
-        const user = await new User({ username, password: await bcrypt.hash(password, 10), ipAddress: req.ip }).save();
-        await new UserSetting({ user: user._id }).save();
-        await new UserStatistic({ user: user._id }).save();
+        const user = await new global.database.models.User({ username, password: await bcrypt.hash(password, 10), ipAddress: req.ip }).save();
+        await new global.database.models.UserSetting({ user: user.id }).save();
+        await new global.database.models.UserStatistic({ user: user.id }).save();
 
-        const session = await new Session({ user: user._id }).save();
+        const session = await new global.database.models.Session({ user: user.id }).save();
 
-        res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });*/
+        res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });
     }
 }

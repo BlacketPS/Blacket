@@ -1,10 +1,11 @@
 import { DataTypes } from "sequelize";
 
 export default {
-    name: "Rarity",
+    name: "Pack",
     attributes: {
         id: {
             type: DataTypes.STRING,
+            allowNull: false,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
@@ -12,34 +13,36 @@ export default {
             type: DataTypes.STRING,
             allowNull: false
         },
-        color: {
-            type: DataTypes.STRING,
+        price: {
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
-        packOpeningAnimation: {
+        innerColor: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [["uncommon", "rare", "epic", "legendary", "chroma"]]
+                is: /^#([0-9a-f]{3}){1,2}$/i
             }
         },
-        experience: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        extraWaitingTime: {
-            type: DataTypes.INTEGER,
+        outerColor: {
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 0
+            validate: {
+                is: /^#([0-9a-f]{3}){1,2}$/i
+            }
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         createdAt: {
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: DataTypes.NOW
+            defaultValue: DataTypes.NOW 
         }
     },
     options: {
         indexes: [{ unique: true, fields: ["name"] }],
-        tableName: "rarities"
+        tableName: "packs"
     }
 }

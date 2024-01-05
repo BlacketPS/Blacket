@@ -1,36 +1,40 @@
 import { DataTypes } from "sequelize";
 
 export default {
-    name: "Rarity",
+    name: "Auction",
     attributes: {
         id: {
             type: DataTypes.STRING,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        name: {
+        item: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        color: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        packOpeningAnimation: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isIn: [["uncommon", "rare", "epic", "legendary", "chroma"]]
+            allowNull: true,
+            references: {
+                model: "items",
+                key: "id"
             }
         },
-        experience: {
-            type: DataTypes.INTEGER,
+        blook: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            references: {
+                model: "blooks",
+                key: "id"
+            }
+        },
+        price: {
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
-        extraWaitingTime: {
-            type: DataTypes.INTEGER,
+        seller: {
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 0
+            references: {
+                model: "users",
+                key: "id"
+            }
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -39,7 +43,6 @@ export default {
         }
     },
     options: {
-        indexes: [{ unique: true, fields: ["name"] }],
-        tableName: "rarities"
+        tableName: "auctions"
     }
 }

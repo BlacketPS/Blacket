@@ -21,6 +21,19 @@ export default function Authentication({ type }) {
 
     const login = async () => {
         setLoading("Logging in");
+        axios.post("/api/auth/login", {
+            username,
+            password
+        }).then((res) => {
+            setLoading(false);
+            if (res.status !== 200) return setError(res.data.message);
+            localStorage.setItem("token", res.data.token);
+            navigate("/dashboard");
+        }).catch((err) => {
+            setLoading(false);
+            if (err.response) return setError(err.response.data.message);
+            else return setError("An error occurred while logging in.");
+        });
     }
 
     const register = async () => {

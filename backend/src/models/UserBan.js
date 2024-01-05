@@ -1,12 +1,16 @@
 import { DataTypes } from "sequelize";
 
 export default {
-    name: "Session",
+    name: "UserBan",
     attributes: {
-        id: {
+        punishment: {
             type: DataTypes.STRING,
+            allowNull: false,
             primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            references: {
+                model: "user_punishments",
+                key: "id"
+            }
         },
         user: {
             type: DataTypes.STRING,
@@ -15,18 +19,21 @@ export default {
                 model: "users",
                 key: "id"
             }
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
         }
     },
     options: {
         indexes: [{ unique: true, fields: ["user"] }],
-        tableName: "sessions"
+        tableName: "user_bans"
     },
     relations: [
+        {
+            type: "belongsTo",
+            model: "UserPunishment",
+            options: {
+                foreignKey: "punishment",
+                as: "punishmentData"
+            }
+        },
         {
             type: "belongsTo",
             model: "User",

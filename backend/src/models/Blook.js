@@ -6,7 +6,7 @@ export default {
         id: {
             type: DataTypes.STRING,
             primaryKey: true,
-            defaultValue: () => (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString()
+            defaultValue: DataTypes.UUIDV4
         },
         name: {
             type: DataTypes.STRING,
@@ -22,7 +22,8 @@ export default {
         },
         price: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0
         },
         image: {
             type: DataTypes.STRING,
@@ -31,6 +32,11 @@ export default {
         background: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
         }
     },
     options: {

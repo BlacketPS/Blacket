@@ -36,7 +36,10 @@ export default {
         color: {
             type: DataTypes.TEXT,
             allowNull: false,
-            defaultValue: "#ffffff"
+            defaultValue: "#ffffff",
+            validate: {
+                is: /^#([0-9a-f]{3}){1,2}$/i
+            }
         },
         tokens: {
             type: DataTypes.DOUBLE,
@@ -52,6 +55,11 @@ export default {
             type: DataTypes.BIGINT,
             allowNull: false,
             defaultValue: 0
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
         },
         modifiedAt: {
             type: DataTypes.DATE,

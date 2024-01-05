@@ -24,10 +24,6 @@ export default async (app) => {
                 // TODO: permissions
             }
 
-            if (endpoint.middlewares) {
-                if (endpoint.middlewares.includes("user")) req.user = await User.findById(req.session.user).then(user => ({ ...user.toJSON(), id: user._id.toString() }));
-            }
-
             // TODO: ratelimits / cooldowns
 
             for (const key in endpoint.query) {
@@ -49,7 +45,7 @@ export default async (app) => {
         console.debug(`Registered endpoint ${endpoint.method.toUpperCase()} ${path} from ./${file}`);
     }
 
-    app.get("/api", (_, res) => res.status(200).json());
+    app.get("/api", (_, res) => res.status(204).json());
 
     console.success(`Loaded ${total} endpoint(s).`);
 }
