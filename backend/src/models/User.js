@@ -14,7 +14,7 @@ export default {
         },
         password: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         },
         avatar: {
             type: DataTypes.TEXT,
@@ -68,7 +68,7 @@ export default {
         },
         ipAddress: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         }
     },
     options: {

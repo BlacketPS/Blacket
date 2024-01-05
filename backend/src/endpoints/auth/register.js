@@ -23,6 +23,8 @@ export default {
 
         const { username, password, acceptedTerms } = req.body;
 
+        if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
+        
         if (!acceptedTerms) return res.status(400).json({ message: "You must accept the terms of service." });
 
         if (await global.database.models.User.findOne({

@@ -19,6 +19,8 @@ export default {
 
         const { username, password } = req.body;
 
+        if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
+
         const user = await global.database.models.User.findOne({ where: { username }, attributes: ["id", "password"] });
         if (!user) return res.status(400).json({
             message: "The username you entered doesn't belong to an account. Please check your username and try again."
