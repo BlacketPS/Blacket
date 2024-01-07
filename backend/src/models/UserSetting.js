@@ -24,9 +24,15 @@ export default {
                 isIn: [["on", "mutuals", "off"]]
             },
             defaultValue: "on"
+        },
+        otpSecret: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: null
         }
     },
     options: {
+        indexes: [{ unique: true, fields: ["user"] }],
         tableName: "user_settings"
     }
 }

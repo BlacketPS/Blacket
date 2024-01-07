@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import speakEasy from "speakeasy";
 
 export default {
     method: "post",
@@ -21,22 +22,28 @@ export default {
 
         if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
 
-        const user = await global.database.models.User.findOne({ where: { username }, attributes: ["id", "password"] });
+        const user = await global.database.models.User.findOne({
+            where: { username },
+            attributes: ["id", "password"],
+            include: [{
+                model: global.database.models.UserBan, as: "ban", attributes: ["punishment"], required: false,
+                include: [{ model: global.database.models.UserPunishment, as: "punishmentData", attributes: ["reason", "expiresAt"], required: false }]
+            }]
+        });
         if (!user) return res.status(400).json({
             message: "The username you entered doesn't belong to an account. Please check your username and try again."
         });
 
-        if (user.password !== null && !await bcrypt.compare(password, user.password)) return res.status(400).json({
+        if (user.password && !await bcrypt.compare(password, user.password)) return res.status(400).json({
             message: "Your password was incorrect. Please double-check your password."
         });
 
-        const ban = await global.database.models.UserBan.findOne({
-            where: { user: user.id }, include: [{ model: global.database.models.UserPunishment, as: "punishmentData", }]
+        
+
+        if (user.ban && user.ban.punishmentData.expiresAt > new Date()) return res.status(403).json({
+            message: `You are currently banned for ${user.ban.punishmentData.reason}. Your ban will expire <t:${Math.floor(user.ban.punishmentData.expiresAt.getTime() / 1000)}:R>. If you believe this is a mistake, please contact a staff member.`
         });
-        if (ban && ban.punishmentData.expiresAt > new Date()) return res.status(403).json({
-            message: `You are currently banned for ${ban.punishmentData.reason}. Your ban will expire <t:${Math.floor(ban.punishmentData.expiresAt.getTime() / 1000)}:R>. If you believe this is a mistake, please contact a staff member.`
-        });
-        else if (ban && ban.punishmentData.expiresAt < new Date()) await ban.destroy();
+        else if (user.ban && user.ban.punishmentData.expiresAt < new Date()) await user.ban.destroy();
 
         const session = await global.database.models.Session.upsert({ user: user.id }).then(session => session[0]);
         if (!session) return res.status(500).json({ message: "Something went wrong." });

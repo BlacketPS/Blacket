@@ -22,6 +22,7 @@ export default {
         }
     },
     options: {
+        indexes: [{unique: true, fields: ["pack"]}],
         tableName: "pack_blooks"
     },
     relations: [

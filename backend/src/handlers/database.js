@@ -23,7 +23,7 @@ export default async () => {
         dialect: "mysql",
         host: env.host,
         port: env.port,
-        logging: false
+        logging: true
     });
 
     await global.database.authenticate().then(() => {
@@ -63,13 +63,13 @@ export default async () => {
         }
     }
 
+    console.success(`Loaded ${total} database model(s).`);
+
     console.info("Syncing database models...");
 
     await global.database.sync({ alter: true });
 
     console.success("Synced database models.");
-
-    console.success(`Loaded ${total} database model(s).`);
 
     await global.database.models.User.findOrCreate({
         where: { username: process.env.VITE_INFORMATION_NAME },

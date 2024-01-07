@@ -74,5 +74,23 @@ export default {
     options: {
         indexes: [{ unique: true, fields: ["username"] }],
         tableName: "users"
-    }
+    },
+    relations: [
+        {
+            type: "hasOne",
+            model: "UserMute",
+            options: {
+                foreignKey: "user",
+                as: "mute"
+            }
+        },
+        {
+            type: "hasOne",
+            model: "UserBan",
+            options: {
+                foreignKey: "user",
+                as: "ban"
+            }
+        }
+    ]
 }

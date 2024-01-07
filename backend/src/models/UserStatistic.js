@@ -24,6 +24,7 @@ export default {
         }
     },
     options: {
+        indexes: [{ unique: true, fields: ["user"] }],
         tableName: "user_statistics"
     }
 }
