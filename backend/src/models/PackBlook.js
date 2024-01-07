@@ -23,5 +23,23 @@ export default {
     },
     options: {
         tableName: "pack_blooks"
-    }
+    },
+    relations: [
+        {
+            type: "belongsTo",
+            model: "Pack",
+            options: {
+                foreignKey: "pack",
+                as: "packData"
+            }
+        },
+        {
+            type: "belongsTo",
+            model: "Blook",
+            options: {
+                foreignKey: "blook",
+                as: "blookData"
+            }
+        }
+    ]
 }

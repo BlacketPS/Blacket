@@ -26,7 +26,7 @@ export default {
             message: "The username you entered doesn't belong to an account. Please check your username and try again."
         });
 
-        if (!await bcrypt.compare(password, user.password)) return res.status(400).json({
+        if (user.password !== null && !await bcrypt.compare(password, user.password)) return res.status(400).json({
             message: "Your password was incorrect. Please double-check your password."
         });
 

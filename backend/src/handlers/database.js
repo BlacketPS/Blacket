@@ -72,7 +72,9 @@ export default async () => {
     console.success(`Loaded ${total} database model(s).`);
 
     await global.database.models.User.findOrCreate({
-        where: { id: "0", username: process.env.VITE_INFORMATION_NAME },
+        where: { username: process.env.VITE_INFORMATION_NAME },
         defaults: { id: "0", username: process.env.VITE_INFORMATION_NAME, title: "System" }
     });
+    await global.database.models.UserSetting.findOrCreate({ where: { user: "0" }, defaults: { user: "0" } });
+    await global.database.models.UserStatistic.findOrCreate({ where: { user: "0" }, defaults: { user: "0" } });
 }
