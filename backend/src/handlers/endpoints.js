@@ -1,4 +1,3 @@
-import User from "#models/User";
 import walk from "#functions/internal/walk";
 import console from "#functions/internal/console";
 
@@ -20,11 +19,31 @@ export default async (app) => {
 
             if (endpoint.options) {
                 if (endpoint.options.disabled) return res.status(501).json({ message: "This endpoint has been disabled." });
-                if (endpoint.options.authentication && !req.session) return res.status(401).json({ message: "Unauthorized." });
+                if (endpoint.options.authRequired && !req.session) return res.status(401).json({ message: "Unauthorized." });
                 // TODO: permissions
             }
 
             // TODO: ratelimits / cooldowns
+
+            if (endpoint.middlewares) {
+                if (endpoint.middlewares.user && !Array.isArray(endpoint.middlewares.user)) return res.status(500).json({ message: "user middleware must be an array." });
+
+                if (endpoint.middlewares.user) {
+                    const includes = [];
+
+                    if (endpoint.middlewares.user.includes("badges")) includes.push({ model: global.database.models.UserBadge, attributes: { exclude: ["user"] }, as: "badges" });
+                    if (endpoint.middlewares.user.includes("settings")) includes.push({ model: global.database.models.UserSetting, attributes: { exclude: ["user"] }, as: "settings" });
+                    if (endpoint.middlewares.user.includes("statistics")) includes.push({ model: global.database.models.UserStatistic, attributes: { exclude: ["user"] }, as: "statistics" });
+
+                    req.user = await global.database.models.User.findOne({ where: { id: req.session.user }, include: includes });
+                }
+            }
+
+            for (const key in endpoint.params) {
+                if (endpoint.params[key].required && !req.params[key]) return res.status(400).json({ message: `${key} missing in path parameters.` });
+                if (endpoint.params[key].type && typeof req.params[key] !== endpoint.params[key].type) return res.status(400).json({ message: `${key} must be of typeof ${endpoint.params[key].type}.` });
+                if (endpoint.params[key].match && !endpoint.params[key].match.test(req.params[key])) return res.status(400).json({ message: `${key} must match ${endpoint.params[key].match}.` });
+            }
 
             for (const key in endpoint.query) {
                 if (endpoint.query[key].required && !req.query[key]) return res.status(400).json({ message: `${key} missing in query parameters.` });

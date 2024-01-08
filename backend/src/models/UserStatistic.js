@@ -26,5 +26,8 @@ export default {
     options: {
         indexes: [{ unique: true, fields: ["user"] }],
         tableName: "user_statistics"
-    }
+    },
+    relations: [
+        { type: "belongsTo", model: "User", options: { foreignKey: "user", as: "userData" } }
+    ]
 }

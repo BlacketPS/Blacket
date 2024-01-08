@@ -65,7 +65,7 @@ export default {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                is: /^#([0-9a-f]{3}){1,2}$/i
+                is: /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$|^rainbow$/
             }
         },
         createdAt: {

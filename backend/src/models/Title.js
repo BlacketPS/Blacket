@@ -36,13 +36,6 @@ export default {
         tableName: "titles"
     },
     relations: [
-        {
-            type: "belongsTo",
-            model: "Rarity",
-            options: {
-                foreignKey: "rarity",
-                as: "rarityData"
-            }
-        }
+        { type: "belongsTo", model: "Rarity", options: { foreignKey: "rarity", as: "rarityData" } }
     ]
 }

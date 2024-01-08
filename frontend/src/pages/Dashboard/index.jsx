@@ -1,13 +1,9 @@
-import { useState } from "react";
 import Background from "@components/Background";
 import Sidebar from "@components/Sidebar";
-import Modal from "@components/Modal";
 import styles from "@styles";
 
 export default function Dashboard() {
     document.title = `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`;
-
-    const [modalOpen, setModalOpen] = useState(false);
 
     return (
         <>
@@ -15,31 +11,21 @@ export default function Dashboard() {
 
             <Sidebar />
 
-            <button onClick={() => setModalOpen(true)} style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)"
-            }}>
-                Open modal
-            </button>
-
-            {modalOpen && <Modal>
-                <div className={styles.authentication.container}>
-                    <h1 className={styles.authentication.containerHeader}>Dashboard</h1>
-                    <div style={{
-                        color: "var(--accent-color)",
-                        fontSize: "30px"
-                    }}>
-                        Kit
-                        <div className={styles.authentication.button} onClick={() => {
-                            setModalOpen(false);
-                        }}>
-                            Okay
+            <div className={styles.all.sidebarBody}>
+                <div className={styles.dashboard.container}>
+                    <div className={styles.dashboard.top}>
+                        <div className={styles.dashboard.topLeft}>
+                            <div className={styles.dashboard.topLeftInside}>
+                                <div className={styles.dashboard.topLeftAvatarContainer}>
+                                    <div className={styles.dashboard.topLeftAvatarContainerInside}>
+                                        <img src="/content/blooks/Default.png" draggable={false} />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </Modal >}
+            </div>
         </>
     )
 }

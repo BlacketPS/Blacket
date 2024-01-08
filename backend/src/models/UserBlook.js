@@ -29,6 +29,11 @@ export default {
             allowNull: false,
             defaultValue: false
         },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
         ownedBy: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -45,5 +50,10 @@ export default {
     },
     options: {
         tableName: "user_blooks"
-    }
+    },
+    relations: [
+        { type: "belongsTo", model: "User", options: { foreignKey: "user", as: "userData" } },
+        { type: "belongsTo", model: "Blook", options: { foreignKey: "blook", as: "blookData" } },
+        { type: "belongsTo", model: "User", options: { foreignKey: "ownedBy", as: "ownedByData" } }
+    ]
 }

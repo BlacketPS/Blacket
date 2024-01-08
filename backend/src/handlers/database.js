@@ -23,7 +23,7 @@ export default async () => {
         dialect: "mysql",
         host: env.host,
         port: env.port,
-        logging: true
+        logging: false
     });
 
     await global.database.authenticate().then(() => {

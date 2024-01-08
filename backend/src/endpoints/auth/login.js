@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import createSession from "#functions/sessions/createSession";
 import speakEasy from "speakeasy";
 
 export default {
@@ -21,6 +22,7 @@ export default {
         const { username, password } = req.body;
 
         if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
+        if (username.toLowerCase() === "me") return res.status(400).json({ message: "That username is not allowed." });
 
         const user = await global.database.models.User.findOne({
             where: { username },
@@ -38,16 +40,15 @@ export default {
             message: "Your password was incorrect. Please double-check your password."
         });
 
-        
-
         if (user.ban && user.ban.punishmentData.expiresAt > new Date()) return res.status(403).json({
             message: `You are currently banned for ${user.ban.punishmentData.reason}. Your ban will expire <t:${Math.floor(user.ban.punishmentData.expiresAt.getTime() / 1000)}:R>. If you believe this is a mistake, please contact a staff member.`
         });
         else if (user.ban && user.ban.punishmentData.expiresAt < new Date()) await user.ban.destroy();
 
-        const session = await global.database.models.Session.upsert({ user: user.id }).then(session => session[0]);
-        if (!session) return res.status(500).json({ message: "Something went wrong." });
-
-        res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });
+        createSession(user.id).then(session => res.status(200).json({
+            token: Buffer.from(JSON.stringify(session)).toString("base64")
+        })).catch(() => res.status(500).json({
+            message: "Something went wrong."
+        }));
     }
 }

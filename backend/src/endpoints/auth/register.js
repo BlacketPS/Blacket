@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import createSession from "#functions/sessions/createSession";
 
 export default {
     method: "post",
@@ -24,7 +25,8 @@ export default {
         const { username, password, acceptedTerms } = req.body;
 
         if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
-        
+        if (username.toLowerCase() === "me") return res.status(400).json({ message: "That username is not allowed." });
+
         if (!acceptedTerms) return res.status(400).json({ message: "You must accept the terms of service." });
 
         if (await global.database.models.User.findOne({
@@ -35,8 +37,10 @@ export default {
         await new global.database.models.UserSetting({ user: user.id }).save();
         await new global.database.models.UserStatistic({ user: user.id }).save();
 
-        const session = await new global.database.models.Session({ user: user.id }).save();
-
-        res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });
+        createSession(user.id).then(session => res.status(200).json({
+            token: Buffer.from(JSON.stringify(session)).toString("base64")
+        })).catch(() => res.status(500).json({
+            message: "Something went wrong."
+        }));
     }
 }

@@ -27,13 +27,6 @@ export default {
         tableName: "sessions"
     },
     relations: [
-        {
-            type: "belongsTo",
-            model: "User",
-            options: {
-                foreignKey: "user",
-                as: "userData"
-            }
-        }
+        { type: "belongsTo", model: "User", options: { foreignKey: "user", as: "userData" } }
     ]
 }

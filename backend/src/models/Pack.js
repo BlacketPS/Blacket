@@ -21,14 +21,14 @@ export default {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                is: /^#([0-9a-f]{3}){1,2}$/i
+                is: /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$|^rainbow$/
             }
         },
         outerColor: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                is: /^#([0-9a-f]{3}){1,2}$/i
+                is: /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$|^rainbow$/
             }
         },
         image: {
@@ -38,7 +38,7 @@ export default {
         createdAt: {
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: DataTypes.NOW 
+            defaultValue: DataTypes.NOW
         }
     },
     options: {
@@ -46,13 +46,6 @@ export default {
         tableName: "packs"
     },
     relations: [
-        {
-            type: "hasMany",
-            model: "PackBlook",
-            options: {
-                foreignKey: "pack",
-                as: "blooks"
-            }
-        }
+        { type: "hasMany", model: "PackBlook", options: { foreignKey: "pack", as: "blooks" } }
     ]
 }

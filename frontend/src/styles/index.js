@@ -2,12 +2,16 @@ import all from "./all.module.scss";
 import errors from "./errors.module.scss";
 import home from "./home.module.scss";
 import authentication from "./authentication.module.scss";
+import topRightContainer from "./top-right-container.module.scss";
+import dashboard from "./dashboard.module.scss";
 
 export default {
     all,
     errors,
     home,
-    authentication
+    authentication,
+    topRightContainer,
+    dashboard
 }
 
 const env = {

@@ -14,7 +14,10 @@ export default {
         },
         color: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                is: /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$|^rainbow$/
+            }
         },
         packOpeningAnimation: {
             type: DataTypes.STRING,

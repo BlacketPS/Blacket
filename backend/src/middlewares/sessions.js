@@ -13,26 +13,12 @@ export default {
         }
         if (typeof token.id !== "string" || typeof token.user !== "string" || typeof token.createdAt !== "string") return next();
 
-        if (!isNaN(new Date(token.createdAt))) token.createdAt = new Date(token.createdAt);
-        else return next();
-
-        const session = await global.database.models.Session.findOne({
-            where: {
-                id: token.id,
-                user: token.user,
-                createdAt: token.createdAt
-            },
-            include: [{ model: global.database.models.User, as: "userData" }]
-        });
+        const session = await global.redis.get(`blacket-session:${token.user}`).then(session => JSON.parse(session)).catch(undefined);
         if (!session) return next();
 
-        req.session = {
-            id: session.id,
-            user: session.userData.id,
-            createdAt: session.createdAt
-        }
+        if (session.id !== token.id || session.user !== token.user || session.createdAt !== token.createdAt) return next();
 
-        req.user = session.userData.dataValues;
+        req.session = session;
 
         next();
     }

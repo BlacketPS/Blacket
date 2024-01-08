@@ -1,9 +1,12 @@
 import { LoadingStoreProvider } from "@stores/LoadingStore";
+import { UserStoreProvider } from "@stores/UserStore";
 
 export default function Stores({ children }) {
     return (
         <LoadingStoreProvider>
-            {children}
+            <UserStoreProvider>
+                {children}
+            </UserStoreProvider>
         </LoadingStoreProvider>
     )
 }

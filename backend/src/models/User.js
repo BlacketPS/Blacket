@@ -38,7 +38,7 @@ export default {
             allowNull: false,
             defaultValue: "#ffffff",
             validate: {
-                is: /^#([0-9a-f]{3}){1,2}$/i
+                is: /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$|^rainbow$/
             }
         },
         tokens: {
@@ -76,21 +76,11 @@ export default {
         tableName: "users"
     },
     relations: [
-        {
-            type: "hasOne",
-            model: "UserMute",
-            options: {
-                foreignKey: "user",
-                as: "mute"
-            }
-        },
-        {
-            type: "hasOne",
-            model: "UserBan",
-            options: {
-                foreignKey: "user",
-                as: "ban"
-            }
-        }
+        { type: "hasMany", model: "UserBadge", options: { foreignKey: "user", as: "badges" } },
+        { type: "hasOne", model: "UserStatistic", options: { foreignKey: "user", as: "statistics" } },
+        { type: "hasOne", model: "UserSetting", options: { foreignKey: "user", as: "settings" } },
+        { type: "hasOne", model: "UserMute", options: { foreignKey: "user", as: "mute" } },
+        { type: "hasOne", model: "UserBan", options: { foreignKey: "user", as: "ban" } },
+        { type: "hasOne", model: "Session", options: { foreignKey: "user", as: "session" } }
     ]
 }

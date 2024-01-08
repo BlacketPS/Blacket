@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { LoadingStoreContext } from "@stores/LoadingStore";
+import { UserStoreContext } from "@stores/UserStore";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "@styles/index";
 import Background from "@components/Background";
@@ -11,6 +11,7 @@ export default function Authentication({ type }) {
     document.title = `${type} | ${import.meta.env.VITE_INFORMATION_NAME}`;
 
     const { setLoading } = useContext(LoadingStoreContext);
+    const { user } = useContext(UserStoreContext);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -19,40 +20,9 @@ export default function Authentication({ type }) {
 
     const navigate = useNavigate();
 
-    const login = async () => {
-        setLoading("Logging in");
-        axios.post("/api/auth/login", {
-            username,
-            password
-        }).then((res) => {
-            setLoading(false);
-            if (res.status !== 200) return setError(res.data.message);
-            localStorage.setItem("token", res.data.token);
-            navigate("/dashboard");
-        }).catch((err) => {
-            setLoading(false);
-            if (err.response) return setError(err.response.data.message);
-            else return setError("An error occurred while logging in.");
-        });
-    }
-
-    const register = async () => {
-        setLoading("Registering");
-        axios.post("/api/auth/register", {
-            username,
-            password,
-            acceptedTerms: checked
-        }).then((res) => {
-            setLoading(false);
-            if (res.status !== 200) return setError(res.data.message);
-            localStorage.setItem("token", res.data.token);
-            navigate("/dashboard");
-        }).catch((err) => {
-            setLoading(false);
-            if (err.response) return setError(err.response.data.message);
-            else return setError("An error occurred while registering.");
-        });
-    }
+    useEffect(() => {
+        if (user) navigate("/dashboard");
+    }, []);
 
     return (
         <>
