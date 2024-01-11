@@ -2,15 +2,7 @@ import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import pages from "@pages";
 
-import axios from "axios";
-axios.interceptors.request.use((config) => {
-    if (localStorage.getItem("token")) config.headers.Authorization = `${localStorage.getItem("token")}`;
-    return config;
-});
-
-window.axios = axios;
-
-import Stores from "@components/Stores";
+import StoreWrapper from "@stores";
 import { getBlooks } from "@stores/BlookStore";
 import { getRarities } from "@stores/RarityStore";
 import { getPacks } from "@stores/PackStore";
@@ -39,12 +31,7 @@ export default function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await fetch("/api").then(res => {
-                if (res.status === 403) return setLoaded(res.data.message);
-            }).catch(err => {
-                console.error(err);
-                return setLoaded(1);
-            });
+            await fetch("/api").then(res => res.status === 403 && setLoaded(res.data.message)).catch(() => setLoaded(1));
 
             setMessage("blooks"); if ((await getBlooks()) instanceof Error) return setLoaded(1);
             setMessage("rarities"); if ((await getRarities()) instanceof Error) return setLoaded(1);
@@ -54,7 +41,7 @@ export default function App() {
             setMessage("banners"); if ((await getBanners()) instanceof Error) return setLoaded(1);
             setMessage("badges"); if ((await getBadges()) instanceof Error) return setLoaded(1);
             setMessage("emojis"); if ((await getEmojis()) instanceof Error) return setLoaded(1);
-
+            
             setLoaded(true);
         }
 
@@ -65,5 +52,5 @@ export default function App() {
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return <Stores><RouterProvider router={router} /></Stores>;
+    else return <StoreWrapper><RouterProvider router={router} /></StoreWrapper>;
 }

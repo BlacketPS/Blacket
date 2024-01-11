@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import("./Console");
+
+await import("./axiosConfig");
+await import("./Console");
 
 createRoot(document.getElementById("app")).render(<App />);

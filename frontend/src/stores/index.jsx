@@ -1,7 +1,7 @@
-import { LoadingStoreProvider } from "@stores/LoadingStore";
-import { UserStoreProvider } from "@stores/UserStore";
+import { LoadingStoreProvider } from "./LoadingStore";
+import { UserStoreProvider } from "./UserStore";
 
-export default function Stores({ children }) {
+export default function StoreWrapper({ children }) {
     return (
         <LoadingStoreProvider>
             <UserStoreProvider>

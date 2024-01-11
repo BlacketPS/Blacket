@@ -14,20 +14,20 @@ export default {
         authRequired: true
     },
     endpoint: async (req, res) => {
-        const user = await getUser(req.params.user, ["badges", "settings", "statistics", "blooksNoSold"]).catch(() => res.status(400).json({
+        const user = await getUser(req.params.user.toLowerCase() === "me" ? req.session.user : req.params.user, ["badges", "settings", "statistics", "blooksNoSold"]).catch(() => res.status(400).json({
             message: "The username you entered doesn't belong to an account."
         }));
 
-        const userBlooks = {};
-        
-        user.blooks = user.blooks.filter(blook => !blook.sold);
+        if (user.blooks) {
+            const userBlooks = {};
 
-        for (const blook of user.blooks) {
-            if (!userBlooks[blook.blook]) userBlooks[blook.blook] = 1;
-            else userBlooks[blook.blook]++;
-        }
+            for (const blook of user.blooks) {
+                if (!userBlooks[blook.blook]) userBlooks[blook.blook] = 1;
+                else userBlooks[blook.blook]++;
+            }
 
-        user.blooks = userBlooks;
+            user.blooks = userBlooks;
+        } else user.blooks = {};
         user.badges = user.badges.map(badge => badge.badge);
 
         if (req.session.user !== user.id) {
@@ -38,6 +38,6 @@ export default {
         delete user.ipAddress;
         delete user.password;
 
-        res.status(200).json(user);
+        res.status(200).json({ user });
     }
 }

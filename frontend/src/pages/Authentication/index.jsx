@@ -1,17 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { LoadingStoreContext } from "@stores/LoadingStore";
-import { UserStoreContext } from "@stores/UserStore";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "@styles/index";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoading } from "@stores/LoadingStore";
+import { useUser } from "@stores/UserStore";
+import useLogin from "@controllers/Authentication/useLogin";
+import useRegister from "@controllers/Authentication/useRegister";
 import Background from "@components/Background";
 import { Header } from "@components/Header";
+import BodyContainer from "@components/Authentication/BodyContainer";
+import ContainerHeader from "@components/Authentication/ContainerHeader";
 import Input from "@components/Authentication/Input";
+import AgreeHolder from "@components/Authentication/AgreeHolder";
+import SubmitButton from "@components/Authentication/SubmitButton";
+import Error from "@components/Authentication/Error";
 
 export default function Authentication({ type }) {
     document.title = `${type} | ${import.meta.env.VITE_INFORMATION_NAME}`;
 
-    const { setLoading } = useContext(LoadingStoreContext);
-    const { user } = useContext(UserStoreContext);
+    const { setLoading } = useLoading();
+    const { user } = useUser();
+
+    useEffect(() => {
+        if (user) navigate("/dashboard");
+    }, [user]);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -19,10 +29,35 @@ export default function Authentication({ type }) {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const login = useLogin();
+    const register = useRegister();
 
-    useEffect(() => {
-        if (user) navigate("/dashboard");
-    }, []);
+    const submitForm = async () => {
+        if (username === "") return setError("Where's the username?");
+        if (password === "") return setError("Where's the password?");
+        if (password.length < 8) return setError("Your password must be at least 8 characters long.");
+        if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
+        if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");
+        if (!/[a-z]/.test(password)) return setError("Your password must have at least 1 lowercase letter.");
+        if (/^[a-z0-9]+$/i.test(password)) return setError("Your password must contain a special character.");
+        if (type === "Login") {
+            setLoading("Logging in");
+            login(username, password).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
+                setLoading(false);
+                if (err?.response?.data?.message) setError(err.response.data.message);
+                else setError("Something went wrong.");
+            });
+        }
+        else if (type === "Register") {
+            if (!checked) return setError("You must agree to our Privacy Policy and Terms of Service.");
+            setLoading("Registering");
+            register(username, password, checked).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
+                setLoading(false);
+                if (err?.response?.data?.message) setError(err.response.data.message);
+                else setError("Something went wrong.");
+            });
+        }
+    }
 
     return (
         <>
@@ -33,53 +68,25 @@ export default function Authentication({ type }) {
                 text: type === "Login" ? "Register" : "Login"
             }} />
 
-            <div className={styles.all.regularBody}>
-                <div className={styles.authentication.container}>
-                    <div className={styles.authentication.containerHeader}>{type}</div>
+            <BodyContainer>
+                <ContainerHeader>{type}</ContainerHeader>
 
-                    <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
-                        setUsername(e.target.value);
-                        setError(null);
-                    }} />
-                    <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {
-                        setPassword(e.target.value);
-                        setError(null);
-                    }} />
+                <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
+                    setUsername(e.target.value);
+                    setError(null);
+                }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-                    {type === "Register" && <div className={styles.authentication.agreeHolder}>
-                        <div className={`${styles.authentication.checkBox} ${checked ? styles.authentication.checkYes : styles.authentication.checkNo}`} onClick={() => {
-                            setChecked(!checked);
-                            setError(null);
-                        }}>
-                            <i className={`fas fa-check ${styles.authentication.checkIcon}`} />
-                        </div>
+                <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {
+                    setPassword(e.target.value);
+                    setError(null);
+                }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-                        <div className={styles.authentication.agreeText}>
-                            I am at least 13 years old (or at least 16 outside of the U.S.) and I agree to the <Link to="/privacy" className={styles.authentication.link}>Privacy Policy</Link> &amp; <Link to="/terms" className={styles.authentication.link}>Terms of Service.</Link>
-                        </div>
-                    </div>}
+                {type === "Register" && <AgreeHolder checked={checked} onClick={() => setChecked(!checked) && setError(null)} />}
 
-                    <div className={styles.authentication.button} onClick={() => {
-                        if (!username) return setError("Where's the username?");
-                        if (!password) return setError("Where's the password?");
-                        if (password.length < 8) return setError("Your password must be at least 8 characters long.");
-                        if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
-                        if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");
-                        if (!/[a-z]/.test(password)) return setError("Your password must have at least 1 lowercase letter.");
-                        if (/^[a-z0-9]+$/i.test(password)) return setError("Your password must contain a special character.");
-                        if (type === "Login") login(username, password);
-                        else if (type === "Register") {
-                            if (!checked) return setError("You must agree to our Privacy Policy and Terms of Service.");
-                            register(username, password);
-                        }
-                    }}>Let's Go!</div>
+                <SubmitButton onClick={submitForm}>Let's Go!</SubmitButton>
 
-                    {error && <div className={styles.authentication.errorContainer}>
-                        <i className={`fas fa-times-circle ${styles.authentication.errorIcon}`} />
-                        <div className={styles.authentication.errorText}>{error}</div>
-                    </div>}
-                </div>
-            </div>
+                {error && <Error error={error} />}
+            </BodyContainer>
         </>
     )
 }   

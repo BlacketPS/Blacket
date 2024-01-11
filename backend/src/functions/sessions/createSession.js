@@ -1,5 +1,5 @@
-const createSession = (user) => new Promise((resolve, reject) => global.database.models.Session.upsert({ user }).then(async session => {
-    session = session[0].toJSON();
+const createSession = (user) => new Promise((resolve, reject) => new global.database.models.Session({ user }).save().then(async session => {
+    session = session.toJSON();
 
     // convert it to an iso string and also remove the miliseconds because whoever created timestamps is retarded
     session.createdAt = new Date(session.createdAt).toISOString();

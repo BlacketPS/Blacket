@@ -1,9 +1,19 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@stores/UserStore";
 import Background from "@components/Background";
 import Sidebar from "@components/Sidebar";
 import styles from "@styles";
 
 export default function Dashboard() {
     document.title = `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`;
+
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) navigate("/login");
+    }, [user]);
 
     return (
         <>
@@ -18,7 +28,7 @@ export default function Dashboard() {
                             <div className={styles.dashboard.topLeftInside}>
                                 <div className={styles.dashboard.topLeftAvatarContainer}>
                                     <div className={styles.dashboard.topLeftAvatarContainerInside}>
-                                        <img src="/content/blooks/Default.png" draggable={false} />
+                                        <img src={user.avatar} draggable={false} />
                                     </div>
                                 </div>
                             </div>

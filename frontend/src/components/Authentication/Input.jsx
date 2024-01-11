@@ -8,11 +8,9 @@ export default function Input({ icon, ...props }) {
     }, []);
 
     return (
-        <>
-            <div className={styles.authentication.inputContainer}>
-                <i className={`${icon} ${styles.authentication.icon}`} />
-                <input className={styles.authentication.input} {...props} />
-            </div>
-        </>
+        <div className={styles.authentication.inputContainer}>
+            <i className={`${icon} ${styles.authentication.icon}`} />
+            <input className={styles.authentication.input} {...props} />
+        </div>
     )
 }

@@ -17,17 +17,12 @@ export default async () => {
         process.exit(1);
     });
 
-    await global.redis.keys("blacket-session:*").then(async sessions => {
-        for (const session of sessions) await global.redis.del(session);
-    }).catch(error => {
-        console.error(`Failed to flush sessions from Redis server. ${error}`);
-        process.exit(1);
-    });
-
     console.info("Caching data from database to Redis server...");
 
     await global.database.models.Session.findAll().then(async sessions => {
-        for (const session of sessions) await global.redis.set(`blacket-session:${session.user}`, JSON.stringify(session));
+        for (let session of sessions) {
+            await global.redis.set(`blacket-session:${session.user}`, JSON.stringify(session.toJSON()));
+        }
     }).catch(error => {
         console.error(`Failed to cache sessions from database to Redis server. ${error}`);
         process.exit(1);

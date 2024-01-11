@@ -1,7 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import Loader from "@components/Loader";
 
-export const LoadingStoreContext = createContext();
+const LoadingStoreContext = createContext();
+
+export function useLoading() {
+    return useContext(LoadingStoreContext);
+}
 
 export function LoadingStoreProvider({ children }) {
     const [loading, setLoading] = useState(false);

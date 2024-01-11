@@ -7,8 +7,10 @@ const getUser = (user, also) => new Promise(async (resolve, reject) => {
     if (also.includes("settings")) includes.push({ model: global.database.models.UserSetting, as: "settings", attributes: { exclude: ["user"] } });
     if (also.includes("statistics")) includes.push({ model: global.database.models.UserStatistic, as: "statistics", attributes: { exclude: ["user"] } });
 
-    const userData = await global.database.models.User.findOne({ where: or({ id: user }, { username: user }), include: includes }).then(user => user.toJSON()).catch(undefined);
+    let userData = await global.database.models.User.findOne({ where: or({ id: user }, { username: user }), include: includes }).catch(undefined);
     if (!userData) return reject();
+
+    userData = userData.toJSON();
 
     if (also.includes("blooks")) userData.blooks = await global.database.models.UserBlook.findAll({ where: { user: userData.id } })
     else if (also.includes("blooksNoSold")) userData.blooks = await global.database.models.UserBlook.findAll({ where: { user: userData.id, sold: false } });

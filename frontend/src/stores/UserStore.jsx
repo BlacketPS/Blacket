@@ -1,18 +1,25 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import pages from "@pages";
 
-export const UserStoreContext = createContext();
+const UserStoreContext = createContext();
+
+export function useUser() {
+    return useContext(UserStoreContext);
+}
 
 export function UserStoreProvider({ children }) {
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
 
-    const fetchUser = async () => await axios.get("/api/users/me").then(res => setUser(res.data)).catch(err => console.error(err));
+    useEffect(() => {
+        const fetchUser = async () => await axios.get("/api/users/me").then(res => setUser(res.data.user)).catch(() => localStorage.removeItem("token"));
 
-    return <UserStoreContext.Provider value={{
-        user, setUser, actions: {
-            fetchUser
-        }
-    }}>
-        {children}
+        if (localStorage.getItem("token")) fetchUser().then(() => setLoading(false)).catch(() => setLoading(false));
+        else setLoading(false);
+    }, []);
+
+    return <UserStoreContext.Provider value={{ user, setUser }}>
+        {!loading ? children : <pages.Loading message="user" />}
     </UserStoreContext.Provider>
 }
