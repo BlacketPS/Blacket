@@ -11,6 +11,7 @@ package-lock.json
 dist
 dist-ssr
 *.local
+pnpm-lock.yaml
 bun.lockb
 .editorconfig
 config.json
