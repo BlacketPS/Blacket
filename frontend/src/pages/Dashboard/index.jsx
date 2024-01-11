@@ -28,7 +28,7 @@ export default function Dashboard() {
                             <div className={styles.dashboard.topLeftInside}>
                                 <div className={styles.dashboard.topLeftAvatarContainer}>
                                     <div className={styles.dashboard.topLeftAvatarContainerInside}>
-                                        <img src={user.avatar} draggable={false} />
+                                        <img src={user.avatar === null ? "/content/blooks/Default.png" : user.avatar} draggable={false} />
                                     </div>
                                 </div>
                             </div>

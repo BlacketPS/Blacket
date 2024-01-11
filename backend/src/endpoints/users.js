@@ -3,13 +3,6 @@ import getUser from "#functions/users/getUser";
 export default {
     path: "/users/:user",
     method: "get",
-    params: {
-        user: {
-            required: true,
-            type: "string",
-            match: /^[a-zA-Z0-9_-]+$/
-        }
-    },
     options: {
         authRequired: true
     },

@@ -8,11 +8,13 @@ export default {
     body: {
         avatar: {
             type: "string",
-            required: true,
+            required: false,
             match: /^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$/i
         }
     },
     endpoint: async (req, res) => {
+        if (!req.body.avatar) return global.database.models.User.update({ avatar: null }, { where: { id: req.session.user } }).then(() => res.status(204).json());
+
         const blooks = JSON.parse(await global.redis.get("blacket-blooks"));
         const blook = blooks.find(blook => blook.id === req.body.avatar);
 

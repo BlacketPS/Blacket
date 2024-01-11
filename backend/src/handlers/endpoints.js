@@ -39,20 +39,12 @@ export default async (app) => {
                 }
             }
 
-            for (const key in endpoint.params) {
-                if (endpoint.params[key].required && !req.params[key]) return res.status(400).json({ message: `${key} missing in path parameters.` });
-                if (endpoint.params[key].type && typeof req.params[key] !== endpoint.params[key].type) return res.status(400).json({ message: `${key} must be of typeof ${endpoint.params[key].type}.` });
-                if (endpoint.params[key].match && !endpoint.params[key].match.test(req.params[key])) return res.status(400).json({ message: `${key} must match ${endpoint.params[key].match}.` });
-            }
-
-            for (const key in endpoint.query) {
-                if (endpoint.query[key].required && !req.query[key]) return res.status(400).json({ message: `${key} missing in query parameters.` });
-                if (endpoint.query[key].type && typeof req.query[key] !== endpoint.query[key].type) return res.status(400).json({ message: `${key} must be of typeof ${endpoint.query[key].type}.` });
-                if (endpoint.query[key].match && !endpoint.query[key].match.test(req.query[key])) return res.status(400).json({ message: `${key} must match ${endpoint.query[key].match}.` });
-            }
-
             for (const key in endpoint.body) {
                 if (endpoint.body[key].required && !req.body[key]) return res.status(400).json({ message: `${key} missing in body.` });
+
+                if (!endpoint.body[key].required && typeof req.body[key] !== endpoint.body[key].type) continue;
+                if (!endpoint.body[key].required && endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) continue;
+
                 if (endpoint.body[key].type && typeof req.body[key] !== endpoint.body[key].type) return res.status(400).json({ message: `${key} must be of typeof ${endpoint.body[key].type}.` });
                 if (endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) return res.status(400).json({ message: `${key} must match ${endpoint.body[key].match}.` });
             }

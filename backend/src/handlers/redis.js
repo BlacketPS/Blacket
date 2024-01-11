@@ -20,9 +20,7 @@ export default async () => {
     console.info("Caching data from database to Redis server...");
 
     await global.database.models.Session.findAll().then(async sessions => {
-        for (let session of sessions) {
-            await global.redis.set(`blacket-session:${session.user}`, JSON.stringify(session.toJSON()));
-        }
+        for (let session of sessions) await global.redis.set(`blacket-session:${session.user}`, JSON.stringify(session.toJSON()));
     }).catch(error => {
         console.error(`Failed to cache sessions from database to Redis server. ${error}`);
         process.exit(1);
