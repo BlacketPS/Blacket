@@ -3,6 +3,7 @@ import errors from "./errors.module.scss";
 import home from "./home.module.scss";
 import authentication from "./authentication.module.scss";
 import topRightContainer from "./top-right-container.module.scss";
+import textFormatting from "./text-formatting.module.scss";
 import dashboard from "./dashboard.module.scss";
 
 export default {
@@ -11,6 +12,7 @@ export default {
     home,
     authentication,
     topRightContainer,
+    textFormatting,
     dashboard
 }
 

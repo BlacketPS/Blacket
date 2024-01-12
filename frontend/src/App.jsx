@@ -41,7 +41,7 @@ export default function App() {
             setMessage("banners"); if ((await getBanners()) instanceof Error) return setLoaded(1);
             setMessage("badges"); if ((await getBadges()) instanceof Error) return setLoaded(1);
             setMessage("emojis"); if ((await getEmojis()) instanceof Error) return setLoaded(1);
-            
+
             setLoaded(true);
         }
 
@@ -52,5 +52,11 @@ export default function App() {
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return <StoreWrapper><RouterProvider router={router} /></StoreWrapper>;
+    else return (
+        <StoreWrapper>
+            <RouterProvider router={router}>
+               
+            </RouterProvider>
+        </StoreWrapper>
+    )
 }

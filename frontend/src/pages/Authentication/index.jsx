@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import useLogin from "@controllers/Authentication/useLogin";
@@ -19,16 +19,11 @@ export default function Authentication({ type }) {
     const { setLoading } = useLoading();
     const { user } = useUser();
 
-    useEffect(() => {
-        if (user) navigate("/dashboard");
-    }, [user]);
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(null);
 
-    const navigate = useNavigate();
     const login = useLogin();
     const register = useRegister();
 
@@ -59,7 +54,8 @@ export default function Authentication({ type }) {
         }
     }
 
-    return (
+    if (user) return <Navigate to="/dashboard" />;
+    else return (
         <>
             <Background />
 
@@ -73,7 +69,8 @@ export default function Authentication({ type }) {
 
                 <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
                     setUsername(e.target.value);
-                    setError(null);
+                    se
+                    tError(null);
                 }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
                 <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {

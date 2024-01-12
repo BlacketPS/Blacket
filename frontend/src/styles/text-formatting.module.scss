@@ -1,0 +1,18 @@
+.rainbow {
+    background: linear-gradient(90deg, red, #ff8000, #ff0, #0f0, #0ff, #00f, #f0f, red);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 7s linear infinite;
+
+    @keyframes rainbow {
+        0% {
+            background-position: 200%;
+        }
+
+        100% {
+            background-position: -200%;
+        }
+    }
+}

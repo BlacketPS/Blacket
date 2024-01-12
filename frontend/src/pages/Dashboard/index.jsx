@@ -1,25 +1,23 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import Background from "@components/Background";
 import Sidebar from "@components/Sidebar";
+import TopRight from "@components/TopRight";
 import styles from "@styles";
 
 export default function Dashboard() {
     document.title = `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`;
 
     const { user } = useUser();
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!user) navigate("/login");
-    }, [user]);
-
-    return (
+    if (!user) return <Navigate to="/login" />;
+    else return (
         <>
             <Background />
 
             <Sidebar />
+
+            <TopRight />
 
             <div className={styles.all.sidebarBody}>
                 <div className={styles.dashboard.container}>
