@@ -61,21 +61,21 @@
         top: 2vh;
         left: 0;
     }
+}
 
-    .top-button {
-        border-radius: 0.36vw;
-        padding-bottom: 0.26vw;
-        box-shadow: 0px -0.26vw rgba(0, 0, 0, 0.2) inset, 0px 0px 0.2vw rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        user-select: none;
-        transition: transform 200ms;
+.top-button {
+    border-radius: 0.36vw;
+    padding-bottom: 0.26vw;
+    box-shadow: 0px -0.26vw rgba(0, 0, 0, 0.2) inset, 0px 0px 0.2vw rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    user-select: none;
+    transition: transform 200ms;
 
-        &:hover {
-            transform: scale(1.05);
-        }
+    &:hover {
+        transform: scale(1.05);
     }
 }
 
@@ -149,100 +149,100 @@
         display: flex;
         flex-direction: column;
     }
+}
 
-    .welcome-text {
-        color: var(--accent-color);
-        font-size: 8.83vh;
-        line-height: 9.13vh;
+.welcome-text {
+    color: var(--accent-color);
+    font-size: 8.83vh;
+    line-height: 9.13vh;
+    // text-shadow: 2px 2px 8px rgb(128, 128, 128);
+    font-weight: bold;
+
+    @media only screen and (max-width: 1050px) {
+        font-size: 6vh;
+        line-height: 6.5vh;
         // text-shadow: 2px 2px 8px rgb(128, 128, 128);
         font-weight: bold;
-
-        @media only screen and (max-width: 1050px) {
-            font-size: 6vh;
-            line-height: 6.5vh;
-            // text-shadow: 2px 2px 8px rgb(128, 128, 128);
-            font-weight: bold;
-        }
     }
+}
 
-    .welcome-description {
-        font-size: 3.35vh;
-        margin: 3vh 0;
-        color: var(--accent-color);
+.welcome-description {
+    font-size: 3.35vh;
+    margin: 3vh 0;
+    color: var(--accent-color);
 
-        @media only screen and (max-width: 1050px) {
-            font-size: 2.2vh;
-            margin: 1.5vh 0 3vh;
-        }
+    @media only screen and (max-width: 1050px) {
+        font-size: 2.2vh;
+        margin: 1.5vh 0 3vh;
     }
+}
 
-    .welcome-button-container {
+.welcome-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+
+    @media only screen and (max-width: 1050px) {
         display: flex;
-        flex-direction: column;
-        gap: 0.5vw;
+        flex-direction: row;
+        gap: 1vw;
+    }
+}
 
-        @media only screen and (max-width: 1050px) {
-            display: flex;
-            flex-direction: row;
-            gap: 1vw;
-        }
+.welcome-button {
+    border-color: var(--accent-color);
+    border-style: solid;
+    border-radius: 0.31vw;
+    border-width: 0.15vw;
+    font-size: 4.26vh;
+    width: 32vh;
+    line-height: 7vh;
+    text-align: center;
+    color: var(--accent-color);
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 200ms, color 200ms;
+
+    &:hover,
+    &:focus {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
     }
 
-    .welcome-button {
+    @media only screen and (max-width: 1050px) {
+        font-size: 3vh;
+        width: 20vh;
+        line-height: 4.5vh;
         border-color: var(--accent-color);
         border-style: solid;
-        border-radius: 0.31vw;
-        border-width: 0.15vw;
-        font-size: 4.26vh;
-        width: 32vh;
-        line-height: 7vh;
+        border-radius: 0.5vw;
+        border-width: 0.3vw;
         text-align: center;
         color: var(--accent-color);
         outline: none;
         text-decoration: none;
         cursor: pointer;
-        transition: background-color 200ms, color 200ms;
-
-        &:hover,
-        &:focus {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-        }
-
-        @media only screen and (max-width: 1050px) {
-            font-size: 3vh;
-            width: 20vh;
-            line-height: 4.5vh;
-            border-color: var(--accent-color);
-            border-style: solid;
-            border-radius: 0.5vw;
-            border-width: 0.3vw;
-            text-align: center;
-            color: var(--accent-color);
-            outline: none;
-            text-decoration: none;
-            cursor: pointer;
-        }
     }
+}
 
-    .pronounce-button {
+.pronounce-button {
+    color: var(--accent-color);
+    font-size: 3vh;
+    line-height: 4vh;
+    margin-top: 5vh;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    @media only screen and (max-width: 1050px) {
         color: var(--accent-color);
-        font-size: 3vh;
-        line-height: 4vh;
-        margin-top: 5vh;
+        font-size: 2vh;
+        line-height: 3vh;
+        margin-top: 1.5vh;
         cursor: pointer;
         user-select: none;
         outline: none;
-
-        @media only screen and (max-width: 1050px) {
-            color: var(--accent-color);
-            font-size: 2vh;
-            line-height: 3vh;
-            margin-top: 1.5vh;
-            cursor: pointer;
-            user-select: none;
-            outline: none;
-        }
     }
 }
 
