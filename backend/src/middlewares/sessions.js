@@ -13,7 +13,7 @@ export default {
         }
         if (typeof token.id !== "string" || typeof token.user !== "string" || typeof token.createdAt !== "string") return next();
 
-        const session = await global.redis.get(`blacket-session:${token.user}`).then(session => JSON.parse(session)).catch(undefined);
+        const session = await global.redis.get(`blacket-session:${token.user}`).then(session => JSON.parse(session)).catch(() => null);
         if (!session) return next();
 
         if (session.id !== token.id || session.user !== token.user || session.createdAt !== token.createdAt) return next();

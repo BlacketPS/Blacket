@@ -46,7 +46,7 @@ export default {
         });
         else if (user.ban && user.ban.punishmentData.expiresAt < new Date()) await user.ban.destroy();
 
-        await deleteSession(user.id).catch(undefined);
+        await deleteSession(user.id).catch(() => null);
         createSession(user.id).then(session => res.status(200).json({
             token: Buffer.from(JSON.stringify(session)).toString("base64")
         })).catch(() => res.status(500).json({

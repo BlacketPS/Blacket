@@ -38,7 +38,6 @@ export default {
         await new global.database.models.UserSetting({ user: user.id }).save();
         await new global.database.models.UserStatistic({ user: user.id }).save();
 
-        await deleteSession(user.id).catch(undefined);
         createSession(user.id).then(session => res.status(200).json({
             token: Buffer.from(JSON.stringify(session)).toString("base64")
         })).catch(() => res.status(500).json({

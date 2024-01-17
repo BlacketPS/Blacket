@@ -10,8 +10,10 @@ export function useLoading() {
 export function LoadingStoreProvider({ children }) {
     const [loading, setLoading] = useState(false);
 
-    return <LoadingStoreContext.Provider value={{ loading, setLoading }}>
-        {typeof loading === "string" ? <Loader message={`${loading}...`} /> : loading ? <Loader /> : null}
-        {children}
-    </LoadingStoreContext.Provider>
+    return (
+        <LoadingStoreContext.Provider value={{ loading, setLoading }}>
+            {typeof loading === "string" ? <Loader message={`${loading}...`} /> : loading ? <Loader /> : null}
+            {children}
+        </LoadingStoreContext.Provider>
+    )
 }

@@ -35,6 +35,11 @@ export default {
             type: DataTypes.STRING,
             allowNull: false
         },
+        priority: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
+        },
         createdAt: {
             type: DataTypes.DATE,
             allowNull: false,

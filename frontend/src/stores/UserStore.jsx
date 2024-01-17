@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import pages from "@pages";
 
 const UserStoreContext = createContext();
 
@@ -19,7 +18,5 @@ export function UserStoreProvider({ children }) {
         else setLoading(false);
     }, []);
 
-    return <UserStoreContext.Provider value={{ user, setUser }}>
-        {!loading ? children : <pages.Loading message="user" />}
-    </UserStoreContext.Provider>
+    return <UserStoreContext.Provider value={{ user, setUser }}>{!loading && children}</UserStoreContext.Provider>;
 }

@@ -4,14 +4,7 @@ import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import useLogin from "@controllers/Authentication/useLogin";
 import useRegister from "@controllers/Authentication/useRegister";
-import Background from "@components/Background";
-import { Header } from "@components/Header";
-import BodyContainer from "@components/Authentication/BodyContainer";
-import ContainerHeader from "@components/Authentication/ContainerHeader";
-import Input from "@components/Authentication/Input";
-import AgreeHolder from "@components/Authentication/AgreeHolder";
-import SubmitButton from "@components/Authentication/SubmitButton";
-import Error from "@components/Authentication/Error";
+import { Body, Header, Input, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
 
 export default function Authentication({ type }) {
     document.title = `${type} | ${import.meta.env.VITE_INFORMATION_NAME}`;
@@ -19,13 +12,13 @@ export default function Authentication({ type }) {
     const { setLoading } = useLoading();
     const { user } = useUser();
 
+    const login = useLogin();
+    const register = useRegister();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(null);
-
-    const login = useLogin();
-    const register = useRegister();
 
     const submitForm = async () => {
         if (username === "") return setError("Where's the username?");
@@ -56,34 +49,24 @@ export default function Authentication({ type }) {
 
     if (user) return <Navigate to="/dashboard" />;
     else return (
-        <>
-            <Background />
+        <Body>
+            <Header>{type}</Header>
 
-            <Header right={{
-                link: type === "Login" ? "/register" : "/login",
-                text: type === "Login" ? "Register" : "Login"
-            }} />
+            <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
+                setUsername(e.target.value);
+                setError(null);
+            }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-            <BodyContainer>
-                <ContainerHeader>{type}</ContainerHeader>
+            <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {
+                setPassword(e.target.value);
+                setError(null);
+            }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-                <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
-                    setUsername(e.target.value);
-                    se
-                    tError(null);
-                }} onKeyDown={e => e.key === "Enter" && submitForm()} />
+            {type === "Register" && <AgreeHolder checked={checked} onClick={() => setChecked(!checked) && setError(null)} />}
 
-                <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {
-                    setPassword(e.target.value);
-                    setError(null);
-                }} onKeyDown={e => e.key === "Enter" && submitForm()} />
+            <SubmitButton onClick={submitForm}>Let's Go!</SubmitButton>
 
-                {type === "Register" && <AgreeHolder checked={checked} onClick={() => setChecked(!checked) && setError(null)} />}
-
-                <SubmitButton onClick={submitForm}>Let's Go!</SubmitButton>
-
-                {error && <Error error={error} />}
-            </BodyContainer>
-        </>
+            {error && <Error error={error} />}
+        </Body>
     )
-}   
+}

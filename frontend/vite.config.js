@@ -13,8 +13,8 @@ export default defineConfig({
         alias: {
             "@components": "/src/components",
             "@controllers": "/src/controllers",
-            "@functions": "/src/functions",
             "@pages": "/src/pages",
+            "@routes": "/src/routes",
             "@stores": "/src/stores",
             "@styles": "/src/styles"
         }

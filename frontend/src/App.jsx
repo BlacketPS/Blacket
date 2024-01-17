@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { Routes, Route } from "react-router-dom";
+import routes from "@routes";
 import pages from "@pages";
 
 import StoreWrapper from "@stores";
@@ -12,22 +14,16 @@ import { getBanners } from "@stores/BannerStore";
 import { getBadges } from "@stores/BadgeStore";
 import { getEmojis } from "@stores/EmojiStore";
 
-const router = createBrowserRouter([
-    {
-        errorElement: <pages.Errors />,
-        children: [
-            { path: "*", element: <pages.Errors code={404} /> },
-            { path: "/", element: <pages.Home /> },
-            { path: "/login", element: <pages.Authentication type="Login" /> },
-            { path: "/register", element: <pages.Authentication type="Register" /> },
-            { path: "/dashboard", element: <pages.Dashboard /> }
-        ]
-    }
-]);
+import { Background, Header, HeaderNoLink, Sidebar, TopRight } from "@components";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
     const [message, setMessage] = useState("server status");
+
+    const [background, setBackground] = useState(true);
+    const [header, setHeader] = useState(false);
+    const [sidebar, setSidebar] = useState(false);
+    const [topRight, setTopRight] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,15 +44,48 @@ export default function App() {
         fetchData();
     }, []);
 
-    // check what loaded is, if its a string the user is blacklisted and if its 1 the server is under maintenance
+    function RouteWrapper({ route }) {
+        if (route.plain) {
+            setHeader(false);
+            setSidebar(false);
+            setTopRight(false);
+        } else {
+            if (route.topRight && (topRight !== route.topRight)) setTopRight(route.topRight);
+            if (route.header && (header != route.header)) {
+                setHeader(route.header);
+                setSidebar(false);
+                setTopRight(false);
+            }
+            if (route.sidebar && !sidebar) {
+                setHeader(false);
+                setSidebar(true);
+            }
+        }
+
+        return route.element;
+    }
+
+    // if loaded is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return (
+    else return (<>
         <StoreWrapper>
-            <RouterProvider router={router}>
-               
-            </RouterProvider>
+            {background && <Background />}
+
+            {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
+            {(header && header === "link") && <Header />}
+            {(header && header === "nolink") && <HeaderNoLink />}
+
+            {sidebar && <Sidebar />}
+
+            {topRight && <TopRight content={topRight} />}
+
+            <Routes>
+                {Object.values(routes).map(route => {
+                    return <Route key={route.path} path={route.path} element={<RouteWrapper route={route} />} />
+                })}
+            </Routes>
         </StoreWrapper>
-    )
+    </>)
 }

@@ -15,16 +15,8 @@ export default async () => {
     if (env.dialect !== "sqlite") console.info(`Authenticating to database ${env.database}...`);
     else console.info("Authenticating to SQLite database...");
 
-    global.database = env.dialect === "sqlite" ? new Sequelize({
-        dialect: "sqlite",
-        storage: "./database.sql",
-        logging: false
-    }) : new Sequelize(env.database, env.username, env.password, {
-        dialect: "mysql",
-        host: env.host,
-        port: env.port,
-        logging: false
-    });
+    global.database = env.dialect === "sqlite" ? new Sequelize({ dialect: "sqlite", storage: "./database.sql", logging: false })
+        : new Sequelize(env.database, env.username, env.password, { dialect: env.dialect, host: env.host, port: env.port, logging: false });
 
     await global.database.authenticate().then(() => {
         if (env.dialect !== "sqlite") console.success(`Authenticated with database ${env.database}.`);

@@ -21,7 +21,7 @@ export default {
             }
         },
         price: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DOUBLE,
             allowNull: false,
             defaultValue: 0
         },
@@ -32,6 +32,11 @@ export default {
         background: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        priority: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
         },
         createdAt: {
             type: DataTypes.DATE,

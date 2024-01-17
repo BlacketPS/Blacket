@@ -1,4 +1,4 @@
-import { or } from "sequelize";
+import { or, Op } from "sequelize";
 
 const getUser = (user, also) => new Promise(async (resolve, reject) => {
     const includes = [];
@@ -7,7 +7,7 @@ const getUser = (user, also) => new Promise(async (resolve, reject) => {
     if (also.includes("settings")) includes.push({ model: global.database.models.UserSetting, as: "settings", attributes: { exclude: ["user"] } });
     if (also.includes("statistics")) includes.push({ model: global.database.models.UserStatistic, as: "statistics", attributes: { exclude: ["user"] } });
 
-    let userData = await global.database.models.User.findOne({ where: or({ id: user }, { username: user }), include: includes }).catch(undefined);
+    let userData = await global.database.models.User.findOne({ where: or({ id: user }, { username: { [Op.like]: user } }), include: includes }).catch(() => null);
     if (!userData) return reject();
 
     userData = userData.toJSON();

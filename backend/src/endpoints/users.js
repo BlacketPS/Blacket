@@ -7,9 +7,8 @@ export default {
         authRequired: true
     },
     endpoint: async (req, res) => {
-        const user = await getUser(req.params.user.toLowerCase() === "me" ? req.session.user : req.params.user, ["badges", "settings", "statistics", "blooksNoSold"]).catch(() => res.status(400).json({
-            message: "The username you entered doesn't belong to an account."
-        }));
+        const user = await getUser(req.params.user.toLowerCase() === "me" ? req.session.user : req.params.user, ["badges", "settings", "statistics", "blooksNoSold"]).catch(() => null);
+        if (!user) return res.status(400).json({ message: "The username you entered doesn't belong to an account." });
 
         if (user.blooks) {
             const userBlooks = {};

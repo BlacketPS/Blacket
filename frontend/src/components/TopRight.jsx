@@ -16,9 +16,7 @@ export default function TopRight() {
                 <div className={styles.topRightContainer.userLeft}>
                     <img src={user.avatar === null ? "/content/blooks/Default.png" : user.avatar} draggable={false} />
 
-                    <div className={
-                        user.color === "rainbow" && styles.textFormatting.rainbow
-                    }>{user.username}</div>
+                    <div className={user.color === "rainbow" && styles.textFormatting.rainbow}>{user.username}</div>
                 </div>
 
                 <i className={`${styles.topRightContainer.userDropdownIcon} fas fa-angle-down`} />
