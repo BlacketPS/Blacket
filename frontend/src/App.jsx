@@ -69,7 +69,7 @@ export default function App() {
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return (<>
+    else return (
         <StoreWrapper>
             {background && <Background />}
 
@@ -82,10 +82,8 @@ export default function App() {
             {topRight && <TopRight content={topRight} />}
 
             <Routes>
-                {Object.values(routes).map(route => {
-                    return <Route key={route.path} path={route.path} element={<RouteWrapper route={route} />} />
-                })}
+                {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper route={route} />} />)}
             </Routes>
         </StoreWrapper>
-    </>)
+    )
 }
