@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import styles from "@styles";
+import { useEffect } from "react";
 
 export default function Dashboard() {
     document.title = `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`;

@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import routes from "@routes";
 import pages from "@pages";
 
+import ErrorBoundary from "./ErrorBoundary";
+
 import StoreWrapper from "@stores";
 import { getBlooks } from "@stores/BlookStore";
 import { getRarities } from "@stores/RarityStore";
@@ -71,7 +73,7 @@ export default function App() {
     if (!loaded) return <><Background /><pages.Loading message={message} /></>;
     else if (typeof loaded === "string") return <><Background /><HeaderNoLink /><pages.Errors code={403} reason={loaded} /></>;
     else if (loaded === 1) return <><Background /><HeaderNoLink /><pages.Errors code={502} /></>;
-    else return (<>
+    else return (<ErrorBoundary>
         {background && <Background />}
 
         <StoreWrapper>
@@ -87,5 +89,5 @@ export default function App() {
                 {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper route={route} />} />)}
             </Routes>
         </StoreWrapper>
-    </>)
+    </ErrorBoundary>);
 }
