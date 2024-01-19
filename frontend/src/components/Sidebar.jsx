@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import styles from "@styles";
 
 export default function Sidebar() {
+    const location = useLocation().pathname.split("/")[1];
+
     const pages = {
         left: [
             {
@@ -96,7 +98,7 @@ export default function Sidebar() {
                 <Link className={styles.all.sidebarHeader} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
 
                 {pages.left.map((page, index) => (
-                    <Link key={index} className={styles.all.sidebarPage} to={page.link}>
+                    <Link data-active={location === page.link.split("/")[1]} key={index} className={styles.all.sidebarPage} to={page.link}>
                         <i className={`${styles.all.sidebarPageIcon} ${page.icon}`} />
                         <div className={styles.all.sidebarPageText}>{page.text}</div>
                     </Link>

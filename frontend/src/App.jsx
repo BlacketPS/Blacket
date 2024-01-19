@@ -29,7 +29,8 @@ export default function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await fetch("/api").then(res => res.status === 403 && setLoaded(res.data.message)).catch(() => setLoaded(1));
+            const serverStatus = await fetch("/api").then(res => res.status === 403 && res.json());
+            if (serverStatus.message) return setLoaded(serverStatus.message);
 
             setMessage("blooks"); if ((await getBlooks()) instanceof Error) return setLoaded(1);
             setMessage("rarities"); if ((await getRarities()) instanceof Error) return setLoaded(1);

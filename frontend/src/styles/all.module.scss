@@ -143,6 +143,11 @@ body {
             background-color: var(--secondary-color);
         }
 
+        &[data-active="true"] {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
         .sidebar-page-icon {
             font-size: 22px;
             width: 26px;
