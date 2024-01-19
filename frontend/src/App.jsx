@@ -45,6 +45,8 @@ export default function App() {
     }, []);
 
     function RouteWrapper({ route }) {
+        console.debug(`[RouteWrapper] Loaded ${route.path}`);
+
         if (route.plain) {
             setHeader(false);
             setSidebar(false);
@@ -66,13 +68,13 @@ export default function App() {
     }
 
     // if loaded is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket
-    if (!loaded) return <pages.Loading message={message} />;
-    else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
-    else if (loaded === 1) return <pages.Errors code={502} />;
-    else return (
-        <StoreWrapper>
-            {background && <Background />}
+    if (!loaded) return <><Background /><pages.Loading message={message} /></>;
+    else if (typeof loaded === "string") return <><Background /><HeaderNoLink /><pages.Errors code={403} reason={loaded} /></>;
+    else if (loaded === 1) return <><Background /><HeaderNoLink /><pages.Errors code={502} /></>;
+    else return (<>
+        {background && <Background />}
 
+        <StoreWrapper>
             {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
             {(header && header === "link") && <Header />}
             {(header && header === "nolink") && <HeaderNoLink />}
@@ -85,5 +87,5 @@ export default function App() {
                 {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper route={route} />} />)}
             </Routes>
         </StoreWrapper>
-    )
+    </>)
 }

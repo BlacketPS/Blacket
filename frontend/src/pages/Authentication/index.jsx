@@ -17,6 +17,7 @@ export default function Authentication({ type }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [accessCode, setAccessCode] = useState("");
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(null);
 
@@ -39,7 +40,7 @@ export default function Authentication({ type }) {
         else if (type === "Register") {
             if (!checked) return setError("You must agree to our Privacy Policy and Terms of Service.");
             setLoading("Registering");
-            register(username, password, checked).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
+            register(username, password, accessCode, checked).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
                 setLoading(false);
                 if (err?.response?.data?.message) setError(err.response.data.message);
                 else setError("Something went wrong.");
@@ -61,6 +62,11 @@ export default function Authentication({ type }) {
                 setPassword(e.target.value);
                 setError(null);
             }} onKeyDown={e => e.key === "Enter" && submitForm()} />
+
+            {type === "Register" && <Input icon="fas fa-lock" placeholder="Access Code" type="password" autoComplete="rewriteAccessCode" onChange={(e) => {
+                setAccessCode(e.target.value);
+                setError(null);
+            }} onKeyDown={e => e.key === "Enter" && submitForm()} />}
 
             {type === "Register" && <AgreeHolder checked={checked} onClick={() => setChecked(!checked) && setError(null)} />}
 

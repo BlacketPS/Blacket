@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Titan+One|Creepster|Satisfy|Eczar:700");
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro.min.css");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro-v4-shims.min.css");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro-v5-font-face.min.css");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro-v4-font-face.min.css");
 
 * {
     font-smooth: always;
@@ -53,7 +57,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* left: 0; 
+    /* left: 0;
     overflow: hidden;
     padding-bottom: 6px;
     position: absolute;
@@ -187,7 +191,7 @@ body {
     z-index: -1;
     /* left: 0;
     margin: 0;
-    padding: 0; 
+    padding: 0;
     top: 55px; */
 }
 

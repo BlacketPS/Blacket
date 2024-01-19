@@ -15,6 +15,10 @@ export default {
             required: true,
             match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
         },
+        accessCode: {
+            type: "string",
+            required: true
+        },
         acceptedTerms: {
             type: "boolean",
             required: true
@@ -22,6 +26,8 @@ export default {
     },
     endpoint: async (req, res) => {
         if (req.session) return res.status(403).json({ message: "You are already logged in." });
+
+        if (req.body.accessCode !== process.env.SERVER_ACCESS_CODE) return res.status(400).json({ message: "The access code you entered is incorrect." });
 
         const { username, password, acceptedTerms } = req.body;
 

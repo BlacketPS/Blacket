@@ -4,9 +4,10 @@ import { useUser } from "@stores/UserStore";
 const useRegister = () => {
     const { setUser } = useUser();
 
-    const register = (username, password, checked) => new Promise((resolve, reject) => axios.post("/api/auth/register", {
+    const register = (username, password, accessCode, checked) => new Promise((resolve, reject) => axios.post("/api/auth/register", {
         username,
         password,
+        accessCode,
         acceptedTerms: checked
     }).then(async res => {
         localStorage.setItem("token", res.data.token);
