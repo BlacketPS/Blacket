@@ -14,7 +14,7 @@ export default function Error({ code, reason }) {
 
     return (
         <>
-            {typeof code !== "number" && <><Background /><HeaderNoLink /></>}
+            {code !== 404 && <><Background /><HeaderNoLink /></>}
 
             <div className={styles.errors.body}>
                 <div className={styles.errors.container}>

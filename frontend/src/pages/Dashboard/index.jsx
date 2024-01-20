@@ -1,15 +1,31 @@
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSearchParams, Navigate } from "react-router-dom";
+import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
+import { useUsers } from "@controllers/users";
 import styles from "@styles";
-import { useEffect } from "react";
 
 export default function Dashboard() {
-    document.title = `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`;
+    const [searchParams] = useSearchParams();
 
+    const [viewingUser, setViewingUser] = useState(null);
+
+    const getUser = useUsers();
+
+    const { setLoading } = useLoading();
     const { user } = useUser();
 
+    useEffect(() => {
+        if (searchParams.get("name")) {
+            setLoading(true);
+            getUser(searchParams.get("name")).then(res => {
+                if (res.id !== user.id) setViewingUser(res);
+            }).catch(() => setViewingUser(null)).finally(() => setLoading(false));
+        }
+    }, []);
+
     if (!user) return <Navigate to="/login" />;
-    else return (
+    /*else return (
         <div className={styles.all.sidebarBody}>
             <div className={styles.dashboard.container}>
                 <div className={styles.dashboard.top}>
@@ -24,6 +40,14 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
+        </div>
+    )*/
+    else return (
+        <div className={styles.all.sidebarBody}>
+            <h3>{viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}</h3>
+            <h1>
+                {viewingUser && <div onClick={() => setViewingUser(null)}>GoBack</div>}
+            </h1>
         </div>
     )
 }

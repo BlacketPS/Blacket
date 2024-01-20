@@ -5,8 +5,4 @@ import App from "./App";
 await import("./axiosConfig");
 await import("./Console");
 
-createRoot(document.getElementById("app")).render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
-)
+createRoot(document.getElementById("app")).render(<BrowserRouter><App /></BrowserRouter>);

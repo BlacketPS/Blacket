@@ -7,8 +7,17 @@
 
 * {
     font-smooth: always;
+    scrollbar-color: var(--secondary-color) var(--primary-color);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    &::-webkit-scrollbar {
+        background: var(--primary-color);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+    }
 }
 
 :root {
@@ -20,6 +29,7 @@
 }
 
 body {
+    color: var(--accent-color);
     font-family: "Nunito", sans-serif;
     margin: 0;
     padding: 0;

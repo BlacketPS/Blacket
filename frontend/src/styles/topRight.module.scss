@@ -1,5 +1,5 @@
 .container {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     display: flex;
@@ -7,7 +7,7 @@
     z-index: 5;
 }
 
-.user-container {
+.userContainer {
     display: flex;
     align-items: center;
     min-width: 200px;
@@ -24,7 +24,7 @@
     position: relative;
 }
 
-.user-left {
+.userLeft {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -36,12 +36,12 @@
     }
 }
 
-.user-dropdown-icon {
+.userDropdownIcon {
     margin-left: auto;
     padding-left: 10px;
 }
 
-.user-dropdown {
+.userDropdown {
     position: absolute;
     min-width: 130px;
     right: 5px;
@@ -92,9 +92,9 @@
     }
 }
 
-.user-container:focus-within>.user-dropdown,
-.user-container:hover>.user-dropdown,
-.user-container[focus-within]>.user-dropdown {
+.userContainer:focus-within>.userDropdown,
+.userContainer:hover>.userDropdown,
+.userContainer[focus-within]>.userDropdown {
     opacity: 1;
     transform: rotateX(0);
     visibility: visible;

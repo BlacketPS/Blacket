@@ -2,13 +2,10 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
-import useLogin from "@controllers/Authentication/useLogin";
-import useRegister from "@controllers/Authentication/useRegister";
+import { useLogin, useRegister } from "@controllers/auth";
 import { Body, Header, Input, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
 
 export default function Authentication({ type }) {
-    document.title = `${type} | ${import.meta.env.VITE_INFORMATION_NAME}`;
-
     const { setLoading } = useLoading();
     const { user } = useUser();
 

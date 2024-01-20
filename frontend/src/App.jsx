@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 import { Routes, Route } from "react-router-dom";
+import RouteWrapper from "./RouteWrapper";
 import routes from "@routes";
 import pages from "@pages";
 
@@ -22,6 +24,8 @@ export default function App() {
     const [loaded, setLoaded] = useState(false);
     const [message, setMessage] = useState("server status");
 
+    const [title, setTitle] = useState(null);
+    const [description, setDescription] = useState(null);
     const [background, setBackground] = useState(true);
     const [header, setHeader] = useState(false);
     const [sidebar, setSidebar] = useState(false);
@@ -47,48 +51,36 @@ export default function App() {
         fetchData();
     }, []);
 
-    function RouteWrapper({ route }) {
-        console.debug(`[RouteWrapper] Loaded ${route.path}`);
-
-        if (route.plain) {
-            setHeader(false);
-            setSidebar(false);
-            setTopRight(false);
-        } else {
-            if (route.topRight && (topRight !== route.topRight)) setTopRight(route.topRight);
-            if (route.header && (header != route.header)) {
-                setHeader(route.header);
-                setSidebar(false);
-                setTopRight(false);
-            }
-            if (route.sidebar && !sidebar) {
-                setHeader(false);
-                setSidebar(true);
-            }
-        }
-
-        return route.element;
-    }
-
     // if loaded is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket
-    if (!loaded) return <><Background /><pages.Loading message={message} /></>;
-    else if (typeof loaded === "string") return <><Background /><HeaderNoLink /><pages.Errors code={403} reason={loaded} /></>;
-    else if (loaded === 1) return <><Background /><HeaderNoLink /><pages.Errors code={502} /></>;
-    else return (<ErrorBoundary>
+    if (!loaded) return <pages.Loading message={message} />;
+    else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
+    else if (loaded === 1) return <pages.Errors code={502} />;
+    else return (<>
+        <Helmet>
+            <title>{title}</title>
+            <meta name="description" content={description} />
+        </Helmet>
+
         {background && <Background />}
 
         <StoreWrapper>
-            {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
-            {(header && header === "link") && <Header />}
-            {(header && header === "nolink") && <HeaderNoLink />}
+            <ErrorBoundary>
+                {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
+                {(header && header === "link") && <Header />}
+                {(header && header === "nolink") && <HeaderNoLink />}
 
-            {sidebar && <Sidebar />}
+                {sidebar && <Sidebar />}
 
-            {topRight && <TopRight content={topRight} />}
+                {topRight && <TopRight content={topRight} />}
 
-            <Routes>
-                {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper route={route} />} />)}
-            </Routes>
+                <Routes>
+                    {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper
+                        route={route}
+                        setTitle={setTitle} setDescription={setDescription} setBackground={setBackground} setHeader={setHeader} setSidebar={setSidebar} setTopRight={setTopRight}
+                        title={title} description={description} background={background} header={header} sidebar={sidebar} topRight={topRight}
+                    />} />)}
+                </Routes>
+            </ErrorBoundary>
         </StoreWrapper>
-    </ErrorBoundary>);
+    </>)
 }

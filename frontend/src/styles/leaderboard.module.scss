@@ -1,0 +1,389 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50px;
+    left: 85px;
+    z-index: 1;
+    transform: scale(.95);
+
+    @media only screen and (max-width: 1550px) {
+        top: 0;
+    }
+
+    @media only screen and (max-width: 850px) {
+        left: 0;
+        top: 55px;
+    }
+}
+
+.placementOne {
+    position: absolute;
+    height: calc(85vh - 65px);
+    width: 25vw;
+    top: 10vh;
+    left: 37.5vw;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    color: var(--accent-color);
+    transition: top .2s;
+
+    &:hover {
+        top: 8vh;
+    }
+
+    @media only screen and (max-width: 1550px) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.placementTwo {
+    position: absolute;
+    height: calc(67.5vh - 65px);
+    width: 25vw;
+    top: 27.5vh;
+    left: 7.5vw;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    color: var(--accent-color);
+    transition: top .2s;
+
+    &:hover {
+        top: 25.5vh;
+    }
+
+    @media only screen and (max-width: 1550px) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.placementThree {
+    position: absolute;
+    height: calc(55vh - 65px);
+    width: 25vw;
+    top: 40vh;
+    left: 67.5vw;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    color: var(--accent-color);
+    transition: top .2s;
+
+    &:hover {
+        top: 38vh;
+    }
+
+    @media only screen and (max-width: 1550px) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.placementInside {
+    position: absolute;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    top: 10px;
+    left: 10px;
+}
+
+.placeText {
+    position: absolute;
+    font-family: "Titan One", sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: right;
+    width: 2.5vw;
+    height: 5vw;
+    top: 0.5vw;
+    left: 0.75vw;
+}
+
+.placeSuffix {
+    position: absolute;
+    font-family: "Titan One", sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    float: left;
+    text-align: center;
+    font-size: 30px;
+    top: .75vw;
+    left: 3.45vw;
+    height: 1.7vw;
+    width: 1.85vw;
+    text-align: left;
+}
+
+.usernameOne,
+.scoreOne {
+    position: absolute;
+    text-align: center;
+    width: 20vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.usernameOne {
+    font-family: "Titan One", sans-serif;
+}
+
+.scoreOne {
+    font-size: 60px;
+    height: 7.5vh;
+    top: 17vh;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+}
+
+.placeOne {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    height: 6vw;
+    width: 6vw;
+    top: -3vw;
+    right: -4.5vw;
+    color: var(--accent-color);
+    background-color: #ffe900;
+}
+
+.avatarOne {
+    position: absolute;
+    top: calc(100% - 22vw);
+    left: 50%;
+    transform: translateX(-50%);
+    height: 20.7vw;
+    width: 18vw;
+
+    &>img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        -o-object-fit: contain;
+    }
+}
+
+.usernameTwo {
+    position: absolute;
+    text-align: center;
+    width: 20vw;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Titan One", sans-serif;
+}
+
+.scoreTwo {
+    position: absolute;
+    text-align: center;
+    width: 20vw;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    font-size: 50px;
+    height: 6vh;
+    top: 13.5vh;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+}
+
+.placeTwo {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    height: 6vw;
+    width: 6vw;
+    top: -3vw;
+    right: -4.5vw;
+    color: var(--accent-color);
+    background-color: #818181;
+}
+
+.avatarTwo {
+    position: absolute;
+    top: calc(100% - 16.94vw);
+    left: 50%;
+    transform: translateX(-50%);
+    height: 15.64vw;
+    width: 13.6vw;
+
+    &>img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        -o-object-fit: contain;
+    }
+}
+
+.usernameThree {
+    position: absolute;
+    text-align: center;
+    width: 20vw;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Titan One", sans-serif;
+}
+
+.scoreThree {
+    position: absolute;
+    text-align: center;
+    width: 20vw;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    font-size: 40px;
+    height: 5vh;
+    top: 11.75vh;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+}
+
+.placeThree {
+    position: absolute;
+    height: 6vw;
+    width: 6vw;
+    top: -3vw;
+    right: -4.5vw;
+    border-radius: 10px;
+    color: var(--accent-color);
+    background-color: #cd7f32;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+}
+
+.avatarThree {
+    position: absolute;
+    top: calc(100% - 11.995vw);
+    left: 50%;
+    transform: translateX(-50%);
+    height: 10.695vw;
+    width: 9.3vw;
+
+    &>img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        -o-object-fit: contain;
+    }
+}
+
+.otherStandings {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 96vh;
+    left: 10vw;
+    width: 80vw;
+    padding: 1vh 0 4vh;
+    justify-content: center;
+
+    @media only screen and (max-width: 1550px) {
+        top: 9vh;
+        left: 12vw;
+    }
+
+    @media only screen and (max-width: 850px) {
+        top: 0;
+        left: 0;
+        width: 100vw;
+    }
+}
+
+.otherTopThreeStandings {
+    display: none;
+
+    @media only screen and (max-width: 1550px) {
+        display: flex;
+        visibility: visible;
+        flex-direction: column;
+    }
+}
+
+.otherStandingHolder {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 12.5px auto;
+    text-decoration: none;
+    transition: transform .2s;
+
+    &:hover {
+        transform: scale(.99);
+    }
+}
+
+.otherStandingContainer {
+    background-color: var(--primary-color);
+    border-radius: 7px;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    color: var(--accent-color);
+    display: flex;
+    flex-direction: row;
+    height: 70px;
+    width: 100%;
+}
+
+.otherStandingPlace {
+    font-family: "Titan One", sans-serif;
+    padding-left: 10px;
+    min-width: 60px;
+    line-height: 70px;
+    font-size: 45px;
+    text-align: right;
+}
+
+.otherStandingSuffix {
+    font-family: "Titan One", sans-serif;
+    text-align: left;
+    width: 22px;
+    font-size: 22px;
+    margin-top: 8px;
+    margin-left: 2px;
+    margin-right: 10px;
+}
+
+.otherStandingAvatar {
+    height: 57.5px;
+    width: 50px;
+    margin: 6.25px 10px;
+
+    &>img {
+        height: 90%;
+        object-fit: contain;
+        -o-object-fit: contain;
+    }
+}
+
+.otherStandingUsername {
+    font-weight: 700;
+    line-height: 70px;
+    margin-left: 12px;
+    font-size: 36px;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.otherStandingScore {
+    font-weight: 700;
+    line-height: 70px;
+    font-size: 32px;
+    text-align: right;
+    margin-right: 20px;
+}

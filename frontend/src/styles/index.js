@@ -1,19 +1,21 @@
 import all from "./all.module.scss";
 import errors from "./errors.module.scss";
+import textFormatting from "./textFormatting.module.scss";
 import home from "./home.module.scss";
 import authentication from "./authentication.module.scss";
-import topRightContainer from "./top-right-container.module.scss";
-import textFormatting from "./text-formatting.module.scss";
+import topRight from "./topRight.module.scss";
 import dashboard from "./dashboard.module.scss";
+import leaderboard from "./leaderboard.module.scss";
 
 export default {
     all,
     errors,
+    textFormatting,
     home,
     authentication,
-    topRightContainer,
-    textFormatting,
-    dashboard
+    topRight,
+    dashboard,
+    leaderboard
 }
 
 const env = {

@@ -9,22 +9,18 @@ export function Header({ right }) {
     }, []);
 
     return (
-        <>
-            <div className={styles.all.header}>
-                <Link className={styles.all.headerLeft} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
-                {right && <Link className={styles.all.headerRight} to={right.link}>{right.text}</Link>}
-            </div>
-        </>
+        <div className={styles.all.header}>
+            <Link className={styles.all.headerLeft} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
+            {right && <Link className={styles.all.headerRight} to={right.link}>{right.text}</Link>}
+        </div>
     )
 }
 
 export function HeaderNoLink() {
     return (
-        <>
-            <div className={styles.all.header}>
-                <div className={styles.all.headerLeft}>{import.meta.env.VITE_INFORMATION_NAME}</div>
-            </div>
-        </>
+        <div className={styles.all.header}>
+            <div className={styles.all.headerLeft}>{import.meta.env.VITE_INFORMATION_NAME}</div>
+        </div>
     )
 }
 

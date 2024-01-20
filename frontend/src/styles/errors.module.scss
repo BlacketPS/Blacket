@@ -20,46 +20,33 @@
     @media (max-width: 600px) {
         padding: 15px;
     }
+}
 
-    .top {
-        font-family: "Titan One", cursive;
-        font-size: 7.5rem;
-        margin-bottom: 25px;
-        position: relative;
-        bottom: 5px;
+.top {
+    font-family: "Titan One", cursive;
+    font-size: 7.5rem;
+    margin-bottom: 25px;
+    position: relative;
+    bottom: 5px;
 
-        @media (max-width: 600px) {
-            font-size: 5rem;
-        }
+    @media (max-width: 600px) {
+        font-size: 5rem;
     }
+}
 
-    .image {
-        width: 450px;
+.image {
+    width: 450px;
 
-        @media (max-width: 600px) {
-            width: 300px;
-        }
+    @media (max-width: 600px) {
+        width: 300px;
     }
+}
 
-    .bottom {
-        font-size: 2rem;
-        margin-top: 25px;
+.bottom {
+    font-size: 2rem;
+    margin-top: 25px;
 
-        @media (max-width: 600px) {
-            font-size: 1.5rem;
-        }
-    }
-
-    .button {
-        cursor: pointer;
-        padding: 10px;
-        background-color: var(--background-color);
-        border-radius: 10px;
-        transition: .2s;
-
-        &:hover {
-            background-color: var(--accent-color);
-            color: var(--background-color);
-        }
+    @media (max-width: 600px) {
+        font-size: 1.5rem;
     }
 }

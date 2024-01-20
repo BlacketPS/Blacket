@@ -2,7 +2,7 @@ import styles from "@styles";
 
 const name = import.meta.env.VITE_INFORMATION_NAME;
 
-export default function CopyrightInformation() {
+export default function Copyright() {
     return (
         <div className={styles.home.copyrightInformation}>
             We are not affiliated with Blooket in any way.
