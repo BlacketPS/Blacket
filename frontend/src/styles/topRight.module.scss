@@ -22,6 +22,10 @@
     font-size: 20px;
     color: var(--accent-color);
     position: relative;
+
+    @media only screen and (max-width: 850px) {
+        visibility: hidden;
+    }
 }
 
 .userLeft {

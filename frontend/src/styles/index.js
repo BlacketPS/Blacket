@@ -3,6 +3,7 @@ import errors from "./errors.module.scss";
 import textFormatting from "./textFormatting.module.scss";
 import home from "./home.module.scss";
 import authentication from "./authentication.module.scss";
+import sidebar from "./sidebar.module.scss";
 import topRight from "./topRight.module.scss";
 import dashboard from "./dashboard.module.scss";
 import leaderboard from "./leaderboard.module.scss";
@@ -13,6 +14,7 @@ export default {
     textFormatting,
     home,
     authentication,
+    sidebar,
     topRight,
     dashboard,
     leaderboard

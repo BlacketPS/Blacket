@@ -50,17 +50,17 @@ export default function Authentication({ type }) {
         <Body>
             <Header>{type}</Header>
 
-            <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={(e) => {
+            <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={e => {
                 setUsername(e.target.value);
                 setError(null);
             }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-            <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={(e) => {
+            <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={e => {
                 setPassword(e.target.value);
                 setError(null);
             }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-            {type === "Register" && <Input icon="fas fa-lock" placeholder="Access Code" type="password" autoComplete="rewriteAccessCode" onChange={(e) => {
+            {type === "Register" && <Input icon="fas fa-lock" placeholder="Access Code" type="password" autoComplete="rewriteAccessCode" onChange={e => {
                 setAccessCode(e.target.value);
                 setError(null);
             }} onKeyDown={e => e.key === "Enter" && submitForm()} />}

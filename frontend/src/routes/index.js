@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
 import Leaderboard from "./Leaderboard";
+import TradingPlaza from "./TradingPlaza";
 
 export default {
     NotFound,
@@ -11,5 +12,6 @@ export default {
     Login,
     Register,
     Dashboard,
-    Leaderboard
+    Leaderboard,
+    TradingPlaza
 }

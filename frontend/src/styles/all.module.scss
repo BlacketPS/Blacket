@@ -104,101 +104,6 @@ body {
     }
 }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 100%;
-    padding: 20px 10px 20px 0;
-    box-sizing: border-box;
-    background: var(--primary-color);
-    box-shadow: inset -10px 0 rgba(0, 0, 0, .2);
-    display: flex;
-    flex-direction: column;
-    z-index: 5;
-
-    .sidebar-header {
-        margin-bottom: 20px;
-        font-size: 40px;
-        font-family: "Titan One", sans-serif;
-        text-decoration: none;
-        text-align: center;
-        color: var(--accent-color);
-    }
-
-    .sidebar-page {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: 40px;
-        width: 190px;
-        margin: 4px 0;
-        padding-left: 30px;
-        box-sizing: border-box;
-        outline: none;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        text-decoration: none;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        background-color: transparent;
-        color: var(--accent-color);
-        transition: .1s linear;
-
-        &:hover {
-            background-color: var(--secondary-color);
-        }
-
-        &[data-active="true"] {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-        }
-
-        .sidebar-page-icon {
-            font-size: 22px;
-            width: 26px;
-            text-align: center;
-        }
-
-        .sidebar-page-text {
-            margin-left: 10px;
-            font-size: 20px;
-        }
-    }
-
-    .sidebar-bottom {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-evenly;
-        width: 100%;
-        margin-top: auto;
-
-        .sidebar-bottom-page {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-            outline: none;
-            text-decoration: none;
-
-            .sidebar-bottom-page-icon {
-                font-size: 20px;
-                color: var(--accent-color);
-            }
-        }
-    }
-}
-
 .regular-body {
     position: absolute;
     width: 100%;
@@ -217,6 +122,13 @@ body {
     width: calc(100% - 220px);
     height: 100%;
     transform: translateX(-50%);
+
+    @media only screen and (max-width: 850px) {
+        top: 55px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
 }
 
 .loading-modal {
