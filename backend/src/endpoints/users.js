@@ -29,6 +29,7 @@ export default {
 
         delete user.ipAddress;
         delete user.password;
+        delete user?.settings.otpSecret;
 
         res.status(200).json({ user });
     }
