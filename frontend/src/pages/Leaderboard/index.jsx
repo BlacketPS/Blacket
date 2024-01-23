@@ -14,7 +14,10 @@ export default function Leaderboard() {
     const getLeaderboard = useLeaderboard();
 
     useEffect(() => {
-        setLoading(true); getLeaderboard().then(res => setLeaderboard(res.users)).finally(() => setLoading(false));
+        setLoading(true); getLeaderboard()
+            .then(res => setLeaderboard(res.users))
+            .catch(() => history.back())
+            .finally(() => setLoading(false));
     }, []);
 
     if (!user) return <Navigate to="/login" />;
