@@ -44,10 +44,8 @@ export default function Dashboard() {
     )*/
     else return (
         <div className={styles.all.sidebarBody}>
-            <h3>{viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}</h3>
-            <h1>
-                {viewingUser && <div onClick={() => setViewingUser(null)}>GoBack</div>}
-            </h1>
+            {viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}
+            {viewingUser && <div onClick={() => setViewingUser(null)}>GoBack</div>}
         </div>
     )
 }

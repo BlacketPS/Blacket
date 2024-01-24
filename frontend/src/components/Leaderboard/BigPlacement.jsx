@@ -3,7 +3,7 @@ import { Textfit } from "react-textfit";
 import cardinalToOrdinal from "@functions/cardinalToOrdinal";
 import styles from "@styles";
 
-export default function BigPlacement({ placement, user }) {
+export default function BigPlacement({ type, placement, user }) {
     const place = { 1: "One", 2: "Two", 3: "Three" }
 
     return (
@@ -16,14 +16,12 @@ export default function BigPlacement({ placement, user }) {
                 </div>
 
                 <div className={styles.leaderboard[`score${place[placement]}`]}>
-                    {user.tokens.toLocaleString()}
+                    <img src={`/content/${type === "tokens" ? "token" : "experience"}.png`} /> {user[type].toLocaleString()}
                 </div>
 
                 <div className={styles.leaderboard[`place${place[placement]}`]} >
                     <Textfit className={styles.leaderboard.placeText} max={85} mode="single">{placement}</Textfit>
-                    <Textfit className={styles.leaderboard.placeSuffix} max={30} mode="single">
-                        {cardinalToOrdinal(placement)}
-                    </Textfit>
+                    <Textfit className={styles.leaderboard.placeSuffix} max={30} mode="single">{cardinalToOrdinal(placement)}</Textfit>
                 </div>
 
                 <div className={styles.leaderboard[`avatar${place[placement]}`]}>

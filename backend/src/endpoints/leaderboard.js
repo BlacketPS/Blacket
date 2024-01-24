@@ -4,12 +4,18 @@ export default {
         authRequired: true
     },
     endpoint: async (req, res) => {
-        const users = await global.database.models.User.findAll({
+        const tokens = await global.database.models.User.findAll({
             order: [["tokens", "DESC"]],
             attributes: ["id", "username", "title", "avatar", "color", "tokens"],
             limit: 10
         });
 
-        res.status(200).send({ users });
+        const experience = await global.database.models.User.findAll({
+            order: [["experience", "DESC"]],
+            attributes: ["id", "username", "title", "avatar", "color", "experience"],
+            limit: 10
+        });
+
+        res.status(200).send({ tokens, experience });
     }
 }

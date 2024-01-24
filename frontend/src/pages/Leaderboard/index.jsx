@@ -3,10 +3,11 @@ import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useLeaderboard } from "@controllers/leaderboard";
-import { Wrapper, BigPlacement, LittlePlacement, OtherTopThree, OtherStandings } from "@components/Leaderboard";
+import { Wrapper, FilterButton, BigPlacement, LittlePlacement, MobileFilterButton, OtherTopThree, OtherStandings } from "@components/Leaderboard";
 
 export default function Leaderboard() {
     const [leaderboard, setLeaderboard] = useState(null);
+    const [sortBy, setSortBy] = useState("tokens");
 
     const { setLoading } = useLoading();
     const { user } = useUser();
@@ -15,22 +16,28 @@ export default function Leaderboard() {
 
     useEffect(() => {
         setLoading(true); getLeaderboard()
-            .then(res => setLeaderboard(res.users))
+            .then(res => setLeaderboard(res))
             .catch(() => history.back())
             .finally(() => setLoading(false));
     }, []);
 
+    const switchSort = () => sortBy === "tokens" ? setSortBy("experience") : setSortBy("tokens");
+
     if (!user) return <Navigate to="/login" />;
-    else if (leaderboard) return (
+    else if (leaderboard) return (<>
+        <FilterButton onClick={switchSort}>{sortBy === "tokens" ? "Tokens" : "Experience"}</FilterButton>
+
         <Wrapper>
-            {leaderboard.slice(0, 3).map((user, index) => <BigPlacement key={index} placement={index + 1} user={user} />)}
+            {leaderboard[sortBy].slice(0, 3).map((user, index) => <BigPlacement key={index} type={sortBy} placement={index + 1} user={user} />)}
 
             <OtherStandings>
+                <MobileFilterButton onClick={switchSort}>{sortBy === "tokens" ? "Tokens" : "Experience"}</MobileFilterButton>
+
                 <OtherTopThree>
-                    {leaderboard.slice(0, 3).map((user, index) => <LittlePlacement key={index} placement={index + 1} user={user} />)}
+                    {leaderboard[sortBy].slice(0, 3).map((user, index) => <LittlePlacement key={index} type={sortBy} placement={index + 1} user={user} />)}
                 </OtherTopThree>
-                {leaderboard.slice(3).map((user, index) => <LittlePlacement key={index} placement={index + 4} user={user} />)}
+                {leaderboard[sortBy].slice(3).map((user, index) => <LittlePlacement key={index} type={sortBy} placement={index + 4} user={user} />)}
             </OtherStandings>
         </Wrapper>
-    )
+    </>)
 }

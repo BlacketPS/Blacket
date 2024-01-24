@@ -19,6 +19,50 @@
     }
 }
 
+.filterButton {
+    position: absolute;
+    cursor: pointer;
+    top: 20px;
+    left: 240px;
+    font-size: 30px;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 3px solid var(--accent-color);
+    transition: background-color .2s, color .2s;
+
+    &:hover {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+    }
+
+    @media not screen and (min-width: 1550px) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.mobileFilterButton {
+    margin-bottom: 10px;
+    font-size: 20px;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid var(--accent-color);
+    transition: background-color .2s, color .2s;
+
+    &:hover {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+    }
+
+    @media only screen and (min-width: 1550px) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
 .placementOne {
     position: absolute;
     height: calc(85vh - 65px);
@@ -144,8 +188,14 @@
     font-size: 60px;
     height: 7.5vh;
     top: 17vh;
-    font-family: "Nunito", sans-serif;
     font-weight: 700;
+
+    &>img {
+        position: relative;
+        top: 7.5px;
+        width: 65px;
+        height: 65px;
+    }
 }
 
 .placeOne {
@@ -191,15 +241,18 @@
     width: 20vw;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
     font-size: 50px;
     height: 6vh;
     top: 13.5vh;
     font-family: "Nunito", sans-serif;
     font-weight: 700;
+
+    &>img {
+        position: relative;
+        top: 5px;
+        width: 50px;
+        height: 50px;
+    }
 }
 
 .placeTwo {
@@ -245,15 +298,18 @@
     width: 20vw;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
     font-size: 40px;
     height: 5vh;
     top: 11.75vh;
     font-family: "Nunito", sans-serif;
     font-weight: 700;
+
+    &>img {
+        position: relative;
+        top: 2px;
+        width: 35px;
+        height: 35px;
+    }
 }
 
 .placeThree {
@@ -324,8 +380,10 @@
     text-decoration: none;
     transition: transform .2s;
 
-    &:hover {
-        transform: scale(.99);
+    @media not screen and (max-width: 850px) {
+        &:hover {
+            transform: scale(.99);
+        }
     }
 }
 
@@ -334,10 +392,59 @@
     border-radius: 7px;
     box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
     color: var(--accent-color);
-    display: flex;
-    flex-direction: row;
     height: 70px;
     width: 100%;
+    transition: height .2s;
+
+    @media screen and (max-width: 850px) {
+        &:hover {
+            height: 170px;
+
+            .otherStandingBottomScores {
+                display: flex;
+            }
+        }
+    }
+}
+
+.otherStandingInside {
+    display: flex;
+    flex-direction: row;
+}
+
+.otherStandingBottomScores {
+    display: none;
+    flex-direction: column;
+    margin-left: 25px;
+}
+
+.otherStandingBottomScore {
+    font-size: 20px;
+    font-weight: 700;
+
+    &>img {
+        position: relative;
+        top: 5px;
+        right: 5px;
+        height: 25px;
+        width: 25px;
+    }
+}
+
+.otherStandingBottomButton {
+    font-size: 18px;
+    margin-left: -5px;
+    margin-top: 10px;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid var(--accent-color);
+    transition: background-color .2s, color .2s;
+
+    &:hover {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+    }
 }
 
 .otherStandingPlace {
@@ -347,6 +454,10 @@
     line-height: 70px;
     font-size: 45px;
     text-align: right;
+
+    @media only screen and (max-width: 850px) {
+        min-width: 40px;
+    }
 }
 
 .otherStandingSuffix {
@@ -375,9 +486,14 @@
     font-weight: 700;
     line-height: 70px;
     margin-left: 12px;
-    font-size: 36px;
     text-align: left;
     flex-grow: 1;
+
+    @media only screen and (max-width: 850px) {
+        width: 200px;
+        max-width: 200px;
+        margin-left: 0;
+    }
 }
 
 .otherStandingScore {
@@ -386,4 +502,17 @@
     font-size: 32px;
     text-align: right;
     margin-right: 20px;
+
+    &>img {
+        position: relative;
+        top: 10px;
+        left: 5px;
+        height: 40px;
+        width: 40px;
+    }
+
+    @media only screen and (max-width: 850px) {
+        display: none;
+        visibility: hidden;
+    }
 }
