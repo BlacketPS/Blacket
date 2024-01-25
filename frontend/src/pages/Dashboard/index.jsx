@@ -3,6 +3,7 @@ import { useSearchParams, Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useUsers } from "@controllers/users";
+import { SidebarBody } from "@components";
 import styles from "@styles";
 
 export default function Dashboard() {
@@ -42,10 +43,9 @@ export default function Dashboard() {
             </div>
         </div>
     )*/
-    else return (
-        <div className={styles.all.sidebarBody}>
-            {viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}
-            {viewingUser && <div onClick={() => setViewingUser(null)}>GoBack</div>}
-        </div>
-    )
+    else return (<SidebarBody>
+        <h1>Dashboard (will be changed)</h1>
+        {viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}
+        {viewingUser && <div onClick={() => setViewingUser(null)}>GoBack</div>}
+    </SidebarBody>)
 }

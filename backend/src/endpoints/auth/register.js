@@ -44,7 +44,7 @@ export default {
         await new global.database.models.UserSetting({ user: user.id }).save();
         await new global.database.models.UserStatistic({ user: user.id }).save();
 
-        createSession(user.id).then(session => res.status(200).json({
+        createSession(user.id).then(session => res.status(201).json({
             token: Buffer.from(JSON.stringify(session)).toString("base64")
         })).catch(() => res.status(500).json({
             message: "Something went wrong."

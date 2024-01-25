@@ -62,6 +62,11 @@ export default function Sidebar() {
                 link: "/bazaar"
             },
             {
+                icon: "fas fa-cog",
+                text: "Settings",
+                link: "/settings"
+            },
+            {
                 icon: "fas fa-newspaper",
                 text: "News",
                 link: "/news"

@@ -1,5 +1,5 @@
 import AgreeHolder from "./AgreeHolder";
-import Body from "./Body";
+import Container from "./Container";
 import Header from "./Header";
 import Error from "./Error";
 import Input from "./Input";
@@ -7,7 +7,7 @@ import SubmitButton from "./SubmitButton";
 
 export {
     AgreeHolder,
-    Body,
+    Container,
     Header,
     Error,
     Input,

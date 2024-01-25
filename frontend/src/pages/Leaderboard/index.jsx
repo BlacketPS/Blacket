@@ -21,7 +21,7 @@ export default function Leaderboard() {
                 .then(res => setLeaderboard({ fetchedAt: Date.now(), leaderboard: res }))
                 .catch(() => history.back())
                 .finally(() => setLoading(false));
-        } else if (leaderboard && Date.now() - leaderboard.fetchedAt > 300000) getLeaderboard()
+        } else if (leaderboard && Date.now() - leaderboard.fetchedAt > 60000) getLeaderboard()
             .then(res => setLeaderboard({ fetchedAt: Date.now(), leaderboard: res }))
             .catch(() => history.back())
     }, []);

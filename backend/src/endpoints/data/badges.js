@@ -1,4 +1,4 @@
 export default {
     method: "get",
-    endpoint: async (_, res) => res.status(200).json(JSON.parse(await global.redis.get("blacket-badges")))
+    endpoint: async (_, res) => res.status(200).json(JSON.parse(await global.redis.GET("blacket-badges")))
 }

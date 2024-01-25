@@ -11,12 +11,12 @@ export default {
         } catch {
             return next();
         }
-        if (typeof token.id !== "string" || typeof token.user !== "string" || typeof token.createdAt !== "string") return next();
+        if (typeof token.id !== "string" || typeof token.user !== "string" || typeof token.createdAt !== "number") return next();
 
-        const session = await global.redis.get(`blacket-session:${token.user}`).then(session => JSON.parse(session)).catch(() => null);
+        const session = await global.redis.GET(`blacket-session:${token.user}`).then(session => JSON.parse(session)).catch(() => null);
         if (!session) return next();
 
-        if (session.id !== token.id || session.user !== token.user) return next();
+        if (session.id !== token.id || session.user !== token.user || session.createdAt !== token.createdAt) return next();
 
         req.session = session;
 

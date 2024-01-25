@@ -13,8 +13,7 @@ export default {
         },
         password: {
             type: "string",
-            required: true,
-            match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+            required: true
         }
     },
     endpoint: async (req, res) => {
@@ -24,6 +23,8 @@ export default {
 
         if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
         if (username.toLowerCase() === "me") return res.status(400).json({ message: "That username is not allowed." });
+
+        if (password === "") return res.status(400).json({ message: "You must enter a password." });
 
         const user = await global.database.models.User.findOne({
             where: { username },

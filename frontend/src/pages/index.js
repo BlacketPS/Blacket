@@ -5,6 +5,7 @@ import Authentication from "./Authentication";
 import Dashboard from "./Dashboard";
 import Leaderboard from "./Leaderboard";
 import TradingPlaza from "./TradingPlaza";
+import Settings from "./Settings";
 
 export default {
     Loading,
@@ -13,5 +14,6 @@ export default {
     Authentication,
     Dashboard,
     Leaderboard,
-    TradingPlaza
+    TradingPlaza,
+    Settings
 }

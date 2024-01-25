@@ -17,9 +17,9 @@ export default {
             }
         },
         createdAt: {
-            type: DataTypes.DATE,
+            type: DataTypes.DOUBLE,
             allowNull: false,
-            defaultValue: DataTypes.NOW
+            defaultValue: +Date.now()
         }
     },
     options: {

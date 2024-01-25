@@ -5,6 +5,7 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import Leaderboard from "./Leaderboard";
 import TradingPlaza from "./TradingPlaza";
+import Settings from "./Settings";
 
 export default {
     NotFound,
@@ -13,5 +14,6 @@ export default {
     Register,
     Dashboard,
     Leaderboard,
-    TradingPlaza
+    TradingPlaza,
+    Settings
 }

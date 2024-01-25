@@ -45,19 +45,19 @@ body {
     top: 0;
     overflow: hidden;
     z-index: -2;
+}
 
-    .blooks-background {
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        top: 50%;
-        left: 50%;
-        background-size: 550px;
-        background-position: -100px -100px;
-        background-image: url("/content/background.png");
-        opacity: var(--background-opacity);
-        transform: translate(-50%, -50%) rotate(15deg);
-    }
+.backgroundBlooks {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 50%;
+    left: 50%;
+    background-size: 550px;
+    background-position: -100px -100px;
+    background-image: url("/content/background.png");
+    opacity: var(--background-opacity);
+    transform: translate(-50%, -50%) rotate(15deg);
 }
 
 .header {
@@ -75,36 +75,36 @@ body {
     width: 100%;
     z-index: 10; */
     height: 55px;
-
-    .header-left {
-        color: var(--accent-color);
-        cursor: pointer;
-        font-family: Titan One, sans-serif;
-        font-size: 40px;
-        line-height: 49px;
-        margin-left: 40px;
-        outline: none;
-        text-align: left;
-        text-decoration: none;
-        -webkit-user-select: none;
-        user-select: none;
-    }
-
-    .header-right {
-        color: var(--accent-color);
-        cursor: pointer;
-        font-family: Nunito, sans-serif;
-        font-size: 24px;
-        font-weight: 700;
-        line-height: 49px;
-        outline: none;
-        padding-right: 40px;
-        text-align: right;
-        text-decoration: underline;
-    }
 }
 
-.regular-body {
+.headerLeft {
+    color: var(--accent-color);
+    cursor: pointer;
+    font-family: Titan One, sans-serif;
+    font-size: 40px;
+    line-height: 49px;
+    margin-left: 40px;
+    outline: none;
+    text-align: left;
+    text-decoration: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.headerRight {
+    color: var(--accent-color);
+    cursor: pointer;
+    font-family: Nunito, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 49px;
+    outline: none;
+    padding-right: 40px;
+    text-align: right;
+    text-decoration: underline;
+}
+
+.headerBody {
     position: absolute;
     width: 100%;
     height: calc(100% - 55px);
@@ -115,7 +115,7 @@ body {
     top: 55px; */
 }
 
-.sidebar-body {
+.sidebarBody {
     position: absolute;
     top: 0;
     left: calc(50% + 110px);

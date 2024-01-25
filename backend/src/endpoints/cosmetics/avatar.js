@@ -15,7 +15,7 @@ export default {
     endpoint: async (req, res) => {
         if (!req.body.avatar) return global.database.models.User.update({ avatar: null }, { where: { id: req.session.user } }).then(() => res.status(204).json());
 
-        const blooks = JSON.parse(await global.redis.get("blacket-blooks"));
+        const blooks = JSON.parse(await global.redis.GET("blacket-blooks"));
         const blook = blooks.find(blook => blook.id === req.body.avatar);
 
         if (!blook) return res.status(400).json({ error: "That blook doesn't exist." });

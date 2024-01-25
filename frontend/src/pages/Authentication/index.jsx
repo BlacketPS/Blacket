@@ -3,7 +3,8 @@ import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useLogin, useRegister } from "@controllers/auth";
-import { Body, Header, Input, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
+import { HeaderBody } from "@components";
+import { Container, Header, Input, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
 
 export default function Authentication({ type }) {
     const { setLoading } = useLoading();
@@ -21,11 +22,13 @@ export default function Authentication({ type }) {
     const submitForm = async () => {
         if (username === "") return setError("Where's the username?");
         if (password === "") return setError("Where's the password?");
-        if (password.length < 8) return setError("Your password must be at least 8 characters long.");
-        if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
-        if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");
-        if (!/[a-z]/.test(password)) return setError("Your password must have at least 1 lowercase letter.");
-        if (/^[a-z0-9]+$/i.test(password)) return setError("Your password must contain a special character.");
+        if (type === "Register") {
+            if (password.length < 8) return setError("Your password must be at least 8 characters long.");
+            if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
+            if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");
+            if (!/[a-z]/.test(password)) return setError("Your password must have at least 1 lowercase letter.");
+            if (/^[a-z0-9]+$/i.test(password)) return setError("Your password must contain a special character.");
+        }
         if (type === "Login") {
             setLoading("Logging in");
             login(username, password).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
@@ -47,29 +50,31 @@ export default function Authentication({ type }) {
 
     if (user) return <Navigate to="/dashboard" />;
     else return (
-        <Body>
-            <Header>{type}</Header>
+        <HeaderBody>
+            <Container>
+                <Header>{type}</Header>
 
-            <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={e => {
-                setUsername(e.target.value);
-                setError(null);
-            }} onKeyDown={e => e.key === "Enter" && submitForm()} />
+                <Input icon="fas fa-user" placeholder="Username" type="text" autoComplete="username" maxLength={16} onChange={e => {
+                    setUsername(e.target.value);
+                    setError(null);
+                }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-            <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={e => {
-                setPassword(e.target.value);
-                setError(null);
-            }} onKeyDown={e => e.key === "Enter" && submitForm()} />
+                <Input icon="fas fa-lock" placeholder="Password" type="password" autoComplete="password" onChange={e => {
+                    setPassword(e.target.value);
+                    setError(null);
+                }} onKeyDown={e => e.key === "Enter" && submitForm()} />
 
-            {type === "Register" && <Input icon="fas fa-lock" placeholder="Access Code" type="password" autoComplete="rewriteAccessCode" onChange={e => {
-                setAccessCode(e.target.value);
-                setError(null);
-            }} onKeyDown={e => e.key === "Enter" && submitForm()} />}
+                {type === "Register" && <Input icon="fas fa-lock" placeholder="Access Code" type="password" autoComplete="rewriteAccessCode" onChange={e => {
+                    setAccessCode(e.target.value);
+                    setError(null);
+                }} onKeyDown={e => e.key === "Enter" && submitForm()} />}
 
-            {type === "Register" && <AgreeHolder checked={checked} onClick={() => setChecked(!checked) && setError(null)} />}
+                {type === "Register" && <AgreeHolder checked={checked} onClick={() => setChecked(!checked) && setError(null)} />}
 
-            <SubmitButton onClick={submitForm}>Let's Go!</SubmitButton>
+                <SubmitButton onClick={submitForm}>Let's Go!</SubmitButton>
 
-            {error && <Error error={error} />}
-        </Body>
+                {error && <Error error={error} />}
+            </Container>
+        </HeaderBody>
     )
 }

@@ -15,31 +15,29 @@ import {
 } from "@components/Home";
 
 export default function Home() {
-    return (
-        <>
-            <HeaderContainer>
-                <FallingBlooks />
+    return (<>
+        <HeaderContainer>
+            <FallingBlooks />
 
-                <Divider />
+            <Divider />
 
-                <TopText />
+            <TopText />
 
-                <WelcomeContainer>
-                    <WelcomeText />
-                    <WelcomeDescription />
+            <WelcomeContainer>
+                <WelcomeText />
+                <WelcomeDescription />
 
-                    <WelcomeButtons />
+                <WelcomeButtons />
 
-                    {import.meta.env.VITE_INFORMATION_PRONUNCIATION !== "" && <PronunciationButton />}
-                </WelcomeContainer>
-            </HeaderContainer>
+                {import.meta.env.VITE_INFORMATION_PRONUNCIATION !== "" && <PronunciationButton />}
+            </WelcomeContainer>
+        </HeaderContainer>
 
-            <TopButtons />
+        <TopButtons />
 
-            <Copyright />
+        <Copyright />
 
-            <Version />
-            <TOSLink />
-        </>
-    )
+        <Version />
+        <TOSLink />
+    </>)
 }
