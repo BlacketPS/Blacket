@@ -25,6 +25,11 @@ export default function Sidebar() {
                 text: "Chat",
                 link: "/chat"
             },
+            /*{
+                icon: "fas fa-scroll",
+                text: "Quests",
+                link: "/quests"
+            },*/
             {
                 icon: "fas fa-scale-balanced",
                 text: "Trading Plaza",
@@ -37,29 +42,25 @@ export default function Sidebar() {
                 link: "/guilds"
             },
             {
-                icon: "fas fa-suitcase",
-                text: "Blooks",
-                link: "/blooks"
-            },
-            {
                 icon: "fas fa-store",
                 text: "Market",
                 link: "/market"
             },
             {
-                icon: "fas fa-box-open",
-                text: "Inventory",
-                link: "/inventory"
+                icon: "fas fa-suitcase",
+                text: "Blooks",
+                link: "/blooks"
             },
             {
                 icon: "fas fa-building-columns",
-                text: "Auction",
-                link: "/auction",
+                text: "Auction House",
+                link: "/auction-house",
+                textSizeOverride: 17
             },
             {
-                icon: "fas fa-gavel",
-                text: "Bazaar",
-                link: "/bazaar"
+                icon: "fas fa-box-open",
+                text: "Inventory",
+                link: "/inventory"
             },
             {
                 icon: "fas fa-cog",

@@ -5,6 +5,7 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import Leaderboard from "./Leaderboard";
 import TradingPlaza from "./TradingPlaza";
+import AuctionHouse from "./AuctionHouse";
 import Settings from "./Settings";
 
 export default {
@@ -15,5 +16,6 @@ export default {
     Dashboard,
     Leaderboard,
     TradingPlaza,
+    AuctionHouse,
     Settings
 }

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
+import blockedUsernames from "#constants/blockedUsernames";
+import getSession from "#functions/sessions/getSession";
 import createSession from "#functions/sessions/createSession";
-import deleteSession from "#functions/sessions/deleteSession";
 import speakEasy from "speakeasy";
 
 export default {
@@ -21,9 +22,7 @@ export default {
 
         const { username, password } = req.body;
 
-        if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
-        if (username.toLowerCase() === "me") return res.status(400).json({ message: "That username is not allowed." });
-
+        if (blockedUsernames.map(name => name.toLowerCase()).includes(username.toLowerCase())) return res.status(400).json({ message: "That username is not allowed." });
         if (password === "") return res.status(400).json({ message: "You must enter a password." });
 
         const user = await global.database.models.User.findOne({
@@ -34,24 +33,26 @@ export default {
                 include: [{ model: global.database.models.UserPunishment, as: "punishmentData", attributes: ["reason", "expiresAt"], required: false }]
             }]
         });
-        if (!user) return res.status(400).json({
-            message: "The username you entered doesn't belong to an account. Please check your username and try again."
-        });
+        if (!user) return res.status(400).json({ message: "The username you entered doesn't belong to an account. Please check your username and try again." });
 
-        if (user.password && !await bcrypt.compare(password, user.password)) return res.status(400).json({
-            message: "Your password was incorrect. Please double-check your password."
-        });
+        if (user.password && !await bcrypt.compare(password, user.password)) return res.status(400).json({ message: "Your password was incorrect. Please double-check your password." });
 
         if (user.ban && user.ban.punishmentData.expiresAt > new Date()) return res.status(403).json({
             message: `You are currently banned for ${user.ban.punishmentData.reason}. Your ban will expire <t:${Math.floor(user.ban.punishmentData.expiresAt.getTime() / 1000)}:R>. If you believe this is a mistake, please contact a staff member.`
         });
         else if (user.ban && user.ban.punishmentData.expiresAt < new Date()) await user.ban.destroy();
 
-        await deleteSession(user.id).catch(() => null);
+        const session = await getSession(user.id).catch(() => null);
+        if (session) return res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });
+        else await createSession(user.id)
+            .then(session => res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") }))
+            .catch(() => res.status(500).json({ message: "Something went wrong." }));
+
+        /*await deleteSession(user.id).catch(() => null);
         createSession(user.id).then(session => res.status(200).json({
             token: Buffer.from(JSON.stringify(session)).toString("base64")
         })).catch(() => res.status(500).json({
             message: "Something went wrong."
-        }));
+        }));*/
     }
 }

@@ -40,7 +40,7 @@ export default async (app) => {
             }
 
             for (const key in endpoint.body) {
-                if (endpoint.body[key].required && !req.body[key]) return res.status(400).json({ message: `${key} missing in body.` });
+                if (endpoint.body[key].required && !req.body[key] && req.body[key] !== false) return res.status(400).json({ message: `${key} missing in body.` });
 
                 if (!endpoint.body[key].required && typeof req.body[key] !== endpoint.body[key].type) continue;
                 if (!endpoint.body[key].required && endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) continue;

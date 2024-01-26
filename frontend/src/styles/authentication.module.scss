@@ -137,11 +137,7 @@
     text-align: left
 }
 
-.link {
-    color: var(--accent-color);
-}
-
-.check-box {
+.checkBox {
     align-items: center;
     border: 2px solid;
     border-color: var(--background-color);
@@ -160,24 +156,24 @@
     transition: .2s;
 }
 
-.check-box:hover {
+.checkBox:hover {
     border-color: var(--secondary-color);
 }
 
-.check-yes {
+.checkYes {
     color: var(--accent-color);
 }
 
-.check-no {
+.checkNo {
     color: var(--primary-color);
 }
 
-.check-icon {
+.checkIcon {
     text-align: center;
     width: 16px
 }
 
-.error-container {
+.errorContainer {
     align-items: center;
     border: 2px solid #ce1313;
     border-radius: 6px;
@@ -185,24 +181,23 @@
     flex-direction: row;
     margin: auto auto 20px;
     max-width: 330px;
-    width: 80%
-}
+    width: 80%;
 
-.error-icon {
-    color: #ce1313;
-    height: 18px;
-    margin-left: 13px;
-    margin-right: 13px;
-    min-width: 20px;
-    -webkit-user-select: none;
-    user-select: none;
-    width: 20px;
-}
+    &>i {
+        color: #ce1313;
+        height: 18px;
+        margin-left: 13px;
+        margin-right: 13px;
+        min-width: 20px;
+        -webkit-user-select: none;
+        user-select: none;
+        width: 20px;
+    }
 
-.error-text {
-    color: #fff;
-    font-family: "Nunito", sans-serif;
-    font-size: 16px;
-    margin: 5px 5px 5px;
-    text-align: left;
+    &>div {
+        color: var(--accent-color);
+        font-size: 16px;
+        margin: 5px 5px 5px;
+        text-align: left;
+    }
 }

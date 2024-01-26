@@ -1,4 +1,4 @@
-.header-container {
+.headerContainer {
     height: 100vh;
     width: 100%;
     overflow: hidden;
@@ -9,7 +9,7 @@
     }
 }
 
-.header-image {
+.headerImage {
     height: 100vh;
     width: 52.5%;
     position: absolute;
@@ -30,7 +30,7 @@
     }
 }
 
-.top-header-container {
+.topHeaderContainer {
     position: absolute;
     top: 3vh;
     left: 2.5vw;
@@ -47,7 +47,7 @@
     }
 }
 
-.top-button-container {
+.topButtonContainer {
     position: absolute;
     top: 3vh;
     right: 1.5vw;
@@ -63,7 +63,7 @@
     }
 }
 
-.top-button {
+.topButton {
     border-radius: 0.36vw;
     padding-bottom: 0.26vw;
     box-shadow: 0px -0.26vw rgba(0, 0, 0, 0.2) inset, 0px 0px 0.2vw rgba(0, 0, 0, 0.15);
@@ -79,7 +79,7 @@
     }
 }
 
-.register-button {
+.registerButton {
     width: 25vh;
     height: 8vh;
     line-height: 8vh;
@@ -88,7 +88,7 @@
     color: var(--accent-color);
 }
 
-.login-button {
+.loginButton {
     margin-right: 2.5vw;
     width: 18vh;
     height: 6vh;
@@ -102,7 +102,7 @@
     }
 }
 
-.header-side {
+.headerSide {
     background-color: var(--primary-color);
     box-shadow: -0.41vw 0px rgba(0, 0, 0, 0.2) inset, 0px 0px 0.2vw rgba(0, 0, 0, 0.15);
     width: 70vw;
@@ -126,14 +126,14 @@
     }
 }
 
-.logo-text {
+.logoText {
     font-size: 7.3vh;
     font-family: "Titan One", sans-serif;
     // text-shadow: 0.1vw 0.1vw 0.41vw rgb(128, 128, 128);
     color: var(--accent-color);
 }
 
-.welcome-container {
+.welcomeContainer {
     position: absolute;
     top: 22vh;
     left: 5vw;
@@ -151,7 +151,7 @@
     }
 }
 
-.welcome-text {
+.welcomeText {
     color: var(--accent-color);
     font-size: 8.83vh;
     line-height: 9.13vh;
@@ -166,7 +166,7 @@
     }
 }
 
-.welcome-description {
+.welcomeDescription {
     font-size: 3.35vh;
     margin: 3vh 0;
     color: var(--accent-color);
@@ -177,7 +177,7 @@
     }
 }
 
-.welcome-button-container {
+.welcomeButtonContainer {
     display: flex;
     flex-direction: column;
     gap: 0.5vw;
@@ -189,7 +189,7 @@
     }
 }
 
-.welcome-button {
+.welcomeButton {
     border-color: var(--accent-color);
     border-style: solid;
     border-radius: 0.31vw;
@@ -226,7 +226,7 @@
     }
 }
 
-.pronounce-button {
+.pronounceButton {
     color: var(--accent-color);
     font-size: 3vh;
     line-height: 4vh;
@@ -246,7 +246,7 @@
     }
 }
 
-.copyright-information {
+.copyrightInformation {
     position: absolute;
     bottom: 0;
     color: var(--accent-color);
@@ -258,7 +258,7 @@
     }
 }
 
-.version-information {
+.versionInformation {
     position: absolute;
     bottom: 1vw;
     right: 0;
@@ -272,7 +272,7 @@
     }
 }
 
-.terms-of-service-link {
+.termsOfServiceLink {
     position: absolute;
     bottom: 0;
     right: 0;

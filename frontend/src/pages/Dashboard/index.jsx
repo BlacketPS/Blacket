@@ -4,7 +4,7 @@ import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useUsers } from "@controllers/users";
 import { SidebarBody } from "@components";
-import styles from "@styles";
+import { GenericButton } from "@components/Buttons";
 
 export default function Dashboard() {
     const [searchParams] = useSearchParams();
@@ -46,6 +46,6 @@ export default function Dashboard() {
     else return (<SidebarBody>
         <h1>Dashboard (will be changed)</h1>
         {viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}
-        {viewingUser && <div onClick={() => setViewingUser(null)}>GoBack</div>}
+        {viewingUser && <GenericButton onClick={() => setViewingUser(null)}>Go Back</GenericButton>}
     </SidebarBody>)
 }

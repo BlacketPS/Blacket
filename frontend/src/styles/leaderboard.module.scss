@@ -9,7 +9,7 @@
     z-index: 1;
     transform: scale(.95);
 
-    @media only screen and (max-width: 1550px) {
+    @media only screen and (max-width: 1400px) {
         top: 0;
     }
 
@@ -21,22 +21,12 @@
 
 .filterButton {
     position: absolute;
-    cursor: pointer;
-    top: 20px;
+    top: 15px;
     left: 240px;
-    font-size: 30px;
-    width: fit-content;
-    padding: 5px 10px;
-    border-radius: 7px;
-    border: 3px solid var(--accent-color);
-    transition: background-color .2s, color .2s;
+    font-size: 30px !important;
+    border: 4px solid var(--accent-color);
 
-    &:hover {
-        background-color: var(--accent-color);
-        color: var(--primary-color);
-    }
-
-    @media not screen and (min-width: 1550px) {
+    @media not screen and (min-width: 1400px) {
         display: none;
         visibility: hidden;
     }
@@ -44,20 +34,8 @@
 
 .mobileFilterButton {
     margin-bottom: 10px;
-    font-size: 20px;
-    width: fit-content;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 2px solid var(--accent-color);
-    transition: background-color .2s, color .2s;
 
-    &:hover {
-        background-color: var(--accent-color);
-        color: var(--primary-color);
-    }
-
-    @media only screen and (min-width: 1550px) {
+    @media only screen and (min-width: 1400px) {
         display: none;
         visibility: hidden;
     }
@@ -80,7 +58,7 @@
         top: 8vh;
     }
 
-    @media only screen and (max-width: 1550px) {
+    @media only screen and (max-width: 1400px) {
         display: none;
         visibility: hidden;
     }
@@ -103,7 +81,7 @@
         top: 25.5vh;
     }
 
-    @media only screen and (max-width: 1550px) {
+    @media only screen and (max-width: 1400px) {
         display: none;
         visibility: hidden;
     }
@@ -126,7 +104,7 @@
         top: 38vh;
     }
 
-    @media only screen and (max-width: 1550px) {
+    @media only screen and (max-width: 1400px) {
         display: none;
         visibility: hidden;
     }
@@ -350,7 +328,7 @@
     padding: 1vh 0 4vh;
     justify-content: center;
 
-    @media only screen and (max-width: 1550px) {
+    @media only screen and (max-width: 1400px) {
         top: 9vh;
         left: 12vw;
     }
@@ -365,7 +343,7 @@
 .otherTopThreeStandings {
     display: none;
 
-    @media only screen and (max-width: 1550px) {
+    @media only screen and (max-width: 1400px) {
         display: flex;
         visibility: visible;
         flex-direction: column;

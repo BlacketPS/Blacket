@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
+import blockedUsernames from "#constants/blockedUsernames";
 import createSession from "#functions/sessions/createSession";
-import deleteSession from "#functions/sessions/deleteSession";
 
 export default {
     method: "post",
@@ -27,14 +27,14 @@ export default {
     endpoint: async (req, res) => {
         if (req.session) return res.status(403).json({ message: "You are already logged in." });
 
-        if (req.body.accessCode !== process.env.SERVER_ACCESS_CODE) return res.status(400).json({ message: "The access code you entered is incorrect." });
-
         const { username, password, acceptedTerms } = req.body;
 
-        if (username.toLowerCase() === process.env.VITE_INFORMATION_NAME.toLowerCase()) return res.status(400).json({ message: "That username is not allowed." });
-        if (username.toLowerCase() === "me") return res.status(400).json({ message: "That username is not allowed." });
+        if (blockedUsernames.map(name => name.toLowerCase()).includes(username.toLowerCase())) return res.status(400).json({ message: "That username is not allowed." });
+        if (password === "") return res.status(400).json({ message: "You must enter a password." });
 
         if (!acceptedTerms) return res.status(400).json({ message: "You must accept the terms of service." });
+
+        if (req.body.accessCode !== process.env.SERVER_ACCESS_CODE) return res.status(400).json({ message: "The access code you entered is incorrect." });
 
         if (await global.database.models.User.findOne({
             where: { username }

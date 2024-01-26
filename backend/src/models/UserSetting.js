@@ -21,7 +21,7 @@ export default {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [["on", "mutuals", "off"]]
+                isIn: [["on", "mutual", "off"]]
             },
             defaultValue: "on"
         },

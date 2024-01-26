@@ -5,6 +5,7 @@
         "Xotic"
     ],
     "imports": {
+        "#constants/*": "./src/constants/*.js",
         "#functions/*": "./src/functions/*.js",
         "#models/*": "./src/models/*.js"
     },

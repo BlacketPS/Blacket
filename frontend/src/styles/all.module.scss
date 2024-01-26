@@ -37,6 +37,10 @@ body {
     overflow-x: hidden;
 }
 
+a {
+    color: var(--accent-color);
+}
+
 .background {
     position: fixed;
     width: 100%;
@@ -126,12 +130,13 @@ body {
     @media only screen and (max-width: 850px) {
         top: 55px;
         left: 50%;
-        transform: translateX(-50%);
+        // transform: translateX(-50%);
         width: 100%;
+        height: calc(100% - 55px);
     }
 }
 
-.loading-modal {
+.loadingModal {
     display: flex;
     position: fixed;
     width: 100%;
@@ -143,57 +148,7 @@ body {
     z-index: 999;
 }
 
-.modal {
-    display: flex;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 998;
-    animation: modal-fade-in .2s linear forwards;
-
-    @keyframes modal-fade-in {
-        0% {
-            background: rgba(0, 0, 0, 0);
-        }
-
-        100% {
-            background: rgba(0, 0, 0, 0.6);
-        }
-    }
-
-    .modal-content {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        animation: modal-content-pop-in linear .3s forwards;
-
-        @keyframes modal-content-pop-in {
-            0% {
-                transform: scale(.5);
-                opacity: 0;
-            }
-
-            60% {
-                opacity: 1;
-            }
-
-            70% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-    }
-}
-
-.loader-container {
+.loaderContainer {
     height: 50px;
     margin-bottom: 30px;
     position: relative;
@@ -213,9 +168,8 @@ body {
     transform: scale(2);
 }
 
-.loader-blook {
-    -webkit-animation: loader-blook 3s linear infinite;
-    animation: loader-blook 3s linear infinite;
+.loaderBlook {
+    animation: loaderBlook 3s linear infinite;
     // left: 7.5px;
     position: absolute;
     // top: 0;
@@ -225,7 +179,7 @@ body {
     user-select: none;
     width: 35px;
 
-    @keyframes loader-blook {
+    @keyframes loaderBlook {
         0% {
             transform: translateY(10.5px) rotate(0deg);
         }
@@ -280,9 +234,8 @@ body {
     }
 }
 
-.loader-shadow {
-    -webkit-animation: loader-shadow .75s linear infinite;
-    animation: loader-shadow .75s linear infinite;
+.loaderShadow {
+    animation: loaderShadow .75s linear infinite;
     background: rgba(0, 0, 0, 0.75);
     border-radius: 20px;
     height: 6px;
@@ -312,103 +265,24 @@ body {
     }
 }
 
-.loader-message {
+.loaderMessage {
     margin-top: 135px;
     font-size: 25px;
     color: var(--accent-color);
 }
 
-.toast-message {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    text-align: right;
-    width: fit-content;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 7px 0px 0px 7px;
-    background: #2f2f2f;
-    box-shadow: inset 0 -6px rgba(0, 0, 0, 0.2);
-    transition: 0.25s;
-    z-index: 14;
-}
-
-.toast-container {
-    position: fixed;
-    width: 400px;
-    height: 125px;
-    background: var(--background-color);
-    right: 0;
-    top: 70px;
-    z-index: 998;
-    border-radius: 10px 0px 0px 10px;
-    box-shadow: inset 0 -5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    animation: styles__toastContainer___o4pCa-camelCase 0.25s linear;
-    cursor: pointer;
-}
-
-.toast-icon {
-    position: relative;
-    bottom: 3px;
-    left: 5px;
-    transform: scale(0.9);
-}
-
-.toast-title {
-    font-size: 30px;
+.pageHeader {
+    font-size: 44px;
+    font-weight: 700;
     color: var(--accent-color);
-    position: absolute;
-    top: 5px;
-    left: 115px;
-}
+    margin: 15px 5% 10px;
 
-.toast-message {
-    position: relative;
-    color: var(--accent-color);
-    top: 45px;
-    left: 8px;
-    overflow: hidden;
-    height: 60px;
-    width: 280px;
-    filter: opacity(0.5);
-}
-
-@keyframes toast-container {
-    0% {
-        transform: translateX(100%);
-    }
-
-    100% {
-        transform: translateX(0%);
+    @media screen and (max-width: 850px) {
+        text-align: center;
     }
 }
 
-@keyframes flyIn {
-    0% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes flyOut {
-    0% {
-        opacity: 1;
-        transform: translateX(0%);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateX(100%);
-    }
-}
-
-.input-container {
+.inputContainer {
     border: 2px solid rgba(0, 0, 0, 0.17);
     border-radius: 6px;
     width: 90%;

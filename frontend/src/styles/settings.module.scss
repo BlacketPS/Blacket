@@ -1,0 +1,91 @@
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin: 5px calc(5% - 12px);
+    width: calc(90% - 24px);
+    max-width: 1200px;
+
+    @media only screen and (max-width:600px) {
+        min-width: 320px;
+        margin: auto;
+        width: 95%
+    }
+}
+
+.settingsContainer {
+    border-radius: 7px;
+    background-color: var(--primary-color);
+    padding: 15px 20px 22px;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    margin: 12px;
+    min-width: 460px;
+    display: flex;
+    flex-direction: column;
+    color: var(--accent-color);
+    font-size: 20px;
+    line-height: 1.4;
+
+    @media only screen and (max-width:1200px) {
+        flex-grow: 1
+    }
+
+    @media only screen and (max-width:600px) {
+        min-width: 290px;
+        padding: 15px;
+        flex-grow: 1
+    }
+}
+
+.settingsContainerHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 3px;
+
+    &>i {
+        padding-right: 10px;
+        font-size: 28px;
+        color: var(--accent-color);
+        opacity: 0.5;
+    }
+
+    &>div {
+        font-size: 30px;
+        font-weight: 700
+    }
+}
+
+.settingsContainerDivider {
+    border-radius: 7px;
+    width: 100%;
+    height: 5px;
+    background-color: var(--accent-color);
+    opacity: 0.1;
+    // margin: 10px 0;
+    // margin-top 5px; too
+    margin: 5px 0 10px 0;
+}
+
+.planText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 2px 0;
+    font-size: 26px;
+
+    &>div:nth-child(1) {
+        font-family: "Titan One", sans-serif;
+        margin-right: 5px;
+        padding-bottom: 3px;
+    }
+
+    &>div:nth-child(2) {
+        font-weight: 700;
+    }
+}
+
+.upgradeButton {
+    margin-top: 10px;
+}

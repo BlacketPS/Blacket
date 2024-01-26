@@ -4,8 +4,8 @@ import styles from "@styles";
 
 export function Header({ right }) {
     useEffect(() => {
-        if (right && typeof right !== "object") throw new Error("header right must be typeof object");
-        if (right && (!right.link || !right.text)) throw new Error("header right must have link and text");
+        if (right && typeof right !== "object") throw new Error("right must be typeof object");
+        if (right && (!right.link || !right.text)) throw new Error("right must have link and text");
     }, []);
 
     return (

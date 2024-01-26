@@ -8,7 +8,7 @@ export default function AgreeHolder({ checked, ...props }) {
             </div>
 
             <div className={styles.authentication.agreeText}>
-                I agree to the <a className={styles.authentication.link} href="/terms" target="_blank">Terms of Service</a> and <a className={styles.authentication.link} href="/privacy" target="_blank">Privacy Policy</a>.
+                I agree to the <a className={styles.all.link} href="/terms" target="_blank">Terms of Service</a> and <a className={styles.all.link} href="/privacy" target="_blank">Privacy Policy</a>.
             </div>
         </div>
     )

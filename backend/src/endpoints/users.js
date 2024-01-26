@@ -7,30 +7,32 @@ export default {
         authRequired: true
     },
     endpoint: async (req, res) => {
-        const user = await getUser(req.params.user.toLowerCase() === "me" ? req.session.user : req.params.user, ["badges", "settings", "statistics", "blooksNoSold"]).catch(() => null);
-        if (!user) return res.status(400).json({ message: "The username you entered doesn't belong to an account." });
+        const { user } = req.params;
 
-        if (user.blooks) {
+        const userData = await getUser(user.toLowerCase() === "me" ? req.session.user : user, ["badges", "settings", "statistics", "blooksNoSold"]).catch(() => null);
+        if (!userData) return res.status(400).json({ message: "The username you entered doesn't belong to an account." });
+
+        if (userData.blooks) {
             const userBlooks = {};
 
-            for (const blook of user.blooks) {
+            for (const blook of userData.blooks) {
                 if (!userBlooks[blook.blook]) userBlooks[blook.blook] = 1;
                 else userBlooks[blook.blook]++;
             }
 
-            user.blooks = userBlooks;
-        } else user.blooks = {};
-        user.badges = user.badges.map(badge => badge.badge);
+            userData.blooks = userBlooks;
+        } else userData.blooks = {};
+        userData.badges = userData.badges.map(badge => badge.badge);
 
-        if (req.session.user !== user.id) {
-            delete user.permissions;
-            delete user.settings;
+        if (req.session.user !== userData.id) {
+            delete userData.permissions;
+            delete userData.settings;
         }
 
-        delete user.ipAddress;
-        delete user.password;
-        if (user.settings) delete user.settings.otpSecret;
+        delete userData.ipAddress;
+        delete userData.password;
+        if (userData.settings) userData.settings.otpSecret = userData.settings.otpSecret ? true : false;
 
-        res.status(200).json({ user });
+        res.status(200).json({ user: userData });
     }
 }

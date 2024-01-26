@@ -1,6 +1,8 @@
 import { or, Op } from "sequelize";
 
 const getUser = (user, also) => new Promise(async (resolve, reject) => {
+    if (!also) also = [];
+
     const includes = [];
 
     if (also.includes("badges")) includes.push({ model: global.database.models.UserBadge, as: "badges", attributes: { exclude: ["user"] } });

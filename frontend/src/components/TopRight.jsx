@@ -12,8 +12,6 @@ export default function TopRight() {
 
     return (
         <div className={styles.topRight.container}>
-
-
             {user && <div className={styles.topRight.userContainer}>
                 <div className={styles.topRight.userLeft}>
                     <img src={user.avatar === null ? "/content/blooks/Default.png" : user.avatar} draggable={false} />

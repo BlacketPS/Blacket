@@ -1,23 +1,29 @@
 import all from "./all.module.scss";
 import errors from "./errors.module.scss";
 import textFormatting from "./textFormatting.module.scss";
+import buttons from "./buttons.module.scss";
+import modal from "./modal.module.scss";
 import home from "./home.module.scss";
 import authentication from "./authentication.module.scss";
 import sidebar from "./sidebar.module.scss";
 import topRight from "./topRight.module.scss";
 import dashboard from "./dashboard.module.scss";
 import leaderboard from "./leaderboard.module.scss";
+import settings from "./settings.module.scss";
 
 export default {
     all,
     errors,
     textFormatting,
+    buttons,
+    modal,
     home,
     authentication,
     sidebar,
     topRight,
     dashboard,
-    leaderboard
+    leaderboard,
+    settings
 }
 
 const env = {

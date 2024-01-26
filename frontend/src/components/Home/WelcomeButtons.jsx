@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "@styles";
 
 export default function WelcomeButtons() {
-    const discordInvite = import.meta.env.VITE_DISCORD_INVITE;
+    const discordInvite = import.meta.env.VITE_INFORMATION_DISCORD_INVITE;
 
     return (
         <div className={styles.home.welcomeButtonContainer}>

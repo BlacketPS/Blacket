@@ -13,14 +13,16 @@ export default {
         }
     },
     endpoint: async (req, res) => {
-        if (!req.body.avatar) return global.database.models.User.update({ avatar: null }, { where: { id: req.session.user } }).then(() => res.status(204).json());
+        const { avatar } = req.body;
+
+        if (!avatar) return global.database.models.User.update({ avatar: null }, { where: { id: req.session.user } }).then(() => res.status(204).json());
 
         const blooks = JSON.parse(await global.redis.GET("blacket-blooks"));
-        const blook = blooks.find(blook => blook.id === req.body.avatar);
+        const blook = blooks.find(blook => blook.id === avatar);
 
         if (!blook) return res.status(400).json({ error: "That blook doesn't exist." });
 
-        if (!await hasBlook(req.session.user, req.body.avatar)) return res.status(400).json({ error: "You don't own this blook." });
+        if (!await hasBlook(req.session.user, avatar)) return res.status(400).json({ error: "You don't own this blook." });
 
         await global.database.models.User.update({ avatar: blook.image }, { where: { id: req.session.user } });
 
