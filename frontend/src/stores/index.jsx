@@ -6,13 +6,13 @@ import { LeaderboardStoreProvider } from "./LeaderboardStore";
 export default function StoreWrapper({ children }) {
     return (
         <LoadingStoreProvider>
-            <ModalStoreProvider>
-                <UserStoreProvider>
+            <UserStoreProvider>
+                <ModalStoreProvider>
                     <LeaderboardStoreProvider>
                         {children}
                     </LeaderboardStoreProvider>
-                </UserStoreProvider>
-            </ModalStoreProvider>
+                </ModalStoreProvider>
+            </UserStoreProvider>
         </LoadingStoreProvider>
     )
 }

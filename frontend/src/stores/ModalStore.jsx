@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { GenericModal } from "@components/Modals";
+import { GenericModal, ErrorModal } from "@components/Modals";
 
 const ModalStoreContext = createContext();
 
@@ -23,6 +23,14 @@ export function ModalStoreProvider({ children }) {
         setClosing(true);
         setTimeout(() => {
             setModals(modals => modals.filter((_, i) => i !== 0));
+            setClosing(false);
+        }, 525);
+    }
+
+    window.onpopstate = () => {
+        setClosing(true);
+        setTimeout(() => {
+            setModals([]);
             setClosing(false);
         }, 525);
     }

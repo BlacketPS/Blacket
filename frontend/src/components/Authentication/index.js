@@ -1,13 +1,13 @@
 import AgreeHolder from "./AgreeHolder";
 import Container from "./Container";
 import Header from "./Header";
-import Error from "./Error";
+import ErrorContainer from "./ErrorContainer";
 import SubmitButton from "./SubmitButton";
 
 export {
     AgreeHolder,
     Container,
     Header,
-    Error,
+    ErrorContainer,
     SubmitButton
 }

@@ -4,7 +4,7 @@ import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useLogin, useRegister } from "@controllers/auth";
 import { HeaderBody, Input } from "@components";
-import { Container, Header, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
+import { Container, Header, AgreeHolder, SubmitButton, ErrorContainer } from "@components/Authentication";
 
 export default function Authentication({ type }) {
     const { setLoading } = useLoading();
@@ -73,7 +73,7 @@ export default function Authentication({ type }) {
 
                 <SubmitButton onClick={submitForm}>Let's Go!</SubmitButton>
 
-                {error && <Error error={error} />}
+                {error && <ErrorContainer>{error}</ErrorContainer>}
             </Container>
         </HeaderBody>
     )

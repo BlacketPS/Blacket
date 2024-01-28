@@ -6,6 +6,7 @@ import { useFriendRequests } from "@controllers/settings";
 import { SidebarBody, PageHeader } from "@components";
 import { Container, SettingsContainer, PlanText, UpgradeButton } from "@components/Settings";
 import { ClearButton } from "@components/Buttons";
+import { ErrorModal } from "@components/Modals";
 import ChangeUsernameModal from "@components/Modals/Settings/ChangeUsernameModal";
 
 export default function Settings() {
@@ -18,8 +19,8 @@ export default function Settings() {
     const friendRequestsButton = () => {
         setLoading("Changing settings");
         setFriendRequests(user.settings.friendRequests === "on" ? "mutual" : user.settings.friendRequests === "mutual" ? "off" : user.settings.friendRequests === "off" ? "on" : "on")
-            .then(() => setLoading(false))
-            .catch(() => setLoading(false));
+            .catch(() => createModal(<ErrorModal>Unable to change settings.</ErrorModal>))
+            .finally(() => setLoading(false));
     }
 
     if (!user) return <Navigate to="/login" />;
@@ -47,6 +48,10 @@ export default function Settings() {
 
             <SettingsContainer header={{ icon: "fas fa-cog", text: "General" }}>
                 <ClearButton onClick={friendRequestsButton}>Friend Requests: {user.settings.friendRequests.charAt(0).toUpperCase() + user.settings.friendRequests.slice(1)}</ClearButton>
+            </SettingsContainer>
+
+            <SettingsContainer header={{ icon: "fas fa-palette", text: "Theme" }}>
+                <ClearButton>Change Theme</ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-lock", text: "Privacy" }}>

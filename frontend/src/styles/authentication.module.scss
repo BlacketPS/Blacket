@@ -104,32 +104,3 @@
     text-align: center;
     width: 16px
 }
-
-.errorContainer {
-    align-items: center;
-    border: 2px solid #ce1313;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: row;
-    margin: auto auto 20px;
-    max-width: 330px;
-    width: 80%;
-
-    &>i {
-        color: #ce1313;
-        height: 18px;
-        margin-left: 13px;
-        margin-right: 13px;
-        min-width: 20px;
-        -webkit-user-select: none;
-        user-select: none;
-        width: 20px;
-    }
-
-    &>div {
-        color: var(--accent-color);
-        font-size: 16px;
-        margin: 5px 5px 5px;
-        text-align: left;
-    }
-}

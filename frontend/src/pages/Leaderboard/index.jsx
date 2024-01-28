@@ -22,11 +22,11 @@ export default function Leaderboard() {
             setLoading("Loading leaderboard");
             getLeaderboard()
                 .then(res => setLeaderboard({ fetchedAt: Date.now(), leaderboard: res }))
-                .catch(() => createModal(<ErrorModal />) && history.back())
+                .catch(() => createModal(<ErrorModal onClick={() => history.back()}>Unable to fetch leaderboard.</ErrorModal>))
                 .finally(() => setLoading(false));
         } else if (leaderboard && Date.now() - leaderboard.fetchedAt > 60000) getLeaderboard()
             .then(res => setLeaderboard({ fetchedAt: Date.now(), leaderboard: res }))
-            .catch(() => createModal(<ErrorModal />) && history.back());
+            .catch(() => createModal(<ErrorModal onClick={() => history.back()}>Unable to fetch leaderboard.</ErrorModal>));
     }, []);
 
     const switchSort = () => sortBy === "tokens" ? setSortBy("experience") : setSortBy("tokens");

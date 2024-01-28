@@ -25,6 +25,11 @@ export default {
             },
             defaultValue: "on"
         },
+        otpEnabled: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
         otpSecret: {
             type: DataTypes.STRING,
             allowNull: true,

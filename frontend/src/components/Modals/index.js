@@ -1,13 +1,17 @@
 import ErrorModal from "./ErrorModal";
 import GenericModal from "./GenericModal";
-import ModalBody from "./ModalBody";
 import ModalButtons from "./ModalButtons";
+import ModalError from "./ModalError";
 import ModalHeader from "./ModalHeader";
+import ModalLoader from "./ModalLoader";
+import ModalText from "./ModalText";
 
 export {
     ErrorModal,
     GenericModal,
-    ModalBody,
     ModalButtons,
-    ModalHeader
+    ModalError,
+    ModalHeader,
+    ModalLoader,
+    ModalText,
 }

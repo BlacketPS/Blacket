@@ -31,7 +31,7 @@ export default {
 
         delete userData.ipAddress;
         delete userData.password;
-        if (userData.settings) userData.settings.otpSecret = userData.settings.otpSecret ? true : false;
+        delete userData.settings.otpSecret;
 
         res.status(200).json({ user: userData });
     }
