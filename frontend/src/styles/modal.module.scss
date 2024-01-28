@@ -19,6 +19,22 @@
             background: rgba(0, 0, 0, 0.6);
         }
     }
+
+    &[data-closing="true"] {
+        pointer-events: none;
+        user-select: none;
+        animation: modalClose .5s linear forwards;
+
+        @keyframes modalClose {
+            0% {
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            100% {
+                background: rgba(0, 0, 0, 0);
+            }
+        }
+    }
 }
 
 .modalContent {
@@ -46,4 +62,89 @@
             opacity: 1;
         }
     }
+
+    &[data-closing="true"] {
+        animation: modalContentClose linear .3s forwards;
+
+        @keyframes modalContentClose {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            60% {
+                transform: scale(1.2);
+            }
+
+            70% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(.5);
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.modalContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 420px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--primary-color);
+    border-radius: 7px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-bottom: 7px;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+
+    @media only screen and (max-width: 600px) {
+        min-width: 300px;
+        width: unset;
+    }
+}
+
+.modalHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px 7px;
+    margin-bottom: 3px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.modalDivider {
+    width: 100%;
+    height: 5px;
+    background-color: var(--accent-color);
+    opacity: 0.1;
+    margin-bottom: 10px;
+}
+
+.modalBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 15px;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.modalButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 20px 15px;
+    font-size: 20px;
+    line-height: 1.4;
+    gap: 10px;
 }

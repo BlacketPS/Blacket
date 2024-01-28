@@ -1,13 +1,16 @@
 import { Navigate, Link } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
+import { useModal } from "@stores/ModalStore";
 import { useUser } from "@stores/UserStore";
 import { useFriendRequests } from "@controllers/settings";
 import { SidebarBody, PageHeader } from "@components";
 import { Container, SettingsContainer, PlanText, UpgradeButton } from "@components/Settings";
 import { ClearButton } from "@components/Buttons";
+import ChangeUsernameModal from "@components/Modals/Settings/ChangeUsernameModal";
 
 export default function Settings() {
     const { setLoading } = useLoading();
+    const { createModal } = useModal();
     const { user } = useUser();
 
     const setFriendRequests = useFriendRequests();
@@ -37,7 +40,7 @@ export default function Settings() {
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-pencil-alt", text: "Edit Info" }}>
-                <ClearButton>Change Username</ClearButton>
+                <ClearButton onClick={() => createModal(<ChangeUsernameModal />)}>Change Username</ClearButton>
                 <ClearButton>Change Password</ClearButton>
                 <ClearButton>{user.settings.otpSecret ? "Disable" : "Enable"} OTP / 2FA</ClearButton>
             </SettingsContainer>

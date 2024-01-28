@@ -3,8 +3,8 @@ import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useLogin, useRegister } from "@controllers/auth";
-import { HeaderBody } from "@components";
-import { Container, Header, Input, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
+import { HeaderBody, Input } from "@components";
+import { Container, Header, AgreeHolder, SubmitButton, Error } from "@components/Authentication";
 
 export default function Authentication({ type }) {
     const { setLoading } = useLoading();

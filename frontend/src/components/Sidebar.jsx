@@ -102,56 +102,54 @@ export default function Sidebar() {
         ]
     }
 
-    return (
-        <>
-            <div className={styles.sidebar.sidebar}>
-                <Link className={styles.sidebar.header} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
+    return (<>
+        <div className={styles.sidebar.sidebar}>
+            <Link className={styles.sidebar.header} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
 
-                {pages.left.map((page, index) => (
-                    <Link data-active={location === page.link.split("/")[1]} key={index} className={styles.sidebar.page} to={page.link}>
-                        <i className={`${styles.sidebar.pageIcon} ${page.icon}`} />
-                        <div className={styles.sidebar.pageText} style={{ fontSize: page.textSizeOverride || 20 }}>{page.text}</div>
+            {pages.left.map((page, index) => (
+                <Link data-active={location === page.link.split("/")[1]} key={index} className={styles.sidebar.page} to={page.link}>
+                    <i className={`${styles.sidebar.pageIcon} ${page.icon}`} />
+                    <div className={styles.sidebar.pageText} style={{ fontSize: page.textSizeOverride || 20 }}>{page.text}</div>
+                </Link>
+            ))}
+
+            <div className={styles.sidebar.bottom}>
+                {pages.bottom.map((page, index) => (
+                    <Link key={index} className={styles.sidebar.bottomPage} to={page.link} data-tooltip-id={page.link}>
+                        <Tooltip id={page.link} place="top">{page.text}</Tooltip>
+
+                        <i className={`${styles.sidebar.bottomPageIcon} ${page.icon}`} />
                     </Link>
                 ))}
-
-                <div className={styles.sidebar.bottom}>
-                    {pages.bottom.map((page, index) => (
-                        <Link key={index} className={styles.sidebar.bottomPage} to={page.link} data-tooltip-id={page.link}>
-                            <Tooltip id={page.link} place="top">{page.text}</Tooltip>
-
-                            <i className={`${styles.sidebar.bottomPageIcon} ${page.icon}`} />
-                        </Link>
-                    ))}
-                </div>
             </div>
+        </div>
 
-            <div className={styles.sidebar.mobileNavbar}>
-                <Link className={styles.sidebar.mobileHeader} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
+        <div className={styles.sidebar.mobileNavbar}>
+            <Link className={styles.sidebar.mobileHeader} to="/">{import.meta.env.VITE_INFORMATION_NAME}</Link>
 
-                <i className={`${styles.sidebar.mobileHamburgerIcon} fas fa-bars`} onClick={() => setMobileSidebarOpen(true)} />
-            </div>
+            <i className={`${styles.sidebar.mobileHamburgerIcon} fas fa-bars`} onClick={() => setMobileSidebarOpen(true)} />
+        </div>
 
-            {mobileSidebarOpen && <div className={styles.sidebar.mobileSidebarModal} onClick={() => setMobileSidebarOpen(false)} />}
-            <div className={styles.sidebar.mobileSidebar} data-open={mobileSidebarOpen}>
-                <i className={`${styles.sidebar.mobileCloseIcon} fas fa-times`} onClick={() => setMobileSidebarOpen(false)} />
+        {mobileSidebarOpen && <div className={styles.sidebar.mobileSidebarModal} onClick={() => setMobileSidebarOpen(false)} />}
+        <div className={styles.sidebar.mobileSidebar} data-open={mobileSidebarOpen}>
+            <i className={`${styles.sidebar.mobileCloseIcon} fas fa-times`} onClick={() => setMobileSidebarOpen(false)} />
 
-                {pages.left.map((page, index) => (
-                    <Link key={index} className={styles.sidebar.page} onClick={() => setMobileSidebarOpen(false)} data-active={location === page.link.split("/")[1]} to={page.link}>
-                        <i className={`${styles.sidebar.pageIcon} ${page.icon}`} />
-                        <div className={styles.sidebar.pageText} style={{ fontSize: page.textSizeOverride || 20 }}>{page.text}</div>
+            {pages.left.map((page, index) => (
+                <Link key={index} className={styles.sidebar.page} onClick={() => setMobileSidebarOpen(false)} data-active={location === page.link.split("/")[1]} to={page.link}>
+                    <i className={`${styles.sidebar.pageIcon} ${page.icon}`} />
+                    <div className={styles.sidebar.pageText} style={{ fontSize: page.textSizeOverride || 20 }}>{page.text}</div>
+                </Link>
+            ))}
+
+            <div className={styles.sidebar.bottom}>
+                {pages.bottom.map((page, index) => (
+                    <Link key={index} className={styles.sidebar.bottomPage} onClick={() => setMobileSidebarOpen(false)} to={page.link} data-tooltip-id={page.link}>
+                        <Tooltip id={page.link} place="top">{page.text}</Tooltip>
+
+                        <i className={`${styles.sidebar.bottomPageIcon} ${page.icon}`} />
                     </Link>
                 ))}
-
-                <div className={styles.sidebar.bottom}>
-                    {pages.bottom.map((page, index) => (
-                        <Link key={index} className={styles.sidebar.bottomPage} onClick={() => setMobileSidebarOpen(false)} to={page.link} data-tooltip-id={page.link}>
-                            <Tooltip id={page.link} place="top">{page.text}</Tooltip>
-
-                            <i className={`${styles.sidebar.bottomPageIcon} ${page.icon}`} />
-                        </Link>
-                    ))}
-                </div>
             </div>
-        </>
-    )
+        </div>
+    </>)
 }

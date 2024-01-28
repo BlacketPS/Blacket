@@ -1,8 +1,8 @@
 import Background from "./Background";
 import { Header, HeaderNoLink } from "./Header";
 import HeaderBody from "./HeaderBody";
+import Input from "./Input";
 import Loader from "./Loader";
-import Modal from "./Modal";
 import PageHeader from "./PageHeader";
 import Sidebar from "./Sidebar";
 import SidebarBody from "./SidebarBody";
@@ -13,8 +13,8 @@ export {
     Header,
     HeaderNoLink,
     HeaderBody,
+    Input,
     Loader,
-    Modal,
     PageHeader,
     Sidebar,
     SidebarBody,

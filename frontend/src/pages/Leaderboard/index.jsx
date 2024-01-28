@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
+import { useModal } from "@stores/ModalStore";
 import { useUser } from "@stores/UserStore";
 import { useLeaderboard as useLeaderboardStore } from "@stores/LeaderboardStore";
 import { useLeaderboard as useLeaderboardController } from "@controllers/leaderboard";
+import { ErrorModal } from "@components/Modals";
 import { Wrapper, FilterButton, BigPlacement, LittlePlacement, MobileFilterButton, OtherTopThree, OtherStandings } from "@components/Leaderboard";
 
 export default function Leaderboard() {
     const { setLoading } = useLoading();
+    const { createModal } = useModal();
     const { user } = useUser();
     const { sortBy, setSortBy } = useLeaderboardStore();
     const { leaderboard, setLeaderboard } = useLeaderboardStore();
@@ -19,11 +22,11 @@ export default function Leaderboard() {
             setLoading("Loading leaderboard");
             getLeaderboard()
                 .then(res => setLeaderboard({ fetchedAt: Date.now(), leaderboard: res }))
-                .catch(() => history.back())
+                .catch(() => createModal(<ErrorModal />) && history.back())
                 .finally(() => setLoading(false));
         } else if (leaderboard && Date.now() - leaderboard.fetchedAt > 60000) getLeaderboard()
             .then(res => setLeaderboard({ fetchedAt: Date.now(), leaderboard: res }))
-            .catch(() => history.back())
+            .catch(() => createModal(<ErrorModal />) && history.back());
     }, []);
 
     const switchSort = () => sortBy === "tokens" ? setSortBy("experience") : setSortBy("tokens");

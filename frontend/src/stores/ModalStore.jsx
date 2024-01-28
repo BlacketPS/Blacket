@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { Modal } from "@components";
+import { GenericModal } from "@components/Modals";
 
 const ModalStoreContext = createContext();
 
@@ -9,6 +9,7 @@ export function useModal() {
 
 export function ModalStoreProvider({ children }) {
     const [modals, setModals] = useState([]);
+    const [closing, setClosing] = useState(false);
 
     const createModal = (modal) => {
         const id = Math.random().toString(36).slice(2);
@@ -18,11 +19,17 @@ export function ModalStoreProvider({ children }) {
         return id;
     }
 
-    const removeModal = (id) => setModals(modals => modals.filter(modal => modal.id !== id));
+    const closeModal = () => {
+        setClosing(true);
+        setTimeout(() => {
+            setModals(modals => modals.filter((_, i) => i !== 0));
+            setClosing(false);
+        }, 525);
+    }
 
     return (
-        <ModalStoreContext.Provider value={{ modals, setModals, createModal, removeModal }}>
-            {modals[0] && <Modal>{modals[0].modal}</Modal>}
+        <ModalStoreContext.Provider value={{ modals, setModals, createModal, closeModal }}>
+            {modals[0] && <GenericModal closing={closing}>{modals[0].modal}</GenericModal>}
 
             {children}
         </ModalStoreContext.Provider>
