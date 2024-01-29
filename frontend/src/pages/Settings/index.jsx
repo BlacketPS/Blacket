@@ -7,7 +7,7 @@ import { SidebarBody, PageHeader } from "@components";
 import { Container, SettingsContainer, PlanText, UpgradeButton } from "@components/Settings";
 import { ClearButton } from "@components/Buttons";
 import { ErrorModal } from "@components/Modals";
-import ChangeUsernameModal from "@components/Modals/Settings/ChangeUsernameModal";
+import { ChangeUsernameModal, ChangePasswordModal, EnableOTPModal, DisableOTPModal } from "@components/Modals/Settings";
 
 export default function Settings() {
     const { setLoading } = useLoading();
@@ -42,16 +42,38 @@ export default function Settings() {
 
             <SettingsContainer header={{ icon: "fas fa-pencil-alt", text: "Edit Info" }}>
                 <ClearButton onClick={() => createModal(<ChangeUsernameModal />)}>Change Username</ClearButton>
-                <ClearButton>Change Password</ClearButton>
-                <ClearButton>{user.settings.otpSecret ? "Disable" : "Enable"} OTP / 2FA</ClearButton>
+                <ClearButton onClick={() => createModal(<ChangePasswordModal />)}>Change Password</ClearButton>
+                <ClearButton onClick={() => {
+                    if (!user.settings.otpEnabled) createModal(<EnableOTPModal />);
+                    else createModal(<DisableOTPModal />);
+                }}>{user.settings.otpEnabled ? "Disable" : "Enable"} OTP / 2FA</ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-cog", text: "General" }}>
                 <ClearButton onClick={friendRequestsButton}>Friend Requests: {user.settings.friendRequests.charAt(0).toUpperCase() + user.settings.friendRequests.slice(1)}</ClearButton>
             </SettingsContainer>
 
-            <SettingsContainer header={{ icon: "fas fa-palette", text: "Theme" }}>
-                <ClearButton>Change Theme</ClearButton>
+            <SettingsContainer header={{ icon: "fas fa-palette", text: "Theme (will be changed)" }}>
+                <ClearButton onClick={() => {
+                    const style = document.createElement("style");
+                    style.id = "theme";
+                    style.innerHTML = `:root {
+                        --background-opacity: 0.0175;
+                        --background-color: #000000;
+                        --primary-color: #0b0b0b;
+                        --secondary-color: #1b1b1b;
+                        --accent-color: #ffffff;
+                    }`;
+                    document.body.appendChild(style);
+                }}>
+                    amoled theme (experimental)
+                </ClearButton>
+                <ClearButton onClick={() => {
+                    const style = document.getElementById("theme");
+                    if (style) style.remove();
+                }}>
+                    revert to default theme
+                </ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-lock", text: "Privacy" }}>

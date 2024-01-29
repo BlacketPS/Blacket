@@ -1,33 +1,33 @@
 import { useState } from "react";
 import { useModal } from "@stores/ModalStore";
-import { useUsername } from "@controllers/settings";
+import { usePassword } from "@controllers/settings";
 import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Modals";
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
-export default function ChangeUsernameModal() {
+export default function ChangePasswordModal() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const [newUsername, setNewUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
-    const setUsername = useUsername();
+    const setPassword = usePassword();
 
     const { closeModal } = useModal();
 
     return (<>
-        <ModalHeader>Change Username</ModalHeader>
-        <ModalText>Please fill out the form below to change your username.</ModalText>
+        <ModalHeader>Change Password</ModalHeader>
+        <ModalText>Please fill out the form below to change your password.</ModalText>
 
         <form>
-            <Input icon="fas fa-user" placeholder="New Username" value={newUsername} onChange={e => {
-                setNewUsername(e.target.value);
+            <Input icon="fas fa-lock" placeholder="Old Password" type="password" value={oldPassword} onChange={e => {
+                setOldPassword(e.target.value);
                 setError(null);
             }} />
 
-            <Input icon="fas fa-lock" placeholder="Password" type="password" value={password} onChange={e => {
-                setPassword(e.target.value);
+            <Input icon="fas fa-lock" placeholder="New Password" type="password" value={newPassword} onChange={e => {
+                setNewPassword(e.target.value);
                 setError(null);
             }} />
         </form>
@@ -37,7 +37,7 @@ export default function ChangeUsernameModal() {
         <ModalButtons loading={loading}>
             <GenericButton onClick={() => {
                 setLoading(true);
-                setUsername(newUsername, password)
+                setPassword(oldPassword, newPassword)
                     .then(() => closeModal())
                     .catch(err => err?.response?.data?.message ? setError(err.response.data.message) : setError("Something went wrong."))
                     .finally(() => setLoading(false));

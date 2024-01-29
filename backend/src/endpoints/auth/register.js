@@ -12,8 +12,7 @@ export default {
         },
         password: {
             type: "string",
-            required: true,
-            match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+            required: true
         },
         accessCode: {
             type: "string",

@@ -5,6 +5,10 @@
     display: flex;
     flex-direction: row;
     z-index: 5;
+
+    @media only screen and (max-width: 850px) {
+        top: 55px;
+    }
 }
 
 .userContainer {
@@ -24,6 +28,7 @@
     position: relative;
 
     @media only screen and (max-width: 850px) {
+        display: none;
         visibility: hidden;
     }
 }
@@ -102,4 +107,27 @@
     opacity: 1;
     transform: rotateX(0);
     visibility: visible;
+}
+
+.tokenBalance {
+    height: 55px;
+    background-color: var(--primary-color);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-sizing: border-box;
+    padding: 0 10px 6px;
+    box-shadow: inset 0 -6px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .15);
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 0 10px;
+    display: flex;
+
+    &>img {
+        width: 30px;
+        height: 30px;
+        margin-right: 7px;
+    }
 }

@@ -7,6 +7,7 @@ import Leaderboard from "./Leaderboard";
 import TradingPlaza from "./TradingPlaza";
 import AuctionHouse from "./AuctionHouse";
 import Settings from "./Settings";
+import Market from "./Market";
 
 export default {
     Loading,
@@ -17,5 +18,6 @@ export default {
     Leaderboard,
     TradingPlaza,
     AuctionHouse,
-    Settings
+    Settings,
+    Market
 }

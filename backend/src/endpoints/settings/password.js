@@ -14,8 +14,7 @@ export default {
         },
         newPassword: {
             type: "string",
-            required: true,
-            match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+            required: true
         }
     },
     middlewares: {

@@ -10,6 +10,8 @@ export default function Authentication({ type }) {
     const { setLoading } = useLoading();
     const { user } = useUser();
 
+    if (user) return <Navigate to="/dashboard" />;
+
     const login = useLogin();
     const register = useRegister();
 
@@ -48,8 +50,7 @@ export default function Authentication({ type }) {
         }
     }
 
-    if (user) return <Navigate to="/dashboard" />;
-    else return (
+    return (
         <HeaderBody>
             <Container>
                 <Header>{type}</Header>

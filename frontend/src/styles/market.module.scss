@@ -1,0 +1,43 @@
+.flex {
+    display: flex;
+}
+
+.mInstantButton {
+    display: none;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border-radius: 5px;
+    font-size: 12px;
+    height: 20px;
+    padding: 0 10px;
+    margin: 0 5%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    outline: none;
+    cursor: pointer;
+
+    @media only screen and (max-width: 1010px) {
+        display: flex;
+    }
+}
+
+.storeContainer {
+    position: fixed;
+    right: 2.5%;
+    width: 250px;
+    height: 375px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    pointer-events: none;
+
+    @media only screen and (max-width: 1010px) {
+        display: none;
+    }
+}

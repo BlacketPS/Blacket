@@ -2,7 +2,7 @@ import speakEasy from "speakeasy";
 import qrcode from "qrcode";
 
 export default {
-    method: "post",
+    method: "patch",
     options: {
         authRequired: true
     },
@@ -11,7 +11,7 @@ export default {
     },
     endpoint: async (req, res) => {
         if (req.user.settings.otpEnabled) return res.status(400).json({ message: "You already have OTP enabled." });
-        if (req.user.settings.otpSecret) return res.status(400).json({
+        if (req.user.settings.otpSecret) return res.status(200).json({
             image: await qrcode.toDataURL(speakEasy.otpauthURL({ secret: req.user.settings.otpSecret, label: req.user.username, issuer: process.env.VITE_INFORMATION_NAME }))
         });
 
