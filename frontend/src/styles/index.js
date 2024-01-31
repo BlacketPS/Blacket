@@ -9,8 +9,8 @@ import sidebar from "./sidebar.module.scss";
 import topRight from "./topRight.module.scss";
 import dashboard from "./dashboard.module.scss";
 import leaderboard from "./leaderboard.module.scss";
-import settings from "./settings.module.scss";
 import market from "./market.module.scss";
+import settings from "./settings.module.scss";
 
 export default {
     all,
@@ -24,8 +24,8 @@ export default {
     topRight,
     dashboard,
     leaderboard,
-    settings,
-    market
+    market,
+    settings
 }
 
 const env = {

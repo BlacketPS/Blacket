@@ -5,12 +5,18 @@ export default {
     attributes: {
         id: {
             type: DataTypes.STRING,
+            allowNull: false,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        chance: {
+            type: DataTypes.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
         },
         rarity: {
             type: DataTypes.STRING,
@@ -31,7 +37,8 @@ export default {
         },
         background: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true,
+            defaultValue: null
         },
         priority: {
             type: DataTypes.DOUBLE,

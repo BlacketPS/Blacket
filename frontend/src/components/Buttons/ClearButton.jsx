@@ -1,5 +1,8 @@
 import styles from "@styles";
 
 export default function ClearButton({ className, children, ...props }) {
-    return <div className={`${styles.buttons.clearButton} ${className}`} {...props}>{children}</div>;
+    if (!className) className = "";
+    else className = ` ${className}`;
+
+    return <div className={`${styles.buttons.clearButton}${className}`} role="button" {...props}>{children}</div>;
 }

@@ -1,9 +1,5 @@
-import axios from "axios";
+import useLeaderboard from "./useLeaderboard";
 
-const useLeaderboard = () => {
-    const getLeaderboard = () => new Promise((resolve, reject) => axios.get("/api/leaderboard").then(res => resolve(res.data.leaderboard)).catch(reject));
-
-    return getLeaderboard;
+export {
+    useLeaderboard
 }
-
-export { useLeaderboard };

@@ -1,5 +1,9 @@
-import MInstantOpen from "./MInstantOpen";
+import ButtonHolder from "./ButtonHolder";
+import Pack from "./Pack";
+import PacksWrapper from "./PacksWrapper";
 
 export {
-    MInstantOpen
+    ButtonHolder,
+    Pack,
+    PacksWrapper
 }

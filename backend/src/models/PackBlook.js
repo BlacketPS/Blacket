@@ -3,10 +3,15 @@ import { DataTypes } from "sequelize";
 export default {
     name: "PackBlook",
     attributes: {
-        pack: {
+        id: {
             type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
+        },
+        pack: {
+            type: DataTypes.STRING,
+            allowNull: false,
             references: {
                 model: "packs",
                 key: "id"
@@ -22,7 +27,6 @@ export default {
         }
     },
     options: {
-        indexes: [{ unique: true, fields: ["pack"] }],
         tableName: "pack_blooks"
     },
     relations: [

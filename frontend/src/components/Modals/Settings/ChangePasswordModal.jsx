@@ -44,7 +44,5 @@ export default function ChangePasswordModal() {
             }}>Change</GenericButton>
             <GenericButton onClick={() => closeModal()}>Cancel</GenericButton>
         </ModalButtons>
-
-        <ModalText>This will allow anyone to take your old username!<br />Take caution while performing this action!</ModalText>
     </>)
 }

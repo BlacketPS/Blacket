@@ -23,13 +23,7 @@ export default {
         if (!req.user.settings.otpEnabled) return res.status(400).json({ message: "You don't have OTP enabled." });
         if (!req.user.settings.otpSecret) return res.status(400).json({ message: "You haven't generated an OTP secret yet." });
 
-        if (!speakEasy.totp.verify({
-            secret: req.user.settings.otpSecret,
-            encoding: "base32",
-            token: code
-        })) return res.status(400).json({
-            message: "The code you entered is invalid."
-        });
+        if (!speakEasy.totp.verify({ secret: req.user.settings.otpSecret, encoding: "base32", token: code })) return res.status(400).json({ message: "The code you entered is invalid." });
 
         await global.database.models.UserSetting.update({ otpEnabled: false, otpSecret: null }, { where: { user: req.session.user } })
             .then(() => res.status(204).json())

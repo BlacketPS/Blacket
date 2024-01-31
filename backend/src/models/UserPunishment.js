@@ -5,6 +5,7 @@ export default {
     attributes: {
         id: {
             type: DataTypes.STRING,
+            allowNull: false,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },

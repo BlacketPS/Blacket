@@ -1,43 +1,90 @@
-.flex {
+.buttonHolder {
     display: flex;
+    margin: 15px 5% 10px;
 }
 
-.mInstantButton {
-    display: none;
-    background-color: var(--primary-color);
-    color: var(--accent-color);
-    border-radius: 5px;
-    font-size: 12px;
-    height: 20px;
-    padding: 0 10px;
-    margin: 0 5%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    outline: none;
-    cursor: pointer;
+.packsWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 210px);
+    grid-gap: 25px;
+    margin: 25px 0 35px 5%;
+    width: 90%;
 
-    @media only screen and (max-width: 1010px) {
-        display: flex;
+    @media only screen and (max-width:1010px) {
+        justify-content: center;
     }
 }
 
-.storeContainer {
-    position: fixed;
-    right: 2.5%;
-    width: 250px;
-    height: 375px;
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    pointer-events: none;
+.packContainer {
+    width: 210px;
+    height: 210px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 7px;
+    box-shadow: inset 0 -7px rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+    transition: .2s;
 
-    @media only screen and (max-width: 1010px) {
-        display: none;
+    &:hover {
+        transform: scale(0.95);
+    }
+}
+
+.packImageContainer {
+    height: 100%;
+    position: relative;
+}
+
+.packImage {
+    width: 65%;
+}
+
+.packShadow {
+    width: 70%;
+    filter: brightness(0) invert(100%);
+    opacity: .5;
+}
+
+.packImage,
+.packShadow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(10deg);
+}
+
+.packBottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 0 12px;
+    background-color: rgba(0, 0, 0, .2);
+    font-family: "Titan One", sans-serif;
+    font-size: 18px;
+    color: var(--accent-color);
+    border-radius: 10px 0 0 10px;
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+
+    &>img {
+        width: 16px;
+        height: 16px;
+        margin-right: 7px;
+    }
+}
+
+.packRatesIcon {
+    margin-right: 10px;
+    cursor: pointer;
+    transition: filter .2s;
+
+    &:hover {
+        filter: brightness(0.5);
     }
 }

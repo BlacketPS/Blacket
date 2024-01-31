@@ -88,3 +88,23 @@
         color: var(--primary-color);
     }
 }
+
+.littleButton {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border-radius: 7px;
+    font-size: 15px;
+    width: fit-content;
+    height: 20px;
+    padding: 2px 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color .2s;
+
+    &:hover {
+        background-color: var(--secondary-color);
+    }
+}
