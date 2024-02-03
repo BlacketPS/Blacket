@@ -18,7 +18,7 @@ import { getBanners } from "@stores/BannerStore";
 import { getBadges } from "@stores/BadgeStore";
 import { getEmojis } from "@stores/EmojiStore";
 
-import { Background, Header, HeaderNoLink, Sidebar, TopRight } from "@components";
+import { Background, Header, HeaderNoLink, Sidebar, TopRightContainer } from "@components";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -55,7 +55,7 @@ export default function App() {
     if (!loaded) return <pages.Loading message={message} />;
     else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <pages.Errors code={502} />;
-    else return (<>
+    else return (<ErrorBoundary>
         <Helmet>
             <title>{title}</title>
             <meta name="description" content={description} />
@@ -64,23 +64,21 @@ export default function App() {
         {background && <Background />}
 
         <StoreWrapper>
-            <ErrorBoundary>
-                {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
-                {(header && header === "link") && <Header />}
-                {(header && header === "nolink") && <HeaderNoLink />}
+            {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
+            {(header && header === "link") && <Header />}
+            {(header && header === "nolink") && <HeaderNoLink />}
 
-                {sidebar && <Sidebar />}
+            {sidebar && <Sidebar />}
 
-                {topRight && <TopRight content={topRight} />}
+            {topRight && <TopRightContainer content={topRight} />}
 
-                <Routes>
-                    {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper
-                        route={route}
-                        setTitle={setTitle} setDescription={setDescription} setBackground={setBackground} setHeader={setHeader} setSidebar={setSidebar} setTopRight={setTopRight}
-                        title={title} description={description} background={background} header={header} sidebar={sidebar} topRight={topRight}
-                    />} />)}
-                </Routes>
-            </ErrorBoundary>
+            <Routes>
+                {Object.values(routes).map(route => <Route key={route.path} path={route.path} element={<RouteWrapper
+                    route={route}
+                    setTitle={setTitle} setDescription={setDescription} setBackground={setBackground} setHeader={setHeader} setSidebar={setSidebar} setTopRight={setTopRight}
+                    title={title} description={description} background={background} header={header} sidebar={sidebar} topRight={topRight}
+                />} />)}
+            </Routes>
         </StoreWrapper>
-    </>)
+    </ErrorBoundary>)
 }

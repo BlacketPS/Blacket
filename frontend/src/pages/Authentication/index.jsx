@@ -2,13 +2,16 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
+import { useModal } from "@stores/ModalStore";
 import { useLogin, useRegister } from "@controllers/auth";
 import { HeaderBody, Input } from "@components";
 import { Container, Header, AgreeHolder, SubmitButton, ErrorContainer } from "@components/Authentication";
+import { OtpModal } from "@components/Modals/Authentication";
 
 export default function Authentication({ type }) {
     const { setLoading } = useLoading();
     const { user } = useUser();
+    const { createModal } = useModal();
 
     if (user) return <Navigate to="/dashboard" />;
 
@@ -24,16 +27,17 @@ export default function Authentication({ type }) {
     const submitForm = async () => {
         if (username === "") return setError("Where's the username?");
         if (password === "") return setError("Where's the password?");
-        if (type === "Register") {
-            if (password.length < 8) return setError("Your password must be at least 8 characters long.");
-            if (!/\d/.test(password)) return setError("Your password must have at least 1 number.");
-            if (!/[A-Z]/.test(password)) return setError("Your password must have at least 1 uppercase letter.");
-            if (!/[a-z]/.test(password)) return setError("Your password must have at least 1 lowercase letter.");
-            if (/^[a-z0-9]+$/i.test(password)) return setError("Your password must contain a special character.");
-        }
+
+        if (!/^[a-zA-Z0-9_-]+$/.test(username)) return setError("Username can only contain letters, numbers, underscores, and dashes.");
+
         if (type === "Login") {
             setLoading("Logging in");
-            login(username, password).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
+            login(username, password, null).then(res => {
+                setLoading(false);
+
+                if (res === "codeRequired") return createModal(<OtpModal username={username} password={password} />);
+                else navigate("/dashboard");
+            }).catch(err => {
                 setLoading(false);
                 if (err?.response?.data?.message) setError(err.response.data.message);
                 else setError("Something went wrong.");

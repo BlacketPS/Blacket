@@ -24,12 +24,12 @@ export default function ChangePasswordModal() {
             <Input icon="fas fa-lock" placeholder="Old Password" type="password" value={oldPassword} onChange={e => {
                 setOldPassword(e.target.value);
                 setError(null);
-            }} />
+            }} autoComplete="password" />
 
             <Input icon="fas fa-lock" placeholder="New Password" type="password" value={newPassword} onChange={e => {
                 setNewPassword(e.target.value);
                 setError(null);
-            }} />
+            }} autoComplete="off" />
         </form>
 
         {error && <ModalError>{error}</ModalError>}

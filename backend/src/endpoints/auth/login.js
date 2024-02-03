@@ -15,12 +15,18 @@ export default {
         password: {
             type: "string",
             required: true
+        },
+        code: {
+            type: "string",
+            required: false,
+            match: /^\d{6}$/
         }
     },
     endpoint: async (req, res) => {
         if (req.session) return res.status(403).json({ message: "You are already logged in." });
 
         const { username, password } = req.body;
+        let { code } = req.body;
 
         if (blockedUsernames.map(name => name.toLowerCase()).includes(username.toLowerCase())) return res.status(400).json({ message: "That username is not allowed." });
         if (password === "") return res.status(400).json({ message: "You must enter a password." });
@@ -31,6 +37,8 @@ export default {
             include: [{
                 model: global.database.models.UserBan, as: "ban", attributes: ["punishment"], required: false,
                 include: [{ model: global.database.models.UserPunishment, as: "punishmentData", attributes: ["reason", "expiresAt"], required: false }]
+            }, {
+                model: global.database.models.UserSetting, as: "settings", attributes: ["otpEnabled", "otpSecret"], required: false
             }]
         });
         if (!user) return res.status(400).json({ message: "The username you entered doesn't belong to an account. Please check your username and try again." });
@@ -42,17 +50,19 @@ export default {
         });
         else if (user.ban && user.ban.punishmentData.expiresAt < new Date()) await user.ban.destroy();
 
+        if (user.settings.otpEnabled && !code) return res.status(200).json({ codeRequired: true });
+        if (user.settings.otpEnabled && code) {
+            code = code.replace(/\s/g, "");
+
+            if (!speakEasy.totp.verify({ secret: user.settings.otpSecret, encoding: "base32", token: code })) return res.status(400).json({
+                message: "The code you entered is invalid."
+            });
+        }
+
         const session = await getSession(user.id).catch(() => null);
         if (session) return res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") });
         else await createSession(user.id)
             .then(session => res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") }))
             .catch(() => res.status(500).json({ message: "Something went wrong." }));
-
-        /*await deleteSession(user.id).catch(() => null);
-        createSession(user.id).then(session => res.status(200).json({
-            token: Buffer.from(JSON.stringify(session)).toString("base64")
-        })).catch(() => res.status(500).json({
-            message: "Something went wrong."
-        }));*/
     }
 }

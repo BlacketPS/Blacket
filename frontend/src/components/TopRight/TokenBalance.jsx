@@ -7,7 +7,7 @@ export default function TokenBalance() {
     return (
         <div className={styles.topRight.tokenBalance}>
             <img src="/content/token.png" draggable={false} />
-            {user && user.tokens}
+            {user.tokens.toLocaleString()}
         </div>
     )
 }

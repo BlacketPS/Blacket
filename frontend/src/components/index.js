@@ -6,7 +6,7 @@ import Loader from "./Loader";
 import PageHeader from "./PageHeader";
 import Sidebar from "./Sidebar";
 import SidebarBody from "./SidebarBody";
-import TopRight from "./TopRight";
+import TopRightContainer from "./TopRightContainer";
 
 export {
     Background,
@@ -18,5 +18,5 @@ export {
     PageHeader,
     Sidebar,
     SidebarBody,
-    TopRight
+    TopRightContainer
 }

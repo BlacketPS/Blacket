@@ -96,7 +96,7 @@ export default function Sidebar() {
             },
             {
                 icon: "fab fa-x-twitter",
-                text: "Twitter",
+                text: "X",
                 link: "/twitter"
             }
         ]

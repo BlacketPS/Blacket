@@ -24,12 +24,12 @@ export default function ChangeUsernameModal() {
             <Input icon="fas fa-user" placeholder="New Username" value={newUsername} onChange={e => {
                 setNewUsername(e.target.value);
                 setError(null);
-            }} />
+            }} autoComplete="off" />
 
             <Input icon="fas fa-lock" placeholder="Password" type="password" value={password} onChange={e => {
                 setPassword(e.target.value);
                 setError(null);
-            }} />
+            }} autoComplete="password" />
         </form>
 
         {error && <ModalError>{error}</ModalError>}

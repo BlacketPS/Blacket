@@ -31,7 +31,7 @@ export default function EnableOTPModal() {
             <Input icon="fas fa-key" placeholder="OTP / 2FA Code" value={otpCode} onChange={e => {
                 setOTPCode(e.target.value);
                 setError(null);
-            }} />
+            }} autoComplete="off" />
         </form>
 
         {error && <ModalError>{error}</ModalError>}
