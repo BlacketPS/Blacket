@@ -1,8 +1,8 @@
-import pages from "@pages";
+import TradingPlaza from "@views/TradingPlaza";
 
 export default {
     path: "/trading-plaza",
-    element: <pages.TradingPlaza />,
+    element: <TradingPlaza />,
     sidebar: true,
     topRight: ["tokens"],
     title: `Trading Plaza | ${import.meta.env.VITE_INFORMATION_NAME}`,

@@ -1,6 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
-
 const UserStoreContext = createContext();
 
 export function useUser() {
@@ -12,7 +10,7 @@ export function UserStoreProvider({ children }) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const fetchUser = async () => await axios.get("/api/users/me").then(res => setUser(res.data.user)).catch(() => localStorage.removeItem("token"));
+        const fetchUser = async () => await fetch.get("/api/users/me").then(res => setUser(res.data.user)).catch(() => localStorage.removeItem("token"));
 
         if (localStorage.getItem("token")) fetchUser().then(() => setLoading(false)).catch(() => setLoading(false));
         else setLoading(false);

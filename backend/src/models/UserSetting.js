@@ -25,6 +25,11 @@ export default {
             },
             defaultValue: "on"
         },
+        categoriesClosed: {
+            type: DataTypes.JSON,
+            allowNull: false,
+            defaultValue: []
+        },
         otpEnabled: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

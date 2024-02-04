@@ -1,8 +1,8 @@
-import pages from "@pages";
+import AuctionHouse from "@views/AuctionHouse";
 
 export default {
     path: "/auction-house",
-    element: <pages.AuctionHouse />,
+    element: <AuctionHouse />,
     sidebar: true,
     topRight: ["tokens"],
     title: `Auction House | ${import.meta.env.VITE_INFORMATION_NAME}`,

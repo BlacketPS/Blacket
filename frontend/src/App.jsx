@@ -3,8 +3,10 @@ import { Helmet } from "react-helmet";
 
 import { Routes, Route } from "react-router-dom";
 import RouteWrapper from "./RouteWrapper";
-import routes from "@routes";
-import pages from "@pages";
+import routes from "./routes";
+
+import Loading from "@views/Loading";
+import Errors from "@views/Errors";
 
 import ErrorBoundary from "./ErrorBoundary";
 
@@ -33,8 +35,10 @@ export default function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const serverStatus = await fetch("/api").then(res => res.status === 403 && res.json());
-            if (serverStatus.message) return setLoaded(serverStatus.message);
+            const serverStatus = await fetch.get("/api").then(res => res).catch(err => err);
+
+            if (serverStatus.status === 403) return setLoaded(serverStatus.data.message);
+            else if (!serverStatus.ok) return setLoaded(1);
 
             setMessage("blooks"); if ((await getBlooks()) instanceof Error) return setLoaded(1);
             setMessage("rarities"); if ((await getRarities()) instanceof Error) return setLoaded(1);
@@ -52,9 +56,9 @@ export default function App() {
     }, []);
 
     // if loaded is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket
-    if (!loaded) return <pages.Loading message={message} />;
-    else if (typeof loaded === "string") return <pages.Errors code={403} reason={loaded} />;
-    else if (loaded === 1) return <pages.Errors code={502} />;
+    if (!loaded) return <Loading message={message} />;
+    else if (typeof loaded === "string") return <Errors code={403} reason={loaded} />;
+    else if (loaded === 1) return <Errors code={502} />;
     else return (<ErrorBoundary>
         <Helmet>
             <title>{title}</title>

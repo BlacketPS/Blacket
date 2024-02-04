@@ -32,25 +32,21 @@ export default function Authentication({ type }) {
 
         if (type === "Login") {
             setLoading("Logging in");
-            login(username, password, null).then(res => {
-                setLoading(false);
-
-                if (res === "codeRequired") return createModal(<OtpModal username={username} password={password} />);
-                else navigate("/dashboard");
-            }).catch(err => {
-                setLoading(false);
-                if (err?.response?.data?.message) setError(err.response.data.message);
-                else setError("Something went wrong.");
-            });
+            login(username, password, null)
+                .then(res => {
+                    if (res === "codeRequired") createModal(<OtpModal username={username} password={password} />);
+                    else navigate("/dashboard");
+                })
+                .catch(err => err?.data?.message ? setError(err.data.message) : setError("Something went wrong."))
+                .finally(() => setLoading(false));
         }
         else if (type === "Register") {
             if (!checked) return setError("You must agree to our Privacy Policy and Terms of Service.");
             setLoading("Registering");
-            register(username, password, accessCode, checked).then(() => setLoading(false) && navigate("/dashboard")).catch(err => {
-                setLoading(false);
-                if (err?.response?.data?.message) setError(err.response.data.message);
-                else setError("Something went wrong.");
-            });
+            register(username, password, accessCode, checked)
+                .then(() => navigate("/dashboard"))
+                .catch(err => err?.data?.message ? setError(err.data.message) : setError("Something went wrong."))
+                .finally(() => setLoading(false));
         }
     }
 

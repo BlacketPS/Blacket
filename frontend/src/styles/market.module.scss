@@ -1,3 +1,42 @@
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.categoryHeader {
+    font-family: "Titan One", sans-serif;
+    font-size: 35px;
+    margin: 15px 5% 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: filter .2s;
+
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
+
+.categoryArrow {
+    margin-left: 10px;
+    transition: transform .2s;
+
+    &[aria-open="true"] {
+        transform: rotate(90deg);
+    }
+}
+
+.categoryContent {
+    &[aria-open="true"] {
+        display: flex;
+    }
+
+    &[aria-open="false"] {
+        display: none;
+    }
+}
+
 .buttonHolder {
     display: flex;
     margin: 15px 5% 10px;

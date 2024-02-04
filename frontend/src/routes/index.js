@@ -1,23 +1,23 @@
-import NotFound from "./NotFound";
-import Home from "./Home";
-import Login from "./Login";
-import Register from "./Register";
-import Dashboard from "./Dashboard";
-import Leaderboard from "./Leaderboard";
-import TradingPlaza from "./TradingPlaza";
 import AuctionHouse from "./AuctionHouse";
-import Settings from "./Settings";
+import Dashboard from "./Dashboard";
+import Home from "./Home";
+import Leaderboard from "./Leaderboard";
+import Login from "./Login";
 import Market from "./Market";
+import NotFound from "./NotFound";
+import Register from "./Register";
+import Settings from "./Settings";
+import TradingPlaza from "./TradingPlaza";
 
 export default {
-    NotFound,
-    Home,
-    Login,
-    Register,
-    Dashboard,
-    Leaderboard,
-    TradingPlaza,
     AuctionHouse,
+    Dashboard,
+    Home,
+    Leaderboard,
+    Login,
+    Market,
+    NotFound,
+    Register,
     Settings,
-    Market
+    TradingPlaza
 }

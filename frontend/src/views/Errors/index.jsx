@@ -1,4 +1,3 @@
-import axios from "axios";
 import styles from "@styles";
 
 import { Background, HeaderNoLink } from "@components";
@@ -9,7 +8,7 @@ export default function Error({ code, reason }) {
     else if (code === 403) document.title = `Blacklisted | ${import.meta.env.VITE_INFORMATION_NAME}`;
     else if (code === 502) {
         document.title = `Maintenance | ${import.meta.env.VITE_INFORMATION_NAME}`;
-        setInterval(() => axios.get("/api").then(() => window.location.reload()).catch(() => null), 1000);
+        setInterval(() => fetch.get("/api").then(() => window.location.reload()).catch(() => null), 1000);
     }
 
     return (

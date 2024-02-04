@@ -11,13 +11,13 @@ export default defineConfig({
     },
     resolve: {
         alias: {
+            "react-textfit": "@namhong2001/react-textfit",
             "@components": "/src/components",
             "@controllers": "/src/controllers",
             "@functions": "/src/functions",
-            "@pages": "/src/pages",
-            "@routes": "/src/routes",
             "@stores": "/src/stores",
-            "@styles": "/src/styles"
+            "@styles": "/src/styles",
+            "@views": "/src/views"
         }
     },
     server: {

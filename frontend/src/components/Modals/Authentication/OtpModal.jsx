@@ -37,7 +37,7 @@ export default function OtpModal({ username, password }) {
                 setLoading(true);
                 login(username, password, otpCode)
                     .then(() => closeModal() && navigate("/dashboard"))
-                    .catch(err => err?.response?.data?.message ? setError(err.response.data.message) : setError("Something went wrong."))
+                    .catch(err => err?.data?.message ? setError(err.data.message) : setError("Something went wrong."))
                     .finally(() => setLoading(false));
             }}>Login</GenericButton>
             <GenericButton onClick={() => closeModal()}>Cancel</GenericButton>

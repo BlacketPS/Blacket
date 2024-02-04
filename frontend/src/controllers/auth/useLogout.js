@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useUser } from "@stores/UserStore";
 
 const useLogout = () => {
@@ -7,7 +6,7 @@ const useLogout = () => {
     const logout = async () => {
         setUser(null);
 
-        await axios.delete("/api/auth/logout");
+        await fetch.delete("/api/auth/logout");
 
         localStorage.removeItem("token");
     }

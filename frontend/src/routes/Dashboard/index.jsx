@@ -1,8 +1,8 @@
-import pages from "@pages";
+import Dashboard from "@views/Dashboard";
 
 export default {
     path: "/dashboard",
-    element: <pages.Dashboard />,
+    element: <Dashboard />,
     sidebar: true,
     topRight: [],
     title: `Dashboard | ${import.meta.env.VITE_INFORMATION_NAME}`,

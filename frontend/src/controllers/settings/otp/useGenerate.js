@@ -1,7 +1,5 @@
-import axios from "axios";
-
 const useGenerate = () => {
-    const getQRCode = () => new Promise((resolve, reject) => axios.patch("/api/settings/otp/generate").then(res => resolve(res)).catch(reject));
+    const getQRCode = () => new Promise((resolve, reject) => fetch.patch("/api/settings/otp/generate").then(res => resolve(res)).catch(reject));
 
     return getQRCode;
 }

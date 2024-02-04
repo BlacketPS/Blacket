@@ -1,8 +1,8 @@
-import pages from "@pages";
+import Market from "@views/Market";
 
 export default {
     path: "/market",
-    element: <pages.Market />,
+    element: <Market />,
     sidebar: true,
     topRight: ["tokens"],
     title: `Market | ${import.meta.env.VITE_INFORMATION_NAME}`,

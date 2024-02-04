@@ -39,7 +39,7 @@ export default function ChangePasswordModal() {
                 setLoading(true);
                 setPassword(oldPassword, newPassword)
                     .then(() => closeModal())
-                    .catch(err => err?.response?.data?.message ? setError(err.response.data.message) : setError("Something went wrong."))
+                    .catch(err => err?.data?.message ? setError(err.data.message) : setError("Something went wrong."))
                     .finally(() => setLoading(false));
             }}>Change</GenericButton>
             <GenericButton onClick={() => closeModal()}>Cancel</GenericButton>

@@ -1,8 +1,8 @@
-import pages from "@pages";
+import Settings from "@views/Settings";
 
 export default {
     path: "/settings",
-    element: <pages.Settings />,
+    element: <Settings />,
     sidebar: true,
     topRight: [],
     title: `Settings | ${import.meta.env.VITE_INFORMATION_NAME}`,

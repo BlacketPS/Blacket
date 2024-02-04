@@ -33,7 +33,7 @@ export default function DisableOTPModal() {
                 setLoading(true);
                 setOTPDisabled(otpCode)
                     .then(() => closeModal())
-                    .catch(err => err?.response?.data?.message ? setError(err.response.data.message) : setError("Something went wrong."))
+                    .catch(err => err?.data?.message ? setError(err.data.message) : setError("Something went wrong."))
                     .finally(() => setLoading(false));
             }}>Disable</GenericButton>
             <GenericButton onClick={() => closeModal()}>Cancel</GenericButton>

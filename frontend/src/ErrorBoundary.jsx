@@ -1,5 +1,5 @@
 import React from "react";
-import pages from "@pages";
+import Errors from "@views/Errors";
 
 export default class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export default class ErrorBoundary extends React.Component {
     }
 
     render() {
-        if (this.state.error) return <pages.Errors code={{
+        if (this.state.error) return <Errors code={{
             error: this.state.error.toString().replace("Error: ", ""),
             componentStack: this.state.componentStack.toString()
         }} />;

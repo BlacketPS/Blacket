@@ -1,8 +1,8 @@
-import pages from "@pages";
+import Home from "@views/Home";
 
 export default {
     path: "/",
-    element: <pages.Home />,
+    element: <Home />,
     plain: true,
     title: import.meta.env.VITE_INFORMATION_NAME,
     description: import.meta.env.VITE_INFORMATION_DESCRIPTION.split(",").map(word => word)

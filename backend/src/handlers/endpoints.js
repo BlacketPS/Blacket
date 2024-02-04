@@ -19,14 +19,14 @@ export default async (app) => {
 
             if (endpoint.options) {
                 if (endpoint.options.disabled) return res.status(501).json({ message: "This endpoint has been disabled." });
-                if (endpoint.options.authRequired && !req.session) return res.status(401).json({ message: "Unauthorized." });
+                if (endpoint.options.authRequired && !req.session) return res.status(401).json({ message: "unauthorized" });
                 // TODO: permissions
             }
 
             // TODO: ratelimits / cooldowns
 
             if (endpoint.middlewares) {
-                if (endpoint.middlewares.user && !Array.isArray(endpoint.middlewares.user)) return res.status(500).json({ message: "user middleware must be an array." });
+                if (endpoint.middlewares.user && !Array.isArray(endpoint.middlewares.user)) return res.status(500).json({ message: "user middleware must be an array" });
 
                 if (endpoint.middlewares.user) {
                     const includes = [];
@@ -40,13 +40,13 @@ export default async (app) => {
             }
 
             for (const key in endpoint.body) {
-                if (endpoint.body[key].required && !req.body[key] && req.body[key] !== false) return res.status(400).json({ message: `${key} missing in body.` });
+                if (endpoint.body[key].required && !req.body[key] && req.body[key] !== false) return res.status(400).json({ message: `${key} missing in body` });
 
                 if (!endpoint.body[key].required && typeof req.body[key] !== endpoint.body[key].type) continue;
                 if (!endpoint.body[key].required && endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) continue;
 
-                if (endpoint.body[key].type && typeof req.body[key] !== endpoint.body[key].type) return res.status(400).json({ message: `${key} must be of typeof ${endpoint.body[key].type}.` });
-                if (endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) return res.status(400).json({ message: `${key} must match ${endpoint.body[key].match}.` });
+                if (endpoint.body[key].type && typeof req.body[key] !== endpoint.body[key].type) return res.status(400).json({ message: `${key} must be of typeof ${endpoint.body[key].type}` });
+                if (endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) return res.status(400).json({ message: `${key} must match ${endpoint.body[key].match}` });
             }
 
             endpoint.endpoint(req, res);

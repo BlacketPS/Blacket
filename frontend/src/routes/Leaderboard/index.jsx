@@ -1,8 +1,8 @@
-import pages from "@pages";
+import Leaderboard from "@views/Leaderboard";
 
 export default {
     path: "/leaderboard",
-    element: <pages.Leaderboard />,
+    element: <Leaderboard />,
     sidebar: true,
     topRight: [],
     title: `Leaderboard | ${import.meta.env.VITE_INFORMATION_NAME}`,
