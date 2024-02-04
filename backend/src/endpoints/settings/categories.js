@@ -5,9 +5,8 @@ export default {
     },
     body: {
         type: {
-            type: "string",
-            required: true,
-            match: /^(add|remove)$/
+            type: "boolean",
+            required: true
         },
         value: {
             type: "string",
@@ -22,11 +21,11 @@ export default {
 
         if (value.length > 128) return res.status(400).json({ message: "category is too long" });
 
-        if (type === "add") {
+        if (type) {
             if (req.user.settings.categoriesClosed.includes(value)) return res.status(400).json({ message: "category is already closed" });
 
             req.user.settings.categoriesClosed.push(value);
-        } else if (type === "remove") {
+        } else if (!type) {
             if (!req.user.settings.categoriesClosed.includes(value)) return res.status(400).json({ message: "category is not closed" });
 
             req.user.settings.categoriesClosed.splice(req.user.settings.categoriesClosed.indexOf(value), 1);

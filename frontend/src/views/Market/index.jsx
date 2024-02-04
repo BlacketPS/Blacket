@@ -28,21 +28,11 @@ export default function Market() {
             .finally(() => setLoading(false));
     }
 
-
-
-    // const purchasePack = (pack) => {
-    //         if (user.settings.openPacksInstantly) setLoading(`Opening ${pack.name} Pack`);
-
-    //         new Promise(r => r()).then(() => {
-    //         })
-    //         .catch(() => createModal(<ErrorModal>Failed to open pack.</ErrorModal>))
-    //         .finally(() => setLoading(false));
-    // }
     const purchasePack = (pack) => new Promise((resolve, reject) => {
         if (user.settings.openPacksInstantly) setLoading(`Opening ${pack.name} Pack`);
 
         setTimeout(() => {
-            reject({ response: { data: { message: "Failed to open pack." } } });
+            reject({ data: { message: "Failed to open pack." } });
         }, 1000);
     });
 
@@ -53,7 +43,7 @@ export default function Market() {
             <LittleButton onClick={toggleInstantOpen}>Instant Open: {user.settings.openPacksInstantly ? "On" : "Off"}</LittleButton>
         </ButtonHolder>
 
-        <Category header="Packs">
+        <Category header={`Packs (${packs.length})`} internalName="MARKET_PACKS">
             <PacksWrapper>
                 {packs.map(pack => <Pack key={pack.id} image={pack.image} innerColor={pack.innerColor} outerColor={pack.outerColor} price={pack.price} onClick={() => {
                     if (!user.settings.openPacksInstantly) createModal(<OpenPackModal pack={pack} onYesButton={purchasePack} />);
@@ -62,11 +52,11 @@ export default function Market() {
             </PacksWrapper>
         </Category>
 
-        <Category header="Weekly Shop">
+        <Category header="Weekly Shop" internalName="MARKET_WEEKLY_SHOP">
             There are no items in the weekly shop.
         </Category>
 
-        <Category header="Item Shop">
+        <Category header="Item Shop" internalName="MARKET_ITEM_SHOP">
             There are no items in the item shop.
         </Category>
     </SidebarBody>)
