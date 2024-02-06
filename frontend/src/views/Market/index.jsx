@@ -32,6 +32,10 @@ export default function Market() {
         if (user.settings.openPacksInstantly) setLoading(`Opening ${pack.name} Pack`);
 
         setTimeout(() => {
+            if (user.settings.openPacksInstantly) {
+                setLoading(false);
+                createModal(<ErrorModal>Failed to open pack.</ErrorModal>);
+            }
             reject({ data: { message: "Failed to open pack." } });
         }, 1000);
     });

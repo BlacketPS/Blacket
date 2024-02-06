@@ -1,9 +1,9 @@
 import { useUser } from "@stores/UserStore";
 
-const useCategories = () => {
+const useClosedCategories = () => {
     const { user, setUser } = useUser();
 
-    const setCategoryState = (type, value) => new Promise((resolve, reject) => fetch.patch("/api/settings/categories", { type, value }).then(async res => {
+    const setClosedCategory = (type, value) => new Promise((resolve, reject) => fetch.patch("/api/settings/closedCategories", { type, value }).then(async res => {
         const categories = user.settings.categoriesClosed;
 
         if (type && !categories.includes(value)) categories.push(value);
@@ -14,7 +14,7 @@ const useCategories = () => {
         resolve();
     }).catch(reject));
 
-    return setCategoryState;
+    return setClosedCategory;
 }
 
-export default useCategories;
+export default useClosedCategories;
