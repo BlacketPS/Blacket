@@ -1,4 +1,5 @@
 import all from "./all.module.scss";
+import debug from "./debug.module.scss";
 import errors from "./errors.module.scss";
 import textFormatting from "./textFormatting.module.scss";
 import buttons from "./buttons.module.scss";
@@ -14,6 +15,7 @@ import settings from "./settings.module.scss";
 
 export default {
     all,
+    debug,
     errors,
     textFormatting,
     buttons,

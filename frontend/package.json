@@ -13,6 +13,7 @@
         "@namhong2001/react-textfit": "^1.1.5",
         "dotenv": "^16.4.1",
         "gsap": "^3.12.5",
+        "phaser": "^3.70.0",
         "react": "^18.2.0",
         "react-device-detect": "^2.2.3",
         "react-dom": "^18.2.0",

@@ -3,7 +3,6 @@ import { useLoading } from "@stores/LoadingStore";
 import { useUser } from "@stores/UserStore";
 import { useModal } from "@stores/ModalStore";
 import { packs } from "@stores/PackStore";
-import { blooks } from "@stores/BlookStore";
 import { useOpenPacksInstantly } from "@controllers/settings/market";
 import { ErrorModal } from "@components/Modals";
 import { OpenPackModal } from "@components/Modals/Market";

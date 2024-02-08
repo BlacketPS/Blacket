@@ -20,12 +20,13 @@ import { getBanners } from "@stores/BannerStore";
 import { getBadges } from "@stores/BadgeStore";
 import { getEmojis } from "@stores/EmojiStore";
 
-import { Background, Header, HeaderNoLink, Sidebar, TopRightContainer } from "@components";
+import { DebugInformation, Background, Header, HeaderNoLink, Sidebar, TopRightContainer } from "@components";
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
     const [message, setMessage] = useState("server status");
 
+    const [showDebugInformation, setShowDebugInformation] = useState(import.meta.env.MODE === "development" ? true : false);
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
     const [background, setBackground] = useState(true);
@@ -34,6 +35,11 @@ export default function App() {
     const [topRight, setTopRight] = useState(false);
 
     useEffect(() => {
+        document.getElementById("enviroment").textContent = JSON.stringify(import.meta.env, null, 4);
+
+        window.removeEventListener("keydown", e => e.key === "F4" && setShowDebugInformation(show => !show));
+        window.addEventListener("keydown", e => e.key === "F4" && setShowDebugInformation(show => !show));
+
         const fetchData = async () => {
             const serverStatus = await fetch.get("/api").then(res => res).catch(err => err);
 
@@ -68,6 +74,8 @@ export default function App() {
         {background && <Background />}
 
         <StoreWrapper>
+            {showDebugInformation && <DebugInformation />}
+
             {(header && header[0] && header[0] === "right") && <Header right={{ link: header[1], text: header[2] }} />}
             {(header && header === "link") && <Header />}
             {(header && header === "nolink") && <HeaderNoLink />}

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { GenericModal, ErrorModal } from "@components/Modals";
+import { GenericModal } from "@components/Modals";
 
 const ModalStoreContext = createContext();
 
@@ -20,6 +20,8 @@ export function ModalStoreProvider({ children }) {
     }
 
     const closeModal = () => {
+        if (localStorage.getItem("DISABLE_MODAL_ANIMATION")) return setModals(modals => modals.filter((_, i) => i !== 0));
+
         setClosing(true);
         setTimeout(() => {
             setModals(modals => modals.filter((_, i) => i !== 0));
@@ -27,17 +29,9 @@ export function ModalStoreProvider({ children }) {
         }, 525);
     }
 
-    window.onpopstate = () => {
-        setClosing(true);
-        setTimeout(() => {
-            setModals([]);
-            setClosing(false);
-        }, 525);
-    }
-
     return (
         <ModalStoreContext.Provider value={{ modals, setModals, createModal, closeModal }}>
-            {modals[0] && <GenericModal closing={closing}>{modals[0].modal}</GenericModal>}
+            {modals[0] && <GenericModal closing={closing} noAnimation={localStorage.getItem("DISABLE_MODAL_ANIMATION")}>{modals[0].modal}</GenericModal>}
 
             {children}
         </ModalStoreContext.Provider>

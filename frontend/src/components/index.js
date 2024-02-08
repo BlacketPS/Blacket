@@ -1,4 +1,5 @@
 import Background from "./Background";
+import DebugInformation from "./DebugInformation";
 import { Header, HeaderNoLink } from "./Header";
 import HeaderBody from "./HeaderBody";
 import Input from "./Input";
@@ -10,6 +11,7 @@ import TopRightContainer from "./TopRightContainer";
 
 export {
     Background,
+    DebugInformation,
     Header,
     HeaderNoLink,
     HeaderBody,

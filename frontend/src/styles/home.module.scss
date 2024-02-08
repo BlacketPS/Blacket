@@ -79,6 +79,15 @@
     }
 }
 
+.dashboardButton {
+    width: 28vh;
+    height: 8vh;
+    line-height: 8vh;
+    font-size: 4.4vh;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
 .registerButton {
     width: 25vh;
     height: 8vh;

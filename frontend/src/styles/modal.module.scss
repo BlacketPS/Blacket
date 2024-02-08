@@ -8,15 +8,18 @@
     justify-content: center;
     align-items: center;
     z-index: 998;
-    animation: modal .2s linear forwards;
 
-    @keyframes modal {
-        0% {
-            background: rgba(0, 0, 0, 0);
-        }
+    &[data-animated="true"] {
+        animation: modal .2s linear forwards;
 
-        100% {
-            background: rgba(0, 0, 0, 0.6);
+        @keyframes modal {
+            0% {
+                background: rgba(0, 0, 0, 0);
+            }
+
+            100% {
+                background: rgba(0, 0, 0, 0.6);
+            }
         }
     }
 
@@ -41,25 +44,28 @@
     display: flex;
     width: 100%;
     height: 100%;
-    animation: content linear .3s forwards;
 
-    @keyframes content {
-        0% {
-            transform: scale(.5);
-            opacity: 0;
-        }
+    &[data-animated="true"] {
+        animation: content linear .3s forwards;
 
-        60% {
-            opacity: 1;
-        }
+        @keyframes content {
+            0% {
+                transform: scale(.5);
+                opacity: 0;
+            }
 
-        70% {
-            transform: scale(1.2);
-        }
+            60% {
+                opacity: 1;
+            }
 
-        100% {
-            transform: scale(1);
-            opacity: 1;
+            70% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
     }
 
