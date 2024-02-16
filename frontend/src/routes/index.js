@@ -1,4 +1,5 @@
 import AuctionHouse from "./AuctionHouse";
+import Blooks from "./Blooks";
 import Dashboard from "./Dashboard";
 import Home from "./Home";
 import Leaderboard from "./Leaderboard";
@@ -11,6 +12,7 @@ import TradingPlaza from "./TradingPlaza";
 
 export default {
     AuctionHouse,
+    Blooks,
     Dashboard,
     Home,
     Leaderboard,

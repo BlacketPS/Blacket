@@ -81,11 +81,15 @@
     border-radius: 7px;
     cursor: pointer;
     border: 2px solid var(--accent-color);
-    transition: background-color .2s, color .2s;
+    transition: background-color .2s, color .2s, opacity .2s;
 
     &:hover {
         background-color: var(--accent-color);
         color: var(--primary-color);
+    }
+
+    &:active {
+        opacity: .7;
     }
 }
 
@@ -102,9 +106,13 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color .2s;
+    transition: background-color .2s, opacity .2s;
 
     &:hover {
         background-color: var(--secondary-color);
+    }
+
+    &:active {
+        opacity: .7;
     }
 }

@@ -52,6 +52,11 @@
         background-color: var(--secondary-color);
     }
 
+    &:active {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+    }
+
     &[data-active="true"] {
         background-color: var(--accent-color);
         color: var(--primary-color);

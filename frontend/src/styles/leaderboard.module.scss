@@ -362,6 +362,10 @@
         &:hover {
             transform: scale(.99);
         }
+
+        &:active {
+            transform: scale(.97);
+        }
     }
 }
 

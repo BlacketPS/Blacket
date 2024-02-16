@@ -71,6 +71,10 @@
     &:hover {
         transform: scale(0.95);
     }
+
+    &:active {
+        transform: scale(0.9);
+    }
 }
 
 .packImageContainer {
