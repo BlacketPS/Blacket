@@ -21,7 +21,7 @@ export default function RightBlook({ blook, owned, noBlooksOwned }) {
         <div className={styles.blooks.rightSide}>
             <img src={blooks.find(b => b.id === blook).background || "/content/blooks/backgrounds/Default.png"} alt="Blook Background" draggable={false} className={styles.blooks.rightBlookBackground} />
             <div className={styles.blooks.rightTopText}>
-                <Textfit mode="single" max={40} className={styles.blooks.rightBlookName}>{blooks.find(b => b.id === blook).name}</Textfit>
+                <Textfit mode="single" max={window.innerWidth > 1000 ? 40 : 27} className={styles.blooks.rightBlookName}>{blooks.find(b => b.id === blook).name}</Textfit>
                 <div style={{
                     color: rarities.find(r => r.id === blooks.find(b => b.id === blook).rarity).color
                 }} className={styles.blooks.rightBlookRarity}>{rarities.find(r => r.id === blooks.find(b => b.id === blook).rarity).name}</div>

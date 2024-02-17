@@ -24,6 +24,15 @@
     text-decoration: none;
     text-align: center;
     color: var(--accent-color);
+    transition: .2s;
+
+    &:hover {
+        transform: scale(0.95);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
 }
 
 .page {
