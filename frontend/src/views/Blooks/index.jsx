@@ -37,8 +37,8 @@ export default function Blooks() {
 
         <RightBlook blook={selectedBlook} owned={user.blooks[selectedBlook]} noBlooksOwned={Object.keys(user.blooks).length < 1} />
 
-        <RightButtonContainer>
+        {Object.keys(user.blooks).length > 0 && <RightButtonContainer>
             <RightButton>Sell</RightButton>
-        </RightButtonContainer>
+        </RightButtonContainer>}
     </SidebarBody>)
 }
