@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import { useModal } from "@stores/ModalStore";
 import { packs } from "@stores/PackStore";
 import { blooks } from "@stores/BlookStore";
 import { ErrorModal } from "@components/Modals";
+import { SellBlooksModal } from "@components/Modals/Blooks";
 import { SidebarBody } from "@components";
 import { BlooksHolder, SetHolder, Blook, RightBlook, RightButtonContainer, RightButton } from "@components/Blooks";
-import { GenericButton } from "@components/Buttons";
-import { useEffect } from "react";
 
 export default function Blooks() {
     const { createModal } = useModal();
@@ -35,10 +34,10 @@ export default function Blooks() {
             </SetHolder>}
         </BlooksHolder>
 
-        <RightBlook blook={selectedBlook} owned={user.blooks[selectedBlook]} noBlooksOwned={Object.keys(user.blooks).length < 1} />
+        {Object.keys(user.blooks).length > 0 && <RightBlook blook={selectedBlook} owned={user.blooks[selectedBlook]} />}
 
         {Object.keys(user.blooks).length > 0 && <RightButtonContainer>
-            <RightButton>Sell</RightButton>
+            <RightButton onClick={() => createModal(<SellBlooksModal blook={selectedBlook} />)}>Sell</RightButton>
         </RightButtonContainer>}
     </SidebarBody>)
 }

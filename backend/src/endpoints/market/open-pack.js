@@ -1,5 +1,5 @@
 import removeTokens from "#functions/users/tokens/removeTokens";
-import createBlook from "#functions/users/blooks/createBlook";
+import createUserBlook from "#functions/users/blooks/createUserBlook";
 
 export default {
     method: "post",
@@ -36,7 +36,7 @@ export default {
 
         await removeTokens(req.user.id, packData.price);
         await global.database.models.UserStatistic.increment("packsOpened", { where: { user: req.user.id } });
-        await createBlook(req.user.id, unlockedBlook, req.user.id, "pack open");
+        await createUserBlook(req.user.id, unlockedBlook, req.user.id, "pack open");
 
         res.status(200).json({ unlockedBlook });
     }

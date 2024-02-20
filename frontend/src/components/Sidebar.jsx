@@ -23,7 +23,8 @@ export default function Sidebar() {
             {
                 icon: "fas fa-comments",
                 text: "Chat",
-                link: "/chat"
+                link: "/chat",
+                isChat: true
             },
             /*{
                 icon: "fas fa-scroll",
@@ -110,6 +111,10 @@ export default function Sidebar() {
                 <Link data-active={location === page.link.split("/")[1]} key={index} className={styles.sidebar.page} to={page.link}>
                     <i className={`${styles.sidebar.pageIcon} ${page.icon}`} />
                     <div className={styles.sidebar.pageText} style={{ fontSize: page.textSizeOverride || 20 }}>{page.text}</div>
+
+                    {page.isChat && <div className={styles.sidebar.notificationIndicator}>
+                        <div>5</div>
+                    </div>}
                 </Link>
             ))}
 
@@ -138,6 +143,10 @@ export default function Sidebar() {
                 <Link key={index} className={styles.sidebar.page} onClick={() => setMobileSidebarOpen(false)} data-active={location === page.link.split("/")[1]} to={page.link}>
                     <i className={`${styles.sidebar.pageIcon} ${page.icon}`} />
                     <div className={styles.sidebar.pageText} style={{ fontSize: page.textSizeOverride || 20 }}>{page.text}</div>
+
+                    {page.isChat && <div className={styles.sidebar.notificationIndicator}>
+                        <div>5</div>
+                    </div>}
                 </Link>
             ))}
 

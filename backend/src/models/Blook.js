@@ -4,10 +4,9 @@ export default {
     name: "Blook",
     attributes: {
         id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
         },
         name: {
             type: DataTypes.STRING,
@@ -54,5 +53,8 @@ export default {
     options: {
         indexes: [{ unique: true, fields: ["name"] }],
         tableName: "blooks"
-    }
+    },
+    relations: [
+        { type: "belongsTo", model: "Rarity", options: { foreignKey: "rarity", as: "rarityData" } }
+    ]
 }

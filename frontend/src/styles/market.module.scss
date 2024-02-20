@@ -20,8 +20,11 @@
 
 .categoryArrow {
     position: absolute;
-    margin-left: 10px;
-    transition: transform .2s;
+    width: 25px;
+    padding: 10px;
+    transition: transform 0.2s;
+    user-select: none;
+    pointer-events: none;
 
     &[aria-open="true"] {
         transform: rotate(90deg);

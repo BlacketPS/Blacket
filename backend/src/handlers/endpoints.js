@@ -1,5 +1,6 @@
 import walk from "#functions/internal/walk";
 import console from "#functions/internal/console";
+import getUser from "#functions/users/getUser";
 
 export default async (app) => {
     console.info("Loading endpoints...");
@@ -28,19 +29,11 @@ export default async (app) => {
             if (endpoint.middlewares) {
                 if (endpoint.middlewares.user && !Array.isArray(endpoint.middlewares.user)) return res.status(500).json({ message: "user middleware must be an array" });
 
-                if (endpoint.middlewares.user) {
-                    const includes = [];
-
-                    if (endpoint.middlewares.user.includes("badges")) includes.push({ model: global.database.models.UserBadge, attributes: { exclude: ["user"] }, as: "badges" });
-                    if (endpoint.middlewares.user.includes("settings")) includes.push({ model: global.database.models.UserSetting, attributes: { exclude: ["user"] }, as: "settings" });
-                    if (endpoint.middlewares.user.includes("statistics")) includes.push({ model: global.database.models.UserStatistic, attributes: { exclude: ["user"] }, as: "statistics" });
-
-                    req.user = await global.database.models.User.findOne({ where: { id: req.session.user }, include: includes });
-                }
+                req.user = await getUser(req.session.user, endpoint.middlewares.user);
             }
 
             for (const key in endpoint.body) {
-                if (endpoint.body[key].required && !req.body[key] && req.body[key] !== false) return res.status(400).json({ message: `${key} missing in body` });
+                if (endpoint.body[key].required && !req.body[key] && ![false, 0].includes(req.body[key])) return res.status(400).json({ message: `${key} missing in body` });
 
                 if (!endpoint.body[key].required && typeof req.body[key] !== endpoint.body[key].type) continue;
                 if (!endpoint.body[key].required && endpoint.body[key].match && !endpoint.body[key].match.test(req.body[key])) continue;
@@ -56,7 +49,7 @@ export default async (app) => {
         console.debug(`Registered endpoint ${endpoint.method.toUpperCase()} ${path} from ./${file}`);
     }
 
-    app.get("/api", (_, res) => res.status(204).json());
+    app.get("/api", (_, res) => res.sendStatus(204));
 
     console.success(`Loaded ${total} endpoint(s).`);
 }

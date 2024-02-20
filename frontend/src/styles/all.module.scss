@@ -356,6 +356,11 @@ a {
         text-align: left;
         width: 83.5%;
 
+        &[data-icon="false"] {
+            width: 92.5%;
+            margin: 5px 2px 5px 5px;
+        }
+
         &:-moz-placeholder,
         &:-ms-input-placeholder,
         &::-moz-placeholder,

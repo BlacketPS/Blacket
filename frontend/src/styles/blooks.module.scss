@@ -1,6 +1,6 @@
 .leftSide {
     position: absolute;
-    top: 45px;
+    top: 35px;
     left: 2.5%;
     height: calc(100% - 60px);
     width: calc(95% - 430px);
@@ -148,7 +148,7 @@
 
 .rightSide {
     position: absolute;
-    top: 50%;
+    top: 48%;
     transform: translateY(-50%);
     right: 2.5%;
     width: 400px;
@@ -262,7 +262,7 @@
 
 .rightButtonContainer {
     position: absolute;
-    top: calc(50% + 220px);
+    top: calc(50% + 200px);
     right: 2.5%;
     width: 400px;
     display: flex;

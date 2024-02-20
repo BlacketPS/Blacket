@@ -4,10 +4,9 @@ export default {
     name: "PackBlook",
     attributes: {
         id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
         },
         pack: {
             type: DataTypes.STRING,

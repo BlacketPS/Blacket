@@ -4,7 +4,7 @@ const obtainables = [
     "granted by staff"
 ]
 
-const createBlook = (user, blook, ownedBy, obtainedBy) => new Promise(async (resolve, reject) => {
+const createUserBlook = (user, blook, ownedBy, obtainedBy) => new Promise(async (resolve, reject) => {
     if (!obtainedBy) obtainedBy = "unknown";
     if (!obtainables.includes(obtainedBy)) return reject({ message: `obtainedBy must be one of the following: ${obtainables.join(", ")}` });
 
@@ -13,4 +13,4 @@ const createBlook = (user, blook, ownedBy, obtainedBy) => new Promise(async (res
         .catch(reject);
 });
 
-export default createBlook;
+export default createUserBlook;

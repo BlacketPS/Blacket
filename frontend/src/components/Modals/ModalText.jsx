@@ -1,5 +1,5 @@
 import styles from "@styles";
 
-export default function ModalBody({ children }) {
-    return <div className={styles.modal.text}>{children}</div>;
+export default function ModalBody({ children, ...props }) {
+    return <div className={styles.modal.text} {...props}>{children}</div>;
 }

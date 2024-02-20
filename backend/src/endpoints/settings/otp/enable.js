@@ -21,7 +21,7 @@ export default {
         code = code.replace(/\s/g, "");
 
         if (req.user.settings.otpEnabled) return res.status(400).json({ message: "You already have OTP enabled." });
-        if (!req.user.settings.otpSecret) return res.status(400).json({ message: "You haven't generated an OTP secret yet." });
+        if (!req.user.settings.otpSecret) return res.status(400).json({ message: "You have not generated an OTP secret yet." });
 
         if (!speakEasy.totp.verify({ secret: req.user.settings.otpSecret, encoding: "base32", token: code })) return res.status(400).json({ message: "The code you entered is invalid." });
 

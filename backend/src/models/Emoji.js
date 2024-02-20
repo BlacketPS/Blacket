@@ -4,10 +4,9 @@ export default {
     name: "Emoji",
     attributes: {
         id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
         },
         name: {
             type: DataTypes.STRING,

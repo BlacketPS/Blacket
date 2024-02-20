@@ -1,5 +1,3 @@
-import bcrypt from "bcrypt";
-
 export default {
     method: "patch",
     options: {
