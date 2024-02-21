@@ -4,10 +4,9 @@ export default {
     name: "UserBlook",
     attributes: {
         id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
         },
         user: {
             type: DataTypes.STRING,

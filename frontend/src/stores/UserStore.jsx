@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import Loading from "@views/Loading";
+
 const UserStoreContext = createContext();
 
 export function useUser() {
@@ -16,5 +18,5 @@ export function UserStoreProvider({ children }) {
         else setLoading(false);
     }, []);
 
-    return <UserStoreContext.Provider value={{ user, setUser }}>{!loading && children}</UserStoreContext.Provider>;
+    return <UserStoreContext.Provider value={{ user, setUser }}>{!loading ? children : <Loading message="user data" />}</UserStoreContext.Provider>;
 }

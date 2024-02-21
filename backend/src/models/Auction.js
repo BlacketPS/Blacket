@@ -4,9 +4,9 @@ export default {
     name: "Auction",
     attributes: {
         id: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
         },
         item: {
             type: DataTypes.STRING,

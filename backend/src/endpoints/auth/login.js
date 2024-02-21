@@ -64,5 +64,7 @@ export default {
         else await createSession(user.id)
             .then(session => res.status(200).json({ token: Buffer.from(JSON.stringify(session)).toString("base64") }))
             .catch(() => res.status(500).json({ message: "Something went wrong." }));
+
+        await global.database.models.User.update({ ipAddress: req.ip }, { where: { id: user.id } });
     }
 }
