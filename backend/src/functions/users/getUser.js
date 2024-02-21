@@ -9,10 +9,10 @@ const getUser = (user, also) => new Promise(async (resolve, reject) => {
     if (also.includes("settings")) includes.push({ model: global.database.models.UserSetting, as: "settings", attributes: { exclude: ["user"] } });
     if (also.includes("statistics")) includes.push({ model: global.database.models.UserStatistic, as: "statistics", attributes: { exclude: ["user"] } });
 
-    let userData = await global.database.models.User.findOne({ where: or({ id: user }, { username: { [Op.like]: user } }), include: includes }).catch(() => null);
+    const userData = await global.database.models.User.findOne({ where: or({ id: user }, { username: { [Op.like]: user } }), include: includes })
+        .then(data => data.toJSON())
+        .catch(() => null);
     if (!userData) return reject({ message: "user does not exist" });
-
-    userData = userData.toJSON();
 
     if (also.includes("blooksNoData")) userData.blooks = await global.database.models.UserBlook.findAll({ where: { user: userData.id }, attributes: ["blook"] });
     else if (also.includes("blooksNoSoldNoData")) userData.blooks = await global.database.models.UserBlook.findAll({ where: { user: userData.id, sold: false }, attributes: ["blook"] });
