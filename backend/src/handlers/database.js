@@ -69,4 +69,6 @@ export default async () => {
     });
     await global.database.models.UserSetting.findOrCreate({ where: { user: "0" }, defaults: { user: "0" } });
     await global.database.models.UserStatistic.findOrCreate({ where: { user: "0" }, defaults: { user: "0" } });
+
+    await global.database.models.Room.findOrCreate({ where: { id: 0 }, defaults: { id: 0, name: "global" } });
 }

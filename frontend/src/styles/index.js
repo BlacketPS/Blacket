@@ -10,6 +10,7 @@ import sidebar from "./sidebar.module.scss";
 import topRight from "./topRight.module.scss";
 import dashboard from "./dashboard.module.scss";
 import leaderboard from "./leaderboard.module.scss";
+import chat from "./chat.module.scss";
 import market from "./market.module.scss";
 import blooks from "./blooks.module.scss";
 import settings from "./settings.module.scss";
@@ -27,6 +28,7 @@ export default {
     topRight,
     dashboard,
     leaderboard,
+    chat,
     market,
     blooks,
     settings

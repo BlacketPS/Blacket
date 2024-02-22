@@ -13,8 +13,11 @@ export default async (app) => {
     for (const file of walk("./sockets")) {
         if (!file.endsWith(".js")) continue;
 
-        events.push((await import(`../${file}`)).default);
-        events[total].path = file;
+        const event = (await import(`../${file}`)).default;
+        event.path = file.replace("sockets/", "").slice(0, -3);
+        event.path = event.path.replaceAll("/", "-");
+
+        events.push(event);
 
         console.debug(`Registered socket event ./${events[total].path}`);
 
@@ -36,24 +39,44 @@ export default async (app) => {
 
         if (session.id !== token.id || session.user !== token.user || session.createdAt !== token.createdAt) return;
 
-        if (global.clients[session.user] && global.clients[session.user].length > 10) return ws.close();
+        if (global.clients[session.user] && global.clients[session.user].length > 4) ws.send(JSON.stringify({ event: "too-many-connections", data: { error: true } })), ws.close();
 
-        ws.send(JSON.stringify({ type: "connected" }));
+        ws.send(JSON.stringify({ event: "connected", data: { error: false, user: session.user } }));
 
         if (!global.clients[session.user]) global.clients[session.user] = [ws];
         else global.clients[session.user].push(ws);
 
+        ws.authorized = true;
+        ws.user = { id: session.user };
+
         ws.on("message", async (message) => {
-            message = JSON.parse(message);
+            if (!ws.authorized) return ws.send(JSON.stringify({ data: { error: true, message: "unauthorized" } }));
 
-            for (const event of events) {
-
+            try {
+                message = JSON.parse(message);
+            } catch (error) {
+                return ws.send(JSON.stringify({ data: { error: true, message: "not a valid JSON string" } }));
             }
+
+            if (!message.event) return ws.send(JSON.stringify({ data: { error: true, message: "event missing" } }));
+            if (!message.data) return ws.send(JSON.stringify({ data: { error: true, message: "data missing" } }));
+
+            if (typeof message.event !== "string") return ws.send(JSON.stringify({ data: { error: true, message: "event must be typeof string" } }));
+            if (typeof message.data !== "object") return ws.send(JSON.stringify({ data: { error: true, message: "data must be typeof object" } }));
+
+            if (!events.find(event => event.path === message.event)) return ws.send(JSON.stringify({ data: { error: true, message: "event does not exist" } }));
+
+            const event = events.find(event => event.path === message.event);
+
+            ws.respond = (error, data) => ws.send(JSON.stringify({ event: message.event, data: { error, ...data } }));
+            ws.sendToAll = (event, error, data) => {
+                for (const client in global.clients) for (const conn of global.clients[client]) conn.send(JSON.stringify({ event, data: { error, ...data } }));
+            }
+
+            await event.event(ws, message.data);
         });
 
         ws.on("close", () => {
-            if (!global.clients[session.user]) return;
-
             global.clients[session.user] = global.clients[session.user].filter(conn => conn !== ws);
             if (global.clients[session.user].length === 0) delete global.clients[session.user];
         });

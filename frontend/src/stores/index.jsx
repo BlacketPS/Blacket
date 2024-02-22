@@ -1,21 +1,21 @@
 import { LoadingStoreProvider } from "./LoadingStore";
-import { SocketStoreProvider } from "./SocketStore";
 import { UserStoreProvider } from "./UserStore";
+import { SocketStoreProvider } from "./SocketStore";
 import { ModalStoreProvider } from "./ModalStore";
 import { LeaderboardStoreProvider } from "./LeaderboardStore";
 
 export default function StoreWrapper({ children }) {
     return (
         <LoadingStoreProvider>
-            <SocketStoreProvider>
-                <UserStoreProvider>
+            <UserStoreProvider>
+                <SocketStoreProvider>
                     <ModalStoreProvider>
                         <LeaderboardStoreProvider>
                             {children}
                         </LeaderboardStoreProvider>
                     </ModalStoreProvider>
-                </UserStoreProvider>
-            </SocketStoreProvider>
+                </SocketStoreProvider>
+            </UserStoreProvider>
         </LoadingStoreProvider>
     )
 }

@@ -3,12 +3,12 @@ import { useSocket } from "@stores/SocketStore";
 
 const useLogout = () => {
     const { setUser } = useUser();
-    const { connect } = useSocket();
+    const { initializeSocket } = useSocket();
 
     const logout = async () => {
         setUser(null);
 
-        await fetch.delete("/api/auth/logout").then(() => connect());
+        await fetch.delete("/api/auth/logout").then(() => initializeSocket());
 
         localStorage.removeItem("token");
     }

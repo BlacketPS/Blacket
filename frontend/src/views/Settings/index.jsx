@@ -9,6 +9,7 @@ import { SidebarBody, PageHeader } from "@components";
 import { Container, SettingsContainer, PlanText, UpgradeButton } from "@components/Settings";
 import { ClearButton } from "@components/Buttons";
 import { ErrorModal } from "@components/Modals";
+import { LogoutModal } from "@components/Modals/TopRight";
 import { ChangeUsernameModal, ChangePasswordModal, EnableOTPModal, DisableOTPModal } from "@components/Modals/Settings";
 
 export default function Settings() {
@@ -47,6 +48,7 @@ export default function Settings() {
                 <div><b>Username:</b> {user.username}</div>
                 <div><b>Title:</b> {user.title}</div>
                 <div><b>Joined:</b> {`${new Date(user.createdAt).toLocaleDateString()} ${new Date(user.createdAt).toLocaleTimeString()}`}</div>
+                <ClearButton onClick={() => createModal(<LogoutModal />)}>Logout</ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-clipboard-list", text: "Plan" }}>

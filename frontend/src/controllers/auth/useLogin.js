@@ -3,7 +3,7 @@ import {useSocket} from "@stores/SocketStore";
 
 const useLogin = () => {
     const { setUser } = useUser();
-    const { connect } = useSocket();
+    const { initializeSocket } = useSocket();
 
     const login = (username, password, code) => new Promise((resolve, reject) => fetch.post("/api/auth/login", { username, password, code }).then(async res => {
         if (res.data.codeRequired) return resolve("codeRequired");
@@ -12,7 +12,7 @@ const useLogin = () => {
 
         await setUser(await fetch.get("/api/users/me").then(res => res.data.user));
 
-        connect();
+        await initializeSocket();
 
         resolve();
     }).catch(reject));
