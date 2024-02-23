@@ -29,7 +29,7 @@ export default {
             allowNull: false
         },
         mentions: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
+            type: DataTypes.JSON,
             allowNull: false,
             defaultValue: []
         },
@@ -61,8 +61,8 @@ export default {
         tableName: "messages"
     },
     relations: [
-        { model: "User", type: "belongsTo", options: { foreignKey: "author" } },
-        { model: "Room", type: "belongsTo", options: { foreignKey: "room" } },
-        { model: "Message", type: "belongsTo", options: { foreignKey: "replyingTo", as: "reply" } }
+        { model: "User", type: "belongsTo", options: { foreignKey: "author", as: "authorData" } },
+        { model: "Room", type: "belongsTo", options: { foreignKey: "room", as: "roomData" } },
+        { model: "Message", type: "belongsTo", options: { foreignKey: "replyingTo", as: "replyingToData" } }
     ]
 }

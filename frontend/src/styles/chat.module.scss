@@ -1,35 +1,47 @@
 .container {
-    height: calc(100% - 10px);
+    height: 100%;
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
 }
 
-.messages {
+.messagesContainer {
+    position: absolute;
+    top: -20px;
     word-wrap: break-word;
     padding: 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
-    height: calc(100% - 61px);
-    margin: 0;
-    margin-bottom: 5px;
+    width: 100%;
+    height: calc(100% - 60px);
     font-size: 20px;
     scroll-behavior: smooth;
 }
 
 .message {
+    display: flex;
     list-style: none;
-    padding-inline: 65px 65px;
+    padding-inline: 10px 65px;
     margin-block: 2.5px;
 
     &:hover {
         background-color: rgb(0 0 0 / 15%);
     }
 
+    &:first-child {
+        margin: 0 0 20px 0;
+    }
+
     &>div {
-        position: relative;
+        &:first-child {
+            position: relative;
+
+            &:is(:last-child) {
+                margin-left: 57px;
+            }
+        }
     }
 }
 
@@ -50,17 +62,46 @@
     justify-content: flex-end;
 }
 
-.messageAvatar {
-    height: 50px;
-    position: absolute;
-    left: -54.235px;
-    margin-top: 2px;
+.usernameContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.username {
+.messageAvatar {
+    // height: 50px;
+    // position: absolute;
+    // left: -54.235px;
+    width: 50px;
+    height: 52.5px;
+    margin: 0 7px 0 0;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+}
+
+.messageUsername {
+    display: flex;
+    align-items: center;
     color: var(--accent-color);
     cursor: pointer;
     text-decoration: none;
+    width: fit-content;
+    font-weight: 700;
+    gap: 5px;
+}
+
+.messageBadgeContainer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.messageBadge {
+    position: relative;
+    width: 20px;
+    height: 20px;
 }
 
 .messageContent {
@@ -69,21 +110,24 @@
 }
 
 .messageForm {
-    position: relative;
+    position: fixed;
     width: calc(100% - 0px);
     display: block;
     background: var(--primary-color);
     padding: 10px;
-    border-radius: 6px 6px 0px 0px
+    bottom: 0px;
+    // border-radius: 6px 6px 0px 0px
 }
 
 .messageInputContainer {
+    position: relative;
     width: calc(100% - 40px);
     height: 40px;
     border-radius: 5px;
     display: flex;
     border: 3px solid var(--secondary-color);
     padding-inline: 10px 5px;
+    z-index: 1;
 }
 
 .messageInput {
@@ -94,6 +138,22 @@
     font-family: Nunito;
     background-color: var(--primary-color);
     color: var(--accent-color);
+}
+
+.usersTypingContainer {
+    position: absolute;
+    z-index: 0;
+    top: -2rem;
+    right: 2.5rem;
+    padding: 0.4rem 0.8rem 0.7rem 0.8rem;
+    border-radius: 0.6rem 0.6rem 0 0;
+    background-color: var(--primary-color);
+
+    @media (max-width: 768px) {
+        top: -1.5rem;
+        right: 1.5rem;
+        font-size: 10px;
+    }
 }
 
 .messageSend {
@@ -118,19 +178,4 @@
 .mention {
     background-color: rgba(100, 100, 0, 0.66);
     border-radius: 5px;
-}
-
-.badgeContainer {
-    display: inline-flex;
-    position: absolute;
-    align-items: center;
-    margin-left: 5px;
-    gap: 8px;
-    top: 3px;
-}
-
-.badge {
-    position: relative;
-    width: 20px;
-    height: 20px;
 }

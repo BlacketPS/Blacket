@@ -2,6 +2,7 @@ import { LoadingStoreProvider } from "./LoadingStore";
 import { UserStoreProvider } from "./UserStore";
 import { SocketStoreProvider } from "./SocketStore";
 import { ModalStoreProvider } from "./ModalStore";
+import { MessageStoreProvider } from "./MessageStore";
 import { LeaderboardStoreProvider } from "./LeaderboardStore";
 
 export default function StoreWrapper({ children }) {
@@ -10,9 +11,11 @@ export default function StoreWrapper({ children }) {
             <UserStoreProvider>
                 <SocketStoreProvider>
                     <ModalStoreProvider>
-                        <LeaderboardStoreProvider>
-                            {children}
-                        </LeaderboardStoreProvider>
+                        <MessageStoreProvider>
+                            <LeaderboardStoreProvider>
+                                {children}
+                            </LeaderboardStoreProvider>
+                        </MessageStoreProvider>
                     </ModalStoreProvider>
                 </SocketStoreProvider>
             </UserStoreProvider>

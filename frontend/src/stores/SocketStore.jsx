@@ -78,6 +78,13 @@ export function SocketStoreProvider({ children }) {
 
     useEffect(() => {
         initializeSocket();
+
+        return () => {
+            if (socket) {
+                socket.close();
+                setSocket(null);
+            }
+        }
     }, []);
 
 
