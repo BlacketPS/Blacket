@@ -9,23 +9,43 @@ export function useMessages() {
 }
 
 export function MessageStoreProvider({ children }) {
-    const { socketOn, socketOff } = useSocket();
+    const { socketOn, socketOff, socketEmit } = useSocket();
     const { user } = useUser();
 
     const [messages, setMessages] = useState([]);
     const [usersTyping, setUsersTyping] = useState([]);
+    const [typingTimeout, setTypingTimeout] = useState(null);
 
     const fetchMessages = async (room) => await fetch.get(`/api/messages/${room}`).then(res => setMessages(res.data.messages)).catch(err => err);
+
+    const sendMessage = async (content) => {
+        const nonce = (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString();
+
+        setTypingTimeout(null);
+        setMessages(previousMessages => [{ author: user, content, nonce, createdAt: Date.now() }, ...previousMessages]);
+
+        socketEmit("messages-send", { content, nonce });
+    }
+
+    const startTyping = () => {
+        if (typingTimeout && Date.now() - typingTimeout < 2000) return;
+
+        socketEmit("messages-start-typing", {});
+
+        setTypingTimeout(Date.now());
+    }
 
     useEffect(() => {
         fetchMessages(0);
 
         socketOn("messages-create", (data) => {
+            if (data.message.author.id === user.id) return;
+
             setMessages(previousMessages => [data.message, ...previousMessages]);
             setUsersTyping(previousUsersTyping => previousUsersTyping.filter(user => user.id !== data.message.author.id));
         });
 
-        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? data.message : message)));
+        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { id: data.messageID, ...message, nonce: null } : message)));
 
         socketOn("messages-typing-started", (data) => setUsersTyping(previousUsersTyping => {
             if (data.user.id === user.id) return previousUsersTyping;
@@ -43,9 +63,14 @@ export function MessageStoreProvider({ children }) {
             socketOff("messages-create");
             socketOff("messages-send");
             socketOff("messages-typing-started");
+
             clearInterval(typingInterval);
+            clearTimeout(typingTimeout);
         }
     }, []);
 
-    return <MessageStoreContext.Provider value={{ messages, usersTyping, fetchMessages }}>{children}</MessageStoreContext.Provider>;
+    return <MessageStoreContext.Provider value={{
+        messages, usersTyping,
+        fetchMessages, sendMessage, startTyping
+    }}>{children}</MessageStoreContext.Provider>;
 }

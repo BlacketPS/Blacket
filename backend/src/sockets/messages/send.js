@@ -1,6 +1,24 @@
 import getUser from "#functions/users/getUser";
 import createMessage from "#functions/messages/createMessage";
 
+const profanity = [
+    "anal",
+    "anus",
+    "arse",
+    "dick",
+    "pussy",
+    "fuck",
+    "bitch",
+    "nigger",
+    "nigga",
+    "tranny",
+    "trannie",
+    "fag",
+    "slut"
+];
+
+const replacements = ".-~, +";
+
 export default {
     event: async (ws, message) => {
         if (!message.content) return ws.respond(true, { message: "content missing" });
@@ -19,9 +37,12 @@ export default {
         const messageID = await createMessage(user.id, 0, message.content).catch(() => null);
         if (!messageID) return ws.respond(true, { message: "failed to create message", nonce: message.nonce });
 
-        await global.database.models.UserStatistic.increment("messagesSent", { where: { user: user.id } });
+        if (message.content.toLowerCase().includes("discord.gg/")) return ws.respond(true, { message: "discord invite links are not allowed", nonce: message.nonce });
 
-        await ws.respond(false, { messageID, nonce: message.nonce });
+        if (profanity.some(word => message.content.toLowerCase().includes(word))) return ws.respond(true, { message: "profanity is not allowed", nonce: message.nonce });
+        else if (profanity.some(word => message.content.replace(new RegExp(replacements.split("").join("|"), "g"), "").toLowerCase().includes(word))) return ws.respond(true, { message: "profanity is not allowed", nonce: message.nonce });
+
+        await global.database.models.UserStatistic.increment("messagesSent", { where: { user: user.id } });
 
         await ws.sendToAll("messages-create", false, {
             message: {
@@ -43,5 +64,7 @@ export default {
                 createdAt: new Date()
             }
         });
+
+        await ws.respond(false, { messageID, nonce: message.nonce });
     }
 }

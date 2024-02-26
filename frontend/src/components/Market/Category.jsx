@@ -18,8 +18,8 @@ export default function Category({ header, internalName, children }) {
     return (<>
         <div className={styles.market.categoryHeader} onClick={toggleOpenedState}>
             {header}
-            <img src="/content/arrow.png" className={styles.market.categoryArrow} draggable={false} aria-open={openedState} />
+            <img src="/content/arrow.png" className={styles.market.categoryArrow} draggable={false} data-opened={openedState} />
         </div>
-        <div className={styles.market.categoryContent} aria-open={openedState}>{children}</div>
+        <div className={styles.market.categoryContent} data-opened={openedState}>{children}</div>
     </>)
 }

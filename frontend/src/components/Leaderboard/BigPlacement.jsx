@@ -11,7 +11,7 @@ export default function BigPlacement({ type, placement, user }) {
             <div className={styles.leaderboard.placementInside}>
                 <div className={styles.leaderboard[`username${place[placement]}`]}>
                     <Textfit className={
-                        user.color === "rainbow" && styles.textFormatting.rainbow
+                        user.color === "rainbow" ? styles.textFormatting.rainbow : ""
                     } style={{ color: user.color }} max={100} mode="single">{user.username}</Textfit>
                 </div>
 

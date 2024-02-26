@@ -21,7 +21,7 @@ export default function Placement({ type, placement, user }) {
 
                     <div className={styles.leaderboard.otherStandingUsername}>
                         <Textfit className={
-                            user.color === "rainbow" && styles.textFormatting.rainbow
+                            user.color === "rainbow" ? styles.textFormatting.rainbow : ""
                         } style={{ color: user.color }} max={36} mode="single">{user.username}</Textfit>
                     </div>
 

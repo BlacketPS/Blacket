@@ -26,17 +26,17 @@
     user-select: none;
     pointer-events: none;
 
-    &[aria-open="true"] {
+    &[data-opened="true"] {
         transform: rotate(90deg);
     }
 }
 
 .categoryContent {
-    &[aria-open="true"] {
+    &[data-opened="true"] {
         display: flex;
     }
 
-    &[aria-open="false"] {
+    &[data-opened="false"] {
         display: none;
     }
 }

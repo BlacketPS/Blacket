@@ -13,7 +13,9 @@ export default function UserDropdown() {
             <div className={styles.topRight.userLeft}>
                 <img src={user.avatar === null ? "/content/blooks/Default.png" : user.avatar} draggable={false} />
 
-                <div className={user.color === "rainbow" && styles.textFormatting.rainbow}>{user.username}</div>
+                <div className={
+                    user.color === "rainbow" ? styles.textFormatting.rainbow : ""
+                } style={{ color: user.color }}>{user.username}</div>
             </div>
 
             <i className={`${styles.topRight.userDropdownIcon} fas fa-angle-down`} />
