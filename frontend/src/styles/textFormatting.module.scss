@@ -16,3 +16,41 @@
         }
     }
 }
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.code {
+    font-family: monospace;
+    background-color: var(--secondary-color);
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.codeDark {
+    font-family: monospace;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.mention {
+    color: hsl(235 calc( 1 * 86.2%) 88.6% / 1);
+    font-weight: bold;
+    padding: 1px;
+    border-radius: 3px;
+    background: hsl(235 calc( 1 * 85.6%) 64.7% / 0.3);
+}

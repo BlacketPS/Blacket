@@ -82,6 +82,7 @@ export function SocketStoreProvider({ children }) {
         return () => {
             if (socket) {
                 socket.close();
+
                 setSocket(null);
             }
         }

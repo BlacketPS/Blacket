@@ -13,7 +13,7 @@ const createMessage = (author, room, content, replyingTo) => new Promise(async (
     if (mentions && mentions.length > 4) return reject({ message: "too many mentions" });
 
     await new global.database.models.Message({ author, room, content, mentions: mentions || [], replyingTo }).save()
-        .then(data => resolve(data.id))
+        .then(data => resolve(data))
         .catch(reject);
 });
 

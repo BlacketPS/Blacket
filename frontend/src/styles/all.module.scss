@@ -18,6 +18,14 @@
     &::-webkit-scrollbar-thumb {
         background: var(--secondary-color);
     }
+
+    &[data-slate-editor="true"] {
+        overflow-wrap: unset !important;
+    }
+
+    &[contenteditable="true"] {
+        overflow-wrap: break-word !important;
+    }
 }
 
 :root {

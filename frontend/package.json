@@ -10,7 +10,6 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@emotion/css": "^11.11.2",
         "@namhong2001/react-textfit": "^1.1.5",
         "dotenv": "^16.4.1",
         "gsap": "^3.12.5",

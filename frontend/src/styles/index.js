@@ -2,6 +2,7 @@ import all from "./all.module.scss";
 import debug from "./debug.module.scss";
 import errors from "./errors.module.scss";
 import textFormatting from "./textFormatting.module.scss";
+import contextMenu from "./contextMenu.module.scss";
 import buttons from "./buttons.module.scss";
 import modal from "./modal.module.scss";
 import home from "./home.module.scss";
@@ -20,6 +21,7 @@ export default {
     debug,
     errors,
     textFormatting,
+    contextMenu,
     buttons,
     modal,
     home,

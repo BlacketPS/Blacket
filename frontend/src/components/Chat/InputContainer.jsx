@@ -21,7 +21,7 @@ export default function InputContainer({ placeholder, maxLength }) {
                 autoFocus
                 onInput={() => startTyping()}
                 onKeyPress={e => {
-                    console.log(content)
+                    console.log(content);
 
                     if (!e.repeat) {
                         if (e.key === "Enter" && !e.shiftKey) {
@@ -29,7 +29,7 @@ export default function InputContainer({ placeholder, maxLength }) {
 
                             if (content.replace(/\s/g, "").length === 0) return;
 
-                            sendMessage(content);
+                            sendMessage(content.trim());
 
                             editor.clearContent();
                             setContent("");

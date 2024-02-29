@@ -16,7 +16,7 @@ const getMessages = (room, options) => new Promise(async (resolve, reject) => {
             ...(options.author ? { author: options.author } : {})
         },
         order: [["createdAt", "DESC"]],
-        limit: options.limit || 100,
+        limit: options.limit || 50,
         offset: options.offset || 0,
         attributes: { exclude: ["room"] },
         include: [

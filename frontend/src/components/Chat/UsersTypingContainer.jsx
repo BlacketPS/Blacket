@@ -8,7 +8,7 @@ export default function UsersTypingContainer({ usersTyping }) {
                     user.color === "rainbow" ? styles.textFormatting.rainbow : ""
                 } style={{ color: user.color }}>{user.username}{index === usersTyping.length - 1 ? "" : ", "}</b>)}
                 {usersTyping.length === 1 ? " is typing..." : " are typing..."}
-            </>) : <b>Nobody's typing.</b>}
+            </>) : <b>Nobody is typing.</b>}
         </div>
     )
 }
