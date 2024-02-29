@@ -21,8 +21,6 @@ export default function InputContainer({ placeholder, maxLength }) {
                 autoFocus
                 onInput={() => startTyping()}
                 onKeyPress={e => {
-                    console.log(content);
-
                     if (!e.repeat) {
                         if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();

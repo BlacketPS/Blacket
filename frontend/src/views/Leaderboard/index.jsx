@@ -15,6 +15,8 @@ export default function Leaderboard() {
     const { sortBy, setSortBy } = useLeaderboardStore();
     const { leaderboard, setLeaderboard } = useLeaderboardStore();
 
+    if (!user) return <Navigate to="/login" />;
+
     const getLeaderboard = useLeaderboardController();
 
     useEffect(() => {
@@ -31,8 +33,7 @@ export default function Leaderboard() {
 
     const switchSort = () => sortBy === "tokens" ? setSortBy("experience") : setSortBy("tokens");
 
-    if (!user) return <Navigate to="/login" />;
-    else if (leaderboard) return (<>
+    if (leaderboard) return (<>
         <FilterButton onClick={switchSort}>{sortBy === "tokens" ? "Tokens" : "Experience"}</FilterButton>
 
         <Wrapper>

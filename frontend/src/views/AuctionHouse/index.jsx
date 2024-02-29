@@ -6,7 +6,8 @@ export default function AuctionHouse() {
     const { user } = useUser();
 
     if (!user) return <Navigate to="/login" />;
-    else return (<SidebarBody>
+
+    return (<SidebarBody>
         <PageHeader>Auction House</PageHeader>
     </SidebarBody>)
 }

@@ -7,14 +7,16 @@ import { SidebarBody } from "@components";
 import { GenericButton } from "@components/Buttons";
 
 export default function Dashboard() {
+    const { setLoading } = useLoading();
+    const { user } = useUser();
+
+    if (!user) return <Navigate to="/login" />;
+
     const [searchParams] = useSearchParams();
 
     const [viewingUser, setViewingUser] = useState(null);
 
     const getUser = useUsers();
-
-    const { setLoading } = useLoading();
-    const { user } = useUser();
 
     useEffect(() => {
         if (searchParams.get("name")) {
@@ -25,8 +27,7 @@ export default function Dashboard() {
         }
     }, []);
 
-    if (!user) return <Navigate to="/login" />;
-    /*else return (
+    /*return (
         <div className={styles.all.sidebarBody}>
             <div className={styles.dashboard.container}>
                 <div className={styles.dashboard.top}>
@@ -43,7 +44,7 @@ export default function Dashboard() {
             </div>
         </div>
     )*/
-    else return (<SidebarBody>
+    return (<SidebarBody>
         <h1>Dashboard (will be changed)</h1>
         {viewingUser ? JSON.stringify(viewingUser) : JSON.stringify(user)}
         {viewingUser && <GenericButton onClick={() => setViewingUser(null)}>Go Back</GenericButton>}

@@ -50,7 +50,7 @@ export function SocketStoreProvider({ children }) {
             setConnected(false);
 
             console.info("[Blacket] Disconnected from WebSocket server.");
-            console.debug("[Blacket] Reconnecting to WebSocket server...");
+            console.info("[Blacket] Reconnecting to WebSocket server...");
 
             initializeSocket();
         }

@@ -6,7 +6,8 @@ export default function TradingPlaza() {
     const { user } = useUser();
 
     if (!user) return <Navigate to="/login" />;
-    else return (<SidebarBody>
+
+    return (<SidebarBody>
         <PageHeader>Trading Plaza</PageHeader>
     </SidebarBody>)
 }

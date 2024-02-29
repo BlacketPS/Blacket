@@ -43,7 +43,7 @@ export function ContextMenuStoreProvider({ children }) {
     return (
         <ContextMenuContext.Provider value={{ contextMenu, setContextMenu, openContextMenu, closeContextMenu }}>
             {contextMenu && <Container ref={contextMenuRef} top={contextMenu.y} left={contextMenu.x}>
-                {contextMenu.items.map((item, index) => item.divider ? <Divider /> : <Item key={index} icon={item.icon} onClick={() => {
+                {contextMenu.items.map((item, index) => item.divider ? <Divider /> : item && <Item key={index} icon={item.icon} color={item.color} onClick={() => {
                     item.onClick();
 
                     closeContextMenu();
