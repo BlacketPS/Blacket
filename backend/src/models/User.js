@@ -78,6 +78,7 @@ export default {
     relations: [
         { type: "hasMany", model: "UserBadge", options: { foreignKey: "user", as: "badges" } },
         { type: "hasMany", model: "UserBlook", options: { foreignKey: "user", as: "blooks" } },
+        { type: "hasMany", model: "Message", options: { foreignKey: "author", as: "messages" } },
         { type: "hasOne", model: "UserStatistic", options: { foreignKey: "user", as: "statistics" } },
         { type: "hasOne", model: "UserSetting", options: { foreignKey: "user", as: "settings" } },
         { type: "hasOne", model: "UserMute", options: { foreignKey: "user", as: "mute" } },

@@ -18,10 +18,15 @@
     height: calc(100% - 60px);
     font-size: 20px;
     scroll-behavior: smooth;
+
+    &[data-above-input="true"] {
+        height: calc(100% - 95px);
+    }
 }
 
 .message {
     display: flex;
+    flex-direction: column;
     list-style: none;
     padding-inline: 10px 65px;
     line-height: 30px;
@@ -32,16 +37,6 @@
 
     &:first-child {
         margin: 0 0 20px 0;
-    }
-
-    &>div {
-        &:first-child {
-            position: relative;
-
-            &:is(:last-child) {
-                margin-left: 57px;
-            }
-        }
     }
 }
 
@@ -57,7 +52,7 @@
     -moz-user-select: none;
     user-select: none;
     outline: none;
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: flex-end;
     cursor: pointer;
@@ -72,6 +67,22 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.messageContainer {
+    display: flex;
+
+    /*&>div {
+        &:first-child {
+            &:is(:last-child) {
+                margin-left: 57px;
+            }
+        }
+    }*/
+}
+
+.messageContentContainer {
+    margin-left: 57px;
 }
 
 .messageAvatar {
@@ -93,6 +104,12 @@
     width: fit-content;
     font-weight: 700;
     gap: 5px;
+}
+
+.messageTimestamp {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    opacity: 0.5;
 }
 
 .messageBadgeContainer {
@@ -118,8 +135,9 @@
 
 .messageForm {
     position: fixed;
+    z-index: 5;
     width: calc(100% - 0px);
-    display: block;
+    display: flex;
     background: var(--primary-color);
     padding: 10px;
     bottom: 0px;
@@ -163,12 +181,12 @@
 .usersTypingContainer {
     position: absolute;
     z-index: 0;
-    bottom: 90%;
+    bottom: 99%;
     right: 2.5rem;
     padding: 0.4rem 0.8rem 0.7rem 0.8rem;
     border-radius: 0.6rem 0.6rem 0 0;
     background-color: var(--primary-color);
-    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: 0.2s ease;
     opacity: 1;
     transform: translateY(15%);
 
@@ -182,6 +200,19 @@
         transform: translateY(100%);
         -webkit-text-fill-color: transparent;
     }
+}
+
+.aboveInputContainer {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: -35px;
+    gap: 5px;
+    padding: 7px;
+    width: 100%;
+    background: var(--primary-color);
 }
 
 .messageSend {
@@ -203,9 +234,44 @@
     }
 }
 
+.replyingTo {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 5px;
+    margin: 0 0 0 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    user-select: none;
+    cursor: pointer;
+
+    &>img:nth-child(1) {
+        width: 41.25px;
+        height: 15px;
+        opacity: 0.5;
+        margin-top: 10px;
+    }
+
+    &>img:nth-child(2) {
+        width: auto;
+        height: 20px;
+    }
+}
+
+.replyingToUsername {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.replyingToMessage {
+    background-color: rgba(255,255,255, 0.1);
+    transition: .2s ease;
+}
+
 .mention {
     position: relative;
-    background-color: rgba(100, 100, 0, 0.66);
+    background: linear-gradient(90deg, rgba(100, 100, 0, 0.4) 0%, rgba(100, 100, 0, 0.3) 90%);
+    transition: 0.2s ease;
 
     &:before {
         content: "";
@@ -219,7 +285,7 @@
     }
 
     &:hover {
-        background-color: rgba(88, 88, 0, 0.55);
+        background-color: rgba(88, 88, 0, 0.35);
     }
 }
 

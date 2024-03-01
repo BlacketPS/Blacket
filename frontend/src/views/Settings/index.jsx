@@ -13,11 +13,13 @@ import { LogoutModal } from "@components/Modals/TopRight";
 import { ChangeUsernameModal, ChangePasswordModal, EnableOTPModal, DisableOTPModal } from "@components/Modals/Settings";
 
 export default function Settings() {
-    const [modalAnimation, setModalAnimation] = useState(localStorage.getItem("DISABLE_MODAL_ANIMATION") ? false : true);
-
     const { setLoading } = useLoading();
     const { createModal } = useModal();
     const { user } = useUser();
+
+    if (!user) return <Navigate to="/login" />;
+
+    const [modalAnimation, setModalAnimation] = useState(localStorage.getItem("DISABLE_MODAL_ANIMATION") ? false : true);
 
     const setFriendRequests = useFriendRequests();
 
@@ -29,17 +31,11 @@ export default function Settings() {
     }
 
     const modalAnimationButton = () => {
-        if (localStorage.getItem("DISABLE_MODAL_ANIMATION")) {
-            localStorage.removeItem("DISABLE_MODAL_ANIMATION");
-            setModalAnimation(true);
-        } else {
-            localStorage.setItem("DISABLE_MODAL_ANIMATION", true);
-            setModalAnimation(false);
-        }
+        if (localStorage.getItem("DISABLE_MODAL_ANIMATION")) localStorage.removeItem("DISABLE_MODAL_ANIMATION") ||setModalAnimation(true);
+        else localStorage.setItem("DISABLE_MODAL_ANIMATION", true) || setModalAnimation(false);
     }
 
-    if (!user) return <Navigate to="/login" />;
-    else return (<SidebarBody>
+    return (<SidebarBody>
         <PageHeader>Settings</PageHeader>
 
         <Container>
@@ -48,21 +44,20 @@ export default function Settings() {
                 <div><b>Username:</b> {user.username}</div>
                 <div><b>Title:</b> {user.title}</div>
                 <div><b>Joined:</b> {`${new Date(user.createdAt).toLocaleDateString()} ${new Date(user.createdAt).toLocaleTimeString()}`}</div>
+
                 <ClearButton onClick={() => createModal(<LogoutModal />)}>Logout</ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-clipboard-list", text: "Plan" }}>
                 <PlanText>Basic</PlanText>
+
                 <UpgradeButton>Upgrade</UpgradeButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-pencil-alt", text: "Edit Info" }}>
                 <ClearButton onClick={() => createModal(<ChangeUsernameModal />)}>Change Username</ClearButton>
                 <ClearButton onClick={() => createModal(<ChangePasswordModal />)}>Change Password</ClearButton>
-                <ClearButton onClick={() => {
-                    if (!user.settings.otpEnabled) createModal(<EnableOTPModal />);
-                    else createModal(<DisableOTPModal />);
-                }}>{user.settings.otpEnabled ? "Disable" : "Enable"} OTP / 2FA</ClearButton>
+                <ClearButton onClick={() => createModal(user.settings.otpEnabled ? <DisableOTPModal /> : <EnableOTPModal />)}>{user.settings.otpEnabled ? "Disable" : "Enable"} OTP / 2FA</ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-cog", text: "General" }}>
@@ -73,8 +68,7 @@ export default function Settings() {
                 <Tooltip id="modalAnimation" place="right" effect="solid">This will disable the zoom in out animation on popups.</Tooltip>
                 <ClearButton data-tooltip-id="modalAnimation" onClick={modalAnimationButton}>Modal Animation: {modalAnimation ? "On" : "Off"}</ClearButton>
 
-                {
-                    /*<ClearButton onClick={() => {
+                <ClearButton onClick={() => {
                     const style = document.createElement("style");
                     style.id = "theme";
                     style.innerHTML = `:root {
@@ -93,8 +87,8 @@ export default function Settings() {
                     if (style) style.remove();
                 }}>
                     revert to default theme
-                </ClearButton>*/
-                }
+                </ClearButton>
+
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-lock", text: "Privacy" }}>

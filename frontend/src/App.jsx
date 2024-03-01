@@ -37,7 +37,6 @@ export default function App() {
     useEffect(() => {
         document.getElementById("enviroment").textContent = JSON.stringify(import.meta.env, null, 4);
 
-        window.removeEventListener("keydown", e => e.key === "F4" && setShowDebugInformation(show => !show));
         window.addEventListener("keydown", e => e.key === "F4" && setShowDebugInformation(show => !show));
 
         const fetchData = async () => {
@@ -59,6 +58,10 @@ export default function App() {
         }
 
         fetchData();
+
+        return () => {
+            window.removeEventListener("keydown", e => e.key === "F4" && setShowDebugInformation(show => !show));
+        }
     }, []);
 
     // if loaded is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket

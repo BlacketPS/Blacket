@@ -25,12 +25,12 @@ export default {
         if (!user) return ws.respond(true, { message: "user does not exist", nonce: message.nonce });
 
         if (message.replyingTo) {
-            const replyingTo = await getMessage(message.replyingTo).catch(() => null);
+            message.replyingTo = await getMessage(message.replyingTo).catch(() => null);
 
-            if (!replyingTo || replyingTo.deleted) return ws.respond(true, { message: "replyingTo message does not exist", nonce: message.nonce });
+            if (!message.replyingTo || message.replyingTo.deleted) return ws.respond(true, { message: "replyingTo message does not exist", nonce: message.nonce });
         }
 
-        const newMessageData = await createMessage(user.id, 0, message.content, message.replyingTo).catch(() => null);
+        const newMessageData = await createMessage(user.id, 0, message.content, message.replyingTo?.id).catch(() => null);
         if (!newMessageData) return ws.respond(true, { message: "failed to create message", nonce: message.nonce });
 
         await global.database.models.UserStatistic.increment("messagesSent", { where: { user: user.id } });
@@ -49,13 +49,13 @@ export default {
                 },
                 content: message.content,
                 mentions: newMessageData.mentions,
-                replyingTo: message.replyingTo ? replyingTo : null,
+                replyingTo: message.replyingTo ? { ...message.replyingTo, replyingTo: undefined } : null,
                 edited: false,
                 deleted: false,
                 createdAt: new Date()
             }
         });
 
-        await ws.respond(false, { messageID: newMessageData.id, mentions: newMessageData.mentions, nonce: message.nonce });
+        await ws.respond(false, { id: newMessageData.id, mentions: newMessageData.mentions, nonce: message.nonce });
     }
 }

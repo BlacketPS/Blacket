@@ -25,7 +25,13 @@ const getMessages = (room, options) => new Promise(async (resolve, reject) => {
                 include: [{ model: global.database.models.UserBadge, as: "badges", attributes: { exclude: ["user"] } }]
             },
             {
-                model: global.database.models.Message, as: "replyingToData", attributes: { exclude: ["room"] }
+                model: global.database.models.Message, as: "replyingToData", attributes: { exclude: ["room", "replyingTo"] },
+                include: [
+                    {
+                        model: global.database.models.User, as: "authorData", attributes: ["id", "username", "avatar", "title", "color", "font"],
+                        include: [{ model: global.database.models.UserBadge, as: "badges", attributes: { exclude: ["user"] } }]
+                    }
+                ]
             }
         ]
     })
@@ -37,6 +43,11 @@ const getMessages = (room, options) => new Promise(async (resolve, reject) => {
 
             messageData.replyingTo = messageData.replyingToData;
             delete messageData.replyingToData;
+
+            if (messageData.replyingTo) {
+                messageData.replyingTo.author = messageData.replyingTo.authorData;
+                delete messageData.replyingTo.authorData;
+            }
 
             return messageData;
         }))

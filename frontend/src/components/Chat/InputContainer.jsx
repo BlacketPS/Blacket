@@ -5,7 +5,7 @@ import MarkdownPreview from "./MarkdownPreview";
 import styles from "@styles";
 
 export default function InputContainer({ placeholder, maxLength }) {
-    const { sendMessage, startTyping, usersTyping } = useMessages();
+    const { sendMessage, startTyping, usersTyping, replyingTo } = useMessages();
 
     const [editor, setEditor] = useState(null);
     const [content, setContent] = useState("");
@@ -14,6 +14,10 @@ export default function InputContainer({ placeholder, maxLength }) {
         <div className={styles.chat.messageForm}>
             <UsersTypingContainer usersTyping={usersTyping} />
 
+            {replyingTo && <div className={styles.chat.aboveInputContainer}>
+                <div>Replying to <b>{replyingTo.author.username}</b></div>
+            </div>}
+
             <MarkdownPreview
                 className={styles.chat.messageInput}
                 placeholder={placeholder}
@@ -21,6 +25,8 @@ export default function InputContainer({ placeholder, maxLength }) {
                 autoFocus
                 onInput={() => startTyping()}
                 onKeyPress={e => {
+                    console.log(content);
+
                     if (!e.repeat) {
                         if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();

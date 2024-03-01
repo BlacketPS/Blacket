@@ -9,7 +9,15 @@ const getMessage = (message) => new Promise(async (resolve, reject) => {
                 model: global.database.models.User, as: "authorData", attributes: ["id", "username", "avatar", "title", "color", "font"],
                 include: [{ model: global.database.models.UserBadge, as: "badges", attributes: { exclude: ["user"] } }]
             },
-            { model: global.database.models.Message, as: "replyingToData" }
+            {
+                model: global.database.models.Message, as: "replyingToData", attributes: { exclude: ["replyingTo"] },
+                include: [
+                    {
+                        model: global.database.models.User, as: "authorData", attributes: ["id", "username", "avatar", "title", "color", "font"],
+                        include: [{ model: global.database.models.UserBadge, as: "badges", attributes: { exclude: ["user"] } }]
+                    }
+                ]
+            }
         ]
     })
         .then(message => {
@@ -20,6 +28,11 @@ const getMessage = (message) => new Promise(async (resolve, reject) => {
 
             messageData.replyingTo = messageData.replyingToData;
             delete messageData.replyingToData;
+
+            if (messageData.replyingTo) {
+                messageData.replyingTo.author = messageData.replyingTo.authorData;
+                delete messageData.replyingTo.authorData;
+            }
 
             return messageData;
         })

@@ -13,6 +13,7 @@ export function MessageStoreProvider({ children }) {
     const { user } = useUser();
 
     const [messages, setMessages] = useState([]);
+    const [replyingTo, setReplyingTo] = useState(null);
     const [usersTyping, setUsersTyping] = useState([]);
     const [typingTimeout, setTypingTimeout] = useState(null);
 
@@ -22,9 +23,10 @@ export function MessageStoreProvider({ children }) {
         const nonce = (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString();
 
         setTypingTimeout(null);
-        setMessages(previousMessages => [{ author: user, content, mentions: [], nonce, createdAt: Date.now() }, ...previousMessages]);
+        setReplyingTo(null);
+        setMessages(previousMessages => [{ author: user, content, mentions: [], replyingTo, nonce, createdAt: Date.now() }, ...previousMessages]);
 
-        socketEmit("messages-send", { content, nonce });
+        socketEmit("messages-send", { content, replyingTo: replyingTo?.id, nonce });
     }
 
     const startTyping = () => {
@@ -39,7 +41,7 @@ export function MessageStoreProvider({ children }) {
         fetchMessages(0);
 
         socketOn("messages-create", (data) => {
-            if (data.message.mentions.includes(user.id)) new Audio("/content/mention.ogg").play();
+            if (data.message.mentions.includes(user.id) || (data.message.replyingTo && data.message.replyingTo.author.id === user.id)) new Audio("/content/mention.ogg").play();
 
             if (data.message.author.id === user.id) return;
 
@@ -72,7 +74,7 @@ export function MessageStoreProvider({ children }) {
     }, []);
 
     return <MessageStoreContext.Provider value={{
-        messages, usersTyping,
+        messages, usersTyping, replyingTo, setReplyingTo,
         fetchMessages, sendMessage, startTyping
     }}>{children}</MessageStoreContext.Provider>;
 }

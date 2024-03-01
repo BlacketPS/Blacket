@@ -61,8 +61,8 @@ export default {
         tableName: "messages"
     },
     relations: [
-        { model: "User", type: "belongsTo", options: { foreignKey: "author", as: "authorData" } },
-        { model: "Room", type: "belongsTo", options: { foreignKey: "room", as: "roomData" } },
-        { model: "Message", type: "belongsTo", options: { foreignKey: "replyingTo", as: "replyingToData" } }
+        { type: "belongsTo", model: "User", options: { foreignKey: "author", as: "authorData" } },
+        { type: "belongsTo", model: "Room", options: { foreignKey: "room", as: "roomData" } },
+        { type: "belongsTo", model: "Message", options: { foreignKey: "replyingTo", as: "replyingToData" } }
     ]
 }

@@ -9,7 +9,7 @@ import styles from "@styles";
 
 export default function Chat() {
     const { user } = useUser();
-    const { messages } = useMessages();
+    const { messages, replyingTo, setReplyingTo } = useMessages();
     const { openContextMenu } = useContextMenu();
 
     if (!user) return <Navigate to="/login" />;
@@ -18,16 +18,19 @@ export default function Chat() {
 
     return (<SidebarBody>
         <ChatContainer>
-            <ChatMessagesContainer>
+            <ChatMessagesContainer aboveInput={replyingTo}>
                 {messages.map(message => <ChatMessage
                     key={message.id}
+                    id={message.id}
                     author={message.author}
-                    newUser={!(messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id === message.author.id)}
-                    mentionsMe={message.mentions.includes(user.id)}
+                    newUser={(messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id)}
+                    createdAt={message.createdAt}
+                    replyingTo={message.replyingTo}
+                    mentionsMe={message.mentions.includes(user.id) || (message.replyingTo && message.replyingTo.author.id === user.id)}
                     isSending={message.nonce}
                     messageContextMenu={() => openContextMenu([
                         message.author.id === user.id && { label: "Edit", icon: "fas fa-edit", onClick: () => console.log("edit") },
-                        { label: "Reply", icon: "fas fa-reply", onClick: () => console.log("reply") },
+                        { label: "Reply", icon: "fas fa-reply", onClick: () => setReplyingTo(message) },
                         { label: "Copy Text", icon: "fas fa-copy", onClick: () => navigator.clipboard.writeText(message.content) },
                         message.author.id !== user.id && { label: "Report", icon: "fas fa-flag", color: "#F54242", onClick: () => console.log("report") },
                         { label: "Delete", icon: "fas fa-trash", color: "#F54242", onClick: () => console.log("delete") },
