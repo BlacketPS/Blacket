@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from "react";
 
-export default function RouteWrapper({
+export default memo(function RouteWrapper({
     route,
     setTitle, setDescription, setBackground, setHeader, setSidebar, setTopRight,
     title, description, background, header, sidebar, topRight
@@ -10,7 +10,7 @@ export default function RouteWrapper({
         if (route.description && (description !== route.description)) setDescription(route.description);
 
         if (background) setBackground(background);
-        else if (background !== true) setBackground(true);
+        else if (background === undefined) setBackground(true);
 
         if (route.plain) {
             setHeader(false);
@@ -35,4 +35,4 @@ export default function RouteWrapper({
     }, [route]);
 
     return route.element;
-}
+});

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { memo, useState, useRef } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import { useMessages } from "@stores/MessageStore";
@@ -7,7 +7,7 @@ import { ChatContainer, ChatMessagesContainer, ChatMessage, InputContainer } fro
 import { SidebarBody } from "@components";
 import styles from "@styles";
 
-export default function Chat() {
+export default memo(function Chat() {
     const { user } = useUser();
     const { messages, replyingTo, setReplyingTo } = useMessages();
     const { openContextMenu } = useContextMenu();
@@ -23,7 +23,13 @@ export default function Chat() {
                     key={message.id}
                     id={message.id}
                     author={message.author}
-                    newUser={messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id}
+                    // newUser={messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id}
+                    // also if time is greater than 5 mintues and if its the last message
+                    newUser={
+                        messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id ||
+                        messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].createdAt - message.createdAt > 300000 ||
+                        messages.indexOf(message) === messages.length - 1
+                    }
                     createdAt={message.createdAt}
                     replyingTo={message.replyingTo}
                     mentionsMe={message.mentions.includes(user.id) || (message.replyingTo && message.replyingTo.author.id === user.id)}
@@ -54,4 +60,4 @@ export default function Chat() {
             <InputContainer placeholder="Message #global" maxLength={2048} />
         </ChatContainer>
     </SidebarBody>)
-}
+});

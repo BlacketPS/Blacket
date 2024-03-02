@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useEffect } from "react";
+import { memo, useCallback, useMemo, useEffect } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-markdown";
 import { Text, createEditor, Transforms } from "slate";
@@ -30,7 +30,7 @@ Prism.languages.blacketMarkdown = {
     // emoji: { pattern: /:([^\s]+):/g }
 }
 
-export default function MarkdownPreview({ content, color, onLeafChange, readOnly, ...props }) {
+export default memo(function MarkdownPreview({ content, color, onLeafChange, readOnly, ...props }) {
     if (!onLeafChange) onLeafChange = () => { };
 
     const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -245,4 +245,4 @@ export default function MarkdownPreview({ content, color, onLeafChange, readOnly
             <Editable renderLeaf={renderLeaf} decorate={decorate} readOnly={readOnly} contentEditable={readOnly ? undefined : true} style={{ color: color && color }} {...props} />
         </Slate>
     )
-}
+});

@@ -1,6 +1,7 @@
+import { memo } from "react";
 import styles from "@styles";
 
-export default function UsersTypingContainer({ usersTyping }) {
+export default memo(function UsersTypingContainer({ usersTyping }) {
     return (
         <div className={styles.chat.usersTypingContainer} data-visible={usersTyping.length > 0}>
             {usersTyping.length > 0 ? (usersTyping.length > 4 ? <b>{usersTyping.length} people are typing...</b> : <>
@@ -11,4 +12,4 @@ export default function UsersTypingContainer({ usersTyping }) {
             </>) : <b>Nobody is typing.</b>}
         </div>
     )
-}
+});

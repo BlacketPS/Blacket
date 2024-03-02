@@ -16,7 +16,14 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
             data-message-id={id}
             onContextMenu={e => e.preventDefault() || messageContextMenu(e)}
         >
-            {replyingTo && <div className={styles.chat.replyingTo}>
+            {replyingTo && <div className={styles.chat.replyingTo} onClick={() => {
+                const message = document.querySelector(`[data-message-id="${replyingTo.id}"]`);
+
+                if (message) message.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                message.classList.add(styles.chat.highlightedMessage);
+                setTimeout(() => message.classList.remove(styles.chat.highlightedMessage), 1500);
+            }}>
                 <img src="/content/replyingToArrow.png" />
 
                 <img src={replyingTo.author.avatar === null ? "/content/blooks/Default.png" : replyingTo.author.avatar} className={styles.chat.replyingToAvatar} />
@@ -24,14 +31,10 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
                 <div className={`
                         ${styles.chat.replyingToUsername}
                         ${replyingTo.author.color === "rainbow" ? styles.textFormatting.rainbow : ""}
-                    `} style={{ color: author.color }}>{replyingTo.author.username}</div>
+                    `} style={{ color: replyingTo.author.color }}>{replyingTo.author.username}</div>
                 <i className="fas fa-circle" style={{ fontSize: "0.2rem" }} />
 
-                <MarkdownPreview content={`${replyingTo.content.split("\n")[0]}${replyingTo.content.split("\n").length > 1 ? "..." : ""}`} readOnly={true} onClick={() => {
-                    const message = document.querySelector(`[data-message-id="${replyingTo.id}"]`);
-
-                    if (message) message.scrollIntoView({ behavior: "smooth" });
-                }} />
+                <MarkdownPreview content={`${replyingTo.content.split("\n")[0]}${replyingTo.content.split("\n").length > 1 ? "..." : ""}`} readOnly={true} />
             </div>}
 
             <div className={styles.chat.messageContainer}>
@@ -52,7 +55,7 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
                             {author.username}
                         </Link>
 
-                        <div className={styles.chat.messageTimestamp}>
+                        <div className={styles.chat.messageBigTimestamp}>
                             {timestamps(createdAt)}
                         </div>
 
@@ -62,6 +65,10 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
                     </div>}
 
                     <div style={{ opacity: isSending ? 0.5 : "" }} className={styles.chat.messageContent}>
+                        {!(newUser || replyingTo) && <div className={styles.chat.messageSmallTimestamp}>
+                            {new Date(createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </div>}
+
                         <MarkdownPreview content={children} readOnly={true} />
                     </div>
                 </div>

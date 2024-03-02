@@ -12,6 +12,7 @@
     word-wrap: break-word;
     padding: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
@@ -44,6 +45,29 @@
         padding-inline: unset;
         line-height: 22.5px;
     }
+
+    &:hover .messageSmallTimestamp {
+        opacity: 0.5;
+    }
+}
+
+@keyframes highlight {
+    0% {
+        background-color: rgba(255, 255, 255, 0);
+    }
+    25% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    75% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0);
+    }
+}
+
+.highlightedMessage {
+    animation: highlight 1500ms ease-out;
 }
 
 .avatar {
@@ -78,7 +102,7 @@
 .usernameContainer {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 7.5px;
 }
 
 .messageContainer {
@@ -118,10 +142,30 @@
     gap: 5px;
 }
 
-.messageTimestamp {
+.messageBigTimestamp {
     color: var(--accent-color);
     font-size: 0.8rem;
     opacity: 0.5;
+    user-select: none;
+}
+
+.messageSmallTimestamp {
+    color: var(--accent-color);
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    width: 65px;
+    user-select: none;
+    transform: scale(0.9);
+
+    @media (max-width: 768px) {
+        width: 56px;
+        transform: scale(0.8);
+    }
 }
 
 .messageBadgeContainer {
@@ -265,11 +309,25 @@
         height: 15px;
         opacity: 0.5;
         margin-top: 10px;
+
+        @media (max-width: 768px) {
+            width: 25.25px;
+            height: 10px;
+        }
     }
 
     &>img:nth-child(2) {
         width: auto;
         height: 20px;
+
+        @media (max-width: 768px) {
+            height: 15px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        font-size: 0.8rem;
+        margin: 0 0 0 30px;
     }
 }
 
@@ -279,7 +337,7 @@
 }
 
 .replyingToMessage {
-    background-color: rgba(255,255,255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     transition: .2s ease;
 }
 

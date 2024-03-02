@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useMessages } from "@stores/MessageStore";
 import { UsersTypingContainer } from "@components/Chat";
 import MarkdownPreview from "./MarkdownPreview";
 import styles from "@styles";
 
-export default function InputContainer({ placeholder, maxLength }) {
+export default memo(function InputContainer({ placeholder, maxLength }) {
     const { sendMessage, startTyping, usersTyping, replyingTo } = useMessages();
 
     const [editor, setEditor] = useState(null);
@@ -49,4 +49,4 @@ export default function InputContainer({ placeholder, maxLength }) {
             />
         </div>
     )
-}
+});
