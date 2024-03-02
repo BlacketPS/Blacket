@@ -19,7 +19,7 @@ export default {
         if (typeof message.nonce !== "string") return ws.respond(true, { message: "nonce must be typeof string" });
         if (message.nonce.length > 32) return ws.respond(true, { message: "nonce too long" });
 
-        if (profanities.some(word => message.content.toLowerCase().includes(word))) return ws.respond(true, { message: "profanity is not allowed", nonce: message.nonce });
+        // if (profanities.some(word => message.content.toLowerCase().includes(word))) return ws.respond(true, { message: "profanity is not allowed", nonce: message.nonce });
 
         const user = await getUser(ws.user.id, ["badges"]).catch(() => null);
         if (!user) return ws.respond(true, { message: "user does not exist", nonce: message.nonce });

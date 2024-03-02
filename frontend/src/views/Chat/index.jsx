@@ -23,7 +23,7 @@ export default function Chat() {
                     key={message.id}
                     id={message.id}
                     author={message.author}
-                    newUser={(messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id)}
+                    newUser={messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id}
                     createdAt={message.createdAt}
                     replyingTo={message.replyingTo}
                     mentionsMe={message.mentions.includes(user.id) || (message.replyingTo && message.replyingTo.author.id === user.id)}

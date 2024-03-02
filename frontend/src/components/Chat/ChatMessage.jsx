@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import timestamps from "@functions/timestamps";
 import MarkdownPreview from "./MarkdownPreview";
@@ -10,26 +10,11 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
 
     const [badges, setBadges] = useState([]);
 
-    useEffect(() => {
-        console.log(replyingTo);
-    }, [replyingTo]);
-
     return (
         <li className={`${styles.chat.message} ${mentionsMe ? `${styles.chat.mention}` : ""}`}
             style={{ marginTop: (newUser || replyingTo) ? "15px" : "" }}
             data-message-id={id}
-            data-reply-id={replyingTo ? replyingTo.id : null}
             onContextMenu={e => e.preventDefault() || messageContextMenu(e)}
-            onMouseEnter={e => {
-                const replyId = e.currentTarget.getAttribute("data-reply-id");
-                const message = document.querySelector(`[data-message-id="${replyId}"]`);
-                message.classList.add(styles.chat.replyingToMessage);
-            }}
-            onMouseLeave={e => {
-                const replyId = e.currentTarget.getAttribute("data-reply-id");
-                const message = document.querySelector(`[data-message-id="${replyId}"]`);
-                message.classList.remove(styles.chat.replyingToMessage);
-            }}
         >
             {replyingTo && <div className={styles.chat.replyingTo}>
                 <img src="/content/replyingToArrow.png" />

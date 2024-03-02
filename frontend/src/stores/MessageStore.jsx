@@ -19,14 +19,15 @@ export function MessageStoreProvider({ children }) {
 
     const fetchMessages = async (room) => await fetch.get(`/api/messages/${room}`).then(res => setMessages(res.data.messages)).catch(err => err);
 
-    const sendMessage = async (content) => {
+    const sendMessage = (content) => {
         const nonce = (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString();
+
+        setMessages(previousMessages => [{ id: nonce, author: user, content, replyingTo, createdAt: new Date(Date.now()).toISOString(), mentions: [], nonce }, ...previousMessages]);
+
+        socketEmit("messages-send", { content, replyingTo: replyingTo ? parseInt(replyingTo.id) : null, nonce });
 
         setTypingTimeout(null);
         setReplyingTo(null);
-        setMessages(previousMessages => [{ author: user, content, mentions: [], replyingTo, nonce, createdAt: Date.now() }, ...previousMessages]);
-
-        socketEmit("messages-send", { content, replyingTo: replyingTo?.id, nonce });
     }
 
     const startTyping = () => {
@@ -49,7 +50,7 @@ export function MessageStoreProvider({ children }) {
             setUsersTyping(previousUsersTyping => previousUsersTyping.filter(user => user.id !== data.message.author.id));
         });
 
-        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { id: data.messageID, mentions: data.mentions, ...message, nonce: null } : message)));
+        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { id: data.id, mentions: data.mentions, ...message, nonce: null } : message)));
 
         socketOn("messages-typing-started", (data) => setUsersTyping(previousUsersTyping => {
             if (data.user.id === user.id) return previousUsersTyping;

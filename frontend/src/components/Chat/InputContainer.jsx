@@ -34,6 +34,7 @@ export default function InputContainer({ placeholder, maxLength }) {
                             if (content.replace(/\s/g, "").length === 0) return;
 
                             sendMessage(content.trim());
+                            console.log(content.trim())
 
                             editor.clearContent();
                             setContent("");

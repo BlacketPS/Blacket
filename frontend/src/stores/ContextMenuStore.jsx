@@ -14,7 +14,8 @@ export function ContextMenuStoreProvider({ children }) {
     const contextMenuRef = useRef(null);
 
     const openContextMenu = (items) => {
-        setContextMenu({ items, x: cursorPosition.x, y: cursorPosition.y });
+        if (window.innerWidth <= 768) return setContextMenu({ items });
+        else setContextMenu({ items, x: cursorPosition.x, y: cursorPosition.y });
 
         setTimeout(() => {
             const contextMenuRect = contextMenuRef.current.getBoundingClientRect();

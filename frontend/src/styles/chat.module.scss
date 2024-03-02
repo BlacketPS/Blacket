@@ -38,6 +38,12 @@
     &:first-child {
         margin: 0 0 20px 0;
     }
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+        padding-inline: unset;
+        line-height: 22.5px;
+    }
 }
 
 .avatar {
@@ -45,6 +51,12 @@
     height: 100%;
     -o-object-fit: contain;
     object-fit: contain;
+
+
+    @media (max-width: 768px) {
+        width: 75%;
+        height: 75%;
+    }
 }
 
 .messageAvatarContainer {
@@ -237,13 +249,16 @@
 .replyingTo {
     display: flex;
     align-items: center;
-    width: fit-content;
+    width: calc(100% - 25px);
     gap: 5px;
     margin: 0 0 0 25px;
     font-size: 1rem;
     border-radius: 5px;
     user-select: none;
     cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &>img:nth-child(1) {
         width: 41.25px;
@@ -270,8 +285,7 @@
 
 .mention {
     position: relative;
-    background: linear-gradient(90deg, rgba(100, 100, 0, 0.4) 0%, rgba(100, 100, 0, 0.3) 90%);
-    transition: 0.2s ease;
+    background: rgba(255, 255, 0, 0.1);
 
     &:before {
         content: "";
@@ -280,12 +294,12 @@
         top: 0;
         bottom: 0;
         pointer-events: none;
-        width: 2.75px;
-        background: rgba(200, 200, 0, 1);
+        width: 2.5px;
+        background: gold;
     }
 
     &:hover {
-        background-color: rgba(88, 88, 0, 0.35);
+        background: rgba(255, 255, 0, 0.065);
     }
 }
 

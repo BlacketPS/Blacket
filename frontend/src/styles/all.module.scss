@@ -7,20 +7,36 @@
 
 * {
     font-smooth: always;
-    scrollbar-color: var(--secondary-color) var(--primary-color);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
     &::-webkit-scrollbar {
+        width: 16px;
+    }
+
+
+    @media not screen and (max-width: 850px) {
+        &::-webkit-scrollbar-track-piece:start {
+            margin-top: 55px;
+        }
+    }
+
+    &::-webkit-scrollbar-track {
         background: var(--primary-color);
     }
 
     &::-webkit-scrollbar-thumb {
         background: var(--secondary-color);
+        border-radius: 20px;
+        border: 2px solid var(--primary-color);
     }
 
     &[data-slate-editor="true"] {
         overflow-wrap: unset !important;
+
+        @media only screen and (max-width: 768px) {
+            white-space: unset !important;
+        }
     }
 
     &[contenteditable="true"] {
