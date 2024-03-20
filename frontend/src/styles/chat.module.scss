@@ -25,6 +25,36 @@
     }
 }
 
+.messageHolder {
+    position: relative;
+
+    &:first-child {
+        margin: 0 0 10px 0;
+    }
+}
+
+.replyIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.swipeTop {
+    position: absolute;
+    top: -8px;
+    right: 0;
+    z-index: 1;
+    width: 25px;
+    height: 8px;
+}
+
 .message {
     display: flex;
     flex-direction: column;
@@ -32,12 +62,10 @@
     padding-inline: 10px 65px;
     line-height: 30px;
 
-    &:hover {
-        background-color: rgb(0 0 0 / 15%);
-    }
-
-    &:first-child {
-        margin: 0 0 20px 0;
+    @media (min-width: 850px) {
+        &:hover {
+            background-color: rgb(0 0 0 / 15%) !important;
+        }
     }
 
     @media (max-width: 768px) {
@@ -165,6 +193,7 @@
     @media (max-width: 768px) {
         width: 56px;
         transform: scale(0.8);
+        font-size: 0.7rem;
     }
 }
 
@@ -192,11 +221,14 @@
 .messageForm {
     position: fixed;
     z-index: 5;
-    width: calc(100% - 0px);
+    width: calc(100% - 20px);
     display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
     background: var(--primary-color);
     padding: 10px;
-    bottom: 0px;
+    bottom: 0;
     // border-radius: 6px 6px 0px 0px
 }
 
@@ -261,14 +293,23 @@
 .aboveInputContainer {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: absolute;
     z-index: -1;
     left: 0;
     top: -35px;
     gap: 5px;
-    padding: 7px;
-    width: 100%;
+    padding: 7px 14px;
+    width: calc(100% - 28px);
     background: var(--primary-color);
+
+    & > i {
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px;
+    }
 }
 
 .messageSend {
@@ -343,7 +384,7 @@
 
 .mention {
     position: relative;
-    background: rgba(255, 255, 0, 0.1);
+    background: rgba(255, 255, 0, 0.1) !important;
 
     &:before {
         content: "";
@@ -367,4 +408,61 @@
     object-fit: contain;
     width: 1.375em;
     height: 1.375em;
+}
+
+.mentionList {
+    display: flex;
+    position: absolute;
+    overflow-y: auto;
+    gap: 0;
+    flex-direction: column;
+    background-color: #1c1c1c;
+    width: 95%;
+    padding: 0;
+    border-radius: 0.3rem;
+    z-index: 10;
+    max-height: 0px;
+    transition: max-height 2s ease;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.usersInMentionList {
+    position: relative;
+    gap: 0.2rem;
+    padding: 0.3rem;
+    max-height: 1000px;
+}
+
+.mentionUser {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+    cursor: pointer;
+    transition: .2s ease;
+    border-radius: 0.3rem;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.userMentionContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & > img {
+        width: 30px;
+        height: auto;
+    }
+
+    & > p {
+        color: var(--accent-color);
+        font-weight: 700;
+    }
 }

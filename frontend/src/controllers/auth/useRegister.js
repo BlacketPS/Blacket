@@ -1,19 +1,25 @@
 import { useUser } from "@stores/UserStore";
+import { useSocket } from "@stores/SocketStore";
 
 const useRegister = () => {
     const { setUser } = useUser();
+    const { initializeSocket } = useSocket();
 
     const register = (username, password, accessCode, checked) => new Promise((resolve, reject) => fetch.post("/api/auth/register", {
         username,
         password,
         accessCode,
         acceptedTerms: checked
-    }).then(async res => {
+    }).then(res => {
         localStorage.setItem("token", res.data.token);
 
-        await fetch.get("/api/users/me").then(res => setUser(res.data.user));
+        fetch.get("/api/users/me").then(res => {
+            setUser(res.data.user);
 
-        resolve();
+            initializeSocket(res.data.token);
+
+            resolve();
+        }).catch(reject);
     }).catch(reject));
 
     return register;

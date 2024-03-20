@@ -10,7 +10,7 @@ export function useMessages() {
 
 export function MessageStoreProvider({ children }) {
     const { socketOn, socketOff, socketEmit } = useSocket();
-    const { user } = useUser();
+    const { user, setUser } = useUser();
 
     const [messages, setMessages] = useState([]);
     const [replyingTo, setReplyingTo] = useState(null);
@@ -20,9 +20,9 @@ export function MessageStoreProvider({ children }) {
     const fetchMessages = async (room) => await fetch.get(`/api/messages/${room}`).then(res => setMessages(res.data.messages)).catch(err => err);
 
     const sendMessage = (content) => {
-        const nonce = (Math.floor(Date.now() / 1000)).toString() + Math.floor(1000000 + Math.random() * 9000000).toString();
+        const nonce = ((Math.floor(Date.now() / 1000).toString()) + Math.floor(1000000 + Math.random() * 9000000)).toString();
 
-        setMessages(previousMessages => [{ id: nonce, author: user, content, replyingTo, createdAt: new Date(Date.now()).toISOString(), mentions: [], nonce }, ...previousMessages]);
+        setMessages(previousMessages => [{ id: nonce, author: user, content, mentions: [], replyingTo, createdAt: new Date(Date.now()).toISOString(), nonce }, ...previousMessages]);
 
         socketEmit("messages-send", { content, replyingTo: replyingTo ? parseInt(replyingTo.id) : null, nonce });
 
@@ -39,6 +39,8 @@ export function MessageStoreProvider({ children }) {
     }
 
     useEffect(() => {
+        if (!user || user.initialized) return;
+
         fetchMessages(0);
 
         socketOn("messages-create", (data) => {
@@ -50,7 +52,7 @@ export function MessageStoreProvider({ children }) {
             setUsersTyping(previousUsersTyping => previousUsersTyping.filter(user => user.id !== data.message.author.id));
         });
 
-        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { id: data.id, mentions: data.mentions, ...message, nonce: null } : message)));
+        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { ...message, id: data.id, mentions: data.mentions, nonce: undefined } : message)));
 
         socketOn("messages-typing-started", (data) => setUsersTyping(previousUsersTyping => {
             if (data.user.id === user.id) return previousUsersTyping;
@@ -64,6 +66,8 @@ export function MessageStoreProvider({ children }) {
 
         const typingInterval = setInterval(() => setUsersTyping(previousUsersTyping => previousUsersTyping.filter(user => Date.now() - user.startedTypingAt < 2500)), 1000);
 
+        setUser({ ...user, initialized: true });
+
         return () => {
             socketOff("messages-create");
             socketOff("messages-send");
@@ -72,7 +76,7 @@ export function MessageStoreProvider({ children }) {
             clearInterval(typingInterval);
             clearTimeout(typingTimeout);
         }
-    }, []);
+    }, [user]);
 
     return <MessageStoreContext.Provider value={{
         messages, usersTyping, replyingTo, setReplyingTo,

@@ -35,7 +35,7 @@ export default {
 
         await global.database.models.UserStatistic.increment("messagesSent", { where: { user: user.id } });
 
-        await ws.sendToAll("messages-create", false, {
+        await global.ws.sendToAll("messages-create", false, {
             message: {
                 id: newMessageData.id,
                 author: {

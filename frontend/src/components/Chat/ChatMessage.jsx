@@ -1,21 +1,68 @@
-import { memo, useState } from "react";
+import { memo, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import timestamps from "@functions/timestamps";
 import MarkdownPreview from "./MarkdownPreview";
 import styles from "@styles";
 
+import { useMessages } from "@stores/MessageStore";
+import { useSpring, animated } from "react-spring";
+import { useDrag } from "@use-gesture/react";
+
 export default memo(function ChatMessage({ id, author, newUser, createdAt, replyingTo, mentionsMe, isSending, messageContextMenu, userContextMenu, children }) {
     if (!messageContextMenu || isSending) messageContextMenu = () => { };
     if (!userContextMenu || isSending) userContextMenu = () => { };
 
+    const { setReplyingTo } = useMessages();
+    const messagePosition = useSpring({ x: 0 });
+    const bindMessage = useDrag((params) => {
+        if (window.innerWidth > 850) return;
+        if (params.dragging) {
+
+            // if (params.movement[0] <= -100) setAllowReply(true);
+            // else setAllowReply(false);
+
+            if (params.movement[0] < 0 && params.movement[0] > -115) {
+                messagePosition.x.set(params.movement[0]);
+            }
+        } else {
+            if (messagePosition.x.get() <= -90) setReplyingTo({ id, author, content: children });
+            // setAllowReply(false)
+            messagePosition.x.start(0);
+        }
+    });
+
+    const messageRef = useRef(null);
+    const [messageHeight, setMessageHeight] = useState(0);
     const [badges, setBadges] = useState([]);
 
-    return (
-        <li className={`${styles.chat.message} ${mentionsMe ? `${styles.chat.mention}` : ""}`}
-            style={{ marginTop: (newUser || replyingTo) ? "15px" : "" }}
+    useEffect(() => {
+        if (messageRef.current) setMessageHeight(messageRef.current.clientHeight);
+    }, [messageRef]);
+
+    return <animated.span ref={messageRef} {...bindMessage()} className={styles.chat.messageHolder} style={{
+        marginTop: (newUser || replyingTo) ? "15px" : "",
+        touchAction: "none",
+        backgroundColor: messagePosition.x.to([0, -115], ["rgba(0,0,0, 0)", "rgba(0,0,0, 0.3)"])
+    }}>
+
+        <animated.i className={`${styles.chat.replyIcon} fas fa-reply`} style={{
+            height: messageHeight >= 75 ? "30px" : `${Math.floor(messageHeight * 0.5)}px`,
+            width: messageHeight >= 75 ? "30px" : `${Math.floor(messageHeight * 0.5)}px`,
+            fontSize: messageHeight >= 75 ? "20px" : `${Math.floor(messageHeight * 0.4)}px`,
+            right: messagePosition.x.to([0, -115], ["-50px", "20px"]),
+            transform: messagePosition.x.to([0, -115], ["translateY(-50%) rotate(180deg)", "translateY(-50%) rotate(0deg)"])
+        }} />
+
+        <animated.li className={`${styles.chat.message} ${mentionsMe ? `${styles.chat.mention}` : ""}`}
+            style={{
+                x: messagePosition.x,
+                backgroundColor: messagePosition.x.to([0, -115], ["rgba(0,0,0, 0)", "rgba(0,0,0, 0.3)"]),
+                borderRadius: messagePosition.x.to([0, -115], ["0", "5px"])
+            }}
             data-message-id={id}
             onContextMenu={e => e.preventDefault() || messageContextMenu(e)}
         >
+
             {replyingTo && <div className={styles.chat.replyingTo} onClick={() => {
                 const message = document.querySelector(`[data-message-id="${replyingTo.id}"]`);
 
@@ -73,6 +120,6 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
                     </div>
                 </div>
             </div>
-        </li >
-    )
+        </animated.li>
+    </animated.span>
 });

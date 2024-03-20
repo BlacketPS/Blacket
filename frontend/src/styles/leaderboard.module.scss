@@ -25,6 +25,7 @@
     left: 240px;
     font-size: 30px !important;
     border: 4px solid var(--accent-color);
+    z-index: 2;
 
     @media not screen and (min-width: 1400px) {
         display: none;

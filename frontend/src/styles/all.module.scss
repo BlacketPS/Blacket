@@ -10,10 +10,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    @supports (-moz-appearance:none) {
+        scrollbar-color: #ffffff var(--primary-color);
+    }
+
     &::-webkit-scrollbar {
         width: 16px;
     }
-
 
     @media not screen and (max-width: 850px) {
         &::-webkit-scrollbar-track-piece:start {

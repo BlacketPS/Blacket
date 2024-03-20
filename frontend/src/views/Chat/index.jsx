@@ -1,11 +1,10 @@
-import { memo, useState, useRef } from "react";
+import { memo } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import { useMessages } from "@stores/MessageStore";
 import { useContextMenu } from "@stores/ContextMenuStore";
 import { ChatContainer, ChatMessagesContainer, ChatMessage, InputContainer } from "@components/Chat";
 import { SidebarBody } from "@components";
-import styles from "@styles";
 
 export default memo(function Chat() {
     const { user } = useUser();
@@ -23,8 +22,6 @@ export default memo(function Chat() {
                     key={message.id}
                     id={message.id}
                     author={message.author}
-                    // newUser={messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id}
-                    // also if time is greater than 5 mintues and if its the last message
                     newUser={
                         messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].author.id !== message.author.id ||
                         messages[messages.indexOf(message) + 1] && messages[messages.indexOf(message) + 1].createdAt - message.createdAt > 300000 ||

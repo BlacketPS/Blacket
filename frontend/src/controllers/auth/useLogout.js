@@ -5,13 +5,15 @@ const useLogout = () => {
     const { setUser } = useUser();
     const { initializeSocket } = useSocket();
 
-    const logout = async () => {
+    const logout = () => new Promise((resolve, reject) => fetch.delete("/api/auth/logout").then(() => {
+        localStorage.removeItem("token");
+
         setUser(null);
 
-        await fetch.delete("/api/auth/logout").then(() => initializeSocket());
+        initializeSocket(null);
 
-        localStorage.removeItem("token");
-    }
+        resolve();
+    }).catch(reject));
 
     return logout;
 }

@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@namhong2001/react-textfit": "^1.1.5",
+        "@use-gesture/react": "^10.3.0",
         "dotenv": "^16.4.1",
         "gsap": "^3.12.5",
         "phaser": "^3.70.0",
@@ -22,6 +23,7 @@
         "react-helmet": "^6.1.0",
         "react-quill": "^2.0.0",
         "react-router-dom": "^6.22.0",
+        "react-spring": "^9.7.3",
         "react-tooltip": "^5.26.0",
         "sass": "^1.70.0",
         "slate": "^0.102.0",

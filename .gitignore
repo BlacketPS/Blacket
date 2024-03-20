@@ -27,3 +27,5 @@ config.json
 *.sw?
 
 backend/public
+backend/dist
+backend/node_modules

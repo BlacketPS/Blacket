@@ -6,6 +6,9 @@
 }
 
 .categoryHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-family: "Titan One", sans-serif;
     font-size: 35px;
     margin: 15px 5% 10px;
@@ -19,19 +22,55 @@
 }
 
 .categoryArrow {
-    position: absolute;
-    width: 25px;
+    width: 20px;
     padding: 10px;
-    transition: transform 0.2s;
+    transform: translateY(2px);
+    transition: transform .2s;
     user-select: none;
     pointer-events: none;
 
     &[data-opened="true"] {
-        transform: rotate(90deg);
+        transform: rotate(90deg) translateX(2px);
     }
 }
 
 .categoryContent {
+    display: flex;
+    overflow-y: auto;
+    margin: 0 0 0 5%;
+
+    // &[data-opened="true"] {
+    //     animation: openCategory 1.2s cubic-bezier(.32,.77,.84,1.02) forwards;
+
+    //     @keyframes openCategory {
+    //         0% {
+    //             max-height: 0;
+    //             opacity: 0;
+    //         }
+    //         65% {
+    //             opacity: 1;
+    //         }
+    //         100% {
+    //             max-height: 1000px;
+    //         }
+    //     }
+    // }
+
+    // &[data-opened="false"] {
+    //     animation: closeCategory .5s cubic-bezier(.32,.77,.84,1.02) forwards;
+
+    //     @keyframes closeCategory {
+    //         from {
+    //             max-height: 1000px;
+    //             opacity: 1;
+    //         }
+    //         to {
+    //             max-height: 0;
+    //             opacity: 0;
+    //         }
+    //     }
+    // }
+
     &[data-opened="true"] {
         display: flex;
     }
@@ -39,6 +78,17 @@
     &[data-opened="false"] {
         display: none;
     }
+
+    // &[data-opened="true"] {
+    //     opacity: 1;
+    //     transition: 0.4s ease;
+    // }
+
+    // &[data-opened="false"] {
+    //     opacity: 0;
+    //     max-height: 0;
+    //     transition: 0.4s ease;
+    // }
 }
 
 .buttonHolder {
@@ -50,7 +100,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 210px);
     grid-gap: 25px;
-    margin: 25px 0 35px 5%;
+    margin: 25px 0 35px 0;
     width: 90%;
 
     @media only screen and (max-width:1010px) {
@@ -134,4 +184,10 @@
     &:hover {
         filter: brightness(0.5);
     }
+}
+
+.tokenPrice {
+    height: 25px;
+    margin: 0 6px;
+    width: auto;
 }

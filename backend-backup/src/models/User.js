@@ -83,6 +83,6 @@ export default {
         { type: "hasOne", model: "UserSetting", options: { foreignKey: "user", as: "settings" } },
         { type: "hasOne", model: "UserMute", options: { foreignKey: "user", as: "mute" } },
         { type: "hasOne", model: "UserBan", options: { foreignKey: "user", as: "ban" } },
-        { type: "hasOne", model: "Session", options: { foreignKey: "user", as: "session" } }
+        { type: "hasOne", model: "Session", options: { foreignKey: "user", as: "session" } },
     ]
 }

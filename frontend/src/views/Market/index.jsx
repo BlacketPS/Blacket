@@ -13,7 +13,7 @@ import { LittleButton } from "@components/Buttons";
 export default function Market() {
     const { setLoading } = useLoading();
     const { createModal } = useModal();
-    const { user } = useUser();
+    const { user, setUser } = useUser();
 
     if (!user) return <Navigate to="/login" />;
 
@@ -30,13 +30,27 @@ export default function Market() {
     const purchasePack = (pack) => new Promise((resolve, reject) => {
         if (user.settings.openPacksInstantly) setLoading(`Opening ${pack.name} Pack`);
 
-        setTimeout(() => {
+        // setTimeout(() => {
+        //     if (user.settings.openPacksInstantly) {
+        //         setLoading(false);
+        //         createModal(<ErrorModal>Failed to open pack.</ErrorModal>);
+        //     }
+        //     reject({ data: { message: "Failed to open pack." } });
+        // }, 1000);
+
+        fetch.post("/api/market/open-pack", { pack: pack.id })
+        .then(async (res) => {
+            await setUser({ ...user, tokens: user.tokens - pack.price, blooks: { ...user.blooks, [res.data.unblockedBlook]: user.blooks[res.data.unblockedBlook] + 1 } });
+            if (user.settings.openPacksInstantly) setLoading(false);
+            resolve(res);
+        })
+        .catch(err => {
             if (user.settings.openPacksInstantly) {
                 setLoading(false);
-                createModal(<ErrorModal>Failed to open pack.</ErrorModal>);
+                createModal(<ErrorModal>{err?.data?.message || "Failed to open pack."}</ErrorModal>);
             }
-            reject({ data: { message: "Failed to open pack." } });
-        }, 1000);
+            reject({ data: { message: err?.data?.message || "Failed to open pack." } });
+        });
     });
 
     return (<SidebarBody>
@@ -49,7 +63,7 @@ export default function Market() {
         <Category header={`Packs (${packs.length})`} internalName="MARKET_PACKS">
             <PacksWrapper>
                 {packs.map(pack => <Pack key={pack.id} image={pack.image} innerColor={pack.innerColor} outerColor={pack.outerColor} price={pack.price} onClick={() => {
-                    if (!user.settings.openPacksInstantly) createModal(<OpenPackModal pack={pack} onYesButton={purchasePack} />);
+                    if (!user.settings.openPacksInstantly) createModal(<OpenPackModal pack={pack} onYesButton={() => purchasePack(pack)} />);
                     else purchasePack(pack);
                 }} />)}
             </PacksWrapper>

@@ -5,7 +5,7 @@ export default {
         const user = await getUser(ws.user.id, []).catch(() => null);
         if (!user) return ws.respond(true, { message: "user does not exist" });
 
-        await ws.sendToAll("messages-typing-started", false, {
+        await global.ws.sendToAll("messages-typing-started", false, {
             user: {
                 id: user.id,
                 username: user.username,

@@ -26,10 +26,25 @@ export default async (app) => {
 
     console.success(`Loaded ${total} socket event(s).`);
 
-    global.clients = {};
+    global.ws = {
+        clients: {},
+        sendToAll: (event, error, data) => {
+            for (const client in global.ws.clients) for (const conn of global.ws.clients[client]) conn.send(JSON.stringify({ event, data: { error, ...data } }));
+        },
+        sendToUser: (user, event, error, data) => {
+            if (!global.ws.clients[user]) return;
+
+            for (const conn of global.ws.clients[user]) conn.send(JSON.stringify({ event, data: { error, ...data } }));
+        },
+        disconnectUser: (user) => {
+            if (!global.ws.clients[user]) return;
+
+            for (const conn of global.ws.clients[user]) conn.close();
+        }
+    }
 
     app.ws("/api/socket", async (ws, req) => {
-        if (!req.query.token || req.query.token === "null") return;
+        if (!req.query.token) return;
 
         const token = await decodeSession(req.query.token).catch(() => null);
         if (!token) return;
@@ -39,12 +54,12 @@ export default async (app) => {
 
         if (session.id !== token.id || session.user !== token.user || session.createdAt !== token.createdAt) return;
 
-        if (global.clients[session.user] && global.clients[session.user].length > 4) ws.send(JSON.stringify({ event: "too-many-connections", data: { error: true } })), ws.close();
+        if (global.ws.clients[session.user] && global.ws.clients[session.user].length > 4) ws.send(JSON.stringify({ event: "too-many-connections", data: { error: true } })), ws.close();
 
         ws.send(JSON.stringify({ event: "connected", data: { error: false, user: session.user } }));
 
-        if (!global.clients[session.user]) global.clients[session.user] = [ws];
-        else global.clients[session.user].push(ws);
+        if (!global.ws.clients[session.user]) global.ws.clients[session.user] = [ws];
+        else global.ws.clients[session.user].push(ws);
 
         ws.authorized = true;
         ws.user = { id: session.user };
@@ -69,16 +84,13 @@ export default async (app) => {
             const event = events.find(event => event.path === message.event);
 
             ws.respond = (error, data) => ws.send(JSON.stringify({ event: message.event, data: { error, ...data } }));
-            ws.sendToAll = (event, error, data) => {
-                for (const client in global.clients) for (const conn of global.clients[client]) conn.send(JSON.stringify({ event, data: { error, ...data } }));
-            }
 
             await event.event(ws, message.data);
         });
 
         ws.on("close", () => {
-            global.clients[session.user] = global.clients[session.user].filter(conn => conn !== ws);
-            if (global.clients[session.user].length === 0) delete global.clients[session.user];
+            global.ws.clients[session.user] = global.ws.clients[session.user].filter(conn => conn !== ws);
+            if (global.ws.clients[session.user].length === 0) delete global.ws.clients[session.user];
         });
     });
 }

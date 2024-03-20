@@ -12,11 +12,11 @@ export function SocketStoreProvider({ children }) {
     const [listeners, setListeners] = useState({});
     const [tooManyConnections, setTooManyConnections] = useState(false);
 
-    const initializeSocket = () => {
+    const initializeSocket = (token) => {
         setSocket(null);
         setConnected(false);
 
-        const socket = new WebSocket(`${window.location.protocol === "https:" ? `wss` : `ws`}://${window.location.host}/api/socket?token=${localStorage.getItem("token")}`);
+        const socket = new WebSocket(`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/socket${token ? `?token=${token}` : localStorage.getItem("token") ? `?token=${localStorage.getItem("token")}` : ""}`);
 
         socket.onopen = () => {
             setConnected(true);
@@ -77,14 +77,12 @@ export function SocketStoreProvider({ children }) {
     const socketEmit = (event, data) => socket.send(JSON.stringify({ event, data }));
 
     useEffect(() => {
-        initializeSocket();
+        initializeSocket(null);
 
         return () => {
-            if (socket) {
-                socket.close();
+            socket?.close();
 
-                setSocket(null);
-            }
+            setSocket(null);
         }
     }, []);
 

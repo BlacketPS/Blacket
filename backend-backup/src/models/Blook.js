@@ -55,6 +55,7 @@ export default {
         tableName: "blooks"
     },
     relations: [
-        { type: "belongsTo", model: "Rarity", options: { foreignKey: "rarity", as: "rarityData" } }
+        { type: "belongsTo", model: "Rarity", options: { foreignKey: "rarity", as: "rarityData" } },
+        { type: "hasMany", model: "User", options: { foreignKey: "id", as: "users" } }
     ]
 }

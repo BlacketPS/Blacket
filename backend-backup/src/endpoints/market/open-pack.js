@@ -32,7 +32,7 @@ export default {
 
         let randomNumber = Math.random() * totalChance;
 
-        const unlockedBlook = blooks[blooksChance.findIndex(chance => randomNumber -= chance < 0)].id;
+        const unlockedBlook = parseInt(blooks[blooksChance.findIndex(chance => randomNumber -= chance < 0)].id);
 
         await removeTokens(req.user.id, packData.price);
         await global.database.models.UserStatistic.increment("packsOpened", { where: { user: req.user.id } });

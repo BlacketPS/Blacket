@@ -34,7 +34,7 @@ export default function OpenPackModal({ pack, onYesButton }) {
             <i className={`${styles.market.packRatesIcon} far fa-question-circle`} data-tooltip-id={pack.id} />
             {pack.name} Pack
         </ModalHeader>
-        <ModalText>Would you like to purchase this pack for {pack.price} tokens?</ModalText>
+        <ModalText>Would you like to purchase this pack for <img className={styles.market.tokenPrice} src="/content/token.png"/> {pack.price} tokens?</ModalText>
 
         {error && <ModalError>{error}</ModalError>}
 

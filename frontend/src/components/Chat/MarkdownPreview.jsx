@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useEffect } from "react";
+import { memo, useState, useCallback, useMemo, useEffect } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-markdown";
 import { Text, createEditor, Transforms } from "slate";
@@ -25,7 +25,7 @@ Prism.languages.blacketMarkdown = {
     strikethrough: { pattern: /\~\~([^\~]+)\~\~/g },
     underlined: { pattern: /\_\_([^\_]+)\_\_/g },
     code: { pattern: /\`([^\`]+)\`/g },
-    // mention: { pattern: /\@([^\s]+)/g },
+    mention: { pattern: /<@([^\s]+)>/g },
     link: { pattern: /https?:\/\/([^\s]+)/g },
     // emoji: { pattern: /:([^\s]+):/g }
 }
@@ -44,6 +44,8 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
     }
 
     const { createModal } = useModal();
+    const [isMentioning, setIsMentioning] = useState(false);
+    const [selectMentions, setSelectMentions] = useState([]);
 
     const Leaf = ({ attributes, children, leaf }) => {
         // console.log(leaf)
@@ -141,7 +143,7 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
                     case "mention":
                         ranges.push({
                             mention: true,
-                            content: node.text.slice(start, end).replace(/\@/g, ""),
+                            content: node.text.slice(start, end).replace(/<>/g, ""),
                             anchor: { path, offset: start },
                             focus: { path, offset: end }
                         });

@@ -17,6 +17,7 @@ export function ContextMenuStoreProvider({ children }) {
         if (window.innerWidth <= 768) return setContextMenu({ items });
         else setContextMenu({ items, x: cursorPosition.x, y: cursorPosition.y });
 
+        // need a setTimeout here else it will not set the context menu position correctly do not remove
         setTimeout(() => {
             const contextMenuRect = contextMenuRef.current.getBoundingClientRect();
 
@@ -44,7 +45,7 @@ export function ContextMenuStoreProvider({ children }) {
     return (
         <ContextMenuContext.Provider value={{ contextMenu, setContextMenu, openContextMenu, closeContextMenu }}>
             {contextMenu && <Container ref={contextMenuRef} top={contextMenu.y} left={contextMenu.x}>
-                {contextMenu.items.map((item, index) => item.divider ? <Divider /> : item && <Item key={index} icon={item.icon} color={item.color} onClick={() => {
+                {contextMenu.items.map((item, index) => item.divider ? <Divider key={index} /> : item && <Item key={index} icon={item.icon} color={item.color} onClick={() => {
                     item.onClick();
 
                     closeContextMenu();
