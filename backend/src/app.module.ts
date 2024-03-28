@@ -1,15 +1,16 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
+
+import { RedisModule } from "./redis/redis.module";
+import { DefaultModule } from "./default/default.module";
+import { DataModule } from "./data/data.module";
 import { AuthModule } from "./auth/auth.module";
 
 @Module({
     imports: [
-        ConfigModule.forRoot({
-            isGlobal: true,
-            envFilePath: "../.env"
-        }),
-        
+        ConfigModule.forRoot({ envFilePath: "../.env" }),
+
         SequelizeModule.forRoot({
             dialect: "postgres",
             username: process.env.SERVER_DATABASE_USER || "postgres",
@@ -21,6 +22,9 @@ import { AuthModule } from "./auth/auth.module";
             synchronize: true
         }),
 
+        RedisModule,
+        DefaultModule,
+        DataModule,
         AuthModule
     ],
     controllers: [],

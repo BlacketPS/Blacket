@@ -1,4 +1,5 @@
-import { Column, Model, Table, DataType } from "sequelize-typescript";
+import { Column, Model, Table, DataType, HasOne } from "sequelize-typescript";
+import { Session } from "./session.model";
 
 @Table({ tableName: "users", timestamps: true })
 export class User extends Model<User> {
@@ -82,4 +83,7 @@ export class User extends Model<User> {
         allowNull: true
     })
     ipAddress: string;
+
+    @HasOne(() => Session)
+    session: Session;
 }
