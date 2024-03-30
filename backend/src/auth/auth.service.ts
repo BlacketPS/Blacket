@@ -54,10 +54,10 @@ export class AuthService {
 
         await this.saveUserIp(user, ip, transaction);
 
-        const session = await this.getSession(user.id, transaction);
+        const session = await this.getOrCreateSession(user.id, transaction);
 
         return await transaction.commit().then(() => {
-            return { token: Buffer.from(JSON.stringify(session)).toString("base64") };
+            return { token: this.sessionToToken(session) };
         });
     }
 
@@ -68,11 +68,11 @@ export class AuthService {
 
         if (!await compare(dto.password, user.password)) throw new BadRequestException("Your password was incorrect. Please double-check your password.");
 
-        const session = await this.getSession(user.id);
+        const session = await this.getOrCreateSession(user.id);
 
         await this.saveUserIp(user, ip);
 
-        return { token: Buffer.from(JSON.stringify(session)).toString("base64") };
+        return { token: await this.sessionToToken(session) };
     }
 
     async logout(userId: User["id"]) {
@@ -81,7 +81,7 @@ export class AuthService {
         return;
     }
 
-    async getSession(userId: User["id"], transaction?: Transaction) {
+    async getOrCreateSession(userId: User["id"], transaction?: Transaction) {
         const [session] = await this.sessionRepo.findOrCreate({ where: { userId }, defaults: { userId }, transaction });
 
         await this.redisService.set(`blacket-session:${session.userId}`, JSON.stringify(session));
@@ -97,6 +97,10 @@ export class AuthService {
 
             session.destroy();
         }
+    }
+
+    async sessionToToken(session: Session) {
+        return Buffer.from(JSON.stringify(session)).toString("base64");
     }
 
     async saveUserIp(user: User, ip: string, transaction?: Transaction): Promise<void> {

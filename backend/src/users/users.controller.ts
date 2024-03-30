@@ -1,6 +1,6 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { GetCurrentUser } from "src/core/decorator/getMe.decorator";
+import { GetCurrentUser } from "src/core/decorator/getUser.decorator";
 
 @Controller("users")
 export class UsersController {

@@ -10,7 +10,7 @@ async function bootstrap() {
 
     app.enableCors({
         origin: [
-            /* TO CONFIG, PUT YOUR OWN DOMAIN HERE INCLUDE HTTP[S]:// */
+            // TO CONFIG, PUT YOUR OWN DOMAIN HERE INCLUDE HTTP[S]://
             "https://rewrite.blacket.org",
             "https://blacket.org"
         ],
