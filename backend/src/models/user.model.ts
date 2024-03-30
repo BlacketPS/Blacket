@@ -1,8 +1,8 @@
-import { Column, Model, Table, DataType, HasOne } from "sequelize-typescript";
-import { Session } from "./session.model";
+import { Column, Model, Table, DataType, HasOne, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Session, Resource, UserStatistic, UserSetting, UserGroup, UserPunishment } from ".";
 
 @Table({ tableName: "users", timestamps: true })
-export class User extends Model<User> {
+export default class User extends Model<User> {
     @Column({
         type: DataType.STRING,
         primaryKey: true,
@@ -22,17 +22,41 @@ export class User extends Model<User> {
     })
     password: string;
 
+    @ForeignKey(() => Resource)
     @Column({
-        type: DataType.TEXT,
-        allowNull: true
+        type: DataType.INTEGER
     })
-    avatar: string;
+    avatarId: number;
 
+    @BelongsTo(() => Resource, "avatarId")
+    avatar: Resource;
+
+    @ForeignKey(() => Resource)
     @Column({
-        type: DataType.TEXT,
-        allowNull: true
+        type: DataType.INTEGER
     })
-    banner: string;
+    customAvatarId: number;
+
+    @BelongsTo(() => Resource, "customAvatarId")
+    customAvatar?: Resource;
+
+    @ForeignKey(() => Resource)
+    @Column({
+        type: DataType.INTEGER
+    })
+    bannerId: number;
+
+    @BelongsTo(() => Resource, "bannerId")
+    banner: Resource;
+
+    @ForeignKey(() => Resource)
+    @Column({
+        type: DataType.INTEGER
+    })
+    customBannerId: number;
+
+    @BelongsTo(() => Resource, "customBannerId")
+    customBanner?: Resource;
 
     @Column({
         type: DataType.TEXT,
@@ -79,6 +103,13 @@ export class User extends Model<User> {
     permissions: number;
 
     @Column({
+        type: DataType.DATE,
+        allowNull: true,
+        defaultValue: null
+    })
+    lastClaimed: Date;
+
+    @Column({
         type: DataType.STRING,
         allowNull: true
     })
@@ -86,4 +117,19 @@ export class User extends Model<User> {
 
     @HasOne(() => Session)
     session: Session;
+
+    @HasOne(() => UserStatistic)
+    statistics: UserStatistic;
+
+    @HasOne(() => UserSetting)
+    settings: UserSetting;
+
+    @HasMany(() => UserGroup)
+    groups?: UserGroup[];
+
+    @HasMany(() => UserPunishment, "userId")
+    punishments?: UserPunishment[];
+
+    @HasMany(() => UserPunishment, "staffId")
+    punishmentActions?: UserPunishment[];
 }

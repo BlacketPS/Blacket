@@ -1,33 +1,34 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { SequelizeModule } from "@nestjs/sequelize";
 
+import { SequelizeModule } from "./sequelize/sequelize.module";
 import { RedisModule } from "./redis/redis.module";
 import { DefaultModule } from "./default/default.module";
 import { DataModule } from "./data/data.module";
 import { AuthModule } from "./auth/auth.module";
+import { UsersModule } from "./users/users.module";
+import { LoggerModule } from "./core/logger/logger.module";
+import { APP_GUARD } from "@nestjs/core";
+import { AuthGuard } from "./core/guard";
 
 @Module({
     imports: [
-        ConfigModule.forRoot({ envFilePath: "../.env" }),
+        ConfigModule.forRoot({ isGlobal: true, envFilePath: "../.env" }),
 
-        SequelizeModule.forRoot({
-            dialect: "postgres",
-            username: process.env.SERVER_DATABASE_USER || "postgres",
-            password: process.env.SERVER_DATABASE_PASSWORD || "",
-            database: process.env.SERVER_DATABASE_NAME || "blacket",
-            host: process.env.SERVER_DATABASE_HOST || "localhost",
-            port: parseInt(process.env.SERVER_DATABASE_PORT) || 5432,
-            autoLoadModels: true,
-            synchronize: true
-        }),
-
+        LoggerModule,
+        SequelizeModule,
         RedisModule,
         DefaultModule,
         DataModule,
-        AuthModule
+        AuthModule,
+        UsersModule
     ],
     controllers: [],
-    providers: []
+    providers: [
+        {
+            provide: APP_GUARD,
+            useClass: AuthGuard
+        }
+    ]
 })
 export class AppModule { }

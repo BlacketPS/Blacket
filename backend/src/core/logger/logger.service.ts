@@ -1,5 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { LoggerService } from "@nestjs/common";
+import { Injectable, LoggerService } from "@nestjs/common";
 
 @Injectable()
 export class BlacketLoggerService implements LoggerService {
@@ -12,7 +11,7 @@ export class BlacketLoggerService implements LoggerService {
     info(message: any, context?: string, prefix?: string) {
         if (!prefix) prefix = "Nest";
 
-        console.info(`\x1b[32m[${prefix}]\x1b[0m \x1b[37m${new Date().toLocaleString()}\x1b[0m \x1b[32mINFO\x1b[0m \x1b[33m[${context}]\x1b[0m \x1b[32m${message}\x1b[0m`);
+        console.info(`\x1b[36m[${prefix}]\x1b[0m \x1b[37m${new Date().toLocaleString()}\x1b[0m \x1b[36mINFO\x1b[0m \x1b[33m[${context}]\x1b[0m \x1b[36m${message}\x1b[0m`);
     }
 
     warn(message: any, context?: string, prefix?: string) {
@@ -30,7 +29,7 @@ export class BlacketLoggerService implements LoggerService {
     debug(message: any, context?: string, prefix?: string) {
         if (!prefix) prefix = "Nest";
 
-        console.debug(`\x1b[36m[${prefix}]\x1b[0m \x1b[37m${new Date().toLocaleString()}\x1b[0m \x1b[36mDEBUG\x1b[0m \x1b[33m[${context}]\x1b[0m \x1b[36m${message}\x1b[0m`);
+        console.log(`\x1b[35m[${prefix}]\x1b[0m \x1b[37m${new Date().toLocaleString()}\x1b[0m \x1b[35mDEBUG\x1b[0m \x1b[33m[${context}]\x1b[0m \x1b[35m${message}\x1b[0m`);
     }
 
     verbose(message: any, context?: string, prefix?: string) {

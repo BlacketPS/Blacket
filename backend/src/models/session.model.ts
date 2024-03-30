@@ -1,9 +1,9 @@
 import { Column, Model, Table, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { randomUUID } from "crypto";
-import { User } from "./user.model";
+import { User } from ".";
 
 @Table({ tableName: "sessions", timestamps: false })
-export class Session extends Model<Session> {
+export default class Session extends Model<Session> {
     @Column({
         type: DataType.STRING,
         primaryKey: true,

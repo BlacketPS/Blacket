@@ -5,7 +5,6 @@ export default function Loading({ message }) {
 
     return (<>
         <Background />
-
         <Loader image="/content/blooks/Console.gif" message={`Loading ${message}...`} />
     </>)
 }

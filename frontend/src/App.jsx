@@ -35,8 +35,6 @@ export default function App() {
     const [topRight, setTopRight] = useState(false);
 
     useEffect(() => {
-        document.getElementById("enviroment").textContent = JSON.stringify(import.meta.env, null, 4);
-
         window.addEventListener("keydown", e => e.key === "F4" && setShowDebugInformation(show => !show));
 
         const fetchData = async () => {
@@ -64,7 +62,7 @@ export default function App() {
         }
     }, []);
 
-    // if loaded is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket
+    // if "loaded" is a string the user is blacklisted and if its 1 the server is under maintenance else render blacket
     if (!loaded) return <Loading message={message} />;
     else if (typeof loaded === "string") return <Errors code={403} reason={loaded} />;
     else if (loaded === 1) return <Errors code={502} />;
