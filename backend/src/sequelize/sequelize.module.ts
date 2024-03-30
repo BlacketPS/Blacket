@@ -9,4 +9,3 @@ import { LoggerModule } from "src/core/logger/logger.module";
     exports: [SequelizeService]
 })
 export class SequelizeModule {}
-// sup

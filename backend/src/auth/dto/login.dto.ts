@@ -1,4 +1,4 @@
-import { IsNotEmpty, Validate } from "class-validator";
+import { IsNotEmpty, IsOptional, Validate } from "class-validator";
 
 export class LoginDto {
     @IsNotEmpty()
@@ -8,6 +8,9 @@ export class LoginDto {
     @IsNotEmpty()
     @Validate((value: string) => value.length > 0)
     readonly password: string;
+
+    @IsOptional()
+    readonly otpCode?: string;
 }
 
 export default LoginDto;

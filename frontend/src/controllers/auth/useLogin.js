@@ -5,7 +5,7 @@ const useLogin = () => {
     const { setUser } = useUser();
     const { initializeSocket } = useSocket();
 
-    const login = (username, password, code) => new Promise((resolve, reject) => fetch.post("/api/auth/login", { username, password, code }).then(res => {
+    const login = (username, password, otpCode) => new Promise((resolve, reject) => fetch.post("/api/auth/login", { username, password, otpCode }).then(res => {
         if (res.data.codeRequired) return resolve("codeRequired");
 
         localStorage.setItem("token", res.data.token);
