@@ -10,7 +10,7 @@ export class RegisterDto {
     readonly password: string;
 
     @IsNotEmpty()
-    @Validate((value: string) => value === process.env.SERVER_ACCESS_CODE)
+    @Validate((value: string) => value.length > 0)
     readonly code: string;
 }
 

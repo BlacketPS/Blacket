@@ -1,7 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { User, Session, UserStatistic, UserSetting, Resource, IpAddress, UserIp } from "src/models";
-import { RedisService } from "src/redis/redis.service";
 import { SequelizeService } from "src/sequelize/sequelize.service";
+import { RedisService } from "src/redis/redis.service";
+import { ConfigService } from "@nestjs/config";
 import { Repository } from "sequelize-typescript";
 import { type Transaction } from "sequelize";
 import { RegisterDto, LoginDto } from "./dto";
@@ -18,12 +19,15 @@ export class AuthService {
     private ipAddressRepo: Repository<IpAddress>;
     private userIpRepo: Repository<UserIp>;
 
+    private accessCode: string;
+
     private defaultAvatar: Resource;
     private defaultBanner: Resource;
 
     constructor(
         private sequelizeService: SequelizeService,
-        private redisService: RedisService
+        private redisService: RedisService,
+        private configService: ConfigService
     ) { }
 
     async onModuleInit() {
@@ -35,11 +39,15 @@ export class AuthService {
         this.ipAddressRepo = this.sequelizeService.getRepository(IpAddress);
         this.userIpRepo = this.sequelizeService.getRepository(UserIp);
 
+        this.accessCode = this.configService.get("SERVER_ACCESS_CODE");
+
         this.defaultAvatar = await this.resourceRepo.findOne({ where: { id: 1 } });
         this.defaultBanner = await this.resourceRepo.findOne({ where: { id: 2 } });
     }
 
     async register(req: Request, dto: RegisterDto, ip: string) {
+        if (dto.code !== this.accessCode) throw new BadRequestException("Invalid access code.");
+
         const transaction = await this.sequelizeService.transaction();
 
         const user = await this.userRepo.create({
