@@ -1,5 +1,9 @@
 import { Column, Model, Table, DataType, HasOne, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { Session, Resource, UserStatistic, UserSetting, UserGroup, UserPunishment } from ".";
+import History from "./history.model";
+import UserBlook from "./userBlook.model";
+import UserRelationship from "./userRelationship.model";
+import UserIp from "./userIp.model";
 
 @Table({ tableName: "users", timestamps: true })
 export default class User extends Model<User> {
@@ -132,4 +136,25 @@ export default class User extends Model<User> {
 
     @HasMany(() => UserPunishment, "staffId")
     punishmentActions?: UserPunishment[];
+
+    @HasMany(() => UserBlook, "userId")
+    blooks?: UserBlook[];
+
+    @HasMany(() => UserBlook, "initalObtainerId")
+    initiallyObtainedBlooks?: UserBlook[];
+
+    @HasMany(() => History, "previousOwnerId")
+    involvedPreviousOwnerHistory?: History[];
+
+    @HasMany(() => History, "newOwnerId")
+    involvedNewOwnerHistory?: History[];
+
+    @HasMany(() => UserRelationship, "userId")
+    usersAdded?: UserRelationship[];
+
+    @HasMany(() => UserRelationship, "targetId")
+    addedByUsers?: UserRelationship[];
+
+    @HasMany(() => UserIp)
+    ips?: UserIp[];
 }

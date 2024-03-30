@@ -17,6 +17,7 @@
         "@nestjs/platform-express": "^10.0.0",
         "@nestjs/sequelize": "^10.0.1",
         "@stylistic/eslint-plugin": "^1.7.0",
+        "@supercharge/request-ip": "^1.2.0",
         "@types/bcrypt": "^5.0.2",
         "@types/sequelize": "^4.28.20",
         "bcrypt": "^5.1.1",

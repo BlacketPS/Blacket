@@ -1,7 +1,7 @@
 import { Column, Model, Table, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { User } from ".";
 
-enum FriendRequestSetting {
+export enum FriendRequestSetting {
     ON = 1,
     OFF = 2,
     MUTUAL = 3

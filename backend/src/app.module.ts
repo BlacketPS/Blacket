@@ -31,4 +31,4 @@ import { AuthGuard } from "./core/guard";
         }
     ]
 })
-export class AppModule { }
+export class AppModule {}

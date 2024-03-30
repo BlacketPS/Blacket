@@ -1,5 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
 import { DefaultService } from "./default.service";
+import { Public } from "src/core/decorator";
 
 @Controller("")
 export class DefaultController {
@@ -7,6 +8,7 @@ export class DefaultController {
         private readonly defaultService: DefaultService
     ) {}
 
+    @Public()
     @Get()
     @HttpCode(HttpStatus.NO_CONTENT)
     async get() {

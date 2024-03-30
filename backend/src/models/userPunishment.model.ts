@@ -1,7 +1,7 @@
 import { Column, Model, Table, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
 import { User } from ".";
 
-enum PunishmentType {
+export enum PunishmentType {
     WARN = 1,
     MUTE = 2,
     BAN = 3,
