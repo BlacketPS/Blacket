@@ -17,25 +17,16 @@ import { Wrapper, FilterButton, BigPlacement, LittlePlacement, MobileFilterButto
  * @returns {JSX.Element} The Leaderboard view.
  */
 export default function Leaderboard() {
-    // Be able to set the loading state
+    // Use all necessary hooks.
     const { setLoading } = useLoading();
-
-    // Be able to create modals
     const { createModal } = useModal();
 
-    // Be able to get the user
     const { user } = useUser();
 
-    // Be able to get or set what we are sorting by
-    const { sortBy, setSortBy } = useLeaderboardStore();
+    const { sortBy, setSortBy, leaderboard, setLeaderboard } = useLeaderboardStore();
 
-    // Be able to get or set the leaderboard
-    const { leaderboard, setLeaderboard } = useLeaderboardStore();
-
-    // If the user is not logged in, redirect them to the login page
     if (!user) return <Navigate to="/login" />;
 
-    // Get the leaderboard function
     const getLeaderboard = useLeaderboardController();
 
     useEffect(() => {
@@ -51,10 +42,8 @@ export default function Leaderboard() {
             .catch(() => createModal(<ErrorModal onClick={() => history.back()}>Unable to fetch leaderboard.</ErrorModal>));
     }, []);
 
-    // Switch what we are sorting by
     const switchSort = () => sortBy === "tokens" ? setSortBy("experience") : setSortBy("tokens");
 
-    // If the leaderboard is fetched, display it
     if (leaderboard) return (<>
         <FilterButton onClick={switchSort}>{sortBy === "tokens" ? "Tokens" : "Experience"}</FilterButton>
 

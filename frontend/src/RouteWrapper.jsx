@@ -28,34 +28,29 @@ export default memo(function RouteWrapper({
     title, description, background, header, sidebar, topRight
 }) {
     useEffect(() => {
-        // If the route's title is different from the current title, set the title to what the route requires.
+        // Make sure the route has a title and description, and that they are not already set. Also set the background.
         if (route.title && (title !== route.title)) setTitle(route.title);
-        // If the route's description is different from the current description, set the description to what the route requires.
         if (route.description && (description !== route.description)) setDescription(route.description);
 
-        // If the background has not been set, set it to true to make sure the background is shown.
         if (background) setBackground(background);
         else if (background === undefined) setBackground(true);
 
-        // If the route is plain, set the header, sidebar, and top right container to false.
+        // Do not show most UI elements if the route is plain.
         if (route.plain) {
             setHeader(false);
             setSidebar(false);
             setTopRight(false);
         } else {
-            // Does the route require a header, sidebar, or top right container?
-            
-            // If the route requires a top right container and the top right container is not already shown, show the top right container.
+            // Prevent setting the header, sidebar, or top right container if they are already set.
+            // Make sure the sidebar and top right container are NOT shown if the header is shown, and the header is NOT shown if the sidebar is shown.
             if (route.topRight && (topRight !== route.topRight)) setTopRight(route.topRight);
             
-            // If the route requires a header and the header is not already shown, show the header.
             if (route.header && (header !== route.header)) {
                 setHeader(route.header);
                 if (sidebar) setSidebar(false);
                 if (topRight) setTopRight(false);
             }
 
-            // If the route requires a sidebar and the sidebar is not already shown, show the sidebar and hide the header instead.
             if (route.sidebar && !sidebar) {
                 setHeader(false);
                 setSidebar(true);
@@ -63,11 +58,9 @@ export default memo(function RouteWrapper({
         }
     }, [route, title, description, background, header, sidebar, topRight]);
 
-    // Log that the route has been loaded.
     useEffect(() => {
         console.debug(`[RouteWrapper] Loaded ${route.path}`);
     }, [route]);
 
-    // Return the route's parent element.
     return route.element;
 });

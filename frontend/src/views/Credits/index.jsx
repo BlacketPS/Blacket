@@ -1,5 +1,6 @@
 /**
  * @file Defines the Credits view. This view allows for viewing the credits.
+ * **This view is a placeholder and will be filled in later.**
  */
 
 import { Navigate } from "react-router-dom";
@@ -12,10 +13,9 @@ import { SidebarBody, PageHeader } from "@components";
  * @returns {JSX.Element} The Credits component.
  */
 export default function Credits() {
-    // Get the current user information.
+    // Use all necessary hooks.
     const { user } = useUser();
 
-    // If the user is not logged in, redirect them to the login page.
     if (!user) return <Navigate to="/login" />;
 
     return (<SidebarBody>

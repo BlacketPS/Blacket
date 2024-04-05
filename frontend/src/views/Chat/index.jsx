@@ -15,17 +15,13 @@ import { SidebarBody } from "@components";
  * @returns {JSX.Element} The Chat component.
  */
 export default memo(function Chat() {
-    // Get the user who is currently logged in.
+    // Use all necessary hooks.
     const { user } = useUser();
-    // Use the global message store to get messages and get/set the message being replied to.
     const { messages, replyingTo, setReplyingTo } = useMessages();
-    // Be able to open a context menu.
     const { openContextMenu } = useContextMenu();
 
-    // If the user is not logged in, redirect them to the login page.
     if (!user) return <Navigate to="/login" />;
 
-    // Be able to navigate to different pages via React Router.
     const navigate = useNavigate();
 
     return (<SidebarBody>

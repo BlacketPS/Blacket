@@ -13,10 +13,9 @@ import { SidebarBody, PageHeader } from "@components";
  * @returns {JSX.Element} The Trading Plaza view.
  */
 export default function TradingPlaza() {
-    // Get the user from the user store.
+    // Use all necessary hooks.
     const { user } = useUser();
 
-    // If the user is not logged in, redirect them to the login page.
     if (!user) return <Navigate to="/login" />;
 
     return (<SidebarBody>
