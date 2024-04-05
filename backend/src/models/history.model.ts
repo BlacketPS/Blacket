@@ -1,5 +1,5 @@
 import { Column, Model, Table, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
-import User from "./user.model";
+import { User } from ".";
 
 export enum HistoryType {
     UNKNOWN = 1,
@@ -11,7 +11,7 @@ export enum HistoryType {
 @Table({ tableName: "history" })
 export default class History extends Model<History> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
-    id: number;
+    declare id: number;
 
     @ForeignKey(() => User)
     @Column({ type: DataType.STRING })
@@ -29,7 +29,7 @@ export default class History extends Model<History> {
 
     @Column({
         type: DataType.INTEGER,
-        validate: { isIn: { args: [Object.values(HistoryType)], msg: `History setting must be one of these values: ${Object.keys(HistoryType).join(", ")}` } },
+        validate: { isIn: { args: [Object.values(HistoryType)], msg: `type must be one of these values: ${Object.keys(HistoryType).join(", ")}` } },
         defaultValue: HistoryType.UNKNOWN,
         allowNull: false
     })

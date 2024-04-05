@@ -1,15 +1,28 @@
-import { Column, Model, Table, DataType, HasOne, HasMany } from "sequelize-typescript";
-import { Blook, Group, User } from ".";
+import { Column, Model, Table, DataType, HasOne } from "sequelize-typescript";
+import { Blook, Pack, Group, Banner, Emoji, User, Item } from ".";
 
-@Table({ tableName: "resource", timestamps: false })
+@Table({ tableName: "resource" })
 export default class Resource extends Model<Resource> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
-    id: number;
+    declare id: number;
 
-    @Column({
-        type: DataType.STRING
-    })
+    @Column({ type: DataType.STRING, unique: true, allowNull: true })
+    name: string;
+
+    @Column({ type: DataType.STRING, allowNull: false })
     path: string;
+
+    @HasOne(() => User, "avatarId")
+    userAvatar?: User;
+
+    @HasOne(() => User, "customAvatarId")
+    customAvatar?: User;
+
+    @HasOne(() => User, "bannerId")
+    userBanner?: User;
+
+    @HasOne(() => User, "customBannerId")
+    customBanner?: User;
 
     @HasOne(() => Blook, "imageId")
     blookImage?: Blook;
@@ -17,18 +30,18 @@ export default class Resource extends Model<Resource> {
     @HasOne(() => Blook, "backgroundId")
     blookBackgroundImage?: Blook;
 
-    @HasOne(() => Group)
+    @HasOne(() => Pack, "imageId")
+    packImage?: Pack;
+
+    @HasOne(() => Group, "imageId")
     groupImage?: Group;
 
-    @HasMany(() => User, "avatarId")
-    userAvatar?: User;
+    @HasOne(() => Item, "imageId")
+    itemImage?: Item;
 
-    @HasOne(() => User, "customAvatarId")
-    customAvatar?: User;
+    @HasOne(() => Banner, "imageId")
+    bannerImage?: Banner;
 
-    @HasMany(() => User, "bannerId")
-    userBanner?: User;
-
-    @HasOne(() => User, "customBannerId")
-    customBanner?: User;
+    @HasOne(() => Emoji, "imageId")
+    emojiImage?: Emoji;
 }

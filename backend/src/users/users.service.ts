@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Repository } from "sequelize-typescript";
 import { User, UserStatistic, UserSetting, Resource } from "src/models";
 import { SequelizeService } from "src/sequelize/sequelize.service";
@@ -21,15 +21,8 @@ export class UsersService {
         this.resourceRepo = this.sequelize.getRepository(Resource);
     }
 
-    async getUserById(id: string): Promise<User> {
-        return this.userRepo.findByPk(id, {
-            attributes: {
-                exclude: [
-                    "ipAddress",
-                    "avatarId",
-                    "bannerId"
-                ]
-            },
+    async getUserById(id: string) {
+        const user: any = await this.userRepo.findByPk(id, {
             include: [
                 {
                     model: this.resourceRepo,
@@ -41,7 +34,6 @@ export class UsersService {
                     as: "banner",
                     attributes: ["path"]
                 },
-
                 {
                     model: this.userStatisticRepo,
                     as: "statistics",
@@ -54,5 +46,15 @@ export class UsersService {
                 }
             ]
         });
+
+        if (!user) return new NotFoundException("User not found");
+
+        console.log(user);
+
+        user.dataValues.avatar = user.avatar?.path;
+        user.dataValues.banner = user.banner?.path;
+        user.dataValues.blooks = {};
+
+        return user;
     }
 }

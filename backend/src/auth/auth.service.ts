@@ -1,12 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { User, Session, UserStatistic, UserSetting, Resource, IpAddress, UserIp } from "src/models";
+import { User, Session, UserStatistic, UserSetting, Resource, IpAddress, UserIpAddress } from "src/models";
 import { SequelizeService } from "src/sequelize/sequelize.service";
 import { RedisService } from "src/redis/redis.service";
 import { Repository } from "sequelize-typescript";
 import { type Transaction } from "sequelize";
 import { RegisterDto, LoginDto } from "./dto";
 import { compare, hash } from "bcrypt";
-import { Request } from "express";
 
 @Injectable()
 export class AuthService {
@@ -16,7 +15,7 @@ export class AuthService {
     private sessionRepo: Repository<Session>;
     private resourceRepo: Repository<Resource>;
     private ipAddressRepo: Repository<IpAddress>;
-    private userIpRepo: Repository<UserIp>;
+    private userIpAddressRepo: Repository<UserIpAddress>;
 
     private defaultAvatar: Resource;
     private defaultBanner: Resource;
@@ -33,13 +32,13 @@ export class AuthService {
         this.sessionRepo = this.sequelizeService.getRepository(Session);
         this.resourceRepo = this.sequelizeService.getRepository(Resource);
         this.ipAddressRepo = this.sequelizeService.getRepository(IpAddress);
-        this.userIpRepo = this.sequelizeService.getRepository(UserIp);
+        this.userIpAddressRepo = this.sequelizeService.getRepository(UserIpAddress);
 
         this.defaultAvatar = await this.resourceRepo.findOne({ where: { id: 1 } });
         this.defaultBanner = await this.resourceRepo.findOne({ where: { id: 2 } });
     }
 
-    async register(req: Request, dto: RegisterDto, ip: string) {
+    async register(dto: RegisterDto, ip: string) {
         const transaction = await this.sequelizeService.transaction();
 
         const user = await this.userRepo.create({
@@ -52,16 +51,16 @@ export class AuthService {
         await this.userStatisticRepo.create({ id: user.id }, { transaction });
         await this.userSettingRepo.create({ id: user.id }, { transaction });
 
-        await this.saveUserIp(user, ip, transaction);
+        await this.updateUserIp(user, ip, transaction);
 
         const session = await this.getOrCreateSession(user.id, transaction);
 
-        return await transaction.commit().then(() => {
-            return { token: this.sessionToToken(session) };
+        return await transaction.commit().then(async () => {
+            return { token: await this.sessionToToken(session) };
         });
     }
 
-    async login(req: Request, dto: LoginDto, ip: string) {
+    async login(dto: LoginDto, ip: string) {
         const user = await this.userRepo.findOne({ where: { username: dto.username } });
 
         if (!user) throw new NotFoundException("The username you entered doesn't belong to an account. Please check your username and try again.");
@@ -70,7 +69,7 @@ export class AuthService {
 
         const session = await this.getOrCreateSession(user.id);
 
-        await this.saveUserIp(user, ip);
+        await this.updateUserIp(user, ip);
 
         return { token: await this.sessionToToken(session) };
     }
@@ -103,13 +102,13 @@ export class AuthService {
         return Buffer.from(JSON.stringify(session)).toString("base64");
     }
 
-    async saveUserIp(user: User, ip: string, transaction?: Transaction): Promise<void> {
+    async updateUserIp(user: User, ip: string, transaction?: Transaction): Promise<void> {
         // transactions are goofy, if you don't use a current transaction you'll get a fk constraint error
 
-        const [ipAddress] = await this.ipAddressRepo.findOrCreate({ where: { ip }, defaults: { ip }, transaction });
-        const [userIp] = await this.userIpRepo.findOrCreate({ where: { userId: user.id, ipId: ipAddress.id }, defaults: { userId: user.id, ipId: ipAddress.id }, transaction });
+        const [ipAddress] = await this.ipAddressRepo.findOrCreate({ where: { ipAddress: ip }, defaults: { ipAddress: ip }, transaction });
+        const [userIpAddress] = await this.userIpAddressRepo.findOrCreate({ where: { userId: user.id, ipAddressId: ipAddress.id }, defaults: { userId: user.id, ipAddressId: ipAddress.id }, transaction });
 
-        await this.userIpRepo.increment("uses", { where: { id: userIp.id }, transaction });
+        await this.userIpAddressRepo.increment("uses", { where: { id: userIpAddress.id }, transaction });
         await this.userRepo.update({ ipAddress: ip }, { where: { id: user.id }, transaction });
     }
 }

@@ -1,11 +1,7 @@
 import { Column, Model, Table, DataType, HasOne, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
-import { Session, Resource, UserStatistic, UserSetting, UserGroup, UserPunishment } from ".";
-import History from "./history.model";
-import UserBlook from "./userBlook.model";
-import UserRelationship from "./userRelationship.model";
-import UserIp from "./userIp.model";
+import { History, Resource, Session, UserBlook, UserGroup, UserPunishment, UserRelationship, UserSetting, UserStatistic, UserIpAddress, Auction } from ".";
 
-@Table({ tableName: "users", timestamps: true })
+@Table({ tableName: "user" })
 export default class User extends Model<User> {
     @Column({
         type: DataType.STRING,
@@ -14,54 +10,41 @@ export default class User extends Model<User> {
     })
     declare id: string;
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false
-    })
+    @Column({ type: DataType.STRING, unique: true, allowNull: false })
     username: string;
 
-    @Column({
-        type: DataType.TEXT,
-        allowNull: true
-    })
+    @Column({ type: DataType.TEXT, allowNull: true })
     password: string;
 
     @ForeignKey(() => Resource)
-    @Column({
-        type: DataType.INTEGER
-    })
+    @Column({ type: DataType.INTEGER, allowNull: false })
     avatarId: number;
 
     @BelongsTo(() => Resource, "avatarId")
     avatar: Resource;
 
     @ForeignKey(() => Resource)
-    @Column({
-        type: DataType.INTEGER
-    })
+    @Column({ type: DataType.INTEGER, allowNull: true })
     customAvatarId: number;
 
     @BelongsTo(() => Resource, "customAvatarId")
     customAvatar?: Resource;
 
     @ForeignKey(() => Resource)
-    @Column({
-        type: DataType.INTEGER
-    })
+    @Column({ type: DataType.INTEGER, allowNull: false })
     bannerId: number;
 
     @BelongsTo(() => Resource, "bannerId")
     banner: Resource;
 
     @ForeignKey(() => Resource)
-    @Column({
-        type: DataType.INTEGER
-    })
+    @Column({ type: DataType.INTEGER, allowNull: true })
     customBannerId: number;
 
     @BelongsTo(() => Resource, "customBannerId")
     customBanner?: Resource;
 
+    // TODO: make titles model
     @Column({
         type: DataType.TEXT,
         allowNull: false,
@@ -69,6 +52,7 @@ export default class User extends Model<User> {
     })
     title: string;
 
+    // TODO: make fonts model
     @Column({
         type: DataType.TEXT,
         allowNull: true
@@ -85,38 +69,19 @@ export default class User extends Model<User> {
     })
     color: string;
 
-    @Column({
-        type: DataType.DOUBLE,
-        allowNull: false,
-        defaultValue: 0
-    })
+    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
     tokens: number;
 
-    @Column({
-        type: DataType.DOUBLE,
-        allowNull: false,
-        defaultValue: 0
-    })
+    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
     experience: number;
 
-    @Column({
-        type: DataType.BIGINT,
-        allowNull: false,
-        defaultValue: 0
-    })
+    @Column({ type: DataType.BIGINT, allowNull: false, defaultValue: 0 })
     permissions: number;
 
-    @Column({
-        type: DataType.DATE,
-        allowNull: true,
-        defaultValue: null
-    })
+    @Column({ type: DataType.DATE, allowNull: true, defaultValue: null })
     lastClaimed: Date;
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: true
-    })
+    @Column({ type: DataType.STRING, allowNull: true })
     ipAddress: string;
 
     @HasOne(() => Session)
@@ -140,6 +105,9 @@ export default class User extends Model<User> {
     @HasMany(() => UserBlook, "userId")
     blooks?: UserBlook[];
 
+    @HasMany(() => Auction, "sellerId")
+    auctions?: Auction[];
+
     @HasMany(() => UserBlook, "initalObtainerId")
     initiallyObtainedBlooks?: UserBlook[];
 
@@ -155,6 +123,6 @@ export default class User extends Model<User> {
     @HasMany(() => UserRelationship, "targetId")
     addedByUsers?: UserRelationship[];
 
-    @HasMany(() => UserIp)
-    ips?: UserIp[];
+    @HasMany(() => UserIpAddress)
+    ipAddresses?: UserIpAddress[];
 }

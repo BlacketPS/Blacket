@@ -5,7 +5,7 @@ import { User } from ".";
 export default class UserStatistic extends Model<UserStatistic> {
     @ForeignKey(() => User)
     @Column({ type: DataType.STRING, allowNull: false, primaryKey: true })
-    id: string;
+    declare id: string;
 
     @BelongsTo(() => User)
     user: User;

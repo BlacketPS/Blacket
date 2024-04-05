@@ -21,7 +21,7 @@ export default function Blooks() {
         if (blooks.length < 1) return createModal(<ErrorModal>This server has no blooks.</ErrorModal>) && history.back();
     }, []);
 
-    const packBlooks = packs.map(pack => pack.blooks).flat();
+    const packBlooks = blooks.map(blook => blook.packId);
 
     return (<SidebarBody>
         <BlooksHolder>

@@ -11,7 +11,7 @@ export enum FriendRequestSetting {
 export default class UserSetting extends Model<UserSetting> {
     @ForeignKey(() => User)
     @Column({ type: DataType.STRING, allowNull: false, primaryKey: true })
-    id: string;
+    declare id: string;
 
     @BelongsTo(() => User)
     user: User;
@@ -21,7 +21,7 @@ export default class UserSetting extends Model<UserSetting> {
 
     @Column({
         type: DataType.INTEGER,
-        validate: { isIn: { args: [Object.values(FriendRequestSetting)], msg: `Friend request setting must be one of these values: ${Object.keys(FriendRequestSetting).join(", ")}` } },
+        validate: { isIn: { args: [Object.values(FriendRequestSetting)], msg: `friendRequests must be one of these values: ${Object.keys(FriendRequestSetting).join(", ")}` } },
         defaultValue: FriendRequestSetting.ON,
         allowNull: false
     })

@@ -11,13 +11,10 @@ export enum PunishmentType {
 @Table({ tableName: "user_punishment", timestamps: false })
 export default class UserPunishment extends Model<UserPunishment> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
-    id: number;
+    declare id: number;
 
     @ForeignKey(() => User)
-    @Column({
-        type: DataType.STRING,
-        allowNull: false
-    })
+    @Column({ type: DataType.STRING, allowNull: false })
     userId: string;
 
     @BelongsTo(() => User, "userId")
@@ -25,7 +22,7 @@ export default class UserPunishment extends Model<UserPunishment> {
 
     @Column({
         type: DataType.INTEGER,
-        validate: { isIn: { args: [Object.values(PunishmentType)], msg: `Punishment type must be one of these values: ${Object.values(PunishmentType).join(", ")}` } },
+        validate: { isIn: { args: [Object.values(PunishmentType)], msg: `type must be one of these values: ${Object.values(PunishmentType).join(", ")}` } },
         allowNull: false
     })
     type: PunishmentType;

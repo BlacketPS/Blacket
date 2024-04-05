@@ -61,7 +61,9 @@ export default function Settings() {
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-cog", text: "General" }}>
-                <ClearButton onClick={friendRequestsButton}>Friend Requests: {user.settings.friendRequests.charAt(0).toUpperCase() + user.settings.friendRequests.slice(1)}</ClearButton>
+                <ClearButton onClick={friendRequestsButton}>Friend Requests: {
+                    user.settings.friendRequests === 1 ? "On" : user.settings.friendRequests === 2 ? "Off" : user.settings.friendRequests === 3 ? "Mutual" : "?"
+                }</ClearButton>
             </SettingsContainer>
 
             <SettingsContainer header={{ icon: "fas fa-palette", text: "Theme (will be changed)" }}>

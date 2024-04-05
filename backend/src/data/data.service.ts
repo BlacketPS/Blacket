@@ -1,36 +1,28 @@
 import { Injectable } from "@nestjs/common";
+import { RedisService } from "src/redis/redis.service";
+
+export enum DataKey {
+    BLOOK = "blacket-blook:*",
+    RARITY = "blacket-rarity:*",
+    PACK = "blacket-pack:*",
+    ITEM = "blacket-item:*",
+    TITLE = "blacket-title:*",
+    BANNER = "blacket-banner:*",
+    BADGE = "blacket-badge:*",
+    EMOJI = "blacket-emoji:*"
+};
 
 @Injectable()
 export class DataService {
-    async getBlooks() {
-        return {};
-    }
+    constructor(
+        private redisService: RedisService
+    ) { }
 
-    async getRarities() {
-        return {};
-    }
+    async getData(key: DataKey) {
+        const keys = await this.redisService.keys(key);
 
-    async getPacks() {
-        return {};
-    }
+        const data = keys.length ? await this.redisService.mget(keys) : [];
 
-    async getItems() {
-        return {};
-    }
-
-    async getTitles() {
-        return {};
-    }
-
-    async getBanners() {
-        return {};
-    }
-
-    async getBadges() {
-        return {};
-    }
-
-    async getEmojis() {
-        return {};
+        return data.map((item: string) => JSON.parse(item));
     }
 }

@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, HttpCode, HttpStatus, Post, Req } from "@nestjs/common";
+import { Body, Controller, Delete, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { RegisterDto, LoginDto } from "./dto";
 import { GetCurrentUserId, Public, RealIp } from "src/core/decorator";
-import { Request } from "express";
 
 @Controller("auth")
 export class AuthController {
@@ -12,14 +11,14 @@ export class AuthController {
 
     @Public()
     @Post("register")
-    register(@Req() req: Request, @Body() dto: RegisterDto, @RealIp() ip: string) {
-        return this.authService.register(req, dto, ip);
+    register(@Body() dto: RegisterDto, @RealIp() ip: string) {
+        return this.authService.register(dto, ip);
     }
 
     @Public()
     @Post("login")
-    login(@Req() req: Request, @Body() dto: LoginDto, @RealIp() ip: string) {
-        return this.authService.login(req, dto, ip);
+    login(@Body() dto: LoginDto, @RealIp() ip: string) {
+        return this.authService.login(dto, ip);
     }
 
     @Delete("logout")

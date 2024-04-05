@@ -1,15 +1,20 @@
 import { Column, Model, Table, DataType, HasMany } from "sequelize-typescript";
-import Blook from "./blook.model";
+import { Blook } from ".";
+
+export enum AnimationType {
+    UNCOMMON = 1,
+    RARE = 2,
+    EPIC = 3,
+    LEGENDARY = 4,
+    CHROMA = 5
+}
 
 @Table({ tableName: "rarity", timestamps: false })
 export default class Rarity extends Model<Rarity> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
-    id: number;
+    declare id: number;
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false
-    })
+    @Column({ type: DataType.STRING, unique: true, allowNull: false })
     name: string;
 
     @Column({
@@ -23,13 +28,14 @@ export default class Rarity extends Model<Rarity> {
 
     @Column({
         type: DataType.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: { isIn: { args: [Object.values(AnimationType)], msg: `animation must be one of these values: ${Object.keys(AnimationType).join(", ")}` } }
     })
-    experience: string;
+    animation: AnimationType;
+
+    @Column({ type: DataType.INTEGER, allowNull: false })
+    experience: number;
 
     @HasMany(() => Blook)
     blooks: Blook[];
 }
-
-// we're not gonna have extra wait time, there's no need, its just for client visuals
-// same with pack opening, that can be handled by the client instead of having a weird extra field here

@@ -1,9 +1,8 @@
 import { Column, Model, Table, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
-import User from "./user.model";
-import IpAddress from "./ipAddress.model";
+import { User, IpAddress } from ".";
 
-@Table({ tableName: "user_ip" })
-export default class UserIp extends Model<UserIp> {
+@Table({ tableName: "user_ip_address" })
+export default class UserIpAddress extends Model<UserIpAddress> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
     id: number;
 
@@ -15,11 +14,11 @@ export default class UserIp extends Model<UserIp> {
     user: User;
 
     @ForeignKey(() => IpAddress)
-    @Column({ type: DataType.INTEGER })
-    ipId: number;
+    @Column({ type: DataType.INTEGER, allowNull: false })
+    ipAddressId: number;
 
     @BelongsTo(() => IpAddress)
-    ip: IpAddress;
+    ipAddress: IpAddress;
 
     @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     uses: number;

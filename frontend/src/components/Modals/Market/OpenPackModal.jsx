@@ -25,8 +25,8 @@ export default function OpenPackModal({ pack, onYesButton }) {
     </>)
     else return (<>
         <Tooltip id={pack.id} place="left" effect="solid">
-            {pack.blooks.map(blook => <div key={blook}>
-                {blooks.find(b => b.id === blook).name}: {blooks.find(b => b.id === blook).chance}%
+            {blooks.map(blook => blook.packId === pack.id && <div key={blook.id}>
+                {blook.name}: {blook.chance}%
             </div>)}
         </Tooltip>
 
