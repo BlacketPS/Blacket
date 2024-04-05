@@ -31,13 +31,9 @@ import { DebugInformation, Background, Header, HeaderNoLink, Sidebar, TopRightCo
  * @returns {JSX.Element} The main App component, containing the sidebar (if it should be shown), the header (if it should be shown), the title and description of the current page, and the routes.
  */
 export default function App() {
-    /**
-     * Has all necessary data been loaded?
-     */
+    // Has all necessary data been loaded?
     const [loaded, setLoaded] = useState(false);
-    /**
-     * The current message to display while loading data.
-     */
+    // The current message to display while loading data.
     const [message, setMessage] = useState("server status");
 
     /**
@@ -46,33 +42,21 @@ export default function App() {
      */
     const [showDebugInformation, setShowDebugInformation] = useState(import.meta.env.MODE === "development" ? true : false);
     
-    /**
-     * The title of the current page.
-     */
+    // The title of the current page.
     const [title, setTitle] = useState(null);
-    /**
-     * The description of the current page.
-     */
+    // The description of the current page.
     const [description, setDescription] = useState(null);
 
-    /**
-     * Should the background be shown?
-     */
+    // Should the background be shown?
     const [background, setBackground] = useState(true);
 
-    /**
-     * Should the header be shown? Should it be shown with a link, or without a link?
-     */
+    // Should the header be shown? Should it be shown with a link, or without a link?
     const [header, setHeader] = useState(false);
 
-    /**
-     * Should the sidebar be shown?
-     */
+    // Should the sidebar be shown?
     const [sidebar, setSidebar] = useState(false);
 
-    /**
-     * Should the top right container be shown?
-     */
+    // Should the top right container be shown?
     const [topRight, setTopRight] = useState(false);
 
     useEffect(() => {
