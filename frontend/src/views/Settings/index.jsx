@@ -1,3 +1,7 @@
+/**
+ * @file The Settings view. This view is responsible for displaying the user's settings page.
+ */
+
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
@@ -12,24 +16,41 @@ import { ErrorModal } from "@components/Modals";
 import { LogoutModal } from "@components/Modals/TopRight";
 import { ChangeUsernameModal, ChangePasswordModal, EnableOTPModal, DisableOTPModal } from "@components/Modals/Settings";
 
+/**
+ * The Settings view.
+ * @returns {JSX.Element} The Settings view.
+ */
 export default function Settings() {
+    // Be able to set the loading state
     const { setLoading } = useLoading();
+
+    // Be able to create modals
     const { createModal } = useModal();
+
+    // Get the user from the user store
     const { user } = useUser();
 
+    // If the user is not logged in, redirect them to the login page
     if (!user) return <Navigate to="/login" />;
 
+    // Get/set the modal animation setting
     const [modalAnimation, setModalAnimation] = useState(localStorage.getItem("DISABLE_MODAL_ANIMATION") ? false : true);
 
+    // Get/set friend requests
     const setFriendRequests = useFriendRequests();
 
+    // Change the friend requests setting
     const friendRequestsButton = () => {
+        // Update the loading state  
         setLoading("Changing settings");
+
+        // Change the friend requests setting via the API
         setFriendRequests(user.settings.friendRequests === "on" ? "mutual" : user.settings.friendRequests === "mutual" ? "off" : user.settings.friendRequests === "off" ? "on" : "on")
             .catch(() => createModal(<ErrorModal>Unable to change settings.</ErrorModal>))
             .finally(() => setLoading(false));
     }
 
+    // Change the modal animation setting
     const modalAnimationButton = () => {
         if (localStorage.getItem("DISABLE_MODAL_ANIMATION")) localStorage.removeItem("DISABLE_MODAL_ANIMATION") ||setModalAnimation(true);
         else localStorage.setItem("DISABLE_MODAL_ANIMATION", true) || setModalAnimation(false);

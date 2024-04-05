@@ -8,12 +8,33 @@ import { useMessages } from "@stores/MessageStore";
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "@use-gesture/react";
 
+/**
+ * The chat message component.
+ * @param {Object} props The properties for this component.
+ * @param {string} props.id The ID of the message.
+ * @param {Object} props.author The author of the message.
+ * @param {boolean} props.newUser If the author is a new user.
+ * @param {string} props.createdAt The creation date of the message.
+ * @param {Object} props.replyingTo The message that is being replied to.
+ * @param {boolean} props.mentionsMe If the message mentions the user.
+ * @param {boolean} props.isSending If the message is being sent.
+ * @param {Function} props.messageContextMenu The context menu for the message.
+ * @param {Function} props.userContextMenu The context menu for the user.
+ * @param {Object} props.children The children of the component.
+ * @returns {JSX.Element} The chat message component.
+ */
 export default memo(function ChatMessage({ id, author, newUser, createdAt, replyingTo, mentionsMe, isSending, messageContextMenu, userContextMenu, children }) {
+    // Define context menu functions if they are not defined or if the message is being sent
     if (!messageContextMenu || isSending) messageContextMenu = () => { };
     if (!userContextMenu || isSending) userContextMenu = () => { };
 
+    // Be able to set the message that is being replied to
     const { setReplyingTo } = useMessages();
+
+    // Animate the message when it is dragged
     const messagePosition = useSpring({ x: 0 });
+
+    // Swipe-to-reply functionality
     const bindMessage = useDrag((params) => {
         if (window.innerWidth > 850) return;
         if (params.dragging) {
@@ -25,17 +46,22 @@ export default memo(function ChatMessage({ id, author, newUser, createdAt, reply
                 messagePosition.x.set(params.movement[0]);
             }
         } else {
+            // The message was dragged - set the message that is being replied to
             if (messagePosition.x.get() <= -90) setReplyingTo({ id, author, content: children });
             // setAllowReply(false)
             messagePosition.x.start(0);
         }
     });
 
+    // Get/set the message reference and height
     const messageRef = useRef(null);
     const [messageHeight, setMessageHeight] = useState(0);
+
+    // Get/set the badges
     const [badges, setBadges] = useState([]);
 
     useEffect(() => {
+        // If there is a messageRef, set the message height to the client height when the ref changes
         if (messageRef.current) setMessageHeight(messageRef.current.clientHeight);
     }, [messageRef]);
 

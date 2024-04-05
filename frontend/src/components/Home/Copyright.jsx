@@ -1,7 +1,12 @@
 import styles from "@styles";
 
+// The name of the website.
 const name = import.meta.env.VITE_INFORMATION_NAME;
 
+/**
+ * The copyright component.
+ * @returns {JSX.Element} The copyright component.
+ */
 export default function Copyright() {
     return (
         <div className={styles.home.copyrightInformation}>

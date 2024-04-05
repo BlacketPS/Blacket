@@ -1,3 +1,13 @@
+/**
+ * Function to convert a timestamp to human readable format
+ * 
+ * @param {Number} timestamp The timestamp to convert.
+ * @returns {String} The human readable timestamp.
+ * 
+ * @example
+ * // Returns "Today at 12:00 PM"
+ * timestamps("2024-01-01T12:00:00Z");
+ */
 export default function timestamps(timestamp) {
     const date = new Date(Date.parse(timestamp));
     const now = new Date();

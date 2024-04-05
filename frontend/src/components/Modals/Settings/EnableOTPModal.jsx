@@ -5,19 +5,30 @@ import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
+/**
+ * The enable OTP modal. Generates a QR code and enables OTP.
+ * @returns {JSX.Element} The enable OTP modal component.
+ */
 export default function EnableOTPModal() {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
 
+    // The QR code image and OTP code.
     const [qrCodeImage, setQRCodeImage] = useState(null);
     const [otpCode, setOTPCode] = useState("");
 
+    // Be able to generate a QR code and enable OTP.
     const getQRCode = useGenerate();
     const setOTPEnabled = useEnable();
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
 
     useEffect(() => {
+        // Generate the QR code and set the image.
         getQRCode().then(res => setQRCodeImage(res.data.image)).catch(() => setError("Unable to generate QR code."));
     }, []);
 

@@ -1,3 +1,7 @@
+/**
+ * @file Prints the self-XSS warning and the Blacket welcome message to the console, as well as the development mode reminder.
+ */
+
 console.info("%cBlacket", "font-family: 'Titan One', sans-serif; font-size: 8em;");
 
 console.info("%cWelcome to the console! Feel free to look around, but please don't paste anything here unless you know what you're doing.", "font-family: 'Nunito'; font-size: 2em; font-weight: bold;");

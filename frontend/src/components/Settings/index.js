@@ -1,3 +1,7 @@
+/**
+ * @file Exports the Settings components.
+ */
+
 import Container from "./Container";
 import PlanText from "./PlanText";
 import SettingsContainer from "./SettingContainer";

@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Market page.
+*/
+
 import Market from "@views/Market";
 
+/**
+ * This object defines the route for the Market page.
+ * @returns {Object} The Market route.
+ */
 export default {
     path: "/market",
     element: <Market />,

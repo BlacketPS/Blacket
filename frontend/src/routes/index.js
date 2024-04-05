@@ -1,3 +1,7 @@
+/**
+ * @file Includes all the routes necessary for the frontend to function.
+ */
+
 import AuctionHouse from "./AuctionHouse";
 import Blooks from "./Blooks";
 import Chat from "./Chat";

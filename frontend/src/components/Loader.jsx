@@ -1,6 +1,14 @@
 import styles from "@styles";
 
+/**
+ * The loader component.
+ * @param {Object} props The properties for this component.
+ * @param {String} props.image The image for the loader.
+ * @param {String} props.message The message for the loader.
+ * @returns {JSX.Element} The loader component.
+ */
 export default function Loader({ image, message }) {
+    // If the image is not provided, use the default image.
     if (!image) image = "/content/blooks/Default.png";
 
     return (

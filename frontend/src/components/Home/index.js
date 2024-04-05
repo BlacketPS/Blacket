@@ -1,3 +1,7 @@
+/**
+ * @file Exports the Home components.
+ */
+
 import Copyright from "./Copyright";
 import Divider from "./Divider";
 import FallingBlooks from "./FallingBlooks";

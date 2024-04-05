@@ -1,6 +1,10 @@
 import { useUser } from "@stores/UserStore";
 import { useSocket } from "@stores/SocketStore";
 
+/**
+ * The hook that handles logging in.
+ * @returns {Function} The login function.
+ */
 const useLogin = () => {
     const { setUser } = useUser();
     const { initializeSocket } = useSocket();

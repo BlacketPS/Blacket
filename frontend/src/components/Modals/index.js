@@ -1,3 +1,7 @@
+/**
+ * @file Exports the Modals components.
+ */
+
 import ErrorModal from "./ErrorModal";
 import GenericModal from "./GenericModal";
 import ModalButtons from "./ModalButtons";

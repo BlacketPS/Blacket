@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Leaderboard page.
+ */
+
 import Leaderboard from "@views/Leaderboard";
 
+/**
+ * This object defines the route for the Leaderboard page.
+ * @returns {Object} The Leaderboard route.
+ */
 export default {
     path: "/leaderboard",
     element: <Leaderboard />,

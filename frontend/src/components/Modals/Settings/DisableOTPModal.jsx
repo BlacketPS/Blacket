@@ -5,14 +5,24 @@ import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
+/**
+ * The disable OTP modal.
+ * @returns {JSX.Element} The disable OTP modal component.
+ */
 export default function DisableOTPModal() {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
 
+    // The OTP code.
     const [otpCode, setOTPCode] = useState("");
 
+    // Be able to disable OTP.
     const setOTPDisabled = useDisable();
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
 
     return (<>

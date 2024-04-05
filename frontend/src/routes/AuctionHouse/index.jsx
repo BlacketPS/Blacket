@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Auction House page.
+ */
+
 import AuctionHouse from "@views/AuctionHouse";
 
+/**
+ * This object defines the route for the Auction House page.
+ * @returns {Object} The Auction House route.
+ */
 export default {
     path: "/auction-house",
     element: <AuctionHouse />,

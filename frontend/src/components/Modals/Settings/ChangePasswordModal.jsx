@@ -5,15 +5,27 @@ import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
+/**
+ * The change password modal.
+ * @returns {JSX.Element} The change password modal component.
+ */
 export default function ChangePasswordModal() {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
 
+    // The old password.
     const [oldPassword, setOldPassword] = useState("");
+
+    // The new password.
     const [newPassword, setNewPassword] = useState("");
 
+    // Be able to change the password.
     const setPassword = usePassword();
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
 
     return (<>

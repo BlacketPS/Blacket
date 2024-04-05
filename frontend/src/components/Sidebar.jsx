@@ -3,11 +3,18 @@ import { useLocation, Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import styles from "@styles";
 
+/**
+ * The sidebar component.
+ * @returns {JSX.Element} The sidebar component.
+ */
 export default function Sidebar() {
+    // The state for the mobile sidebar.
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
+    // Get the current location.
     const location = useLocation().pathname.split("/")[1];
 
+    // The pages for the sidebar, left and bottom.
     const pages = {
         left: [
             {

@@ -1,8 +1,22 @@
+/**
+ * @file Shows an error page when an error occurs.
+ */
+
 import styles from "@styles";
 
 import { Background, HeaderNoLink } from "@components";
 
+/**
+ * The error page view.
+ * 
+ * @param {Object} props The properties of the component.
+ * @param {Number} props.code The error code.
+ * @param {String} props.reason The reason for the error.
+ * 
+ * @returns {JSX.Element} The error page view.
+ */
 export default function Error({ code, reason }) {
+    // Set the document title based on the error code
     if (code === null) document.title = `Error | ${import.meta.env.VITE_INFORMATION_NAME}`;
     else if (code === 404) document.title = `Not Found | ${import.meta.env.VITE_INFORMATION_NAME}`;
     else if (code === 403) document.title = `Blacklisted | ${import.meta.env.VITE_INFORMATION_NAME}`;

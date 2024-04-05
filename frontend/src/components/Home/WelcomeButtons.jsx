@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import styles from "@styles";
 
+/**
+ * The welcome buttons component.
+ * @returns {JSX.Element} The welcome buttons component.
+ */
 export default function WelcomeButtons() {
+    // Get the user from the user store.
     const { user } = useUser();
 
+    // Get the discord invite from the environment variables.
     const discordInvite = import.meta.env.VITE_INFORMATION_DISCORD_INVITE;
 
     return (

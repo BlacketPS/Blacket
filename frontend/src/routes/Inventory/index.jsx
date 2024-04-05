@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Inventory route.
+ */
+
 import Inventory from "@views/Inventory";
 
+/**
+ * This object defines the route for the Inventory page.
+ * @returns {Object} The Inventory route.
+ */
 export default {
     path: "/inventory",
     element: <Inventory />,

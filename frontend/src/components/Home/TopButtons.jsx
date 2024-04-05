@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
 import styles from "@styles";
 
+/**
+ * The top buttons component.
+ * @returns {JSX.Element} The top buttons component.
+ */
 export default function TopButtons() {
     const { user } = useUser();
 

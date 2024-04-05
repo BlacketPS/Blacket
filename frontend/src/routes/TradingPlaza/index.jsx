@@ -1,5 +1,13 @@
+/**
+ * @file Defines the route and metadata for the Trading Plaza.
+ */
+
 import TradingPlaza from "@views/TradingPlaza";
 
+/**
+ * This object defines the route for the Trading Plaza.
+ * @returns {Object} The Trading Plaza route.
+ */
 export default {
     path: "/trading-plaza",
     element: <TradingPlaza />,

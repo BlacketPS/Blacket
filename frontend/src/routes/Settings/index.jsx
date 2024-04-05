@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Settings page.
+ */
+
 import Settings from "@views/Settings";
 
+/**
+ * This object defines the route for the Settings page.
+ * @returns {Object} The Settings route.
+ */
 export default {
     path: "/settings",
     element: <Settings />,

@@ -1,3 +1,7 @@
+/**
+ * @file Provies all styles for the application.
+ */
+
 import all from "./all.module.scss";
 import debug from "./debug.module.scss";
 import errors from "./errors.module.scss";

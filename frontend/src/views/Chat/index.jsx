@@ -1,3 +1,7 @@
+/**
+ * @file Defines the Chat view. This view allows for chatting with other users.
+*/
+
 import { memo } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
@@ -6,13 +10,22 @@ import { useContextMenu } from "@stores/ContextMenuStore";
 import { ChatContainer, ChatMessagesContainer, ChatMessage, InputContainer } from "@components/Chat";
 import { SidebarBody } from "@components";
 
+/**
+ * The Chat view. This view allows for chatting with other users.
+ * @returns {JSX.Element} The Chat component.
+ */
 export default memo(function Chat() {
+    // Get the user who is currently logged in.
     const { user } = useUser();
+    // Use the global message store to get messages and get/set the message being replied to.
     const { messages, replyingTo, setReplyingTo } = useMessages();
+    // Be able to open a context menu.
     const { openContextMenu } = useContextMenu();
 
+    // If the user is not logged in, redirect them to the login page.
     if (!user) return <Navigate to="/login" />;
 
+    // Be able to navigate to different pages via React Router.
     const navigate = useNavigate();
 
     return (<SidebarBody>

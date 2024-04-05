@@ -1,3 +1,7 @@
+/**
+ * @file Exports the Settings components.
+ */
+
 import ChangePasswordModal from "./ChangePasswordModal";
 import ChangeUsernameModal from "./ChangeUsernameModal";
 import DisableOTPModal from "./DisableOTPModal";

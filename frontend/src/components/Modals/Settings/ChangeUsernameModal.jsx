@@ -5,15 +5,27 @@ import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
+/**
+ * The change username modal.
+ * @returns {JSX.Element} The change username modal component.
+ */
 export default function ChangeUsernameModal() {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
 
+    // The new username.
     const [newUsername, setNewUsername] = useState("");
+
+    // The password which the user must confirm to change the username.
     const [password, setPassword] = useState("");
 
+    // Be able to change the username.
     const setUsername = useUsername();
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
 
     return (<>

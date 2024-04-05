@@ -1,5 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
+/**
+ * The game hook.
+ * @param {Object} config The game configuration.
+ * @param {React.MutableRefObject} containerRef The container reference.
+ * @returns 
+ */
 const useGame = (config, containerRef) => {
     const [game, setGame] = useState();
 

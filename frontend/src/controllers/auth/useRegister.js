@@ -1,6 +1,10 @@
 import { useUser } from "@stores/UserStore";
 import { useSocket } from "@stores/SocketStore";
 
+/**
+ * The hook that handles registering.
+ * @returns {Function} The register function.
+ */
 const useRegister = () => {
     const { setUser } = useUser();
     const { initializeSocket } = useSocket();

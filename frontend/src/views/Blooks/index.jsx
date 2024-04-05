@@ -1,3 +1,7 @@
+/**
+ * @file Defines the Blooks view. This view allows for viewing and selling blooks.
+*/
+
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useUser } from "@stores/UserStore";
@@ -9,18 +13,28 @@ import { SellBlooksModal } from "@components/Modals/Blooks";
 import { SidebarBody } from "@components";
 import { BlooksHolder, SetHolder, Blook, RightBlook, RightButtonContainer, RightButton } from "@components/Blooks";
 
+/**
+ * The Blooks view. This view allows for viewing and selling blooks.
+ * @returns {JSX.Element} The Blooks component.
+ */
 export default function Blooks() {
+    // Be able to create modals.
     const { createModal } = useModal();
+    // Get the current user information.
     const { user } = useUser();
 
+    // If the user is not logged in, redirect them to the login page.
     if (!user) return <Navigate to="/login" />;
 
+    // View and set the selected blook. Initially, set it to a random blook.
     const [selectedBlook, setSelectedBlook] = useState(Object.keys(user.blooks)[Math.floor(Math.random() * Object.keys(user.blooks).length)])
 
     useEffect(() => {
+        // If there are no blooks, display an error and go back.
         if (blooks.length < 1) return createModal(<ErrorModal>This server has no blooks.</ErrorModal>) && history.back();
     }, []);
 
+    // Get every blook from every pack.
     const packBlooks = packs.map(pack => pack.blooks).flat();
 
     return (<SidebarBody>

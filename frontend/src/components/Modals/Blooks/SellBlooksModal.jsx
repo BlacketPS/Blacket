@@ -7,14 +7,29 @@ import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
+/**
+ * The sell blooks modal.
+ * @param {Object} props The properties for this component.
+ * @param {string} props.blook The blook to sell.
+ * @returns {JSX.Element} The sell blooks modal component.
+ */
 export default function SellBlooksModal({ blook }) {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
+
+    // The quantity of blooks to sell.
     const [quantity, setQuantity] = useState(1);
 
+    // Be able to sell blooks.
     const sellBlooks = useSellBlooks();
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
+
+    // Get the user.
     const { user } = useUser();
 
     return (<>

@@ -12,6 +12,7 @@ import { AreYouSureLinkModal } from "@components/Modals/Chat";
 
 import styles from "@styles";
 
+// Register our fancy markdown format.
 Prism.languages.blacketMarkdown = {
     colorBoldItalic: { pattern: /\{#([0-9a-fA-F]{6})\}\*\*\*([^\*]+)\*\*\*\{#([0-9a-fA-F]{6})\}/g },
     colorBold: { pattern: /\{#([0-9a-fA-F]{6})\}\*\*([^\*]+)\*\*\{#([0-9a-fA-F]{6})\}/g },
@@ -30,23 +31,42 @@ Prism.languages.blacketMarkdown = {
     // emoji: { pattern: /:([^\s]+):/g }
 }
 
+/**
+ * The markdown preview component.
+ * @param {Object} props The properties for this component.
+ * @param {string} props.content The content of the markdown.
+ * @param {string} props.color The color of the markdown.
+ * @param {Function} props.onLeafChange The function to call when a leaf changes.
+ * @param {boolean} props.readOnly If the markdown is read only.
+ * @returns {JSX.Element} The markdown preview component.
+ */
 export default memo(function MarkdownPreview({ content, color, onLeafChange, readOnly, ...props }) {
+    // Define event handlers if they are not defined
     if (!onLeafChange) onLeafChange = () => { };
 
+    // Create the editor
     const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
+    // Define the clear content function to be able to clear the content
     editor.clearContent = () => {
+        // Delete all children
         editor.children.map(() => Transforms.delete(editor, { at: [0] }));
 
+        // Set the children to a single paragraph with an empty string
         editor.children = [{ type: "paragraph", children: [{ text: "" }] }];
 
+        // Select the first paragraph
         Transforms.select(editor, { offset: 0, path: [0, 0] });
     }
 
+    // Be able to create a modal
     const { createModal } = useModal();
+
+    // Create the state for mentioning and selecting mentions
     const [isMentioning, setIsMentioning] = useState(false);
     const [selectMentions, setSelectMentions] = useState([]);
 
+    // Define our leaf
     const Leaf = ({ attributes, children, leaf }) => {
         // console.log(leaf)
 
@@ -55,6 +75,7 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
         }, [leaf]);
 
 
+        // Style our leaf
         switch (true) {
             case leaf.code:
                 return <span {...attributes} className={readOnly ? styles.textFormatting.codeDark : styles.textFormatting.code}>{readOnly ? leaf.content : children}</span>;
@@ -67,6 +88,7 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
                     createModal(<AreYouSureLinkModal link={leaf.content} />);
                 }}>{readOnly ? leaf.content : children}</a>;
             case leaf.emoji:
+                // Preview the blook by finding it and displaying an image.
                 const blook = blooks.find(blook => blook.name.toLowerCase() === leaf.content.toLowerCase());
 
                 if (blook) return (
@@ -94,8 +116,10 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
         }
     }
 
+    // Define our render leaf function
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
+    // Define our decorate function
     const decorate = useCallback(([node, path]) => {
         const ranges = [];
 
@@ -117,6 +141,7 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
             const end = start + length;
 
             if (typeof token !== "string") {
+                // Push our non-string tokens.
                 switch (token.type) {
                     case "boldItalic":
                     case "bold":
@@ -240,6 +265,7 @@ export default memo(function MarkdownPreview({ content, color, onLeafChange, rea
         return ranges;
     }, []);
 
+    // Set the initial value
     const initialValue = content ? content.split("\n").map(text => ({ type: "paragraph", children: [{ text }] })) : [{ type: "paragraph", children: [{ text: "" }] }];
 
     return (

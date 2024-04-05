@@ -7,13 +7,27 @@ import { ModalHeader, ModalText, ModalButtons, ModalError } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import styles from "@styles";
 
+/**
+ * The open pack modal.
+ * @param {Object} props The properties for this component.
+ * @param {Object} props.pack The pack to open.
+ * @param {Function} props.onYesButton The function to call when the yes button is clicked.
+ * @returns {JSX.Element} The open pack modal component.
+ */
 export default function OpenPackModal({ pack, onYesButton }) {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
+
+    // Be able to get the user.
     const { user } = useUser();
 
+    // Prevent the user from opening the pack if they do not have enough tokens. Otherwise, prompt the user to open the pack.
     if (user.tokens < pack.price) return (<>
         <ModalHeader>Error</ModalHeader>
 

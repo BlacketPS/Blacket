@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Dashboard route.
+ */
+
 import Dashboard from "@views/Dashboard";
 
+/**
+ * This object defines the route for the Dashboard page.
+ * @returns {Object} The Dashboard route.
+ */
 export default {
     path: "/dashboard",
     element: <Dashboard />,

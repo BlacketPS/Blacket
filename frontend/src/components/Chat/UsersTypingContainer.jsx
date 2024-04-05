@@ -1,6 +1,12 @@
 import { memo } from "react";
 import styles from "@styles";
 
+/**
+ * The users typing container component.
+ * @param {Object} props The properties for this component.
+ * @param {Object[]} props.usersTyping The users typing in the chat.
+ * @returns {JSX.Element} The users typing container component.
+ */
 export default memo(function UsersTypingContainer({ usersTyping }) {
     return (
         <div className={styles.chat.usersTypingContainer} data-visible={usersTyping.length > 0}>

@@ -1,5 +1,9 @@
 import styles from "@styles";
 
+/**
+ * The modal loader component.
+ * @returns {JSX.Element} The modal loader component.
+ */
 export default function ModalLoader() {
     return (
         <div className={`${styles.all.loader} ${styles.modal.loader}`}>

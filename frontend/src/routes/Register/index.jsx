@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Register page.
+ */
+
 import Authentication from "@views/Authentication";
 
+/**
+ * This object defines the route for the Register page.
+ * @returns {Object} The Register route.
+ */
 export default {
     path: "/register",
     element: <Authentication type="Register" />,

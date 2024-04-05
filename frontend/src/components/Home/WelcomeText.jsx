@@ -1,5 +1,9 @@
 import styles from "@styles";
 
+/**
+ * The welcome text component.
+ * @returns {JSX.Element} The welcome text component.
+ */
 export default function WelcomeText() {
     return (
         <div className={styles.home.welcomeText}>

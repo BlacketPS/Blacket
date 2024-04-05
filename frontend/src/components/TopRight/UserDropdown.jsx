@@ -4,8 +4,15 @@ import { useModal } from "@stores/ModalStore";
 import { LogoutModal } from "@components/Modals/TopRight";
 import styles from "@styles";
 
+/**
+ * The user dropdown component.
+ * @returns {JSX.Element} The user dropdown component.
+ */
 export default function UserDropdown() {
+    // Gets the user from the user store.
     const { user } = useUser();
+
+    // Be able to create a modal.
     const { createModal } = useModal();
 
     return (

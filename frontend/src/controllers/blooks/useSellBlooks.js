@@ -1,6 +1,10 @@
 import { useUser } from "@stores/UserStore";
 import { blooks } from "@stores/BlookStore";
 
+/**
+ * The hook that handles selling blooks.
+ * @returns {Function} The function to sell blooks.
+ */
 const useSellBlooks = () => {
     const { user, setUser } = useUser();
 

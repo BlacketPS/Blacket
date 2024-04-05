@@ -1,5 +1,13 @@
+/**
+ * @file Defines the Blooks page.
+ */
+
 import Blooks from "@views/Blooks";
 
+/**
+ * This object defines the route for the Blooks page.
+ * @returns {Object} The Blooks route.
+ */
 export default {
     path: "/blooks",
     element: <Blooks />,

@@ -3,6 +3,14 @@ import { Textfit } from "react-textfit";
 import cardinalToOrdinal from "@functions/cardinalToOrdinal";
 import styles from "@styles";
 
+/**
+ * The little (4th-...) placement component.
+ * @param {Object} props The properties for this component.
+ * @param {string} props.type The type of the user.
+ * @param {number} props.placement The placement number.
+ * @param {Object} props.user The user object.
+ * @returns {JSX.Element} The little placement component.
+ */
 export default function Placement({ type, placement, user }) {
     const navigate = useNavigate();
 

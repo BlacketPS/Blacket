@@ -6,15 +6,27 @@ import { ModalHeader, ModalText, ModalError, ModalButtons } from "@components/Mo
 import { GenericButton } from "@components/Buttons";
 import { Input } from "@components";
 
+/**
+ * The OTP modal. Shown upon login when OTP is required.
+ * @returns {JSX.Element} The OTP modal component.
+ */
 export default function OtpModal({ username, password }) {
+    // The loading state.
     const [loading, setLoading] = useState(false);
+
+    // The error state.
     const [error, setError] = useState(null);
+
+    // The OTP code.
     const [otpCode, setOTPCode] = useState("");
 
+    // Be able to navigate.
     const navigate = useNavigate();
 
+    // Be able to close the modal.
     const { closeModal } = useModal();
 
+    // Be able to login.
     const login = useLogin();
 
     return (<>

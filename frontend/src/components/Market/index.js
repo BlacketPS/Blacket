@@ -1,3 +1,7 @@
+/**
+ * @file Exports the Market components.
+ */
+
 import ButtonHolder from "./ButtonHolder";
 import Category from "./Category";
 import Pack from "./Pack";

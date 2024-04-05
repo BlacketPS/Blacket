@@ -1,6 +1,10 @@
 import { useUser } from "@stores/UserStore";
 import { useSocket } from "@stores/SocketStore";
 
+/**
+ * The hook that handles logging out.
+ * @returns {Function} The logout function.
+ */
 const useLogout = () => {
     const { setUser } = useUser();
     const { initializeSocket } = useSocket();

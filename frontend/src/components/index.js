@@ -1,3 +1,7 @@
+/**
+ * @file Exports all components.
+ */
+
 import Background from "./Background";
 import DebugInformation from "./DebugInformation";
 import { Header, HeaderNoLink } from "./Header";

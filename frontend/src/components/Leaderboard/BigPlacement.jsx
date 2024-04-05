@@ -3,7 +3,16 @@ import { Textfit } from "react-textfit";
 import cardinalToOrdinal from "@functions/cardinalToOrdinal";
 import styles from "@styles";
 
+/**
+ * The big (1st, 2nd, 3rd) placement component.
+ * @param {Object} props The properties for this component.
+ * @param {String} props.type The type of the placement.
+ * @param {Number} props.placement The placement number.
+ * @param {Object} props.user The user object.
+ * @returns {JSX.Element} The big placement component.
+ */
 export default function BigPlacement({ type, placement, user }) {
+    // The numeral and corresponding word for each placement.
     const place = { 1: "One", 2: "Two", 3: "Three" }
 
     return (
