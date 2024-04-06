@@ -10,7 +10,7 @@ export enum DataKey {
     BANNER = "blacket-banner:*",
     BADGE = "blacket-badge:*",
     EMOJI = "blacket-emoji:*"
-};
+}
 
 @Injectable()
 export class DataService {

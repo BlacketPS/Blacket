@@ -1,7 +1,9 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Repository } from "sequelize-typescript";
 import { User, UserStatistic, UserSetting, Resource } from "src/models";
 import { SequelizeService } from "src/sequelize/sequelize.service";
+
+// fix your body it needs to be better
 
 @Injectable()
 export class UsersService {
@@ -22,39 +24,30 @@ export class UsersService {
     }
 
     async getUserById(id: string) {
-        const user: any = await this.userRepo.findByPk(id, {
+        const user: User = await this.userRepo.findByPk(id, {
+            attributes: {
+                exclude: [
+                    "avatarId",
+                    "customAvatarId",
+                    "bannerId",
+                    "customBannerId"
+                ]
+            },
             include: [
-                {
-                    model: this.resourceRepo,
-                    as: "avatar",
-                    attributes: ["path"]
-                },
-                {
-                    model: this.resourceRepo,
-                    as: "banner",
-                    attributes: ["path"]
-                },
-                {
-                    model: this.userStatisticRepo,
-                    as: "statistics",
-                    attributes: { exclude: [this.userStatisticRepo.primaryKeyAttribute] }
-                },
-                {
-                    model: this.userSettingRepo,
-                    as: "settings",
-                    attributes: { exclude: [this.userSettingRepo.primaryKeyAttribute] }
-                }
+                { model: this.resourceRepo, as: "avatar" },
+                { model: this.resourceRepo, as: "banner" },
+                { model: this.userStatisticRepo, as: "statistics", attributes: { exclude: [this.userStatisticRepo.primaryKeyAttribute] } },
+                { model: this.userSettingRepo, as: "settings", attributes: { exclude: [this.userSettingRepo.primaryKeyAttribute] } }
             ]
         });
 
-        if (!user) return new NotFoundException("User not found");
+        if (!user) return null;
 
-        console.log(user);
-
-        user.dataValues.avatar = user.avatar?.path;
-        user.dataValues.banner = user.banner?.path;
-        user.dataValues.blooks = {};
-
-        return user;
+        return {
+            ...user.toJSON(),
+            avatar: user.avatarPath,
+            banner: user.bannerPath,
+            blooks: {}
+        };
     }
 }

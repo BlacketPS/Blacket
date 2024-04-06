@@ -30,9 +30,6 @@ export default class UserSetting extends Model<UserSetting> {
     @Column({ type: DataType.JSON, allowNull: false, defaultValue: [] })
     categoriesClosed: string[];
 
-    @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
-    otpEnabled: boolean;
-
     @Column({ type: DataType.STRING, allowNull: true, defaultValue: null })
     otpSecret: string;
 }

@@ -7,19 +7,19 @@ export default class AuctionBid extends Model<AuctionBid> {
     declare id: number;
 
     @ForeignKey(() => User)
-    @Column({ type: DataType.STRING, allowNull: false, primaryKey: true })
+    @Column({ type: DataType.STRING, allowNull: false })
     userId: string;
 
     @BelongsTo(() => User)
     user: User;
 
     @ForeignKey(() => Auction)
-    @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
+    @Column({ type: DataType.INTEGER, allowNull: false })
     auctionId: number;
 
     @BelongsTo(() => Auction)
     auction: Auction;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false })
+    @Column({ type: DataType.INTEGER, allowNull: false })
     amount: number;
 }

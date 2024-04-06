@@ -1,5 +1,4 @@
-import { Column, Model, Table, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
-import { Resource } from ".";
+import { Column, Model, Table, DataType } from "sequelize-typescript";
 
 @Table({ tableName: "title" })
 export default class Title extends Model<Title> {
@@ -9,14 +8,6 @@ export default class Title extends Model<Title> {
     @Column({ type: DataType.STRING, unique: true, allowNull: false })
     name: string;
 
-    @ForeignKey(() => Resource)
-    @Column({ type: DataType.INTEGER, allowNull: false })
-    imageId: number;
-
-    @BelongsTo(() => Resource, "imageId")
-    image: Resource;
-
-    get imagePath(): string {
-        return this.image.path;
-    }
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
+    priority: number;
 }

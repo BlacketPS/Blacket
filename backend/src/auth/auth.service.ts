@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { User, Session, UserStatistic, UserSetting, Resource, IpAddress, UserIpAddress } from "src/models";
+import { User, Session, UserStatistic, UserSetting, Resource, Title, IpAddress, UserIpAddress, Font } from "src/models";
 import { SequelizeService } from "src/sequelize/sequelize.service";
 import { RedisService } from "src/redis/redis.service";
 import { Repository } from "sequelize-typescript";
@@ -14,11 +14,15 @@ export class AuthService {
     private userSettingRepo: Repository<UserSetting>;
     private sessionRepo: Repository<Session>;
     private resourceRepo: Repository<Resource>;
+    private titleRepo: Repository<Title>;
+    private fontRepo: Repository<Font>;
     private ipAddressRepo: Repository<IpAddress>;
     private userIpAddressRepo: Repository<UserIpAddress>;
 
     private defaultAvatar: Resource;
     private defaultBanner: Resource;
+    private defaultTitle: Title;
+    private defaultFont: Font;
 
     constructor(
         private sequelizeService: SequelizeService,
@@ -31,11 +35,15 @@ export class AuthService {
         this.userSettingRepo = this.sequelizeService.getRepository(UserSetting);
         this.sessionRepo = this.sequelizeService.getRepository(Session);
         this.resourceRepo = this.sequelizeService.getRepository(Resource);
+        this.titleRepo = this.sequelizeService.getRepository(Title);
+        this.fontRepo = this.sequelizeService.getRepository(Font);
         this.ipAddressRepo = this.sequelizeService.getRepository(IpAddress);
         this.userIpAddressRepo = this.sequelizeService.getRepository(UserIpAddress);
 
         this.defaultAvatar = await this.resourceRepo.findOne({ where: { id: 1 } });
         this.defaultBanner = await this.resourceRepo.findOne({ where: { id: 2 } });
+        this.defaultTitle = await this.titleRepo.findOne({ where: { id: 1 } });
+        this.defaultFont = await this.fontRepo.findOne({ where: { id: 1 } });
     }
 
     async register(dto: RegisterDto, ip: string) {
@@ -45,7 +53,9 @@ export class AuthService {
             username: dto.username,
             password: await hash(dto.password, 10),
             avatarId: this.defaultAvatar.id,
-            bannerId: this.defaultBanner.id
+            bannerId: this.defaultBanner.id,
+            titleId: this.defaultTitle.id,
+            fontId: this.defaultFont.id
         }, { transaction });
 
         await this.userStatisticRepo.create({ id: user.id }, { transaction });

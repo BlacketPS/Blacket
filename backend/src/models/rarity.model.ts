@@ -9,7 +9,7 @@ export enum AnimationType {
     CHROMA = 5
 }
 
-@Table({ tableName: "rarity", timestamps: false })
+@Table({ tableName: "rarity" })
 export default class Rarity extends Model<Rarity> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
     declare id: number;
@@ -29,9 +29,9 @@ export default class Rarity extends Model<Rarity> {
     @Column({
         type: DataType.INTEGER,
         allowNull: false,
-        validate: { isIn: { args: [Object.values(AnimationType)], msg: `animation must be one of these values: ${Object.keys(AnimationType).join(", ")}` } }
+        validate: { isIn: { args: [Object.values(AnimationType)], msg: `animationType must be one of these values: ${Object.keys(AnimationType).join(", ")}` } }
     })
-    animation: AnimationType;
+    animationType: AnimationType;
 
     @Column({ type: DataType.INTEGER, allowNull: false })
     experience: number;

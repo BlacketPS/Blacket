@@ -32,7 +32,7 @@ export default class Auction extends Model<Auction> {
     @BelongsTo(() => Blook, "blookId")
     blook: Blook;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false })
+    @Column({ type: DataType.INTEGER, allowNull: false })
     price: number;
 
     @ForeignKey(() => User)

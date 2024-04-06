@@ -10,9 +10,9 @@ export default class UserStatistic extends Model<UserStatistic> {
     @BelongsTo(() => User)
     user: User;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     packsOpened: number;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     messagesSent: number;
 }

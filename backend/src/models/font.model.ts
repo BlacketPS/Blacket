@@ -1,8 +1,8 @@
 import { Column, Model, Table, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
 import { Resource } from ".";
 
-@Table({ tableName: "banner" })
-export default class Banner extends Model<Banner> {
+@Table({ tableName: "font" })
+export default class Font extends Model<Font> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
     declare id: number;
 
@@ -11,15 +11,15 @@ export default class Banner extends Model<Banner> {
 
     @ForeignKey(() => Resource)
     @Column({ type: DataType.INTEGER, allowNull: false })
-    imageId: number;
+    resourceId: number;
 
-    @BelongsTo(() => Resource, "imageId")
-    image: Resource;
+    @BelongsTo(() => Resource, "resourceId")
+    resource: Resource;
 
     @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     priority: number;
 
-    get imagePath() {
-        return this.image.path;
+    get fontPath(): string {
+        return this.resource.path;
     }
 }

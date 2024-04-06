@@ -1,47 +1,47 @@
-import { Column, Model, Table, DataType, HasOne } from "sequelize-typescript";
-import { Blook, Pack, Group, Banner, Emoji, User, Item } from ".";
+import { Column, Model, Table, DataType, HasMany } from "sequelize-typescript";
+import { Blook, Pack, Group, Banner, Emoji, Font, User, Item } from ".";
 
 @Table({ tableName: "resource" })
 export default class Resource extends Model<Resource> {
     @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
     declare id: number;
 
-    @Column({ type: DataType.STRING, unique: true, allowNull: true })
-    name: string;
-
     @Column({ type: DataType.STRING, allowNull: false })
     path: string;
 
-    @HasOne(() => User, "avatarId")
+    @HasMany(() => User, "avatarId")
     userAvatar?: User;
 
-    @HasOne(() => User, "customAvatarId")
+    @HasMany(() => User, "customAvatarId")
     customAvatar?: User;
 
-    @HasOne(() => User, "bannerId")
+    @HasMany(() => User, "bannerId")
     userBanner?: User;
 
-    @HasOne(() => User, "customBannerId")
+    @HasMany(() => User, "customBannerId")
     customBanner?: User;
 
-    @HasOne(() => Blook, "imageId")
+    @HasMany(() => Blook, "imageId")
     blookImage?: Blook;
 
-    @HasOne(() => Blook, "backgroundId")
+    @HasMany(() => Blook, "backgroundId")
     blookBackgroundImage?: Blook;
 
-    @HasOne(() => Pack, "imageId")
+    @HasMany(() => Pack, "imageId")
     packImage?: Pack;
 
-    @HasOne(() => Group, "imageId")
+    @HasMany(() => Group, "imageId")
     groupImage?: Group;
 
-    @HasOne(() => Item, "imageId")
+    @HasMany(() => Item, "imageId")
     itemImage?: Item;
 
-    @HasOne(() => Banner, "imageId")
+    @HasMany(() => Banner, "imageId")
     bannerImage?: Banner;
 
-    @HasOne(() => Emoji, "imageId")
+    @HasMany(() => Font, "resourceId")
+    fontResource?: Font;
+
+    @HasMany(() => Emoji, "imageId")
     emojiImage?: Emoji;
 }

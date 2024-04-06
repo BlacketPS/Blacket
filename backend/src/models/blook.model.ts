@@ -12,7 +12,7 @@ export default class Blook extends Model<Blook> {
     @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
     chance: number;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     price: number;
 
     @ForeignKey(() => Rarity)
@@ -43,7 +43,7 @@ export default class Blook extends Model<Blook> {
     @BelongsTo(() => Pack)
     pack?: Pack;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     priority: number;
 
     @HasMany(() => Auction)

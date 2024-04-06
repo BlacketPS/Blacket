@@ -16,6 +16,9 @@ export default class Emoji extends Model<Emoji> {
     @BelongsTo(() => Resource, "imageId")
     image: Resource;
 
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
+    priority: number;
+
     get imagePath(): string {
         return this.image.path;
     }

@@ -11,12 +11,14 @@ import { AnimationType } from "src/models/rarity.model";
 export class SequelizeService extends Sequelize {
     private sessionRepo: Repository<Models.Session>;
     private resourceRepo: Repository<Models.Resource>;
+    private roomRepo: Repository<Models.Room>;
     private blookRepo: Repository<Models.Blook>;
     private rarityRepo: Repository<Models.Rarity>;
     private packRepo: Repository<Models.Pack>;
-    /* private itemRepo: Repository<Models.Item>;
-    private titleRepo: Repository<Models.Title>; */
+    private itemRepo: Repository<Models.Item>;
+    private titleRepo: Repository<Models.Title>;
     private bannerRepo: Repository<Models.Banner>;
+    private fontRepo: Repository<Models.Font>;
     private emojiRepo: Repository<Models.Emoji>;
 
     constructor(
@@ -40,12 +42,14 @@ export class SequelizeService extends Sequelize {
     async onModuleInit() {
         this.sessionRepo = this.getRepository(Models.Session);
         this.resourceRepo = this.getRepository(Models.Resource);
+        this.roomRepo = this.getRepository(Models.Room);
         this.blookRepo = this.getRepository(Models.Blook);
         this.rarityRepo = this.getRepository(Models.Rarity);
         this.packRepo = this.getRepository(Models.Pack);
-        /* this.itemRepo = this.getRepository(Models.Item);
-        this.titleRepo = this.getRepository(Models.Title); */
+        this.itemRepo = this.getRepository(Models.Item);
+        this.titleRepo = this.getRepository(Models.Title);
         this.bannerRepo = this.getRepository(Models.Banner);
+        this.fontRepo = this.getRepository(Models.Font);
         this.emojiRepo = this.getRepository(Models.Emoji);
 
         if (this.configService.get<string>("NODE_ENV") !== "production") {
@@ -53,6 +57,8 @@ export class SequelizeService extends Sequelize {
 
             await this.seedDatabase();
         }
+
+        await this.redisService.del("blacket-session:*");
 
         for (const session of await this.sessionRepo.findAll()) {
             await this.redisService.set(`blacket-session:${session.userId}`, JSON.stringify(session));
@@ -74,20 +80,20 @@ export class SequelizeService extends Sequelize {
         }
 
         for (const rarity of await this.rarityRepo.findAll()) {
-            await this.redisService.set(`blacket-rarity:${rarity.id}`, JSON.stringify(rarity));
+            await this.redisService.set(`blacket-rarity:${rarity.id}`, JSON.stringify({ ...rarity.dataValues }));
         }
 
         for (const pack of await this.packRepo.findAll({ include: [{ model: this.resourceRepo, as: "image" }], attributes: { exclude: ["imageId"] } }) as Models.Pack[]) {
             await this.redisService.set(`blacket-pack:${pack.id}`, JSON.stringify({ ...pack.dataValues, image: pack.imagePath }));
         }
 
-        /* for (const item of await itemRepo.findAll()) {
-            await this.redisService.set(`blacket-item:${item.id}`, JSON.stringify(item));
+        for (const item of await this.itemRepo.findAll({ include: [{ model: this.resourceRepo, as: "image" }], attributes: { exclude: ["imageId"] } }) as Models.Item[]) {
+            await this.redisService.set(`blacket-item:${item.id}`, JSON.stringify({ ...item.dataValues, image: item.imagePath }));
         }
 
-        for (const title of await titleRepo.findAll()) {
+        for (const title of await this.titleRepo.findAll()) {
             await this.redisService.set(`blacket-title:${title.id}`, JSON.stringify(title));
-        } */
+        }
 
         for (const banner of await this.bannerRepo.findAll({ include: [{ model: this.resourceRepo, as: "image" }], attributes: { exclude: ["imageId"] } }) as Models.Banner[]) {
             await this.redisService.set(`blacket-banner:${banner.id}`, JSON.stringify({ ...banner.dataValues, image: banner.imagePath }));
@@ -104,18 +110,17 @@ export class SequelizeService extends Sequelize {
         const transaction = await this.transaction();
 
         await this.resourceRepo.create({ path: "/content/blooks/Default.png" }, { transaction });
-        await this.resourceRepo.create({ path: "/content/packs/Debug.png" }, { transaction });
         await this.resourceRepo.create({ path: "/content/banners/Default.png" }, { transaction });
+        await this.resourceRepo.create({ path: "/content/fonts/Nunito.ttf" }, { transaction });
+        await this.resourceRepo.create({ path: "/content/fonts/Titan One.ttf" }, { transaction });
 
-        await this.rarityRepo.create({ name: "Common", color: "#ffffff", experience: 0, animation: AnimationType.UNCOMMON }, { transaction });
+        await this.rarityRepo.create({ name: "Common", color: "#ffffff", experience: 0, animationType: AnimationType.UNCOMMON }, { transaction });
 
-        await this.packRepo.create({ name: "Debug", price: -25, imageId: 2, innerColor: "#000000", outerColor: "#ffffff" }, { transaction });
+        await this.bannerRepo.create({ name: "Default", imageId: 2 }, { transaction });
+        await this.titleRepo.create({ name: "Common" }, { transaction });
 
-        await this.blookRepo.create({ name: this.configService.get<string>("VITE_INFORMATION_NAME"), chance: 0, price: 0, rarityId: 1, imageId: 1, backgroundId: 1, packId: 1 }, { transaction });
-
-        await this.bannerRepo.create({ name: "Default", imageId: 3 }, { transaction });
-
-        await this.emojiRepo.create({ name: "blacket", imageId: 1 }, { transaction });
+        await this.fontRepo.create({ name: "Nunito", resourceId: 3 }, { transaction });
+        await this.fontRepo.create({ name: "Titan One", resourceId: 4 }, { transaction });
 
         await transaction.commit().catch(async (error) => this.blacketLogger.error(error, "Database", "Sequelize"));
     }

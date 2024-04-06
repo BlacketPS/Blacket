@@ -1,5 +1,5 @@
 import { Column, Model, Table, DataType, HasOne, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
-import { History, Resource, Session, UserBlook, UserGroup, UserPunishment, UserRelationship, UserSetting, UserStatistic, UserIpAddress, Auction } from ".";
+import { History, Resource, Session, UserBlook, UserGroup, UserPunishment, UserRelationship, UserSetting, UserStatistic, UserIpAddress, Auction, Title, UserTitle, UserBanner, Font } from ".";
 
 @Table({ tableName: "user" })
 export default class User extends Model<User> {
@@ -44,20 +44,19 @@ export default class User extends Model<User> {
     @BelongsTo(() => Resource, "customBannerId")
     customBanner?: Resource;
 
-    // TODO: make titles model
-    @Column({
-        type: DataType.TEXT,
-        allowNull: false,
-        defaultValue: "Common"
-    })
-    title: string;
+    @ForeignKey(() => Title)
+    @Column({ type: DataType.INTEGER, allowNull: false })
+    titleId: number;
 
-    // TODO: make fonts model
-    @Column({
-        type: DataType.TEXT,
-        allowNull: true
-    })
-    font: string;
+    @BelongsTo(() => Title)
+    title: Title;
+
+    @ForeignKey(() => Font)
+    @Column({ type: DataType.INTEGER, allowNull: false })
+    fontId: number;
+
+    @BelongsTo(() => Font)
+    font: Font;
 
     @Column({
         type: DataType.TEXT,
@@ -69,10 +68,10 @@ export default class User extends Model<User> {
     })
     color: string;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     tokens: number;
 
-    @Column({ type: DataType.DOUBLE, allowNull: false, defaultValue: 0 })
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
     experience: number;
 
     @Column({ type: DataType.BIGINT, allowNull: false, defaultValue: 0 })
@@ -105,6 +104,12 @@ export default class User extends Model<User> {
     @HasMany(() => UserBlook, "userId")
     blooks?: UserBlook[];
 
+    @HasMany(() => UserTitle, "userId")
+    titles?: UserTitle[];
+
+    @HasMany(() => UserBanner, "userId")
+    banners?: UserBanner[];
+
     @HasMany(() => Auction, "sellerId")
     auctions?: Auction[];
 
@@ -125,4 +130,20 @@ export default class User extends Model<User> {
 
     @HasMany(() => UserIpAddress)
     ipAddresses?: UserIpAddress[];
+
+    get avatarPath(): string {
+        return this.avatar.path;
+    }
+
+    get customAvatarPath(): string {
+        return this.customAvatar?.path;
+    }
+
+    get bannerPath(): string {
+        return this.banner.path;
+    }
+
+    get customBannerPath(): string {
+        return this.customBanner?.path;
+    }
 }
