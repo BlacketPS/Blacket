@@ -14,7 +14,7 @@ export default class Form extends Model<Form> {
     @Column({ type: DataType.STRING, primaryKey: true, defaultValue: () => randomUUID() })
     declare id: string;
 
-    @Column({ type: DataType.STRING, unique: true, allowNull: false })
+    @Column({ type: DataType.STRING, allowNull: false })
     username: string;
 
     @Column({ type: DataType.STRING, allowNull: false })

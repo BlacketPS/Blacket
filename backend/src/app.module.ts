@@ -14,6 +14,8 @@ import { FormsModule } from "./forms/forms.module";
 import { AuthGuard } from "./core/guard";
 
 import { IsAccessCode } from "./core/validate/";
+import { PermissionsService } from './permissions/permissions.service';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
     imports: [
@@ -26,13 +28,16 @@ import { IsAccessCode } from "./core/validate/";
         DataModule,
         AuthModule,
         UsersModule,
-        FormsModule
+        FormsModule,
+        PermissionsModule
     ],
     controllers: [],
     providers: [
         { provide: APP_GUARD, useClass: AuthGuard },
 
-        IsAccessCode
+        IsAccessCode,
+
+        PermissionsService
     ]
 })
 export class AppModule { }

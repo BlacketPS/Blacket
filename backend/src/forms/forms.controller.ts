@@ -25,7 +25,7 @@ export class FormsController {
 
         if (!form) throw new BadRequestException(BadRequest.FORMS_ALREADY_EXISTS);
 
-        return { form: new CreateForm(form.dataValues) };
+        return { form: new CreateForm(form.toJSON()) };
     }
 
     @Public()
@@ -36,6 +36,6 @@ export class FormsController {
 
         if (!form) throw new NotFoundException(NotFound.UNKNOWN_FORM);
 
-        return { form: new GetForm(form.dataValues) };
+        return { form: new GetForm(form.toJSON()) };
     }
 }
