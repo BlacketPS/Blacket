@@ -16,10 +16,7 @@ export default class Font extends Model<Font> {
     @BelongsTo(() => Resource, "resourceId")
     resource: Resource;
 
-    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
-    priority: number;
-
-    get fontPath(): string {
+    get resourcePath(): string {
         return this.resource.path;
     }
 }

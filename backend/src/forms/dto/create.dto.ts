@@ -1,7 +1,6 @@
 import { IsNotEmpty, Validate } from "class-validator";
-import { IsAccessCode } from "src/core/validate";
 
-export class RegisterDto {
+export class CreateDto {
     @IsNotEmpty()
     @Validate((value: string) => value.length > 0)
     readonly username: string;
@@ -11,12 +10,8 @@ export class RegisterDto {
     readonly password: string;
 
     @IsNotEmpty()
-    @Validate(IsAccessCode)
-    readonly accessCode: string;
-
-    @IsNotEmpty()
-    @Validate((value: boolean) => value === true)
-    readonly acceptedTerms: boolean;
+    @Validate((value: string) => value.length > 0)
+    readonly reasonToPlay: string;
 }
 
-export default RegisterDto;
+export default CreateDto;

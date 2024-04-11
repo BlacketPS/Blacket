@@ -51,6 +51,12 @@ export class DataController {
     }
 
     @Public()
+    @Get("fonts")
+    async getFonts() {
+        return this.dataService.getData(DataKey.FONT);
+    }
+
+    @Public()
     @Get("emojis")
     async getEmojis() {
         return this.dataService.getData(DataKey.EMOJI);

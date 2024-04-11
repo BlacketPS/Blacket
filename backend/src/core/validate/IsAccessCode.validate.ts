@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
 
+import { BadRequest } from "src/types/enums";
+
 @ValidatorConstraint({ name: "IsAccessCode", async: false })
 @Injectable()
 export class IsAccessCode implements ValidatorConstraintInterface {
@@ -12,6 +14,6 @@ export class IsAccessCode implements ValidatorConstraintInterface {
     }
 
     defaultMessage() {
-        return "Access code ($value) is invalid.";
+        return BadRequest.AUTH_INCORRECT_ACCESS_CODE;
     }
 }

@@ -10,7 +10,7 @@ async function bootstrap() {
 
     app.enableCors({
         origin: [
-            // TO CONFIG, PUT YOUR OWN DOMAIN HERE INCLUDE HTTP[S]://
+            /* to config, put your own domain here include http[s]:// */
             "https://rewrite.blacket.org",
             "https://blacket.org"
         ],
@@ -21,9 +21,12 @@ async function bootstrap() {
 
     app.setGlobalPrefix("/api");
 
-    useContainer(app.select(AppModule), {fallbackOnErrors: true});
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-    await app.listen(3000);
+    await app.listen(
+        // replace number below with your own port
+        3000
+    );
 }
 
 bootstrap();

@@ -12,6 +12,6 @@ export class CurrentUserPipe implements PipeTransform {
 
     async transform(value: any, metadata: ArgumentMetadata) {
         // return this.sequelizeService.getRepository(User).findOne({ where: { id: value } });
-        return this.usersService.getUserById(value);
+        return this.usersService.getUser(value);
     }
 }

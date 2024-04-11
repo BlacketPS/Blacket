@@ -33,8 +33,8 @@ export class SequelizeService extends Sequelize {
             database: configService.get<string>("SERVER_DATABASE_NAME"),
             host: configService.get<string>("SERVER_DATABASE_HOST"),
             port: configService.get<number>("SERVER_DATABASE_PORT"),
-            models: Object.values(Models),
             repositoryMode: true,
+            models: Object.values(Models),
             logging: configService.get<string>("NODE_ENV") === "production" ? false : (msg) => blacketLogger.debug(msg, "Database", "Sequelize")
         });
     }
@@ -52,15 +52,23 @@ export class SequelizeService extends Sequelize {
         this.fontRepo = this.getRepository(Models.Font);
         this.emojiRepo = this.getRepository(Models.Emoji);
 
+        // development mode setting handler
         if (this.configService.get<string>("NODE_ENV") !== "production") {
-            await this.sync({ force: true });
-
-            await this.seedDatabase();
+            switch (this.configService.get<string>("SERVER_DEV_RESEED_DATABASE")) {
+                case "true":
+                    await this.sync({ force: true });
+                    await this.seedDatabase();
+                    break;
+                case "false":
+                    await this.sync({ alter: true });
+                    break;
+            }
         }
 
+        // all next for loops are for redis caching so we don't have to fetch it again to save on performance
         await this.redisService.del("blacket-session:*");
 
-        for (const session of await this.sessionRepo.findAll()) {
+        for (const session of await this.sessionRepo.findAll() as Models.Session[]) {
             await this.redisService.set(`blacket-session:${session.userId}`, JSON.stringify(session));
         }
 
@@ -79,7 +87,7 @@ export class SequelizeService extends Sequelize {
             await this.redisService.set(`blacket-blook:${blook.id}`, JSON.stringify({ ...blook.dataValues, image: blook.imagePath, background: blook.backgroundPath }));
         }
 
-        for (const rarity of await this.rarityRepo.findAll()) {
+        for (const rarity of await this.rarityRepo.findAll() as Models.Rarity[]) {
             await this.redisService.set(`blacket-rarity:${rarity.id}`, JSON.stringify({ ...rarity.dataValues }));
         }
 
@@ -91,12 +99,16 @@ export class SequelizeService extends Sequelize {
             await this.redisService.set(`blacket-item:${item.id}`, JSON.stringify({ ...item.dataValues, image: item.imagePath }));
         }
 
-        for (const title of await this.titleRepo.findAll()) {
+        for (const title of await this.titleRepo.findAll() as Models.Title[]) {
             await this.redisService.set(`blacket-title:${title.id}`, JSON.stringify(title));
         }
 
         for (const banner of await this.bannerRepo.findAll({ include: [{ model: this.resourceRepo, as: "image" }], attributes: { exclude: ["imageId"] } }) as Models.Banner[]) {
             await this.redisService.set(`blacket-banner:${banner.id}`, JSON.stringify({ ...banner.dataValues, image: banner.imagePath }));
+        }
+
+        for (const font of await this.fontRepo.findAll({ include: [{ model: this.resourceRepo, as: "resource" }], attributes: { exclude: ["resourceId"] } }) as Models.Font[]) {
+            await this.redisService.set(`blacket-font:${font.id}`, JSON.stringify({ ...font.dataValues, resource: font.resourcePath }));
         }
 
         for (const emoji of await this.emojiRepo.findAll({ include: [{ model: this.resourceRepo, as: "image" }], attributes: { exclude: ["imageId"] } }) as Models.Emoji[]) {
@@ -105,19 +117,22 @@ export class SequelizeService extends Sequelize {
     }
 
     async seedDatabase() {
-        // add database seeding code here, this is only run when after the database has been wiped to provide it with initial data
+        // this will only run once after the database has been wiped to provide it with initial data
 
         const transaction = await this.transaction();
 
-        await this.resourceRepo.create({ path: "/content/blooks/Default.png" }, { transaction });
-        await this.resourceRepo.create({ path: "/content/banners/Default.png" }, { transaction });
-        await this.resourceRepo.create({ path: "/content/fonts/Nunito.ttf" }, { transaction });
-        await this.resourceRepo.create({ path: "/content/fonts/Titan One.ttf" }, { transaction });
+        await this.resourceRepo.create({ path: "/content/blooks/Default.png" }, { transaction }); // resource id 1
+        await this.resourceRepo.create({ path: "/content/banners/Default.png" }, { transaction }); // resource id 2
+        await this.resourceRepo.create({ path: "/content/fonts/Nunito.ttf" }, { transaction }); // resource id 3
+        await this.resourceRepo.create({ path: "/content/fonts/Titan One.ttf" }, { transaction }); // resource id 4
 
         await this.rarityRepo.create({ name: "Common", color: "#ffffff", experience: 0, animationType: AnimationType.UNCOMMON }, { transaction });
 
         await this.bannerRepo.create({ name: "Default", imageId: 2 }, { transaction });
+
         await this.titleRepo.create({ name: "Common" }, { transaction });
+
+        await this.blookRepo.create({ name: "Default", chance: 0, price: 0, rarityId: 1, imageId: 1, backgroundId: 1, priority: 0 }, { transaction });
 
         await this.fontRepo.create({ name: "Nunito", resourceId: 3 }, { transaction });
         await this.fontRepo.create({ name: "Titan One", resourceId: 4 }, { transaction });

@@ -1,36 +1,5 @@
-/*
-import { DataTypes } from "sequelize";
-
-export default {
-    name: "Room",
-    attributes: {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        public: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: true
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
-        }
-    },
-    options: {
-        tableName: "rooms"
-    }
-}*/
-
-import { Column, Model, Table, DataType, BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
-import { RoomUser } from ".";
+import { Column, Model, Table, DataType, HasMany } from "sequelize-typescript";
+import { RoomUser, Message } from ".";
 
 @Table({ tableName: "room" })
 export default class Room extends Model<Room> {
@@ -45,4 +14,7 @@ export default class Room extends Model<Room> {
 
     @HasMany(() => RoomUser)
     users?: RoomUser[];
+
+    @HasMany(() => Message, "roomId")
+    messages?: Message[];
 }

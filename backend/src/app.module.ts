@@ -9,10 +9,11 @@ import { DefaultModule } from "./default/default.module";
 import { DataModule } from "./data/data.module";
 import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
+import { FormsModule } from "./forms/forms.module";
 
 import { AuthGuard } from "./core/guard";
 
-import { IsAccessCode } from "./core/validate/IsAccessCode.validate";
+import { IsAccessCode } from "./core/validate/";
 
 @Module({
     imports: [
@@ -24,15 +25,14 @@ import { IsAccessCode } from "./core/validate/IsAccessCode.validate";
         DefaultModule,
         DataModule,
         AuthModule,
-        UsersModule
+        UsersModule,
+        FormsModule
     ],
     controllers: [],
     providers: [
-        IsAccessCode,
-        {
-            provide: APP_GUARD,
-            useClass: AuthGuard
-        }
+        { provide: APP_GUARD, useClass: AuthGuard },
+
+        IsAccessCode
     ]
 })
-export class AppModule {}
+export class AppModule { }

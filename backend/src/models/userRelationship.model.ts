@@ -29,6 +29,11 @@ export default class UserRelationship extends Model<UserRelationship> {
     target: User;
 
     @Column({
+        type: DataType.STRING
+    })
+    friendNickname: string;
+
+    @Column({
         type: DataType.INTEGER,
         validate: { isIn: { args: [Object.values(RelationType)], msg: `Relationship type must be one of these values: ${Object.values(RelationType).join(", ")}` } },
         allowNull: false

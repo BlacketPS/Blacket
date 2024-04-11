@@ -1,5 +1,5 @@
 import { Column, Model, Table, DataType, HasOne, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript";
-import { History, Resource, Session, UserBlook, UserGroup, UserPunishment, UserRelationship, UserSetting, UserStatistic, UserIpAddress, Auction, Title, UserTitle, UserBanner, Font } from ".";
+import { History, Resource, Session, UserBlook, UserGroup, UserPunishment, UserRelationship, UserSetting, UserStatistic, UserIpAddress, Auction, Title, UserTitle, UserBanner, Font, Message, Form } from ".";
 
 @Table({ tableName: "user" })
 export default class User extends Model<User> {
@@ -101,6 +101,9 @@ export default class User extends Model<User> {
     @HasMany(() => UserPunishment, "staffId")
     punishmentActions?: UserPunishment[];
 
+    @HasMany(() => Form, "accepterId")
+    acceptedForms?: Form[];
+
     @HasMany(() => UserBlook, "userId")
     blooks?: UserBlook[];
 
@@ -121,6 +124,9 @@ export default class User extends Model<User> {
 
     @HasMany(() => History, "newOwnerId")
     involvedNewOwnerHistory?: History[];
+
+    @HasMany(() => Message, "userId")
+    messages?: Message[];
 
     @HasMany(() => UserRelationship, "userId")
     usersAdded?: UserRelationship[];

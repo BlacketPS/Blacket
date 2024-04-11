@@ -9,6 +9,7 @@ export enum DataKey {
     TITLE = "blacket-title:*",
     BANNER = "blacket-banner:*",
     BADGE = "blacket-badge:*",
+    FONT = "blacket-font:*",
     EMOJI = "blacket-emoji:*"
 }
 

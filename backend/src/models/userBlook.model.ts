@@ -26,6 +26,9 @@ export default class UserBlook extends Model<UserBlook> {
     @BelongsTo(() => Blook)
     blook: Blook;
 
+    @Column({ type: DataType.BOOLEAN, allowNull: false })
+    sold: boolean;
+
     @ForeignKey(() => User)
     @Column({ type: DataType.STRING, allowNull: false })
     initalObtainerId: string;
@@ -35,7 +38,7 @@ export default class UserBlook extends Model<UserBlook> {
 
     @Column({
         type: DataType.INTEGER,
-        validate: { isIn: { args: [Object.values(BlookObtainMethod)], msg: `Blook obtainedBy must be one of these values: ${Object.keys(BlookObtainMethod).join(", ")}` } },
+        validate: { isIn: { args: [Object.values(BlookObtainMethod)], msg: `obtainedBy must be one of these values: ${Object.keys(BlookObtainMethod).join(", ")}` } },
         defaultValue: BlookObtainMethod.UNKNOWN,
         allowNull: false
     })
