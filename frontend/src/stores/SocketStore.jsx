@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
 const SocketStoreContext = createContext();
 
@@ -16,9 +17,15 @@ export function SocketStoreProvider({ children }) {
         setSocket(null);
         setConnected(false);
 
-        const socket = new WebSocket(`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/socket${token ? `?token=${token}` : localStorage.getItem("token") ? `?token=${localStorage.getItem("token")}` : ""}`);
+        // const socket = new WebSocket(`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/socket${token ? `?token=${token}` : localStorage.getItem("token") ? `?token=${localStorage.getItem("token")}` : ""}`);
 
-        socket.onopen = () => {
+        const socket = io(`${window.location.protocol}//${window.location.host}`, {
+            path: "/gateway",
+            auth: { token: localStorage.getItem("token") },
+            transports: ["websocket"]
+        });
+
+        /* socket.onopen = () => {
             setConnected(true);
 
             console.info("[Blacket] Connected to WebSocket server.");
@@ -55,7 +62,7 @@ export function SocketStoreProvider({ children }) {
             initializeSocket();
         }
 
-        socket.emit = (event, data) => socket.send(JSON.stringify({ event, data }));
+        socket.emit = (event, data) => socket.send(JSON.stringify({ event, data })); */
 
         if (import.meta.env.MODE === "development") window.socket = socket;
 

@@ -31,7 +31,8 @@
         "reflect-metadata": "^0.2.0",
         "rxjs": "^7.8.1",
         "sequelize": "^6.37.1",
-        "sequelize-typescript": "^2.1.6"
+        "sequelize-typescript": "^2.1.6",
+        "socket.io": "^4.7.5"
     },
     "devDependencies": {
         "@nestjs/cli": "^10.0.0",

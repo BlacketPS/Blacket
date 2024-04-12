@@ -5,7 +5,7 @@
     <img src="./assets/logo.png" alt="Logo" width="160" height="160">
   </a>
   <h3 align="center">Blacket</h3>
-
+stew
   <p align="center">
     The first ever open-source Blooket private server created by Xotic written entirely in JavaScript. 
     <br />

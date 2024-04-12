@@ -1,23 +1,19 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { Observable } from "rxjs";
 import { RedisService } from "src/redis/redis.service";
-import { Request } from "express";
 import { Reflector } from "@nestjs/core";
+import { Session } from "./auth.guard";
+import { BlacketSocket } from "src/socket/socket.gateway";
 import { IS_PUBLIC_KEY } from "../decorator";
 
-export interface Session {
-    id: string;
-    userId: string;
-    createdAt: Date;
-}
-
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class WsAuthGuard implements CanActivate {
     constructor(
         private readonly redisService: RedisService,
         private reflector: Reflector
     ) { }
 
-    async canActivate(context: ExecutionContext) {
+    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
             context.getHandler(),
             context.getClass()
@@ -25,9 +21,16 @@ export class AuthGuard implements CanActivate {
 
         if (isPublic) return true;
 
-        const request: Request = context.switchToHttp().getRequest();
+        const client: BlacketSocket = context.switchToWs().getClient();
+        const isAuthorized = this.validate(client);
 
-        const token = this.extractTokenFromHeader(request);
+        if (!isAuthorized) throw new UnauthorizedException();
+
+        return isAuthorized;
+    }
+
+    async validate(client: BlacketSocket): Promise<boolean> {
+        const token = client.handshake.auth.token ?? undefined;
 
         if (!token) throw new UnauthorizedException();
 
@@ -39,15 +42,11 @@ export class AuthGuard implements CanActivate {
 
             if (decodedToken.id !== session.id) throw new UnauthorizedException();
 
-            request["session"] = session;
+            client.session = session;
         } catch {
             throw new UnauthorizedException();
         }
 
         return true;
-    }
-
-    private extractTokenFromHeader(request: Request): string | undefined {
-        return request.headers.authorization ?? undefined;
     }
 }

@@ -1,4 +1,5 @@
 import { NestFactory } from "@nestjs/core";
+import { ConfigService } from "@nestjs/config";
 import { AppModule } from "./app.module";
 
 import { BlacketLoggerService } from "./core/logger/logger.service";
@@ -23,10 +24,9 @@ async function bootstrap() {
 
     useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-    await app.listen(
-        // replace number below with your own port
-        3000
-    );
+    const configService = app.get(ConfigService);
+
+    await app.listen(configService.get<number>("SERVER_PORT"));
 }
 
 bootstrap();
