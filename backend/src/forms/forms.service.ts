@@ -3,9 +3,8 @@ import { SequelizeService } from "src/sequelize/sequelize.service";
 import { UsersService } from "src/users/users.service";
 import { Repository } from "sequelize-typescript";
 import { Form } from "src/models";
+import { FormStatus } from "src/models/form.model";
 import { hash } from "bcrypt";
-
-import { AcceptStatus } from "src/models/form.model";
 
 @Injectable()
 export class FormsService {
@@ -28,13 +27,18 @@ export class FormsService {
         return await this.formRepo.findOne({ where: { username } });
     }
 
-    async getCountOfPendingUsername(username: string): Promise<number> {
-        return await this.formRepo.count({ where: { username, acceptStatus: AcceptStatus.PENDING } });
+    async dropFormById(id: string) {
+        return await this.formRepo.destroy({ where: { id } });
     }
 
     async createForm(username: string, password: string, reasonToPlay: string, ipAddress: string) {
-        if (await this.usersService.getUser(username) || await this.getCountOfPendingUsername(username) > 0) return null;
+        if (await this.usersService.getUser(username)) return null;
 
-        return await this.formRepo.create({ username, password: await hash(password, 10), reasonToPlay, ipAddress });
+        const [
+            form,
+            created
+        ] = await this.formRepo.findOrCreate({ where: { username, status: FormStatus.PENDING }, defaults: { password: await hash(password, 10), reasonToPlay, ipAddress } });
+
+       return created ? form : null;
     }
 }

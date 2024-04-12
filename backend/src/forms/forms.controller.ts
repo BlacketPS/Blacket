@@ -1,11 +1,12 @@
-import { BadRequestException, NotFoundException, Body, ClassSerializerInterceptor, Controller, Get, Param, HttpCode, HttpStatus, Post, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, Param, HttpCode, HttpStatus, Post, UseInterceptors } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { FormsService } from "./forms.service";
 import { Public, RealIp } from "src/core/decorator";
 import { CreateDto } from "./dto";
-import { CreateForm, GetForm } from "./entity";
+import { CreateFormEntity, GetFormEntity } from "./entity";
 
-import { BadRequest, NotFound } from "src/types/enums";
+import { BadRequest } from "src/types/enums";
+import { FormAlreadyExistsException, FormNotFoundException } from "./exception";
 
 @Controller("forms")
 export class FormsController {
@@ -23,19 +24,21 @@ export class FormsController {
 
         const form = await this.formsService.createForm(dto.username, dto.password, dto.reasonToPlay, ipAddress);
 
-        if (!form) throw new BadRequestException(BadRequest.FORMS_ALREADY_EXISTS);
+        if (!form) throw new FormAlreadyExistsException();
 
-        return { form: new CreateForm(form.toJSON()) };
+        return new CreateFormEntity(form.toJSON());
     }
 
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(":id")
     async getForm(@Param("id") id: string) {
+        if (this.configService.get<string>("VITE_USER_FORMS_ENABLED") !== "true") throw new BadRequestException(BadRequest.FORMS_FORMS_DISABLED);
+
         const form = await this.formsService.getFormById(id);
 
-        if (!form) throw new NotFoundException(NotFound.UNKNOWN_FORM);
+        if (!form) throw new FormNotFoundException();
 
-        return { form: new GetForm(form.toJSON()) };
+        return new GetFormEntity(form.toJSON());
     }
 }

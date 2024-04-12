@@ -3,7 +3,7 @@ import { User } from ".";
 
 import { randomUUID } from "crypto";
 
-export enum AcceptStatus {
+export enum FormStatus {
     PENDING = 1,
     ACCEPTED = 2,
     DENIED = 3
@@ -26,8 +26,8 @@ export default class Form extends Model<Form> {
     @Column({ type: DataType.STRING, allowNull: false })
     reasonToPlay: string;
 
-    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: AcceptStatus.PENDING })
-    acceptStatus: AcceptStatus;
+    @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: FormStatus.PENDING })
+    status: FormStatus;
 
     @Column({ type: DataType.STRING, allowNull: true })
     deniedReason: string;
