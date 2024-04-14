@@ -5,9 +5,9 @@
     <img src="./assets/logo.png" alt="Logo" width="160" height="160">
   </a>
   <h3 align="center">Blacket</h3>
-stew
+
   <p align="center">
-    The first ever open-source Blooket private server created by Xotic written entirely in JavaScript. 
+    The first ever open-source Blooket private server created by Xotic written entirely in JavaScript.
     <br />
     <a href="https://github.com/XoticLLC/Blacket/wiki"><strong>Get Help</strong></a>
     <br />
@@ -62,7 +62,7 @@ The following packages need to be installed before starting:
   sudo apt-get install mysql-server
   ```
   _Follow the instructions for all of the packages that will show on screen._
-  
+
 ### Installation
 
 1. Clone the repository into your home folder:
@@ -71,13 +71,13 @@ The following packages need to be installed before starting:
    git clone https://github.com/XoticLLC/Blacket.git
    mv -v /tmp/Blacket-master ~/blacket
    ```
-   
+
 2. Move to the frontend directory and install dependencies:
    ```sh
    cd ~/blacket/frontend
    npm i
    ```
-  
+
 3. Build the react app:
    ```sh
    npm run build
