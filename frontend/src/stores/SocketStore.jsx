@@ -86,7 +86,7 @@ export function SocketStoreProvider({ children }) {
             socket.close();
         });
 
-        socket.onAny((event, data) => {
+        socket.onAny((_, event, data) => {
             if (import.meta.env.MODE === "development") console.log({ event, data });
         });
 

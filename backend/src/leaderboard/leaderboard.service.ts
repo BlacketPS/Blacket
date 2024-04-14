@@ -23,7 +23,7 @@ export class LeaderboardService {
 
             return leaderboard;
         } else {
-            const tokens = await this.userRepo.findAll({
+            const tokens = (await this.userRepo.findAll({
                 order: [
                     [
                         "tokens",
@@ -48,9 +48,9 @@ export class LeaderboardService {
                     }
                 ],
                 limit: 10
-            });
+            })).map((user) => user.toJSON());
 
-            const experience = await this.userRepo.findAll({
+            const experience = (await this.userRepo.findAll({
                 order: [
                     [
                         "experience",
@@ -75,7 +75,7 @@ export class LeaderboardService {
                     }
                 ],
                 limit: 10
-            });
+            })).map((user) => user.toJSON());
 
             await this.redisService.setex("blacket-leaderboard", 300, JSON.stringify({ tokens, experience }));
 

@@ -9,14 +9,15 @@ import { SocketModule } from "./socket/socket.module";
 import { DefaultModule } from "./default/default.module";
 import { DataModule } from "./data/data.module";
 import { AuthModule } from "./auth/auth.module";
+import { PermissionsModule } from "./permissions/permissions.module";
 import { UsersModule } from "./users/users.module";
 import { FormsModule } from "./forms/forms.module";
+import { ChatModule } from "./chat/chat.module";
 import { LeaderboardModule } from "./leaderboard/leaderboard.module";
 
 import { AuthGuard } from "./core/guard";
 
 import { PermissionsService } from "./permissions/permissions.service";
-import { PermissionsModule } from "./permissions/permissions.module";
 import { IsAccessCode } from "./core/validate/";
 
 @Module({
@@ -30,9 +31,10 @@ import { IsAccessCode } from "./core/validate/";
         DefaultModule,
         DataModule,
         AuthModule,
+        PermissionsModule,
         UsersModule,
         FormsModule,
-        PermissionsModule,
+        ChatModule,
         LeaderboardModule
     ],
     controllers: [],

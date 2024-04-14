@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Titan+One|Creepster|Satisfy|Eczar:700");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro.min.css");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro-v4-shims.min.css");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro-v5-font-face.min.css");
+@import url("https://ka-f.fontawesome.com/releases/v6.4.2/css/pro-v4-font-face.min.css");
+
+:root {
+    --background-opacity: 0.075;
+    --background-color: #2f2f2f;
+    --primary-color: #1f1f1f;
+    --secondary-color: #3f3f3f;
+    --accent-color: #ffffff;
+}
+
+* {
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    @supports (-moz-appearance:none) {
+        scrollbar-color: #ffffff var(--primary-color);
+    }
+
+    &::-webkit-scrollbar {
+        width: 16px;
+    }
+
+    @media not screen and (max-width: 850px) {
+        &::-webkit-scrollbar-track-piece:start {
+            margin-top: 55px;
+        }
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--primary-color);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 20px;
+        border: 2px solid var(--primary-color);
+    }
+
+    &[data-slate-editor="true"] {
+        overflow-wrap: unset !important;
+
+        @media only screen and (max-width: 768px) {
+            white-space: unset !important;
+        }
+    }
+
+    &[contenteditable="true"] {
+        overflow-wrap: break-word !important;
+    }
+}
