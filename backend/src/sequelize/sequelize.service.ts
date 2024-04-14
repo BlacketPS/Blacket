@@ -126,6 +126,8 @@ export class SequelizeService extends Sequelize {
         await this.resourceRepo.create({ path: "/content/fonts/Nunito.ttf" }, { transaction }); // resource id 3
         await this.resourceRepo.create({ path: "/content/fonts/Titan One.ttf" }, { transaction }); // resource id 4
 
+        await this.roomRepo.create({ id: 0, name: "global", public: true }, { transaction });
+
         await this.rarityRepo.create({ name: "Common", color: "#ffffff", experience: 0, animationType: AnimationType.UNCOMMON }, { transaction });
 
         await this.bannerRepo.create({ name: "Default", imageId: 2 }, { transaction });

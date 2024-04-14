@@ -11,7 +11,7 @@ export class DefaultController {
     @Public()
     @Get()
     @HttpCode(HttpStatus.NO_CONTENT)
-    async get() {
+    get() {
         return this.defaultService.get();
     }
 }

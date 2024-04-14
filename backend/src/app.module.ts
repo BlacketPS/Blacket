@@ -11,6 +11,7 @@ import { DataModule } from "./data/data.module";
 import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
 import { FormsModule } from "./forms/forms.module";
+import { LeaderboardModule } from "./leaderboard/leaderboard.module";
 
 import { AuthGuard } from "./core/guard";
 
@@ -31,7 +32,8 @@ import { IsAccessCode } from "./core/validate/";
         AuthModule,
         UsersModule,
         FormsModule,
-        PermissionsModule
+        PermissionsModule,
+        LeaderboardModule
     ],
     controllers: [],
     providers: [

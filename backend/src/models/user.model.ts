@@ -125,7 +125,7 @@ export default class User extends Model<User> {
     @HasMany(() => History, "newOwnerId")
     involvedNewOwnerHistory?: History[];
 
-    @HasMany(() => Message, "userId")
+    @HasMany(() => Message, "authorId")
     messages?: Message[];
 
     @HasMany(() => UserRelationship, "userId")

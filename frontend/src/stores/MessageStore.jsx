@@ -9,7 +9,7 @@ export function useMessages() {
 }
 
 export function MessageStoreProvider({ children }) {
-    const { socketOn, socketOff, socketEmit } = useSocket();
+    const { connected, socket } = useSocket();
     const { user, setUser } = useUser();
 
     const [messages, setMessages] = useState([]);
@@ -24,7 +24,7 @@ export function MessageStoreProvider({ children }) {
 
         setMessages(previousMessages => [{ id: nonce, author: user, content, mentions: [], replyingTo, createdAt: new Date(Date.now()).toISOString(), nonce }, ...previousMessages]);
 
-        socketEmit("messages-send", { content, replyingTo: replyingTo ? parseInt(replyingTo.id) : null, nonce });
+        socket.emit("messages-send", { content, replyingTo: replyingTo ? parseInt(replyingTo.id) : null, nonce });
 
         setTypingTimeout(null);
         setReplyingTo(null);
@@ -33,17 +33,19 @@ export function MessageStoreProvider({ children }) {
     const startTyping = () => {
         if (typingTimeout && Date.now() - typingTimeout < 2000) return;
 
-        socketEmit("messages-start-typing", {});
+        socket.emit("messages-start-typing", {});
 
         setTypingTimeout(Date.now());
     }
 
     useEffect(() => {
+        if (!connected) return;
+
         if (!user || user.initialized) return;
 
         fetchMessages(0);
 
-        socketOn("messages-create", (data) => {
+        socket.on("messages-create", (data) => {
             if (data.message.mentions.includes(user.id) || (data.message.replyingTo && data.message.replyingTo.author.id === user.id)) new Audio("/content/mention.ogg").play();
 
             if (data.message.author.id === user.id) return;
@@ -52,9 +54,9 @@ export function MessageStoreProvider({ children }) {
             setUsersTyping(previousUsersTyping => previousUsersTyping.filter(user => user.id !== data.message.author.id));
         });
 
-        socketOn("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { ...message, id: data.id, mentions: data.mentions, nonce: undefined } : message)));
+        socket.on("messages-send", (data) => setMessages(previousMessages => previousMessages.map(message => message.nonce === data.nonce ? { ...message, id: data.id, mentions: data.mentions, nonce: undefined } : message)));
 
-        socketOn("messages-typing-started", (data) => setUsersTyping(previousUsersTyping => {
+        socket.on("messages-typing-started", (data) => setUsersTyping(previousUsersTyping => {
             if (data.user.id === user.id) return previousUsersTyping;
 
             data.user.startedTypingAt = Date.now();
@@ -69,14 +71,14 @@ export function MessageStoreProvider({ children }) {
         setUser({ ...user, initialized: true });
 
         return () => {
-            socketOff("messages-create");
-            socketOff("messages-send");
-            socketOff("messages-typing-started");
+            /* socket.off("messages-create");
+            socket.off("messages-send");
+            socket.off("messages-typing-started"); */
 
             clearInterval(typingInterval);
             clearTimeout(typingTimeout);
         }
-    }, [user]);
+    }, [connected, user]);
 
     return <MessageStoreContext.Provider value={{
         messages, usersTyping, replyingTo, setReplyingTo,

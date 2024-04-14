@@ -24,6 +24,9 @@ export class PublicUser {
         this.avatar = (this.avatar as Resource).path;
         this.banner = (this.banner as Resource).path;
 
+        this.password = undefined;
+        this.ipAddress = undefined;
+
         this.customAvatar = (this.customAvatar as Resource)?.path ?? null;
         this.customBanner = (this.customBanner as Resource)?.path ?? null;
 
@@ -34,14 +37,3 @@ export class PublicUser {
         }, {});
     }
 }
-
-/* return {
-            ...userData,
-            avatar: userData.avatarPath,
-            banner: userData.bannerPath,
-            blooks: userData.blooks.flatMap((blook) => blook.blookId).reduce((acc, curr) => {
-                const key = String(curr);
-
-                return acc[key] ? ++acc[key] : acc[key] = 1, acc;
-            }, {})
-        }; */

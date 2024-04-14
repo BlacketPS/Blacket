@@ -8,10 +8,10 @@ export default class Message extends Model<Message> {
 
     @ForeignKey(() => User)
     @Column({ type: DataType.STRING, allowNull: false })
-    userId: string;
+    authorId: string;
 
-    @BelongsTo(() => User, "userId")
-    user: User;
+    @BelongsTo(() => User, "authorId")
+    author: User;
 
     @ForeignKey(() => Room)
     @Column({ type: DataType.INTEGER, allowNull: false })
@@ -28,10 +28,10 @@ export default class Message extends Model<Message> {
 
     @ForeignKey(() => Message)
     @Column({ type: DataType.INTEGER, allowNull: true })
-    replyingTo: number;
+    replyingToId: number;
 
     @BelongsTo(() => Message)
-    replyingToData: Message;
+    replyingTo: Message;
 
     @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
     edited: boolean;

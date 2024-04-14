@@ -10,10 +10,9 @@ export function useSocket() {
 export function SocketStoreProvider({ children }) {
     const [socket, setSocket] = useState(null);
     const [connected, setConnected] = useState(false);
-    const [listeners, setListeners] = useState({});
     const [tooManyConnections, setTooManyConnections] = useState(false);
 
-    const initializeSocket = (token) => {
+    const initializeSocket = () => {
         setSocket(null);
         setConnected(false);
 
@@ -64,27 +63,40 @@ export function SocketStoreProvider({ children }) {
 
         socket.emit = (event, data) => socket.send(JSON.stringify({ event, data })); */
 
+        socket.on("connect", () => {
+            setConnected(true);
+
+            console.info("[Blacket] Connected to WebSocket server.");
+        });
+
+        socket.on("disconnect", () => {
+            setConnected(false);
+
+            console.info("[Blacket] Disconnected from WebSocket server.");
+            console.info("[Blacket] Reconnecting to WebSocket server...");
+
+            initializeSocket();
+        });
+
+        socket.on("too-many-connections", () => {
+            console.warn("[Blacket] Too many connections, closing WebSocket connection...");
+
+            setTooManyConnections(true);
+
+            socket.close();
+        });
+
+        socket.onAny((event, data) => {
+            if (import.meta.env.MODE === "development") console.log({ event, data });
+        });
+
         if (import.meta.env.MODE === "development") window.socket = socket;
 
         setSocket(socket);
     }
 
-    const socketOn = (event, callback) => setListeners(prevListeners => {
-        prevListeners[event] = callback;
-        return prevListeners;
-    });
-
-    const socketOff = (event) => setListeners(prevListeners => {
-        delete prevListeners[event];
-        return prevListeners;
-    });
-
-    const socketOffAll = () => setListeners({});
-
-    const socketEmit = (event, data) => socket.send(JSON.stringify({ event, data }));
-
     useEffect(() => {
-        initializeSocket(null);
+        initializeSocket();
 
         return () => {
             socket?.close();
@@ -93,8 +105,7 @@ export function SocketStoreProvider({ children }) {
         }
     }, []);
 
-
-    return <SocketStoreContext.Provider value={{ socket, connected, initializeSocket, socketOn, socketOff, socketOffAll, socketEmit }}>
+    return <SocketStoreContext.Provider value={{ socket, connected, initializeSocket }}>
         {!tooManyConnections ? children : <div style={{
             position: "absolute",
             width: "100%",
