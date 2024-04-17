@@ -1,16 +1,17 @@
 module.exports = {
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        project: "tsconfig.json",
-        tsconfigRootDir: __dirname,
-        sourceType: "module"
-    },
-    plugins: ["@typescript-eslint/eslint-plugin", "@stylistic"],
-    extends: ["plugin:@typescript-eslint/recommended"],
     root: true,
-    env: { node: true },
-    ignorePatterns: [".eslintrc.js"],
+    env: { browser: true, es2020: true },
+    extends: [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+    ],
+    ignorePatterns: ["dist", ".eslintrc.cjs"],
+    parser: "@typescript-eslint/parser",
+    plugins: ["@typescript-eslint/eslint-plugin", "@stylistic", "react-refresh"],
     rules: {
+        "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+
         // TypeScript Rules
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/explicit-function-return-type": "off",

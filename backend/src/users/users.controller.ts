@@ -1,7 +1,7 @@
 import { ClassSerializerInterceptor, Controller, Get, Param, NotFoundException, UseInterceptors } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { GetCurrentUser } from "src/core/decorator/getUser.decorator";
-import { PublicUser } from "./entity/publicUser.entity";
+import { PublicUser } from "blacket-types";
 import { User } from "src/models";
 
 import { NotFound } from "src/types/enums";
