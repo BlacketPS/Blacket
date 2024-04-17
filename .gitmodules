@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/BlacketPS/backend.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/BlacketPS/frontend.git
