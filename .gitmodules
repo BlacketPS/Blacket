@@ -7,3 +7,12 @@
 [submodule "types"]
 	path = types
 	url = https://github.com/BlacketPS/types.git
+[submodule "common"]
+	path = common
+	url = https://github.com/BlacketPS/common
+[submodule "core"]
+	path = core
+	url = https://github.com/BlacketPS/core
+[submodule "discord-bot"]
+	path = discord-bot
+	url = https://github.com/blacketps/discord-bot
