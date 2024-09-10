@@ -1,15 +1,24 @@
 [submodule "backend"]
 	path = backend
 	url = https://github.com/BlacketPS/backend.git
+    fetchRecurseSubmodules = true
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/BlacketPS/frontend.git
+    fetchRecurseSubmodules = true
 [submodule "types"]
 	path = types
 	url = https://github.com/BlacketPS/types.git
+    fetchRecurseSubmodules = true
 [submodule "common"]
 	path = common
 	url = https://github.com/BlacketPS/common
+    fetchRecurseSubmodules = true
 [submodule "core"]
 	path = core
 	url = https://github.com/BlacketPS/core
+    fetchRecurseSubmodules = true
+[submodule "discord-bot"]
+	path = discord-bot
+	url = https://github.com/BlacketPS/discord-bot
+    fetchRecurseSubmodules = false
