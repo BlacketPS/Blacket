@@ -13,6 +13,3 @@
 [submodule "core"]
 	path = core
 	url = https://github.com/BlacketPS/core
-[submodule "discord-bot"]
-	path = discord-bot
-	url = https://github.com/blacketps/discord-bot
