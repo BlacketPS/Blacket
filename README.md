@@ -1,100 +1,72 @@
 <div id="top"></div>
-<br />
-<div align="center">
-  <a href="https://blacket.org">
-    <img src="./assets/logo.png" alt="Logo" width="160" height="160">
-  </a>
-  <h3 align="center">Blacket</h3>
+<!-- Cover -->
+<h1 align="center">
+	<br>
+	<a href="https://blacket.org">
+		<img src="./assets/logo.png" alt="Logo" width="160" height="160">
+	</a>
+	<br>
+	Blacket
+	<br>
+</h1>
 
-  <p align="center">
-    The first ever open-source Blooket private server created by Xotic written entirely in JavaScript.
-    <br />
-    <a href="https://github.com/XoticLLC/Blacket/wiki"><strong>Get Help</strong></a>
-    <br />
-    <a href="https://github.com/XoticLLC/Blacket/issues">Report Bug</a>
-    <a href="https://github.com/XoticLLC/Blacket/issues">Request Feature</a>
-  </p>
-</div>
+<h4 align="center">A Blooket inspired game with countless additonal features for your enjoyment and all <a href="#license">Open Source</a>.</h4>
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+<!-- Badges -->
+<p align="center">
+	<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff">
+	<img alt="Bun" src="https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff">
+	<img alt="React" src="https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB">
+	<img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff">
+	<img alt="Nest.js" src="https://img.shields.io/badge/Nest.js-%23E0234E.svg?logo=nestjs&logoColor=white">
+	<img alt="Postgres" src="https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white">
+	<img alt="Redis" src="https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white">
+</p>
+<p align="center">
+	<img alt="Discord" src="https://img.shields.io/discord/1015037282551615518?link=https%3A%2F%2Fdiscord.gg%2F5setU8ye6j&label=discord">
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/blacketps/blacket">
+	<img alt="GitHub License" src="https://img.shields.io/github/license/blacketps/blacket">
+</p>
 
-## About The Project
-<img src="./assets/blacket.png"></img>
-I absolutely love Blooket and almost everything about it, but always felt something was missing from it. Some very experienced developers have created Blooket cheats / hacks for the game, but not many have made something for Blooket as a whole. I have always wanted to create my own custom packs, blooks, games, and more. This is why I created Blacket, the first ever open-source Blooket private server.
+<!-- Navigation -->
+<p align="center">
+	<a href="#features">Features</a> •
+    <a href="#selfhost">Selfhosting</a> •
+    <a href="#credits">Credits</a> •
+	<a href="#license">License</a>
+</p>
+
+## Features
+
+![Blacket](./assets/preview.png)
+
+Blacket is a Blooket inspired game with many many additional features when compared to Blooket, we're also always looking for new exciting features to add to the game so feel free to suggest them over at our Discord! Here are some of the features we have so far:
+
+<!-- TODO: redo this and make it not just a bullet point list, add some info on each feature and images -->
+- Pack unlocking
+- Custom packs
+- Chat
+- Friending
+- Trading
+- Leaderboards
+- Quests
+- Bazaar
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Getting Started
+## Selfhost
 
-Having any debian server should be good for Blacket. If you don't know where to start, I would recommend <a href="https://linode.com">Linode</a> for beginners.
+⚠️ UNDER CONSTRUCTION ⚠️
 
-### Prerequisites
+Selfhosting instructions will be available once Blacket v3 is in a release ready state. Feel free to try setting it up yourself in the meantime but we provide no support or help with this.
 
-The following packages need to be installed before starting:
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-* NodeJS
+## Credits
 
-  ```sh
-  cd ~
-  curl -sL https://deb.nodesource.com/setup_20.x -o /tmp/nodesource_setup.sh
-  sudo bash /tmp/nodesource_setup.sh
-  sudo apt install nodejs
-  ```
-
-* MySQL
-
-  ```sh
-  sudo apt update
-  sudo apt-get install mysql-server
-  ```
-  _Follow the instructions for all of the packages that will show on screen._
-
-### Installation
-
-1. Clone the repository into your home folder:
-   ```sh
-   cd /tmp
-   git clone https://github.com/XoticLLC/Blacket.git
-   mv -v /tmp/Blacket-master ~/blacket
-   ```
-
-2. Move to the frontend directory and install dependencies:
-   ```sh
-   cd ~/blacket/frontend
-   npm i
-   ```
-
-3. Build the react app:
-   ```sh
-   npm run build
-   ```
-
-4. Move to the backend directory and install dependencies:
-   ```sh
-   cd ../backend
-   npm i
-   ```
-
-5. Start an instance of Blacket:
-   ```sh
-   node .
-   ```
-
-6. Open <a href=http://localhost:3000>localhost:3000</a> in your browser to finish setting up your Blacket instance.
+These amazing people have contributed greatly to Blacket over it's development:
+- [Xotic](https://github.com/XOTlC) - Lead Developer and founder of Blacket
+- [Syfe](https://github.com/ItsSyfe) - Developer and contributor for Blacket (also wrote this README)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -103,3 +75,8 @@ The following packages need to be installed before starting:
 Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+---
+
+The above README is a work in progress and will be updated with previews as well as other information as we get closer to a release ready state for Blacket v3, feel free to make a PR to imrpove this README with some writeups etc.
