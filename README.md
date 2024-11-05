@@ -42,7 +42,7 @@
 
 Blacket is a Blooket inspired game with many many additional features when compared to Blooket, we're also always looking for new exciting features to add to the game so feel free to suggest them over at our Discord! Here are some of the features we have so far:
 
-<!-- TODO: redo this and make it not just a bullet point list, add some info on each feature and images -->
+<!-- TODO: redo this and make it not just a :nerd: :nerd: bullet point list, add some info on each feature and images -->
 - Pack unlocking
 - Custom packs
 - Chat
@@ -67,7 +67,7 @@ Selfhosting instructions will be available once Blacket v3 is in a release ready
 These amazing people have contributed greatly to Blacket over it's development:
 - [Xotic](https://github.com/XOTlC) - Lead Developer and founder of Blacket
 - [Syfe](https://github.com/ItsSyfe) - Developer and contributor for Blacket (also wrote this README)
-- [zastix](https://github.com/zastlx) - Developer and contriubtor for Blacket (idiot)
+- [zastix](https://github.com/zastlx) - Developer and contriubtor for Blacket
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -80,4 +80,4 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ---
 
-The above README is a work in progress and will be updated with previews as well as other information as we get closer to a release ready state for Blacket v3, feel free to make a PR to imrpove this README with some writeups etc.
+The above README is a work in progress and will be updated with previews as well as other information as we get closer to a release ready state for Blacket v3, feel free to make a PR to improve this README with some writeups etc.
