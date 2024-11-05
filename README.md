@@ -66,8 +66,8 @@ Selfhosting instructions will be available once Blacket v3 is in a release ready
 
 These amazing people have contributed greatly to Blacket over it's development:
 - [Xotic](https://github.com/XOTlC) - Lead Developer and founder of Blacket
-- [zastix](https://github.com/zastlx) - Developer and contriubtor for Blacket
 - [Syfe](https://github.com/ItsSyfe) - Developer and contributor for Blacket (also wrote this README)
+- [zastix](https://github.com/zastlx) - Developer and contriubtor for Blacket (idiot)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
