@@ -28,6 +28,5 @@ config.json
 backend/public
 backend/dist
 backend/node_modules
-backups
 
 launch.sh
