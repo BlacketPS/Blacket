@@ -12,17 +12,16 @@
     fetchRecurseSubmodules = true
 [submodule "common"]
 	path = common
-	url = https://github.com/BlacketPS/common
+	url = https://github.com/BlacketPS/common.git
     fetchRecurseSubmodules = true
 [submodule "core"]
 	path = core
-	url = https://github.com/BlacketPS/core
-    fetchRecurseSubmodules = true
-[submodule "mail-templates"]
-    path = mail-templates
-    url = https://github.com/BlacketPS/mail-templates
+	url = https://github.com/BlacketPS/core.git
     fetchRecurseSubmodules = true
 [submodule "discord-bot"]
 	path = discord-bot
 	url = https://github.com/BlacketPS/discord-bot
     fetchRecurseSubmodules = false
+[submodule "mail-templates"]
+	path = mail-templates
+	url = https://github.com/BlacketPS/mail-templates.git
