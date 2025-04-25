@@ -13,6 +13,7 @@ dist-ssr
 *.local
 pnpm-lock.yaml
 bun.lockb
+bun.lock
 config.json
 .env
 
