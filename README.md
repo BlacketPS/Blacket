@@ -1,7 +1,6 @@
 <div id="top"></div>
 <!-- Cover -->
 <h1 align="center">
-	<br>
 	<a href="https://blacket.org">
 		<img src="./assets/logo.png" alt="Logo" width="160" height="160">
 	</a>
@@ -43,14 +42,16 @@
 Blacket is a Blooket inspired game with many many additional features when compared to Blooket, we're also always looking for new exciting features to add to the game so feel free to suggest them over at our Discord! Here are some of the features we have so far:
 
 <!-- TODO: redo this and make it not just a bullet point list, add some info on each feature and images -->
-- Pack unlocking
-- Custom packs
-- Chat
-- Friending
+- Custom Packs
+- Custom Blooks
 - Trading
+<!-- - Quests -->
+- Multiplayer
 - Leaderboards
-- Quests
-- Bazaar
+- Chat
+- Friends
+- Auction House
+- Stripe Integration
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -58,7 +59,7 @@ Blacket is a Blooket inspired game with many many additional features when compa
 
 ⚠️ UNDER CONSTRUCTION ⚠️
 
-Selfhosting instructions will be available once Blacket v3 is in a release ready state. Feel free to try setting it up yourself in the meantime but we provide no support or help with this.
+Selfhosting instructions will be available once Blacket V3 is in a release ready state. Feel free to try setting it up yourself in the meantime but we provide no support or help with this.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -67,7 +68,6 @@ Selfhosting instructions will be available once Blacket v3 is in a release ready
 These amazing people have contributed greatly to Blacket over it's development:
 - [Xotic](https://github.com/XOTlC) - Lead Developer and founder of Blacket
 - [Syfe](https://github.com/ItsSyfe) - Developer and contributor for Blacket (also wrote this README)
-- [zastix](https://github.com/zastlx) - Developer and contributor for Blacket
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -79,4 +79,4 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ---
 
-The above README is a work in progress and will be updated with previews as well as other information as we get closer to a release ready state for Blacket v3, feel free to make a PR to improve this README with some writeups etc.
+The above README is a work in progress and will be updated with previews as well as other information as we get closer to a release ready state for Blacket V3. Feel free to make a PR to improve this README with some writeups, etc.
