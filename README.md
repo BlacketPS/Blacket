@@ -44,8 +44,7 @@ Blacket is a Blooket inspired game with many many additional features when compa
 <!-- TODO: redo this and make it not just a bullet point list, add some info on each feature and images -->
 - Custom Packs
 - Custom Blooks
-- Trading
-<!-- - Quests -->
+- Trading<!-- - Quests -->
 - Multiplayer
 - Leaderboards
 - Chat
