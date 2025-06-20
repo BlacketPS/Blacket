@@ -26,8 +26,5 @@ config.json
 *.sln
 *.sw?
 
-backend/public
 backend/dist
 backend/node_modules
-
-launch.sh
