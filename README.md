@@ -9,7 +9,7 @@
 	<br>
 </h1>
 
-<h4 align="center">A Blooket inspired game with countless additonal features for your enjoyment and all <a href="#license">Open Source</a>.</h4>
+<h4 align="center">A Blooket inspired game with countless additional features for your enjoyment.</h4>
 
 <!-- Badges -->
 <p align="center">
