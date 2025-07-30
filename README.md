@@ -1,6 +1,5 @@
-<div id="top"></div>
 <!-- Cover -->
-<h1 align="center">
+<h1 id="top" align="center">
 	<a href="https://blacket.org">
 		<img src="./assets/logo.png" alt="Logo" width="160" height="160">
 	</a>
