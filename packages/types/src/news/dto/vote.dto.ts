@@ -2,7 +2,7 @@ import { IsNotEmpty, IsBoolean } from "class-validator";
 
 export class NewsVoteDto {
     @IsNotEmpty()
-	@IsBoolean()
+    @IsBoolean()
     readonly value: boolean;
 }
 
