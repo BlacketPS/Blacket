@@ -6,22 +6,7 @@
 	path = frontend
 	url = https://github.com/BlacketPS/frontend.git
     fetchRecurseSubmodules = true
-[submodule "types"]
-	path = types
-	url = https://github.com/BlacketPS/types.git
-    fetchRecurseSubmodules = true
-[submodule "common"]
-	path = common
-	url = https://github.com/BlacketPS/common.git
-    fetchRecurseSubmodules = true
-[submodule "core"]
-	path = core
-	url = https://github.com/BlacketPS/core.git
-    fetchRecurseSubmodules = true
 [submodule "discord-bot"]
 	path = discord-bot
 	url = https://github.com/BlacketPS/discord-bot
     fetchRecurseSubmodules = false
-[submodule "mail-templates"]
-	path = mail-templates
-	url = https://github.com/BlacketPS/mail-templates.git
