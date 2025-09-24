@@ -8,9 +8,12 @@ export class SettingsDisableOtpDto {
     readonly otpCode: string;
 
     constructor(partial: Partial<SettingsDisableOtpDto>) {
+        // Assign all properties except otpCode
         Object.assign(this, partial);
-
-        if (this.otpCode) this.otpCode = this.otpCode.replace(/\s/g, "");
+        // Sanitize and assign otpCode only once
+        if (partial.otpCode !== undefined && partial.otpCode !== null) {
+            (this as { otpCode: string }).otpCode = partial.otpCode.replace(/\s/g, "");
+        }
     }
 }
 
