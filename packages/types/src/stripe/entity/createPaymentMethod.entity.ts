@@ -12,7 +12,7 @@ export class StripeCreatePaymentMethodEntity {
     constructor(partial: Partial<StripeCreatePaymentMethodEntity>) {
         Object.assign(this, partial);
 
-        if (partial.userId) this.userId = undefined;
-        if (partial.paymentMethodId) this.paymentMethodId = undefined;
+        if (partial.userId) this.userId = partial.userId;
+        if (partial.paymentMethodId) this.paymentMethodId = partial.paymentMethodId;
     }
 }
