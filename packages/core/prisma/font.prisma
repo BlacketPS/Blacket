@@ -1,0 +1,16 @@
+model Font {
+    id                 Int                 @id @default(autoincrement())
+    name               String              @unique
+    resourceId         Int
+    default            Boolean             @default(false)
+    priority           Int                 @default(0)
+    createdAt          DateTime            @default(now())
+    updatedAt          DateTime            @updatedAt
+    resource           Resource            @relation(fields: [resourceId], references: [id], onDelete: NoAction)
+    itemShop           ItemShop[]
+    products           Product[]
+    users              UserFont[]
+    usersUsing         User[]
+    spinnyWheelRewards SpinnyWheelReward[]
+    titles             Title[]
+}

@@ -1,0 +1,11 @@
+model IpAddress {
+    id                Int                @id @default(autoincrement())
+    ipAddress         String             @unique
+    createdAt         DateTime           @default(now())
+    updatedAt         DateTime           @updatedAt
+    users             User[]
+    userIpAddresses   UserIpAddress[]
+    userSubscriptions UserSubscription[]
+    blacklists        Blacklist[]
+    transactions      Transaction[]
+}

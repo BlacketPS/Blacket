@@ -1,0 +1,24 @@
+{
+    "name": "@blacket/common",
+    "version": "0.0.1",
+    "description": "",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "/dist"
+    ],
+    "scripts": {
+        "build": "tsc && copyfiles -u 1 src/assets/**/* dist",
+        "build:declaration": "tsc --declaration --emitDeclarationOnly"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/node": "^22.10.6",
+        "@types/sharp": "^0.32.0",
+        "copyfiles": "^2.4.1",
+        "sharp": "^0.33.5",
+        "typescript": "^5.5.4"
+    }
+}

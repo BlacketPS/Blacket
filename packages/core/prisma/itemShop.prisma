@@ -1,0 +1,28 @@
+enum ItemShopItemType {
+    ITEM
+    BLOOK
+    TITLE
+    BANNER
+    FONT
+}
+
+model ItemShop {
+    id        Int              @id @default(autoincrement())
+    type      ItemShopItemType
+    itemId    Int?
+    blookId   Int?
+    titleId   Int?
+    bannerId  Int?
+    fontId    Int?
+    price     Int              @default(0)
+    enabled   Boolean          @default(true)
+    weekly    Boolean          @default(false)
+    priority  Int              @default(0)
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+    blook     Blook?           @relation(fields: [blookId], references: [id])
+    item      Item?            @relation(fields: [itemId], references: [id])
+    title     Title?           @relation(fields: [titleId], references: [id])
+    banner    Banner?          @relation(fields: [bannerId], references: [id])
+    font      Font?            @relation(fields: [fontId], references: [id])
+}

@@ -1,0 +1,83 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  # Backend Service (NestJS)
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/blacketdb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      # Mount the backend source code for hot-reloading
+      - ./backend:/app
+
+      - ./packages/core:/app/node_modules/core
+      - ./packages/types:/app/node_modules/types
+      - ./packages/common:/app/node_modules/common
+
+      - /app/node_modules
+    depends_on:
+      - db
+      - redis
+    networks:
+      - blacket_net
+
+  # Frontend Service (React)
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - ./packages/types:/app/node_modules/types
+      - /app/node_modules
+    networks:
+      - blacket_net
+
+  # Discord Bot Service
+  discord-bot:
+    build:
+      context: ./discord-bot
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+    volumes:
+      - ./discord-bot:/app
+      - ./packages/core:/app/node_modules/core
+      - ./packages/types:/app/node_modules/types
+      - ./packages/common:/app/node_modules/common
+      - /app/node_modules
+    networks:
+      - blacket_net
+
+  # Database Service
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=blacketdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - blacket_net
+
+  # Redis Service
+  redis:
+    image: redis:7
+    networks:
+      - blacket_net
+
+networks:
+  blacket_net:
+
+volumes:
+  postgres_data:

@@ -1,0 +1,30 @@
+enum TransactionStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+    DISPUTED
+}
+
+enum CurrencyType {
+    USD
+    CRYSTAL
+}
+
+model Transaction {
+    id              String            @id @default(uuid())
+    userId          String
+    amount          Float
+    quantity        Int
+    currency        CurrencyType      @default(USD)
+    stripePaymentId String?           @unique
+    productId       Int
+    paymentMethodId Int
+    ipAddressId     Int
+    status          TransactionStatus @default(PENDING)
+    createdAt       DateTime          @default(now())
+    user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    product         Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
+    paymentMethod   UserPaymentMethod @relation(fields: [paymentMethodId], references: [id], onDelete: Cascade)
+    ipAddress       IpAddress         @relation(fields: [ipAddressId], references: [id], onDelete: Cascade)
+}

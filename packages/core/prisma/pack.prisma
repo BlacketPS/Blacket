@@ -1,0 +1,19 @@
+model Pack {
+    id           Int       @id @default(autoincrement())
+    name         String    @unique
+    price        Int       @default(0)
+    enabled      Boolean   @default(true)
+    hidden       Boolean   @default(false)
+    imageId      Int
+    iconId       Int
+    backgroundId Int
+    ambienceId   Int?
+    priority     Int       @default(0)
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+    blook        Blook[]
+    image        Resource  @relation("image", fields: [imageId], references: [id], onDelete: NoAction)
+    icon         Resource  @relation("icon", fields: [iconId], references: [id], onDelete: NoAction)
+    background   Resource  @relation("background", fields: [backgroundId], references: [id], onDelete: NoAction)
+    ambience     Resource? @relation("ambience", fields: [ambienceId], references: [id], onDelete: NoAction)
+}

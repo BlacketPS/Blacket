@@ -1,0 +1,70 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["prismaSchemaFolder"]
+}
+
+generator typescriptInterfaces {
+    provider = "prisma-generator-typescript-interfaces"
+    output   = "../../types/src/interfaces.ts"
+    enumType = "both"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("SERVER_DATABASE_URL")
+}
+
+enum PermissionType {
+    // DEFAULT PERMISSIONS
+    CREATE_REPORTS
+    CHANGE_USERNAME
+
+    // VIP PERMISSIONS
+    // TIER 1 - VIP
+    CHANGE_NAME_COLOR_TIER_1
+    EARLY_ACCESS_TIER_1
+    USE_CHAT_COLORS
+    UPLOAD_FILES_SMALL
+    MORE_AUCTIONS_TIER_1
+    MORE_CHAT_BADGE_TIER_1
+    CREATE_GUILDS
+    LESS_AUCTION_TAX
+
+    // TIER 2 - MVP
+    CUSTOM_TRADING_TABLE_COLOR
+    CUSTOM_AVATAR
+    CUSTOM_BANNER
+    EARLY_ACCESS_TIER_2
+    UPLOAD_FILES_LARGE
+    CHANGE_NAME_COLOR_TIER_2
+    MORE_AUCTIONS_TIER_2
+    MORE_CHAT_BADGE_TIER_2
+
+    // TRIAL MODERATOR PERMISSIONS
+    MUTE_USERS
+    BAN_USERS
+    MANAGE_MESSAGES
+    VIEW_AUDIT
+
+    // MODERATOR PERMISSIONS
+    BLACKLIST_USERS
+    MANAGE_REPORTS
+    REVERT_AUDIT
+
+    // ADMIN PERMISSIONS
+    MANAGE_USER_BLOOKS
+    MANAGE_USER_ITEMS
+    MANAGE_USER_TITLES
+    MANAGE_USER_BANNERS
+    MANAGE_USER_FONTS
+    MANAGE_NEWS_POSTS
+
+    // CO-OWNER PERMISSIONS
+    MANAGE_USER_GROUPS
+    MANAGE_CHAT_ROOMS
+    MANAGE_DATA
+    DELETE_USERS
+
+    // OWNER PERMISSIONS
+    MANAGE_GROUPS
+}

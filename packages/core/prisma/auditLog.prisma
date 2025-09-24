@@ -1,0 +1,26 @@
+enum AuditLogAction {
+    CREATE
+    UPDATE
+    DELETE
+}
+
+model AuditLog {
+    id     Int            @id @default(autoincrement())
+    action AuditLogAction
+    model  String
+
+    relatedTo AuditLog[] @relation("auditLogGroup")
+    relatedBy AuditLog[] @relation("auditLogGroup")
+
+    recordId    Int
+    delta       Json? // delta (patch) describing the changes made in the record
+    deltaFields String[]
+
+    isUndone   Boolean @default(false)
+    undoneById String?
+    undoneBy   User?   @relation("auditLogUndoneBy", fields: [undoneById], references: [id])
+
+    actorId   String?
+    actor     User?    @relation("auditLogActor", fields: [actorId], references: [id])
+    createdAt DateTime @default(now())
+}

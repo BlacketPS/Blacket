@@ -1,0 +1,46 @@
+enum ProductType {
+    ITEM
+    BLOOK
+    TITLE
+    FONT
+    BANNER
+    OTHER
+}
+
+model Product {
+    id                Int                @id @default(autoincrement())
+    stripeProductId   String?            @unique
+    stripePriceId     String?            @unique
+    name              String
+    description       String?
+    price             Float
+    subscriptionPrice Float?
+    imageId           Int
+    color1            String             @default("#1f1f1f")
+    color2            String             @default("#0f0f0f")
+    type              ProductType
+    itemId            Int?
+    blookId           Int?
+    titleId           Int?
+    fontId            Int?
+    bannerId          Int?
+    groupId           Int?
+    tokens            Int?               @default(0)
+    diamonds          Int?               @default(0)
+    crystals          Int?               @default(0)
+    isSubscription    Boolean?           @default(false)
+    isQuantityCapped  Boolean?           @default(false)
+    priority          Int                @default(0)
+    createdAt         DateTime           @default(now())
+    updatedAt         DateTime           @updatedAt
+    image             Resource           @relation(fields: [imageId], references: [id], onDelete: NoAction)
+    blook             Blook?             @relation(fields: [blookId], references: [id])
+    item              Item?              @relation(fields: [itemId], references: [id])
+    title             Title?             @relation(fields: [titleId], references: [id])
+    font              Font?              @relation(fields: [fontId], references: [id])
+    banner            Banner?            @relation(fields: [bannerId], references: [id])
+    group             Group?             @relation(fields: [groupId], references: [id])
+    subscribers       UserSubscription[]
+    stores            Store[]
+    transactions      Transaction[]
+}

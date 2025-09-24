@@ -1,0 +1,31 @@
+enum ItemType {
+    NONE
+    BOOSTER
+    TROPHY
+    PAINT_BUCKET
+    DAILY_SPINNY_WHEEL_TICKET
+}
+
+model Item {
+    id                 Int                 @id @default(autoincrement())
+    name               String              @unique
+    description        String?
+    rarityId           Int
+    imageId            Int
+    type               ItemType            @default(NONE)
+    canUse             Boolean             @default(false)
+    canAuction         Boolean             @default(false)
+    canTrade           Boolean             @default(false)
+    maxUses            Int                 @default(1)
+    boosterDuration    Int?                @default(0)
+    priority           Int                 @default(0)
+    createdAt          DateTime            @default(now())
+    updatedAt          DateTime            @updatedAt
+    resource           Resource            @relation(fields: [imageId], references: [id], onDelete: NoAction)
+    rarity             Rarity              @relation(fields: [rarityId], references: [id], onDelete: NoAction)
+    itemShops          ItemShop[]
+    products           Product[]
+    users              UserItem[]
+    spinnyWheels       SpinnyWheel[]
+    spinnyWheelRewards SpinnyWheelReward[]
+}

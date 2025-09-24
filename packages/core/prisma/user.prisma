@@ -1,0 +1,350 @@
+enum BlookObtainMethod {
+    UNKNOWN
+    PACK_OPEN
+    PURCHASE
+    STAFF
+}
+
+enum ItemObtainMethod {
+    UNKNOWN
+    DAILY
+    ITEM_SHOP
+    PURCHASE
+    STAFF
+}
+
+enum GuildRole {
+    MEMBER
+    MODERATOR
+    ADMINISTRATOR
+    OWNER
+}
+
+enum OAuthType {
+    DISCORD
+}
+
+enum PunishmentType {
+    WARN
+    MUTE
+    BAN
+    BLACKLIST
+}
+
+enum SettingFriendRequest {
+    ON
+    OFF
+    MUTUAL
+}
+
+enum UserSubscriptionStatus {
+    ACTIVE
+    INACTIVE
+    CANCELED
+}
+
+model User {
+    id                      String              @id
+    username                String              @unique
+    password                String
+    email                   String?             @unique
+    emailVerified           Boolean             @default(false)
+    avatarId                Int?
+    customAvatarId          Int?
+    bannerId                Int?
+    customBannerId          Int?
+    titleId                 Int
+    fontId                  Int
+    color                   String              @default("#ffffff")
+    tokens                  Int                 @default(0)
+    diamonds                Int                 @default(0)
+    crystals                Int                 @default(0)
+    experience              Int                 @default(0)
+    lastClaimed             DateTime            @default(dbgenerated("timestamp '1970-01-01 00:00:00'")) // epoch 0
+    ipAddressId             Int
+    createdAt               DateTime            @default(now())
+    updatedAt               DateTime            @updatedAt
+    deletedAt               DateTime?
+    lastSeen                DateTime            @default(dbgenerated("timestamp '1970-01-01 00:00:00'")) // epoch 0
+    readRulesAt             DateTime?
+    stripeCustomerId        String?
+    isSystem                Boolean             @default(false)
+    isAi                    Boolean             @default(false)
+    subscriptions           UserSubscription[]
+    permissions             PermissionType[]    @default([])
+    bids                    AuctionBid[]
+    messages                Message[]
+    rooms                   Room[]
+    sessions                Session[]
+    friendedBy              User[]              @relation("friendship")
+    friends                 User[]              @relation("friendship")
+    blockedBy               User[]              @relation("blockedUsers")
+    blocked                 User[]              @relation("blockedUsers")
+    avatar                  UserBlook?          @relation(fields: [avatarId], references: [id], onDelete: NoAction)
+    banner                  Resource?           @relation("banner", fields: [bannerId], references: [id], onDelete: Cascade)
+    customAvatar            Upload?             @relation("customAvatar", fields: [customAvatarId], references: [id])
+    customBanner            Upload?             @relation("customBanner", fields: [customBannerId], references: [id])
+    font                    Font                @relation(fields: [fontId], references: [id], onDelete: NoAction)
+    title                   Title               @relation(fields: [titleId], references: [id], onDelete: NoAction)
+    banners                 UserBanner[]
+    initiallyObtainedBlooks UserBlook[]         @relation("initialObtainer")
+    blooks                  UserBlook[]         @relation("blooks")
+    discord                 UserDiscord?
+    groups                  UserGroup[]
+    guild                   UserGuild[]
+    guildRequests           UserGuildRequest[]
+    ipAddress               IpAddress           @relation(fields: [ipAddressId], references: [id], onDelete: Cascade)
+    ipAddresses             UserIpAddress[]
+    initiallyObtainedItems  UserItem[]          @relation("initiallyObtainedItems")
+    items                   UserItem[]          @relation("items")
+    OAuth                   UserOAuth[]
+    authMethods             UserWebAuthn[]
+    paymentMethods          UserPaymentMethod[]
+    givenPunishments        Punishment[]        @relation("givenPunishments")
+    punishments             Punishment[]        @relation("punishments")
+    settings                UserSetting?
+    statistics              UserStatistic?
+    titles                  UserTitle[]
+    fonts                   UserFont[]
+    auctions                Auction[]           @relation("auctions")
+    wonAuctions             Auction[]           @relation("wonAuctions")
+    boosts                  Boost[]
+    uploads                 Upload[]
+    newsPosts               NewsPost[]
+    votedNewsPosts          UserNewsPostVote[]
+    transactions            Transaction[]
+    auditLogs               AuditLog[]          @relation("auditLogActor")
+    undoneLogs              AuditLog[]          @relation("auditLogUndoneBy")
+}
+
+model UserBanner {
+    id        Int      @id @default(autoincrement())
+    userId    String
+    bannerId  Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    banner    Banner   @relation(fields: [bannerId], references: [id], onDelete: NoAction)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, bannerId])
+}
+
+model UserBlook {
+    id                Int               @id @default(autoincrement())
+    userId            String
+    blookId           Int
+    sold              Boolean           @default(false)
+    shiny             Boolean           @default(false)
+    initialObtainerId String
+    obtainedBy        BlookObtainMethod @default(PACK_OPEN)
+    serial            Int?
+    canSell           Boolean           @default(true)
+    canTrade          Boolean           @default(true)
+    canAuction        Boolean           @default(true)
+    createdAt         DateTime          @default(now())
+    updatedAt         DateTime          @updatedAt
+    blook             Blook             @relation(fields: [blookId], references: [id], onDelete: Cascade)
+    initialObtainer   User              @relation("initialObtainer", fields: [initialObtainerId], references: [id], onDelete: Cascade)
+    user              User              @relation("blooks", fields: [userId], references: [id], onDelete: Cascade)
+    auctions          Auction[]
+    avatars           User[]
+
+    @@unique([blookId, shiny, serial])
+    @@index([userId, blookId])
+}
+
+model UserDiscord {
+    discordId String   @id @unique
+    username  String
+    avatar    String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    userId    String   @unique
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserGroup {
+    id        Int      @id @default(autoincrement())
+    groupId   Int
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([groupId, userId])
+}
+
+model UserGuild {
+    id        Int       @id @default(autoincrement())
+    guildId   Int
+    userId    String
+    userRole  GuildRole @default(MEMBER)
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    guild     Guild     @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([guildId, userId])
+}
+
+model UserGuildRequest {
+    id        Int      @id @default(autoincrement())
+    guildId   Int
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([guildId, userId])
+}
+
+model UserIpAddress {
+    id          Int      @id @default(autoincrement())
+    userId      String
+    ipAddressId Int
+    uses        Int      @default(0)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    ipAddress IpAddress @relation(fields: [ipAddressId], references: [id], onDelete: Cascade)
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, ipAddressId])
+}
+
+model UserItem {
+    id                Int              @id @default(autoincrement())
+    userId            String
+    itemId            Int
+    usesLeft          Int              @default(1)
+    initialObtainerId String
+    obtainedBy        ItemObtainMethod @default(UNKNOWN)
+    createdAt         DateTime         @default(now())
+    updatedAt         DateTime         @updatedAt
+    initialObtainer   User             @relation("initiallyObtainedItems", fields: [initialObtainerId], references: [id], onDelete: NoAction)
+    item              Item             @relation(fields: [itemId], references: [id], onDelete: Cascade)
+    user              User             @relation("items", fields: [userId], references: [id], onDelete: Cascade)
+    auctions          Auction[]
+
+    @@index([userId, itemId])
+}
+
+model UserOAuth {
+    id           Int       @id @default(autoincrement())
+    userId       String
+    type         OAuthType
+    tokenType    String
+    accessToken  String
+    refreshToken String
+    scope        String
+    expiresAt    DateTime
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+    user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserWebAuthn {
+    id           Int      @id @default(autoincrement())
+    userId       String
+    credentialId String   @unique
+    publicKey    String
+    counter      Int
+    nickname     String?
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
+}
+
+model UserPaymentMethod {
+    id              Int           @id @default(autoincrement())
+    userId          String
+    paymentMethodId String
+    lastFour        String
+    cardBrand       String
+    primary         Boolean       @default(false)
+    createdAt       DateTime      @default(now())
+    updatedAt       DateTime      @updatedAt
+    deletedAt       DateTime?
+    user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    transactions    Transaction[]
+}
+
+model UserSetting {
+    id                 String               @id @unique
+    openPacksInstantly Boolean              @default(false)
+    onlyRareSounds     Boolean              @default(false)
+    friendRequests     SettingFriendRequest @default(ON)
+    tutorialsCompleted String[]             @default([])
+    chatColor          String?
+    otpSecret          String?
+
+    user User @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model UserStatistic {
+    id           String @id @unique
+    packsOpened  Int    @default(0)
+    messagesSent Int    @default(0)
+
+    user User @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model UserFont {
+    id        Int      @id @default(autoincrement())
+    userId    String
+    fontId    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    font      Font     @relation(fields: [fontId], references: [id], onDelete: NoAction)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, fontId])
+}
+
+model UserTitle {
+    id        Int      @id @default(autoincrement())
+    userId    String
+    titleId   Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     Title    @relation(fields: [titleId], references: [id], onDelete: NoAction)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, titleId])
+}
+
+model UserSubscription {
+    id                   Int                    @id @default(autoincrement())
+    userId               String
+    stripeSubscriptionId String                 @unique
+    productId            Int
+    status               UserSubscriptionStatus @default(ACTIVE)
+    ipAddressId          Int
+    createdAt            DateTime               @default(now())
+    updatedAt            DateTime               @updatedAt
+    expiresAt            DateTime?
+    user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    product              Product                @relation(fields: [productId], references: [id], onDelete: NoAction)
+    ipAddress            IpAddress              @relation(fields: [ipAddressId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, stripeSubscriptionId])
+}
+
+model UserNewsPostVote {
+    id         Int      @id @default(autoincrement())
+    userId     String
+    newsPostId Int
+    vote       Boolean
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    newsPost NewsPost @relation(fields: [newsPostId], references: [id])
+    user     User     @relation(fields: [userId], references: [id])
+
+    @@unique([userId, newsPostId])
+}

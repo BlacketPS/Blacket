@@ -1,0 +1,23 @@
+export enum NotFound {
+    DEFAULT = "That does not exist.",
+    UNKNOWN_USER = "The username you entered doesn't belong to an account. Please check the username and try again.",
+    UNKNOWN_OTP = "OTP secret has not been generated.",
+    UNKNOWN_PACK = "That pack does not exist.",
+    UNKNOWN_BLOOK = "That blook does not exist.",
+    UNKNOWN_ITEM = "That item does not exist.",
+    UNKNOWN_BANNER = "That banner does not exist.",
+    UNKNOWN_TITLE = "That title does not exist.",
+    UNKNOWN_FONT = "That font does not exist.",
+    UNKNOWN_ROOM = "That room does not exist.",
+    UNKNOWN_MESSAGE = "That message does not exist.",
+    UNKNOWN_AUCTION = "That auction does not exist.",
+    UNKNOWN_SETTING = "Unknown setting.",
+    UNKNOWN_PAYMENT_METHOD = "That payment method does not exist.",
+    UNKNOWN_SETUP_INTENT = "That setup intent does not exist.",
+    UNKNOWN_CUSTOMER = "That customer does not exist.",
+    UNKNOWN_PRODUCT = "That product does not exist.",
+    UNKNOWN_UPLOAD = "That upload does not exist.",
+    UNKNOWN_SUBSCRIPTION = "That subscription does not exist.",
+    UNKNOWN_TRANSACTION = "That transaction does not exist.",
+    UNKNOWN_INVOICE = "That invoice does not exist."
+};

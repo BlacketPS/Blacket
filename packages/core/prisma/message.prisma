@@ -1,0 +1,18 @@
+model Message {
+    id               String    @id @default(cuid())
+    roomId           Int
+    content          String
+    mentions         String[]
+    color            String?
+    authorId         String    @db.VarChar(255)
+    replyingToId     String?
+    discordMessageId String?
+    editedAt         DateTime?
+    createdAt        DateTime  @default(now())
+    updatedAt        DateTime  @updatedAt
+    deletedAt        DateTime?
+    author           User      @relation(fields: [authorId], references: [id], onDelete: NoAction)
+    replyingTo       Message?  @relation("reply", fields: [replyingToId], references: [id])
+    replies          Message[] @relation("reply")
+    room             Room      @relation(fields: [roomId], references: [id], onDelete: NoAction)
+}

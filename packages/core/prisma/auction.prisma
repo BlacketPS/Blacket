@@ -1,0 +1,35 @@
+enum AuctionType {
+    ITEM
+    BLOOK
+}
+
+model Auction {
+    id         Int          @id @default(autoincrement())
+    type       AuctionType
+    price      Int
+    buyItNow   Boolean      @default(false)
+    expiresAt  DateTime
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @updatedAt
+    blookId    Int?
+    blook      UserBlook?   @relation(fields: [blookId], references: [id])
+    itemId     Int?
+    item       UserItem?    @relation(fields: [itemId], references: [id])
+    bids       AuctionBid[]
+    sellerId   String
+    seller     User         @relation("auctions", fields: [sellerId], references: [id])
+    buyerId    String?
+    buyer      User?        @relation("wonAuctions", fields: [buyerId], references: [id])
+    delistedAt DateTime?
+}
+
+model AuctionBid {
+    id        Int      @id @default(autoincrement())
+    userId    String
+    auctionId Int
+    amount    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    auction   Auction  @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: NoAction)
+}

@@ -1,0 +1,15 @@
+model Group {
+    id            Int              @id @default(autoincrement())
+    name          String           @unique
+    description   String?
+    priority      Int              @default(0)
+    createdAt     DateTime         @default(now())
+    updatedAt     DateTime         @updatedAt
+    deletedAt     DateTime?
+    permissions   PermissionType[]
+    imageId       Int?
+    image         Resource?        @relation(fields: [imageId], references: [id], onDelete: NoAction)
+    products      Product[]
+    users         UserGroup[]
+    discordRoleId String?
+}

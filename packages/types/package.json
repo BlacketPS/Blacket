@@ -1,0 +1,22 @@
+{
+    "name": "@blacket/types",
+    "version": "0.0.6",
+    "description": "",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "/dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "build:declaration": "tsc --declaration --emitDeclarationOnly"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.1",
+        "typescript": "^5.7.3"
+    }
+}

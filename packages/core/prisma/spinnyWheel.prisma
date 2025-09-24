@@ -1,0 +1,54 @@
+enum SpinnyWheelRewardType {
+    ITEM
+    BLOOK
+    TITLE
+    FONT
+    BANNER
+
+    TOKENS
+    CRYSTALS
+    DIAMONDS
+}
+
+model SpinnyWheel {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    itemId Int
+    item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+    rewards SpinnyWheelReward[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model SpinnyWheelReward {
+    id Int @id @default(autoincrement())
+
+    spinnyWheelId Int
+    spinnyWheel   SpinnyWheel @relation(fields: [spinnyWheelId], references: [id], onDelete: Cascade)
+
+    type     SpinnyWheelRewardType
+    chance   Float
+    quantity Int                   @default(1)
+
+    itemId   Int?
+    blookId  Int?
+    titleId  Int?
+    fontId   Int?
+    bannerId Int?
+
+    tokens   Int? @default(0)
+    crystals Int? @default(0)
+    diamonds Int? @default(0)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    item   Item?   @relation(fields: [itemId], references: [id], onDelete: NoAction)
+    blook  Blook?  @relation(fields: [blookId], references: [id], onDelete: NoAction)
+    title  Title?  @relation(fields: [titleId], references: [id], onDelete: NoAction)
+    font   Font?   @relation(fields: [fontId], references: [id], onDelete: NoAction)
+    banner Banner? @relation(fields: [bannerId], references: [id], onDelete: NoAction)
+}

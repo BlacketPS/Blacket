@@ -1,0 +1,24 @@
+{
+    "name": "@blacket/core",
+    "version": "0.0.1",
+    "module": "index.js",
+    "devDependencies": {
+        "@prisma/client": "^6.8.2",
+        "@types/bun": "latest",
+        "@zastix/prisma-generator-typescript-interfaces": "^1.4.2",
+        "dotenv-cli": "^7.4.4",
+        "prisma": "^5.22.0"
+    },
+    "peerDependencies": {
+        "typescript": "^5.5.4",
+        "prisma": "^5.18.0"
+    },
+    "description": "Blacket Core, common for Backend and Discord Bot",
+    "scripts": {
+        "prisma:push": "dotenv -e ../.env -- npx prisma db push --schema prisma",
+        "prisma:studio": "dotenv -e ../.env -- npx prisma studio --schema prisma",
+        "prisma:format": "dotenv -e ../.env -- npx prisma format --schema prisma",
+        "generate": "dotenv -e ../.env -- npx prisma generate --schema prisma",
+        "postinstall": "npm run generate"
+    }
+}

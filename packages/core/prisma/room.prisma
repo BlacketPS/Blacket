@@ -1,0 +1,9 @@
+model Room {
+    id        Int       @id @default(autoincrement())
+    name      String
+    public    Boolean   @default(true)
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    messages  Message[]
+    users     User[]
+}

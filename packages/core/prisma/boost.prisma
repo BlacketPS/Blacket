@@ -1,0 +1,17 @@
+enum BoostType {
+    CHANCE
+    EXPERIENCE
+    SHINY
+}
+
+model Boost {
+    id         Int       @id @default(autoincrement())
+    userId     String
+    multiplier Float
+    type       BoostType
+    solo       Boolean
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    expiresAt  DateTime
+    user       User      @relation(fields: [userId], references: [id], onDelete: NoAction)
+}

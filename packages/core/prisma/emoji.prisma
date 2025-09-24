@@ -1,0 +1,9 @@
+model Emoji {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    imageId   Int
+    priority  Int      @default(0)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    resource  Resource @relation(fields: [imageId], references: [id], onDelete: NoAction)
+}

@@ -1,0 +1,10 @@
+model Blacklist {
+    id           Int      @id @default(autoincrement())
+    ipAddressId  Int
+    punishmentId Int
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    ipAddress  IpAddress  @relation(fields: [ipAddressId], references: [id], onDelete: NoAction)
+    punishment Punishment @relation(fields: [punishmentId], references: [id], onDelete: NoAction)
+}
