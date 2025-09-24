@@ -10,3 +10,15 @@
 	path = discord-bot
 	url = https://github.com/BlacketPS/discord-bot
     fetchRecurseSubmodules = false
+[submodule "packages/core"]
+	path = packages/core
+	url = https://github.com/BlacketPS/core.git
+[submodule "packages/types"]
+	path = packages/types
+	url = https://github.com/BlacketPS/types.git
+[submodule "packages/common"]
+	path = packages/common
+	url = https://github.com/BlacketPS/common.git
+[submodule "packages/mail-templates"]
+	path = packages/mail-templates
+	url = https://github.com/BlacketPS/mail-templates.git
