@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+
+    ###########################################################################
+    # BACKEND SERVICE
+    #
+    # The NestJS backend API server. Handles authentication, game logic, chat,
+    # auctions, trading, Stripe payments, and all core multiplayer features.
+    # Connects to Postgres, Redis, and serves as the main API for the frontend.
+    ###########################################################################
+    backend:
+        build:
+            context: .
+            dockerfile: ./backend/Dockerfile
+        volumes:
+            - ./backend:/app
+            - ./packages/common:/app/packages/common
+            - ./packages/core:/app/packages/core
+            - ./packages/types:/app/packages/types
+            - ./packages/mail-templates:/app/packages/mail-templates
+            - /app/node_modules
+        ports:
+            - "3001:3001"
+        environment:
+            - NODE_ENV=development
+        depends_on:
+            - postgres
+            - redis
+
+    ###########################################################################
+    # FRONTEND SERVICE
+    #
+    # The React + Vite web client. Provides the user interface for Blacket,
+    # including gameplay, chat, trading, auctions, and leaderboards. Uses Zustand
+    # for state management and communicates with the backend via API and Socket.IO.
+    ###########################################################################
+    frontend:
+        build:
+            context: .
+            dockerfile: ./frontend/Dockerfile
+        volumes:
+            - ./frontend:/app
+            - ./packages/common:/app/packages/common
+            - ./packages/core:/app/packages/core
+            - ./packages/types:/app/packages/types
+            - /app/node_modules
+        ports:
+            - "3000:3000"
+        environment:
+            - NODE_ENV=development
+
+    ###########################################################################
+    # DISCORD-BOT SERVICE
+    #
+    # The Discord.js bot for Blacket. Handles Discord integration, commands,
+    # notifications, and community features. Communicates with backend and Redis
+    # for real-time updates and moderation tools.
+    ###########################################################################
+    discord-bot:
+        build:
+            context: .
+            dockerfile: ./discord-bot/Dockerfile
+        volumes:
+            - ./discord-bot:/app
+            - ./packages/common:/app/packages/common
+            - ./packages/core:/app/packages/core
+            - ./packages/types:/app/packages/types
+            - /app/node_modules
+        environment:
+            - NODE_ENV=development
+        depends_on:
+            - backend
+            - redis
+    ###########################################################################
+    # REDIS SERVICE
+    #
+    # Redis instance for caching, pub/sub, and real-time communication between
+    # backend, Discord bot, and other services.
+    ###########################################################################
+    redis:
+        image: redis:7-alpine
+        container_name: blacket_redis
+        restart: unless-stopped
+        ports:
+            - "6379:6379"
+        networks:
+            - blacket-net
+
+    ###########################################################################
+    # POSTGRES SERVICE
+    #
+    # PostgreSQL database for persistent storage of users, blooks, packs,
+    # trades, auctions, and all game data.
+    ###########################################################################
+    postgres:
+        image: postgres:15-alpine
+        container_name: blacket_postgres
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: blacket
+            POSTGRES_PASSWORD: blacketpassword
+            POSTGRES_DB: blacketdb
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - blacket-net
+
+networks:
+    blacket-net:
+        driver: bridge
+
+volumes:
+    postgres_data:
