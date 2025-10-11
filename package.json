@@ -1,0 +1,14 @@
+{
+    "name": "blacket-monorepo",
+    "private": true,
+    "workspaces": [
+        "backend",
+        "frontend",
+        "discord-bot",
+        "packages/*"
+    ],
+    "scripts": {
+    "build:packages": "bun run --filter \"@blacket/*\" build",
+    "watch:packages": "bun run --filter \"@blacket/*\" --watch build"
+  }
+}

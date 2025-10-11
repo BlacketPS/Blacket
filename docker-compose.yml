@@ -1,116 +1,156 @@
 version: '3.8'
 
-services:
+# Defines a shared network for all services to communicate
+networks:
+    blacket-net:
 
+# Defines persistent volumes for stateful data
+volumes:
+    postgres_data:
+
+services:
     ###########################################################################
     # BACKEND SERVICE
-    #
-    # The NestJS backend API server. Handles authentication, game logic, chat,
-    # auctions, trading, Stripe payments, and all core multiplayer features.
-    # Connects to Postgres, Redis, and serves as the main API for the frontend.
     ###########################################################################
     backend:
+        env_file: .devcontainer/devcontainer.env
         build:
-            context: .
-            dockerfile: ./backend/Dockerfile
+            dockerfile: Dockerfile
+            context: ./backend
+        restart: always
+        command: bun run start:dev
         volumes:
-            - ./backend:/app
-            - ./packages/common:/app/packages/common
-            - ./packages/core:/app/packages/core
-            - ./packages/types:/app/packages/types
-            - ./packages/mail-templates:/app/packages/mail-templates
-            - /app/node_modules
-        ports:
-            - "3001:3001"
-        environment:
-            - NODE_ENV=development
-        depends_on:
-            - postgres
-            - redis
-
-    ###########################################################################
-    # FRONTEND SERVICE
-    #
-    # The React + Vite web client. Provides the user interface for Blacket,
-    # including gameplay, chat, trading, auctions, and leaderboards. Uses Zustand
-    # for state management and communicates with the backend via API and Socket.IO.
-    ###########################################################################
-    frontend:
-        build:
-            context: .
-            dockerfile: ./frontend/Dockerfile
-        volumes:
-            - ./frontend:/app
-            - ./packages/common:/app/packages/common
-            - ./packages/core:/app/packages/core
-            - ./packages/types:/app/packages/types
-            - /app/node_modules
+            - ./backend:/usr/src/app
+            - ./packages:/usr/src/packages
+            - /usr/src/app/node_modules
         ports:
             - "3000:3000"
         environment:
             - NODE_ENV=development
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on: # <-- FIX: Added all necessary dependencies
+            builder:
+                condition: service_started
+            postgres:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    ###########################################################################
+    # FRONTEND SERVICE
+    ###########################################################################
+    frontend:
+        env_file: .devcontainer/devcontainer.env
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        restart: always # <-- FIX: Added for consistency
+        volumes:
+            - ./frontend:/usr/src/app
+            - ./packages:/usr/src/packages
+            - /usr/src/app/node_modules
+        ports:
+            - "5173:5173" # <-- FIX: Resolved port conflict (Vite's default is 5173)
+        command: bun run dev --host # <-- FIX: Added --host for accessibility
+        environment:
+            - NODE_ENV=development
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on:
+            - backend
 
     ###########################################################################
     # DISCORD-BOT SERVICE
-    #
-    # The Discord.js bot for Blacket. Handles Discord integration, commands,
-    # notifications, and community features. Communicates with backend and Redis
-    # for real-time updates and moderation tools.
     ###########################################################################
     discord-bot:
+        env_file: .devcontainer/devcontainer.env
         build:
-            context: .
-            dockerfile: ./discord-bot/Dockerfile
+            context: ./discord-bot
+            dockerfile: Dockerfile
+        restart: always # <-- FIX: Added for consistency
         volumes:
-            - ./discord-bot:/app
-            - ./packages/common:/app/packages/common
-            - ./packages/core:/app/packages/core
-            - ./packages/types:/app/packages/types
-            - /app/node_modules
+            - ./discord-bot:/usr/src/app
+            - ./packages:/usr/src/packages
+            - /usr/src/app/node_modules
         environment:
             - NODE_ENV=development
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on: # <-- FIX: Added all necessary dependencies
+            builder:
+                condition: service_started
+            postgres:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    ###########################################################################
+    # BUILDER SERVICE
+    ###########################################################################
+    builder:
+        env_file: .devcontainer/devcontainer.env
+        build:
+            context: .
+            dockerfile: Dockerfile.builder
+        container_name: blacket_builder
+        volumes:
+            - ./packages:/usr/src/app/packages
+            - ./backend:/usr/src/app/backend
+            - ./frontend:/usr/src/app/frontend
+            - ./discord-bot:/usr/src/app/discord-bot
+        command: bun run watch:packages
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
         depends_on:
-            - backend
-            - redis
+            postgres:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
     ###########################################################################
     # REDIS SERVICE
-    #
-    # Redis instance for caching, pub/sub, and real-time communication between
-    # backend, Discord bot, and other services.
     ###########################################################################
     redis:
-        image: redis:7-alpine
+        image: redis:7
         container_name: blacket_redis
-        restart: unless-stopped
+        restart: always
         ports:
             - "6379:6379"
         networks:
             - blacket-net
+        healthcheck: # <-- FIX: Added a basic healthcheck for Redis
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 5s
+            timeout: 2s
+            retries: 5
 
     ###########################################################################
     # POSTGRES SERVICE
-    #
-    # PostgreSQL database for persistent storage of users, blooks, packs,
-    # trades, auctions, and all game data.
     ###########################################################################
     postgres:
-        image: postgres:15-alpine
+        image: postgres:15
         container_name: blacket_postgres
-        restart: unless-stopped
+        hostname: blacket_postgres
+        restart: always
         environment:
-            POSTGRES_USER: blacket
-            POSTGRES_PASSWORD: blacketpassword
-            POSTGRES_DB: blacketdb
+            - POSTGRES_USER=blacket
+            - POSTGRES_PASSWORD=blacketpassword
+            - POSTGRES_DB=blacketdb
         ports:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U blacket -d blacketdb"] # <-- FIX: Corrected user and db
+            interval: 5s
+            timeout: 2s
+            retries: 20
         networks:
             - blacket-net
-
-networks:
-    blacket-net:
-        driver: bridge
-
-volumes:
-    postgres_data:
+        command: postgres -c listen_addresses='*'
+        logging: # <-- FIX: Corrected logging syntax
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"

@@ -4,9 +4,7 @@
 
 # Node modules
 node_modules
-backend/node_modules
-discord-bot/node_modules
-frontend/node_modules
+*/node_modules
 packages/*/node_modules
 
 # Build artifacts
@@ -14,9 +12,8 @@ dist
 .next
 .output
 build
-backend/dist
-frontend/dist
-discord-bot/dist
+*/dist
+packages/*/dist
 
 # IDE and OS files
 .DS_Store
