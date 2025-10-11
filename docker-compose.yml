@@ -1,0 +1,156 @@
+version: '3.8'
+
+# Defines a shared network for all services to communicate
+networks:
+    blacket-net:
+
+# Defines persistent volumes for stateful data
+volumes:
+    postgres_data:
+
+services:
+    ###########################################################################
+    # BACKEND SERVICE
+    ###########################################################################
+    backend:
+        env_file: .devcontainer/devcontainer.env
+        build:
+            dockerfile: Dockerfile
+            context: ./backend
+        restart: always
+        command: bun run start:dev
+        volumes:
+            - ./backend:/usr/src/app
+            - ./packages:/usr/src/packages
+            - /usr/src/app/node_modules
+        ports:
+            - "3000:3000"
+        environment:
+            - NODE_ENV=development
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on: # <-- FIX: Added all necessary dependencies
+            builder:
+                condition: service_started
+            postgres:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    ###########################################################################
+    # FRONTEND SERVICE
+    ###########################################################################
+    frontend:
+        env_file: .devcontainer/devcontainer.env
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        restart: always # <-- FIX: Added for consistency
+        volumes:
+            - ./frontend:/usr/src/app
+            - ./packages:/usr/src/packages
+            - /usr/src/app/node_modules
+        ports:
+            - "5173:5173" # <-- FIX: Resolved port conflict (Vite's default is 5173)
+        command: bun run dev --host # <-- FIX: Added --host for accessibility
+        environment:
+            - NODE_ENV=development
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on:
+            - backend
+
+    ###########################################################################
+    # DISCORD-BOT SERVICE
+    ###########################################################################
+    discord-bot:
+        env_file: .devcontainer/devcontainer.env
+        build:
+            context: ./discord-bot
+            dockerfile: Dockerfile
+        restart: always # <-- FIX: Added for consistency
+        volumes:
+            - ./discord-bot:/usr/src/app
+            - ./packages:/usr/src/packages
+            - /usr/src/app/node_modules
+        environment:
+            - NODE_ENV=development
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on: # <-- FIX: Added all necessary dependencies
+            builder:
+                condition: service_started
+            postgres:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    ###########################################################################
+    # BUILDER SERVICE
+    ###########################################################################
+    builder:
+        env_file: .devcontainer/devcontainer.env
+        build:
+            context: .
+            dockerfile: Dockerfile.builder
+        container_name: blacket_builder
+        volumes:
+            - ./packages:/usr/src/app/packages
+            - ./backend:/usr/src/app/backend
+            - ./frontend:/usr/src/app/frontend
+            - ./discord-bot:/usr/src/app/discord-bot
+        command: bun run watch:packages
+        networks: # <-- FIX: Added to the shared network
+            - blacket-net
+        depends_on:
+            postgres:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    ###########################################################################
+    # REDIS SERVICE
+    ###########################################################################
+    redis:
+        image: redis:7
+        container_name: blacket_redis
+        restart: always
+        ports:
+            - "6379:6379"
+        networks:
+            - blacket-net
+        healthcheck: # <-- FIX: Added a basic healthcheck for Redis
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 5s
+            timeout: 2s
+            retries: 5
+
+    ###########################################################################
+    # POSTGRES SERVICE
+    ###########################################################################
+    postgres:
+        image: postgres:15
+        container_name: blacket_postgres
+        hostname: blacket_postgres
+        restart: always
+        environment:
+            - POSTGRES_USER=blacket
+            - POSTGRES_PASSWORD=blacketpassword
+            - POSTGRES_DB=blacketdb
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U blacket -d blacketdb"] # <-- FIX: Corrected user and db
+            interval: 5s
+            timeout: 2s
+            retries: 20
+        networks:
+            - blacket-net
+        command: postgres -c listen_addresses='*'
+        logging: # <-- FIX: Corrected logging syntax
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"

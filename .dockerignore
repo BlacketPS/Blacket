@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# Node modules
+node_modules
+*/node_modules
+packages/*/node_modules
+
+# Build artifacts
+dist
+.next
+.output
+build
+*/dist
+packages/*/dist
+
+# IDE and OS files
+.DS_Store
+.idea
+.vscode
+*.env
+*.log
